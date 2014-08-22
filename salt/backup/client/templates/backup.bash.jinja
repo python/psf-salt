@@ -1,0 +1,10 @@
+#!/bin/bash
+
+exec 200<$0
+flock -n 200 || exit 1
+
+{{ pre_script }}
+{{ remote_command }}
+{{ post_script }}
+
+{{ cleanup_script }}

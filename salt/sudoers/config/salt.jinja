@@ -1,0 +1,5 @@
+{% for sudoer_group in sudoers.split(',') %}
+{% for command in pillar['sudoer_groups'][sudoer_group]['commands'] %}
+%{{sudoer_group}}        {{command}}
+{% endfor %}
+{% endfor %}

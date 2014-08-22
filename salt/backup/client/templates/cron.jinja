@@ -1,0 +1,8 @@
+{% if job_frequency == 'hourly' %}
+{% set cron = '0 * * * *' %}
+{% elif job_frequency == 'daily' %}
+{% set cron = '0 0 * * *' %}
+{% else %}
+{% set cron = '0 * * * *' %}
+{% endif %}
+{{ cron }} {{ job_user }} {{ job_command }}
