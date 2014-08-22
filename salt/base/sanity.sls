@@ -1,4 +1,3 @@
-
 niceties:
   pkg.installed:
     - pkgs:
