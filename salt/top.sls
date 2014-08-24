@@ -12,6 +12,10 @@ base:
     - match: grain
     - backup.server
 
+  'roles:cdn-logs':
+    - match: grain
+    - cdn-logs
+
   'roles:jython-web':
     - match: grain
     - jython

@@ -5,6 +5,11 @@ base:
     - users
     - sudoers
 
+  'roles:cdn-logs':
+    - match: grain
+    - fastly-logging
+    - firewall.fastly-logging
+
   'roles:salt-master':
     - match: grain
     - salt-master
