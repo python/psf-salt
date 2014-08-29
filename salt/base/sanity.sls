@@ -2,6 +2,7 @@ niceties:
   pkg.installed:
     - pkgs:
       - htop
+      - traceroute
 
 time-sync:
   pkg.installed:
