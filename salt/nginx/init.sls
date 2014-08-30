@@ -15,6 +15,7 @@ nginx:
     - reload: True
     - watch:
       - file: /etc/nginx/nginx.conf
+      - file: /etc/nginx/conf.d/*.conf
       - file: /etc/nginx/sites.d/*.conf
     - require:
       - file: /etc/nginx/nginx.conf
@@ -30,6 +31,13 @@ nginx:
     - mode: 644
     - require:
       - file: /var/log/nginx
+
+/etc/nginx/conf.d/PLACEHOLDER.conf:
+  file.managed:
+    - contents:
+    - user: root
+    - group: root
+    - mode: 644
 
 /etc/nginx/sites.d:
   file.directory:
@@ -48,4 +56,4 @@ nginx:
   file.directory:
     - user: nginx
     - group: root
-    - mode: 0750
+    - mode: 0755

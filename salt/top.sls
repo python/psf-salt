@@ -16,6 +16,10 @@ base:
     - match: grain
     - cdn-logs
 
+  'roles:downloads':
+    - match: grain
+    - downloads
+
   'roles:jython-web':
     - match: grain
     - jython

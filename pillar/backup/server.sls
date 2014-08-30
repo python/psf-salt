@@ -7,3 +7,8 @@ backup-server:
       user: jython-web
       increment_retention: 7D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClOcS0Oqdk7NxEPjVuOb0UUNYdMmxCDQx7xoMAM/7E1hh9tmk6Wzi+DjekDm7MoeZ9wE0WP866ec7pJ98EJdUOWSdYjpLtwXI3WZQ07TuTBKT8wMbvFPZl+h3sK3FYn2DcJbna7hh2Ymh6KrutadbqKe2bwnAC4D/zt0krS1t9hWN1DFlxkwQGkPRRzsPR9x+Tur/xR7lVGwP/ilU+5Vt7Q8AQlJDPKFe+hzmq9yZZYt46OzZtqDiSLpyDrTVYZ/eQXw+/Mv9JoLcGNfLW8485Pmx3UGx1kscVBdsAG0ELOnFBCHNvCMPCSh3UjPdlU+wF2tRKfTw9owiajKP/vTDT
+    downloads:
+      directory: /backup/python-downloads
+      user: downloads
+      increment_retention: 7D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCezDzZ3nfM5NpU6qAGXkU5122LmZHfe2+KjAdtgZr06OC9ke1kRO6mb+49JwO22zBxhdVOFEwiQsmtaeT3qh3FEcRB94rzvmBxwKiPuySMve4X7S+M/ozXDcJcdKnZ9jPwle2rJ9wag/0/6uCZtlHJFh0DZ4UI5Ttw6Pwq+X0T5ropD7i78OAbsaUn+lXU6k+ehIsWWjYjS/k8WFXW4WgMXchXk5AZYG7ZAOyWLLbmzDXMEqMmWe83EAArSF2fWOs1LoGyYRx4S1BVOo9w9HVAcbIPiccX0AtWLKzByoZ8fUILxdLmMeDrqohZXtbU/ci6V+AEBwNLRZsmvpfMeEJd

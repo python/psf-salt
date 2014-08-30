@@ -22,5 +22,6 @@ http {
     tcp_nodelay on;
     server_tokens off;
 
+    include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites.d/*.conf;
 }

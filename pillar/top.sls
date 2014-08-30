@@ -10,6 +10,12 @@ base:
     - fastly-logging
     - firewall.fastly-logging
 
+  'roles:downloads':
+    - match: grain
+    - firewall.fastly-backend
+    - groups.downloads
+    - secrets.backup.downloads
+
   'roles:salt-master':
     - match: grain
     - salt-master
