@@ -10,6 +10,12 @@ base:
     - fastly-logging
     - firewall.fastly-logging
 
+  'roles:docs':
+    - match: grain
+    - firewall.fastly-backend
+    - groups.docs
+    - secrets.backup.docs
+
   'roles:downloads':
     - match: grain
     - firewall.fastly-backend

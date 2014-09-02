@@ -16,6 +16,10 @@ base:
     - match: grain
     - cdn-logs
 
+  'roles:docs':
+    - match: grain
+    - docs
+
   'roles:downloads':
     - match: grain
     - downloads

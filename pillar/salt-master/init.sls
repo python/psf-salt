@@ -1,4 +1,3 @@
-
 firewall:
   salt_master_psf_internal:
     port: 4505:4506

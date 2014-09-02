@@ -27,12 +27,16 @@ users:
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAubCE0Iou9q1duI1FEDPCRMPBrT8+9X5iFOz5L/acwKa1BjzmCF2N91z4sox+H8VxN9kVkYcaizEm/4x91UDWo4oTjo+UOTHuoInrTAMYgq2EskSt1YA64PaPQ8xx0WuK+5LWvyPi0RTTXEtinriy0XCoGtXl/fDaYNjtB8V7JIqTqqyO0rAZExYBRbQed6ZpLeO8vGwc4cN/9xMmkbAoB0G4NekuGBCvvioBO5d2/MO93YdjRh/PzYNQSqycC7X6o7C4PoYy39aFc4fbDubl937MlG44R/8BAI9dKXsQu8hLqAm7XZcTdwR5kVAndXuwmzERznSZKldZmtyw9AvDWw== Benjamin Peterson
     access:
-      "roles:jython-web":
+      "roles:docs":
+        allowed: True
         groups:
-          - jython
+          - docs
       "roles:downloads":
         groups:
           - downloads
+      "roles:jython-web":
+        groups:
+          - jython
 
   # Other users
   barry:
@@ -46,6 +50,10 @@ users:
       - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA3EoQJ+jfbvoG0zBNueWNwq5ElwB4PvXK/MKuEoX1Nr73CP6gwWOBpAmlv13z4BovQXAnOIbIyJIMc6tnaTEn7xX2nc+YsQ7Z6/CFJ2rERUtg85RDH1pRcrPYueEABNI93HRpWn3XHoQYQ3a3oY9mRtVyIx65Ec6Yxqv6H3QlJZKlX9e76V3KUtrV+LT5vODtId/we9K9CvYZwLN5KP3eU01MGaMaF4J+TkVcPa0QfWoPLDWeXOLu68SSB6Gkk2G15id5Z8JKZ71hNCTOiDQTYg+yCyAbSMyvTJueUV2W0ObRh4ziVPzDsf7pv/27jSJXAyO8l3GZDWDFFzekUAaKvQ== mobile@Digital-Man
       - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAgEA5uI0CZ7n7ztfSMqYzjj3UK+4zpcMHoshpMRK/fAw65+gntPSjenZnSQBTEt/Cpo951cFZaTcGWlRxzFyOvbUuEwnfafQlAlQDyWa3bcZ2bXTxmA+rdjpY9TnPwXL5oU/14s2zpxg4mFRyTtl+GquPRGTCY5UAorRqnffV5ht9USdAJ3Ur/Rm5tQ8eL3fXLO56knaHguGhFZypkBGLYlTeLpl9VzSHwhRIng+sHimLkQRrMy/psmsB8z45+BPwbUX+Y7syfbN+EjBZrC7EWTlUn9cdAr4s/WJhFOpyR5FR6M4K+lC7KeypnSnTuTmBFEoglYtl/SbI7GIFaqGld/GAHohSPA7A6Xt6kR8kiqBU4VFsXtwiC5ZJ172CoDyDyF12JDZuKYlTn3Sja+CwBnRMu7RJ22fiB//ORkHIRFd9cgdbEDQFraGGXXvj18lHzGhTPZazmWMSxyUrYZ/2oK9RRXx726g5a7rRZ2wmLpq6grVxFmN+KA8UF+d4a5OLr9lU9xykEPCmV8X5oV9pJPbVeoGIYLYfT26Wra8Nu3PwDwaV3P0kiXBnsfxZaynPA19M+cLL+s68pc+aV7ZVh7ghYC8yVhAWjpycN4xF39g3CCFULElXIG+qD1yxq0ZvdArRyl3diGdQamYhDJ67+efpZEB+wm8TeignviwUr1EVJM= Keys for VMs
     access:
+      "roles:docs":
+        allowed: True
+        groups:
+          - docs
       "roles:downloads":
         allowed: True
         groups:
@@ -64,6 +72,11 @@ users:
     ssh_keys:
       - ssh-dss AAAAB3NzaC1kc3MAAACBAJYtc6/8pn0/AgND+D/k2o+fzofXjSavnBAcpbPpUk55bLIJ011JlvOu1olHyFcbhHqmZ0ped1no+0Y2yeuu8N8amQ99WBQwX3HXWUYYhqljTP15U3PbEWjcEl01dEhz3k123MTxJW7Vvt3Y6XsD9M7CDxd/PM1YShfklNn0wdohAAAAFQC7V4y9drTeS6Nurm8dWD0adHrnrQAAAIBzxum3FDzNXIZrqwx7OCrbxQuUI6wwvCDEOHBt4B5S+sVFglSweMbhGKFm1g6NjTD06zOx0qPGKC4IWcBP+hoN63ZpJKsdmi5UzVmrbfWvpLOhgV9I+kDuBU1VXvsazudf1HVqkgNPsWPCZcOYYyQs0jYUxRRANwY1kZsK2soi3QAAAIBpkcmrNwUC/gneUF4tfZeNe3J0MBjZ0rPBwAp31uPLLtEnsdCCP/DagdeGov9zpEuI34a54xKhBDLP2kcFvA911jchGPu76qYWG+JpKJlDWK2yRrOG4DfhdVlOWULy125Ykk1EVYCtzyx2AoVIkspRI6R0dKXewAaWkpI+8BYWdQ== gbrandl@cf.sf.net
     access:
+      "roles:docs":
+        sudo: True
+        allowed: True
+        groups:
+          - docs
       "roles:downloads":
         allowed: True
         groups:
@@ -82,6 +95,10 @@ users:
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzWLZOI56gvPiuow/pR8MCCaK2zglBxpNk8mzim+JrSox06Ilu90YrL2zsM4MvgV8TpWWrXH/UQtz1eko188hKAT98IzBwgFoVvbTh23Tidc8YA2A0l4KlPvgcnc8FiGa9ha2UZMUN3bg46lq/crbp3+RiF3+W4jziAHzv1zihDMeaY/tx8iZamFWwJcIqqh+6ptDJ5COeRqECT7A/JUdPw2f8ajvm5oIaWrIu4fUxiRaQviiTgYfqT8MjmExDgqVLgGy0/JUUEo5rkBMgQLU2A783o4a5qxeZD4VOe0HazDwi6YtyvUiTjOIpyjmxH3lT6RoSo3gIRYkW5q4T+gCv larry@hastings.org
     access:
+      "roles:docs":
+        allowed: True
+        groups:
+          - docs
       "roles:downloads":
         allowed: True
         groups:

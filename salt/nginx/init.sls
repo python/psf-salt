@@ -39,7 +39,7 @@ nginx:
     - group: root
     - mode: 644
 
-/etc/nginx/sites.d:
+/etc/nginx/sites.d/:
   file.directory:
     - user: root
     - group: root
