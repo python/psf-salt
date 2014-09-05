@@ -3,26 +3,18 @@ include:
   - nginx.fastly-backend
 
 # Various packages required for building documentation.
-build-essential:
-  pkg.installed
-git:
-  pkg.installed
-mercurial:
-  pkg.installed
-python-dev:
-  pkg.installed
-python-virtualenv:
-  pkg.installed
-texlive:
-  pkg.installed
-texlive-latex-extra:
-  pkg.installed
-texlive-latex-recommended:
-  pkg.installed
-texlive-fonts-recommended:
-  pkg.installed
-zip:
-  pkg.installed
+doc-pkgs:
+  pkg.installed:
+    - build-essential
+    - git
+    - mercurial
+    - python-dev
+    - python-virtualenv
+    - texlive
+    - texlive-latex-extra
+    - texlive-latex-recommended
+    - texlive-fonts-recommended
+    - zip
 
 docsbuild:
   user.present:
