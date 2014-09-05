@@ -41,7 +41,7 @@ docsbuild-scripts:
      - require:
        - user: docsbuild
        - file: /srv/docsbuild/
-       - pkg: git
+       - pkg: doc-pkgs
 
 /srv/docsbuild/environment/:
   virtualenv.managed:
@@ -50,10 +50,8 @@ docsbuild-scripts:
     - requirements: /srv/docsbuild/scripts/requirements.txt
     - require:
       - git: docsbuild-scripts
-      - pkg: python-virtualenv
       # Theses are needed to build C extensions.
-      - pkg: build-essential
-      - pkg: python-dev
+      - pkg: doc-pkgs
 
 docsbuild-full:
   cron.present:
