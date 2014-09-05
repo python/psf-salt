@@ -21,8 +21,6 @@ texlive-latex-recommended:
   pkg.installed
 texlive-fonts-recommended:
   pkg.installed
-subversion:
-  pkg.installed
 zip:
   pkg.installed
 
