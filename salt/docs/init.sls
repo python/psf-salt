@@ -5,16 +5,17 @@ include:
 # Various packages required for building documentation.
 doc-pkgs:
   pkg.installed:
-    - build-essential
-    - git
-    - mercurial
-    - python-dev
-    - python-virtualenv
-    - texlive
-    - texlive-latex-extra
-    - texlive-latex-recommended
-    - texlive-fonts-recommended
-    - zip
+    - pkgs:
+      - build-essential
+      - git
+      - mercurial
+      - python-dev
+      - python-virtualenv
+      - texlive
+      - texlive-latex-extra
+      - texlive-latex-recommended
+      - texlive-fonts-recommended
+      - zip
 
 docsbuild:
   user.present:
