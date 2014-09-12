@@ -4,7 +4,7 @@ haproxy:
       servers:
         - name: hg.psf.io
           address: 192.168.5.6  # hg.psf.io's psf-internal address
-          port: 80
+          port: 9000
       custom_frontends:
         - name: hg.python.org:http
           bind: :44930
