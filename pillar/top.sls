@@ -45,3 +45,4 @@ base:
     - match: grain
     - haproxy
     - firewall.loadbalancer
+    - secrets.tls.certs.loadbalancer
