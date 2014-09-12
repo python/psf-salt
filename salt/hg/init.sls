@@ -62,3 +62,26 @@ apache2:
     - user: root
     - group: root
     - mode: 644
+
+/etc/init/irker.conf:
+  file.managed:
+    - source: salt://hg/config/irker.upstart.conf
+    - user: root
+    - group: root
+    - mode: 644
+
+reload-upstart:
+  module.run:
+    - name: cmd.run
+    - cmd: initctl reload-configuration
+    - onchanges:
+      - /etc/init/irker.conf
+
+irker:
+  user.present:
+    - home: /srv/irker
+  service.running:
+    - enable: True
+    - require:
+      - user: irker
+      - file: /etc/init/irker.conf
