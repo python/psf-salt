@@ -5,7 +5,6 @@ hg-deps:
       - python-dev
       - python-pygments
       - gettext
-      - mercurial
       - python-docutils
       - buildbot
 
