@@ -27,7 +27,16 @@ haproxy:
     - mode: 644
     - require:
       - pkg: haproxy
+      - file: /etc/ssl/private/ev.python.org.pem
       - file: /etc/ssl/private/hg.python.org.pem
+
+
+/etc/ssl/private/ev.python.org.pem:
+  file.managed:
+    - contents_pillar: tls_certs:ev.python.org
+    - user: root
+    - group: root
+    - mode: 600
 
 
 /etc/ssl/private/hg.python.org.pem:
