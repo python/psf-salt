@@ -54,39 +54,19 @@ defaults
         errorfile 504 /etc/haproxy/errors/504.http
 
 
-{% for proto, bind in {"http": ":80", "https": ":443"}.items() %}
-frontend {{ proto }}
-        bind {{ bind }}
+{% for name, config in haproxy.binds.items() %}
+frontend {{ name }}
+        bind {{ config.bind }}
 
-        reqadd X-Forwarded-Proto:\ {{ proto }}
+        reqadd X-Forwarded-Proto:\ {{ config.proto }}
 
-        {% for domain, config in haproxy.http.items() %}
-        {% if not "custom_frontends" in config %}
+        {% for domain in haproxy.http %}
         acl host_{{ domain }} hdr(host) -i {{ domain }}
-        {% endif %}
         {% endfor %}
 
-        {% for domain, config in haproxy.http.items() %}
-        {% if not "custom_frontends" in config %}
+        {% for domain in haproxy.http %}
         use_backend {{ domain }} if host_{{ domain }}
-        {% endif %}
         {% endfor %}
-{% endfor %}
-
-
-{% for domain, config in haproxy.http.items() %}
-{% if "custom_frontends" in config %}
-{% for frontend in config.custom_frontends %}
-frontend {{ frontend.name }}
-        bind {{ frontend.bind }}
-
-        reqadd X-Forwarded-Proto:\ {{ frontend.proto }}
-
-        acl host_{{ domain }} hdr(host) -i {{ domain }}
-
-        use_backend {{ domain }} if host_{{ domain }}
-{% endfor %}
-{% endif %}
 {% endfor %}
 
 

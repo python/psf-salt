@@ -5,9 +5,6 @@ firewall:
   https:
     port: 443
 
-  "hg.python.org:http":
-    port: 44930
-
   "hg.python.org:https":
     port: 44931
 
