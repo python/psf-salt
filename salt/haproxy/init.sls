@@ -25,3 +25,5 @@ haproxy:
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - pkg: haproxy
