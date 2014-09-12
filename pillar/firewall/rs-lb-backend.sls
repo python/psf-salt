@@ -1,4 +1,4 @@
 firewall:
   frontend-traffic:
     port: 9000
-    source: 10.0.0.0/8
+    source: 192.168.5.0/24
