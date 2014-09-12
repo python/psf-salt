@@ -35,4 +35,4 @@ haproxy:
     - contents_pillar: tls_certs:hg.python.org
     - user: root
     - group: root
-    - mode: 644
+    - mode: 600
