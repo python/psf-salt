@@ -24,6 +24,10 @@ base:
     - match: grain
     - downloads
 
+  'roles:hg':
+    - match: grain
+    - hg
+
   'roles:jython-web':
     - match: grain
     - jython

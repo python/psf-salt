@@ -22,6 +22,11 @@ base:
     - groups.downloads
     - secrets.backup.downloads
 
+  'roles:hg':
+    - match: grain
+    - firewall.rs-lb-backend
+    - secrets.backup.hg
+
   'roles:salt-master':
     - match: grain
     - salt-master
