@@ -27,6 +27,7 @@ base:
   'roles:hg':
     - match: grain
     - hg
+    - ssh.host_keys
 
   'roles:jython-web':
     - match: grain

@@ -26,6 +26,7 @@ base:
     - match: grain
     - firewall.rs-lb-backend
     - secrets.backup.hg
+    - secrets.ssh.hg
 
   'roles:salt-master':
     - match: grain
