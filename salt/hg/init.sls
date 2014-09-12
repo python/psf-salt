@@ -13,6 +13,7 @@ hg-user:
   user.present:
     - name: hg
     - home: /srv/hg
+    - shell: /bin/bash
     - groups:
       - hgaccounts
     - require:
