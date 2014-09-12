@@ -40,3 +40,8 @@ base:
   'roles:backup-server':
     - match: grain
     - backup.server
+
+  'roles:loadbalancer':
+    - match: grain
+    - haproxy
+    - firewall.loadbalancer

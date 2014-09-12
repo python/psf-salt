@@ -32,5 +32,9 @@ base:
     - match: grain
     - jython
 
+  'roles:loadbalancer':
+    - match: grain
+    - haproxy
+
   'roles:salt-master':
     - match: grain
