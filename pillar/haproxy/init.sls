@@ -1,7 +1,7 @@
 haproxy:
   binds:
     http:
-      bind: :80
+      bind: :51386
       proto: http
     https:
       bind: :443

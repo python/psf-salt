@@ -1,6 +1,6 @@
 firewall:
   http:
-    port: 80
+    port: 51386
 
   https:
     port: 443
