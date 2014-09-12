@@ -74,13 +74,17 @@ def sync_changes():
     # TODO: Determine what origin to use?
     invoke.run("git push origin master", echo=True)
 
-    # SSH into the salt master and pull our changes from GitHub
-    with ssh_host("salt-master.psf.io"), fabric.cd("/srv/salt"):
-        fabric.api.sudo("git pull --ff-only origin master")
-
     with cd("pillar/secrets"):
         # Push our changes into the secret repository
-        invoke.api.run("git push origin master", echo=True)
+        invoke.run("git push origin master", echo=True)
+
+    # SSH into the salt master and pull our changes
+    with ssh_host("salt-master.psf.io"):
+        with fabric.api.cd("/srv/salt"):
+            fabric.api.sudo("git pull --ff-only origin master")
+
+        with fabric.api.cd("/srv/pillar/secrets"):
+            fabric.api.sudo("git pull --ff-only origin master")
 
 
 @invoke.task(default=True, pre=[sync_changes])
