@@ -1,1 +1,3 @@
 /pillar/secrets
+
+*.py[cod]
