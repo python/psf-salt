@@ -30,7 +30,7 @@ haproxy:
 
 /etc/ssl/private/hg.python.org.pem:
   file.managed:
-    - contents: {{ pillar["tls_certs"]["hg.python.org"] }}
+    - contents_pillar: tls_certs:hg.python.org
     - user: root
     - group: root
     - mode: 644
