@@ -27,6 +27,8 @@ haproxy:
     - mode: 644
     - require:
       - pkg: haproxy
+      - file: /etc/ssl/private/hg.python.org.pem
+
 
 /etc/ssl/private/hg.python.org.pem:
   file.managed:

@@ -10,7 +10,7 @@ haproxy:
           bind: :44930
           proto: http
         - name: hg.python.org:https
-          bind: :44931
+          bind: :44931 ssl crt /etc/ssl/private/hg.python.org.pem
           proto: https
 
   tcp:
