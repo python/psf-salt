@@ -82,6 +82,8 @@ irker:
     - home: /srv/irker
   service.running:
     - enable: True
+    - watch:
+      - file: /etc/init/irker.conf
     - require:
       - user: irker
       - file: /etc/init/irker.conf
