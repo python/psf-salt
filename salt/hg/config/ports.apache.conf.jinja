@@ -1,2 +1,2 @@
-{% set internal = salt["pillar.get"]("rackspace_iad_service_net") %}
+{% set internal = salt["pillar.get"]("psf_internal_network") %}
 Listen {{ salt["ip_picker.ip_addrs"](cidr=internal)[0] }}:9000
