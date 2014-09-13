@@ -86,8 +86,13 @@ listen {{ name }}
 
         mode tcp
 
+        {% if "options" not in config %}
         option tcplog
         option tcp-check
+        {% else %}
+        {% for option in config.options %}
+        option {{ option }}
+        {% endfor %}
 
         {% for server in config.servers %}
         server {{ server.name }} {{ server.address }}:{{ server.port }} check

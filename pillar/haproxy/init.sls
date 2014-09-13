@@ -25,3 +25,19 @@ haproxy:
           address: 192.168.5.6  # hg.psf.io's psf-internal address
           port: 22
 
+    pypi.python.org:
+      bind: :43118
+      options:
+        - tcplog
+        - httpchk
+      servers:
+        - name: web0.pypi.io
+          address: 172.16.57.8  # web0.pypi.io pypi-internal address
+          port: 40713
+        - name: web1.pypi.io
+          address: 172.16.57.9  # web1.pypi.io pypi-internal address
+          port: 40713
+        - name: web2.pypi.io
+          address: 172.16.57.1  # web2.pypi.io pypi-internal address
+          port: 40713
+
