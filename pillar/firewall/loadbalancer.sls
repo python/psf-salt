@@ -10,3 +10,9 @@ firewall:
 
   "hg.python.org:ssh":
     port: 44932
+
+  pypi.python.org:
+    port: 40713
+
+  testpypi.python.org:
+    port: 40714

@@ -86,15 +86,36 @@ listen {{ name }}
 
         mode tcp
 
-        {% if "options" not in config %}
         option tcplog
         option tcp-check
-        {% else %}
-        {% for option in config.options %}
-        option {{ option }}
-        {% endfor %}
 
         {% for server in config.servers %}
         server {{ server.name }} {{ server.address }}:{{ server.port }} check
         {% endfor %}
 {% endfor %}
+
+
+listen pypi.python.org
+    bind :40713
+
+    mode tcp
+
+    option tcplog
+    option httpchk
+
+    server web0.pypi.io 172.16.57.8:40713 check
+    server web1.pypi.io 172.16.57.9:40713 check
+    server web2.pypi.io 172.16.57.1:40713 check
+
+
+listen testpypi.python.org
+    bind :40714
+
+    mode tcp
+
+    option tcplog
+    option httpchk
+
+    server web0.pypi.io 172.16.57.8:40714 check
+    server web1.pypi.io 172.16.57.9:40714 check
+    server web2.pypi.io 172.16.57.1:40714 check
