@@ -5,6 +5,9 @@ firewall:
   https:
     port: 38303
 
+  redirect_to_https:
+    port: 13764
+
   "hg.python.org:https":
     port: 44931
 
