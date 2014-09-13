@@ -55,9 +55,9 @@ duosec:
       - pkg: duosec
 
 
-/etc/pam.d/common-auth:
+/etc/pam.d/sshd:
   file.managed:
-    - source: salt://duosec/config/common-auth
+    - source: salt://duosec/config/pam-sshd
     - user: root
     - group: root
     - mode: 600
@@ -75,3 +75,4 @@ duosec:
     - require:
       - pkg: duosec
       - file: /etc/duo/pam_duo.conf
+      - file: /etc/pam.d/sshd
