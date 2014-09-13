@@ -11,7 +11,7 @@ openvpn:
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/keys/ca.key
       - file: /etc/openvpn/keys/ca.crt
-      - file: /etc/openvpn/keys/dh4096
+      - file: /etc/openvpn/keys/dh4096.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
     - require:
@@ -19,7 +19,7 @@ openvpn:
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/keys/ca.key
       - file: /etc/openvpn/keys/ca.crt
-      - file: /etc/openvpn/keys/dh4096
+      - file: /etc/openvpn/keys/dh4096.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
 
@@ -84,7 +84,7 @@ openvpn:
       - file: /etc/openvpn/keys
 
 
-/etc/openvpn/keys/dh4096:
+/etc/openvpn/keys/dh4096.pem:
   file.managed:
     - contents_pillar: openvpn:dh4096.pem
     - user: root
