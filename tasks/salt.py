@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import os
+
 import invoke
 import fabric.api
 import fabric.contrib.files
@@ -74,9 +76,10 @@ def sync_changes():
     # TODO: Determine what origin to use?
     invoke.run("git push origin master", echo=True)
 
-    with cd("pillar/secrets"):
-        # Push our changes into the secret repository
-        invoke.run("git push origin master", echo=True)
+    if os.path.isdir("pillar/secrets"):
+        with cd("pillar/secrets"):
+            # Push our changes into the secret repository
+            invoke.run("git push origin master", echo=True)
 
     # SSH into the salt master and pull our changes
     with ssh_host("salt-master.psf.io"):
