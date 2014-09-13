@@ -50,7 +50,7 @@ openvpn:
     - template: jinja
     - user: root
     - group: root
-    - mode: 640
+    - mode: 644
     - requires:
       - pkg: openvpn
 
