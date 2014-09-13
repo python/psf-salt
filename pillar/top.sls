@@ -47,3 +47,7 @@ base:
     - haproxy
     - firewall.loadbalancer
     - secrets.tls.certs.loadbalancer
+
+  'roles:bastion':
+    - match: grain
+    - secrets.duosec.bastion

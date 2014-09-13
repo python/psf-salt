@@ -39,3 +39,7 @@ base:
 
   'roles:salt-master':
     - match: grain
+
+  'roles:bastion':
+    - match: grain
+    - duosec

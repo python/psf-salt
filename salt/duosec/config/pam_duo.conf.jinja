@@ -1,0 +1,6 @@
+{% set duosec = salt["pillar.get"]("duosec", {}) %}
+
+[duo]
+ikey = {{ duosec.ikey }}
+skey = {{ duosec.skey }}
+host = {{ duosec.host }}
