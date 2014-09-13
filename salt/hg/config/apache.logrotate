@@ -1,0 +1,14 @@
+/var/log/apache2/*.log {
+    daily
+    rotate 30
+    missingonk
+    notifempty
+    create 640 root adm
+    compress
+    sharedscripts
+    postrotate
+        if /etc/init.d/apache2 status > /dev/null ; then \
+            /etc/init.d/apache2 reload > /dev/null; \
+        fi;
+    endscript
+}

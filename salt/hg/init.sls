@@ -70,6 +70,15 @@ apache2:
     - group: root
     - mode: 644
 
+/etc/logrotate.d/apache2:
+  file.managed:
+    - source: salt://hg/config/apache.logrotate
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: apache2
+
 reload-upstart:
   module.run:
     - name: cmd.run
