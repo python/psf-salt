@@ -42,4 +42,4 @@ base:
 
   'roles:bastion':
     - match: grain
-    - duosec
+    - openvpn.server

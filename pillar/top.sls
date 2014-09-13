@@ -50,4 +50,6 @@ base:
 
   'roles:bastion':
     - match: grain
+    - firewall.bastion
+    - secrets.openvpn
     - secrets.duosec.bastion
