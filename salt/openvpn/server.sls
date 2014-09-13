@@ -70,6 +70,8 @@ openvpn:
     - user: root
     - group: root
     - mode: 600
+    - requires:
+      - file: /etc/openvpn/keys
 
 
 /etc/openvpn/keys/ca.crt:
@@ -78,6 +80,8 @@ openvpn:
     - user: root
     - group: root
     - mode: 600
+    - requires:
+      - file: /etc/openvpn/keys
 
 
 /etc/openvpn/keys/dh4096:
@@ -86,6 +90,8 @@ openvpn:
     - user: root
     - group: root
     - mode: 600
+    - requires:
+      - file: /etc/openvpn/keys
 
 
 /etc/openvpn/keys/server.key:
@@ -94,6 +100,8 @@ openvpn:
     - user: root
     - group: root
     - mode: 600
+    - requires:
+      - file: /etc/openvpn/keys
 
 
 /etc/openvpn/keys/server.crt:
@@ -102,3 +110,5 @@ openvpn:
     - user: root
     - group: root
     - mode: 600
+    - requires:
+      - file: /etc/openvpn/keys
