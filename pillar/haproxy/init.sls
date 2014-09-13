@@ -9,6 +9,8 @@ haproxy:
     hg:
       bind: :44931 ssl crt /etc/ssl/private/hg.python.org.pem
       proto: https
+    redirect_to_https:
+      bind: :13764
 
   http:
     hg.python.org:

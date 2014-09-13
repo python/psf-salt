@@ -58,6 +58,12 @@ defaults
 frontend {{ name }}
         bind {{ config.bind }}
 
+        {% if name == "redirect_to_https" %}
+
+        use_backend redirect_to_https
+
+        {% else %}
+
         reqadd X-Forwarded-Proto:\ {{ config.proto }}
 
         {% for domain in haproxy.http %}
@@ -67,6 +73,8 @@ frontend {{ name }}
         {% for domain in haproxy.http %}
         use_backend {{ domain }} if host_{{ domain }}
         {% endfor %}
+
+        {% endif %}
 {% endfor %}
 
 
@@ -91,3 +99,6 @@ listen {{ name }}
         server {{ server.name }} {{ server.address }}:{{ server.port }} check
         {% endfor %}
 {% endfor %}
+
+backend redirect_to_https
+  redirect scheme https code 301
