@@ -27,7 +27,7 @@ openvpn:
 duo-openvpn:
   pkg.installed:
     - sources:
-      - salt://openvpn/packages/duo_openvpn-2.1.0_amd64.deb
+      - duo-openvpn: salt://openvpn/packages/duo_openvpn-2.1.0_amd64.deb
     - require:
       - pkg: openvpn
 
