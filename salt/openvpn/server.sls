@@ -9,6 +9,7 @@ openvpn:
     - watch:
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/keys/ca.crt
+      - file: /etc/openvpn/keys/crl.pem
       - file: /etc/openvpn/keys/dh2048.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
@@ -17,6 +18,7 @@ openvpn:
       - pkg: openvpn
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/keys/ca.crt
+      - file: /etc/openvpn/keys/crl.pem
       - file: /etc/openvpn/keys/dh2048.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
@@ -48,6 +50,16 @@ openvpn:
     - user: root
     - group: root
     - mode: 600
+    - requires:
+      - file: /etc/openvpn/keys
+
+
+/etc/openvpn/keys/crl.pem:
+  file.managed:
+    - source: salt://openvpn/configs/crl.pem
+    - user: root
+    - group: root
+    - mode: 644
     - requires:
       - file: /etc/openvpn/keys
 
