@@ -9,17 +9,15 @@ openvpn:
     - reload: True
     - watch:
       - file: /etc/openvpn/server.conf
-      - file: /etc/openvpn/keys/ca.key
       - file: /etc/openvpn/keys/ca.crt
-      - file: /etc/openvpn/keys/dh4096.pem
+      - file: /etc/openvpn/keys/dh2048.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
     - require:
       - pkg: openvpn
       - file: /etc/openvpn/server.conf
-      - file: /etc/openvpn/keys/ca.key
       - file: /etc/openvpn/keys/ca.crt
-      - file: /etc/openvpn/keys/dh4096.pem
+      - file: /etc/openvpn/keys/dh2048.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
 
@@ -46,8 +44,7 @@ openvpn:
 
 /etc/openvpn/server.conf:
   file.managed:
-    - source: salt://openvpn/configs/server.conf.jinja
-    - template: jinja
+    - source: salt://openvpn/configs/server.conf
     - user: root
     - group: root
     - mode: 644
@@ -64,19 +61,9 @@ openvpn:
       - pkg: openvpn
 
 
-/etc/openvpn/keys/ca.key:
-  file.managed:
-    - contents_pillar: openvpn:ca.key
-    - user: root
-    - group: root
-    - mode: 600
-    - requires:
-      - file: /etc/openvpn/keys
-
-
 /etc/openvpn/keys/ca.crt:
   file.managed:
-    - contents_pillar: openvpn:ca.crt
+    - source: salt://openvpn/configs/ca.crt
     - user: root
     - group: root
     - mode: 600
@@ -84,19 +71,9 @@ openvpn:
       - file: /etc/openvpn/keys
 
 
-/etc/openvpn/keys/dh4096.pem:
+/etc/openvpn/keys/dh2048.pem:
   file.managed:
-    - contents_pillar: openvpn:dh4096.pem
-    - user: root
-    - group: root
-    - mode: 600
-    - requires:
-      - file: /etc/openvpn/keys
-
-
-/etc/openvpn/keys/server.key:
-  file.managed:
-    - contents_pillar: openvpn:server.key
+    - source: salt://openvpn/configs/dh2048.pem
     - user: root
     - group: root
     - mode: 600
@@ -106,7 +83,18 @@ openvpn:
 
 /etc/openvpn/keys/server.crt:
   file.managed:
-    - contents_pillar: openvpn:server.crt
+    - source: salt://openvpn/configs/server.crt
+    - user: root
+    - group: root
+    - mode: 600
+    - requires:
+      - file: /etc/openvpn/keys
+
+
+
+/etc/openvpn/keys/server.key:
+  file.managed:
+    - contents_pillar: openvpn:server.key
     - user: root
     - group: root
     - mode: 600
