@@ -48,8 +48,8 @@ base:
     - firewall.loadbalancer
     - secrets.tls.certs.loadbalancer
 
-  'roles:bastion':
+  'roles:vpn':
     - match: grain
-    - firewall.bastion
-    - secrets.openvpn
-    - secrets.duosec.bastion
+    - firewall.vpn
+    - secrets.openvpn.vpn
+    - secrets.duosec.vpn

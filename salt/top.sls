@@ -40,6 +40,6 @@ base:
   'roles:salt-master':
     - match: grain
 
-  'roles:bastion':
+  'roles:vpn':
     - match: grain
     - openvpn.server
