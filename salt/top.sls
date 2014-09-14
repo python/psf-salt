@@ -8,6 +8,10 @@ base:
     - backup.client
     - auto-security
 
+  '* and not G@roles:vpn':
+    - match: compound
+    - openvpn.routing
+
   'roles:backup-server':
     - match: grain
     - backup.server
@@ -36,7 +40,6 @@ base:
   'roles:loadbalancer':
     - match: grain
     - haproxy
-    - openvpn.routing
 
   'roles:salt-master':
     - match: grain
