@@ -1,3 +1,5 @@
+{% set openvpn = salt["pillar.get"]("openvpn") %}
+
 openvpn:
   pkg.installed:
     - pkgs:
@@ -13,6 +15,9 @@ openvpn:
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
       - file: /etc/openvpn/keys/ta.key
+      {% for user in openvpn.users %}
+      - file: /etc/openvpn/ccd/{{ user }}
+      {% endfor %}
     - require:
       - pkg: openvpn
       - pkg: duo-openvpn
@@ -23,6 +28,9 @@ openvpn:
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
       - file: /etc/openvpn/keys/ta.key
+      {% for user in openvpn.users %}
+      - file: /etc/openvpn/ccd/{{ user }}
+      {% endfor %}
 
 duo-openvpn:
   pkg.installed:
@@ -96,7 +104,7 @@ duo-openvpn:
 
 /etc/openvpn/keys/server.key:
   file.managed:
-    - contents_pillar: openvpn:server.key
+    - contents_pillar: openvpn_keys:server.key
     - user: root
     - group: root
     - mode: 600
@@ -106,7 +114,7 @@ duo-openvpn:
 
 /etc/openvpn/keys/ta.key:
   file.managed:
-    - contents_pillar: openvpn:ta.key
+    - contents_pillar: openvpn_keys:ta.key
     - user: root
     - group: root
     - mode: 600
@@ -121,3 +129,14 @@ duo-openvpn:
     - mode: 755
     - requires:
       - pkg: openvpn
+
+
+{% for user in openvpn.users %}
+/etc/openvpn/ccd/{{ user }}:
+  file.managed:
+    - user: root
+    - group: root
+    - mode: 644
+    - requires:
+      - file: /etc/openvpn/ccd
+{% endfor %}

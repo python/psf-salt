@@ -1,0 +1,3 @@
+openvpn:
+  users:
+    - dstufft

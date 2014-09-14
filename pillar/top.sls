@@ -50,6 +50,7 @@ base:
 
   'roles:vpn':
     - match: grain
+    - openvpn
     - firewall.vpn
     - secrets.openvpn.vpn
     - secrets.duosec.vpn
