@@ -12,6 +12,7 @@ openvpn:
       - file: /etc/openvpn/keys/dh2048.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
+      - file: /etc/openvpn/keys/ta.key
     - require:
       - pkg: openvpn
       - file: /etc/openvpn/server.conf
@@ -19,6 +20,7 @@ openvpn:
       - file: /etc/openvpn/keys/dh2048.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
+      - file: /etc/openvpn/keys/ta.key
 
 
 /etc/openvpn/server.conf:
@@ -74,6 +76,16 @@ openvpn:
 /etc/openvpn/keys/server.key:
   file.managed:
     - contents_pillar: openvpn:server.key
+    - user: root
+    - group: root
+    - mode: 600
+    - requires:
+      - file: /etc/openvpn/keys
+
+
+/etc/openvpn/keys/ta.key:
+  file.managed:
+    - contents_pillar: openvpn:ta.key
     - user: root
     - group: root
     - mode: 600
