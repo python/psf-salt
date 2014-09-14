@@ -49,6 +49,8 @@ duo-openvpn:
     - context:
       port: 1194
       protocol: udp
+      bind: {{ salt["pillar.get"]("vpn0_internal_network") }}
+      device: tun0
     - user: root
     - group: root
     - mode: 644
@@ -64,6 +66,8 @@ duo-openvpn:
     - context:
       port: 443
       protocol: tcp
+      bind: {{ salt["pillar.get"]("vpn1_internal_network") }}
+      device: tun1
     - user: root
     - group: root
     - mode: 644

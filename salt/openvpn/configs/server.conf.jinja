@@ -1,10 +1,9 @@
 {% set duosec = salt["pillar.get"]("duosec", {}) %}
 
-{% set vpn_internal = salt["pillar.get"]("vpn_internal_network") %}
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
 {% set pypi_internal = salt["pillar.get"]("pypi_internal_network") %}
 
-{% set vpn_internal = salt["ip_picker.subnet_mask_for_cidr"](cidr=vpn_internal) %}
+{% set bind = salt["ip_picker.subnet_mask_for_cidr"](cidr=bind) %}
 {% set psf_internal = salt["ip_picker.subnet_mask_for_cidr"](cidr=psf_internal) %}
 {% set pypi_internal = salt["ip_picker.subnet_mask_for_cidr"](cidr=pypi_internal) %}
 
@@ -20,7 +19,7 @@ dh   keys/dh.pem
 
 crl-verify keys/crl.pem
 
-server {{ vpn_internal.address }} {{ vpn_internal.subnet }}
+server {{ bind.address }} {{ bind.subnet }}
 
 ifconfig-pool-persist ipp.txt
 

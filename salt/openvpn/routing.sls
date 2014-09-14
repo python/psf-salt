@@ -1,12 +1,18 @@
+{% set vpn0_internal = salt["pillar.get"]("vpn0_internal_network") %}
+{% set vpn1_internal = salt["pillar.get"]("vpn1_internal_network") %}
+
+{% set vpn0_internal = salt["ip_picker.subnet_mask_for_cidr"](cidr=vpn0_internal) %}
+{% set vpn1_internal = salt["ip_picker.subnet_mask_for_cidr"](cidr=vpn1_internal) %}
+
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
 {% set pypi_internal = salt["pillar.get"]("pypi_internal_network") %}
 
 {% set interfaces = salt["ip_picker.interfaces_for_cidr"](cidr=psf_internal) %}
-{% set gateway = "192.168.5.10" %}
+{% set gateway = salt["pillar.get"]("psf_internal_vpn_gateway") %}
 
 {% if not interfaces %}
 {% set interfaces = salt["ip_picker.interfaces_for_cidr"](cidr=pypi_internal) %}
-{% set gateway = "172.16.57.17" %}
+{% set gateway = salt["pillar.get"]("pypi_internal_vpn_gateway") %}
 {% endif %}
 
 
@@ -15,8 +21,12 @@
   network.routes:
     - routes:
       - name: vpn
-        ipaddr: 10.8.0.0
-        netmask: 255.255.255.0
+        ipaddr: {{ vpn0_internal.address }}
+        netmask: {{ vpn0_internal.subnet }}
+        gateway: {{ gateway }}
+      - name: vpn-https
+        ipaddr: {{ vpn1_internal.address }}
+        netmask: {{ vpn1_internal.subnet }}
         gateway: {{ gateway }}
 
   cmd.wait:  # Work around https://bugs.launchpad.net/ubuntu/+source/ifupdown/+bug/1301015
