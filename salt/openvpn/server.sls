@@ -2,6 +2,8 @@ openvpn:
   pkg.installed:
     - pkgs:
       - openvpn
+    - sources:
+      - salt://openvpn/packages/duo_openvpn-2.1.0_amd64.deb
 
   service.running:
     - enable: True
