@@ -1,4 +1,4 @@
-{% set vpn_cidr = salt["pillar.get"]("vpn_internal_network") %}
+{% set vpn_cidr = "10.8.0.0/24" %}
 
 
 firewall:
