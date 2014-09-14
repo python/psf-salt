@@ -4,7 +4,7 @@
 {% set interfaces = salt["ip_picker.interfaces_for_cidr"](cidr=psf_internal) %}
 
 {% if not interfaces %}
-{% set interfaces in salt["ip_picker.interfaces_for_cidr"](cidr=pypi_internal) %}
+{% set interfaces = salt["ip_picker.interfaces_for_cidr"](cidr=pypi_internal) %}
 {% else %}
 
 
