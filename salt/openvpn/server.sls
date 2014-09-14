@@ -39,7 +39,7 @@ openvpn:
   file.directory:
     - user: root
     - group: root
-    - mode: 700
+    - mode: 755
     - requires:
       - pkg: openvpn
 
@@ -49,7 +49,7 @@ openvpn:
     - source: salt://openvpn/configs/ca.crt
     - user: root
     - group: root
-    - mode: 600
+    - mode: 644
     - requires:
       - file: /etc/openvpn/keys
 
@@ -69,7 +69,7 @@ openvpn:
     - source: salt://openvpn/configs/dh2048.pem
     - user: root
     - group: root
-    - mode: 600
+    - mode: 644
     - requires:
       - file: /etc/openvpn/keys
 
@@ -79,7 +79,7 @@ openvpn:
     - source: salt://openvpn/configs/server.crt
     - user: root
     - group: root
-    - mode: 600
+    - mode: 644
     - requires:
       - file: /etc/openvpn/keys
 
