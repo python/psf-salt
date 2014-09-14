@@ -63,7 +63,7 @@ duo-openvpn:
 
 /etc/openvpn/keys/ca.crt:
   file.managed:
-    - source: salt://openvpn/configs/ca.crt
+    - contents_pillar: openvpn:ca.crt
     - user: root
     - group: root
     - mode: 644
@@ -73,7 +73,7 @@ duo-openvpn:
 
 /etc/openvpn/keys/crl.pem:
   file.managed:
-    - source: salt://openvpn/configs/crl.pem
+    - contents_pillar: openvpn:crl.pem
     - user: root
     - group: root
     - mode: 644
@@ -83,7 +83,7 @@ duo-openvpn:
 
 /etc/openvpn/keys/dh2048.pem:
   file.managed:
-    - source: salt://openvpn/configs/dh2048.pem
+    - contents_pillar: openvpn:dh2048.pem
     - user: root
     - group: root
     - mode: 644
@@ -93,7 +93,7 @@ duo-openvpn:
 
 /etc/openvpn/keys/server.crt:
   file.managed:
-    - source: salt://openvpn/configs/server.crt
+    - contents_pillar: openvpn_keys:server.crt
     - user: root
     - group: root
     - mode: 644
