@@ -2,7 +2,6 @@ openvpn:
   pkg.installed:
     - pkgs:
       - openvpn
-      - easy-rsa
 
   service.running:
     - enable: True
@@ -20,26 +19,6 @@ openvpn:
       - file: /etc/openvpn/keys/dh2048.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
-
-
-/etc/openvpn/easy-rsa:
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 750
-    - requires:
-      - pkg: openvpn
-
-
-/etc/openvpn/easy-rsa/vars:
-  file.managed:
-    - source: salt://openvpn/configs/easy-rsa.vars
-    - user: root
-    - group: root
-    - mode: 640
-    - requires:
-      - pkg: openvpn
-      - file: /etc/openvpn/easy-rsa
 
 
 /etc/openvpn/server.conf:
