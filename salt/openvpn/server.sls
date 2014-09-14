@@ -112,3 +112,12 @@ duo-openvpn:
     - mode: 600
     - requires:
       - file: /etc/openvpn/keys
+
+
+/etc/openvpn/ccd:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 755
+    - requires:
+      - pkg: openvpn
