@@ -1,6 +1,8 @@
 import salt
 from salt.utils.network import in_subnet
 import socket
+import struct
+
 
 def __virtual__():
     '''
@@ -11,6 +13,7 @@ def __virtual__():
         return False
 
     return True
+
 
 def ip_addrs(interface=None, include_loopback=False, cidr=None):
     '''
@@ -34,6 +37,7 @@ def ip_addrs(interface=None, include_loopback=False, cidr=None):
     else:
         return addrs
 
+
 def interfaces_for_cidr(cidr='0.0.0.0/0'):
     '''
     Return a dictionary of information about all the interfaces on the minion
@@ -52,3 +56,15 @@ def interfaces_for_cidr(cidr='0.0.0.0/0'):
             if salt.utils.network.in_subnet(cidr, [net['address']]):
                 matched.append(interface)
     return list(set(matched))
+
+
+def subnet_mask_for_cidr(cidr="0.0.0.0/0"):
+    """
+    Returns the ip address and subnet mask for a given CIDR.
+    """
+    ip, cidr_mask = cidr.split("/")
+    subnet_mask = socket.inet_ntoa(
+        struct.pack(">I", (0xffffffff << (32 - int(cidr_mask))) & 0xffffffff)
+    )
+
+    return {"address": ip, "subnet": subnet_mask}
