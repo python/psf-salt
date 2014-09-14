@@ -1,4 +1,4 @@
-{% set duosec = salt["pillar.get"]("duosec", {}) %}
+{% set duosec = salt["pillar.get"]("duosec:unix", {}) %}
 
 [duo]
 ikey = {{ duosec.ikey }}
