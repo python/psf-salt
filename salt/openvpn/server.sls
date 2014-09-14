@@ -9,7 +9,6 @@ openvpn:
     - watch:
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/keys/ca.crt
-      - file: /etc/openvpn/keys/crl.pem
       - file: /etc/openvpn/keys/dh2048.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
