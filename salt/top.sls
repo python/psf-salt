@@ -46,4 +46,5 @@ base:
 
   'roles:vpn':
     - match: grain
+    - duosec
     - openvpn.server
