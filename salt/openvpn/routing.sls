@@ -1,7 +1,7 @@
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
 {% set pypi_internal = salt["pillar.get"]("pypi_internal_network") %}
 
-{% set interfaces in salt["ip_picker.interfaces_for_cidr"](cidr=psf_internal) %}
+{% set interfaces = salt["ip_picker.interfaces_for_cidr"](cidr=psf_internal) %}
 
 {% if not interfaces %}
 {% set interfaces in salt["ip_picker.interfaces_for_cidr"](cidr=pypi_internal) %}
