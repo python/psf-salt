@@ -36,6 +36,7 @@ base:
   'roles:loadbalancer':
     - match: grain
     - haproxy
+    - openvpn.routing
 
   'roles:salt-master':
     - match: grain
