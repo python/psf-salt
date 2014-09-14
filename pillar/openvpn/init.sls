@@ -60,7 +60,7 @@ openvpn:
     TCcsQ0pEqt9hPJiMbEnkJndg9Kr7jLt7SqfiC5ad/DgM99wfNOdk7RKNXkop+EHX
     -----END X509 CRL-----
 
-  dh2048.pem: |
+  dh.pem: |
     -----BEGIN DH PARAMETERS-----
     MIIBCAKCAQEA+YZ8Ts6r2pno9sRmdXq/FGvvg/8KOCjsfa9QkIyOtk84Jh6Z5eI/
     VdZj+o+ATQz4OS0PDmipRwy947HIEpJ20Gow96tVaL7pyEiSOvQ2TfDxwntfFurn

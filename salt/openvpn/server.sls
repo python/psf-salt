@@ -11,7 +11,7 @@ openvpn:
     - watch:
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/keys/ca.crt
-      - file: /etc/openvpn/keys/dh2048.pem
+      - file: /etc/openvpn/keys/dh.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
       - file: /etc/openvpn/keys/ta.key
@@ -24,7 +24,7 @@ openvpn:
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/keys/ca.crt
       - file: /etc/openvpn/keys/crl.pem
-      - file: /etc/openvpn/keys/dh2048.pem
+      - file: /etc/openvpn/keys/dh.pem
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
       - file: /etc/openvpn/keys/ta.key
@@ -81,9 +81,9 @@ duo-openvpn:
       - file: /etc/openvpn/keys
 
 
-/etc/openvpn/keys/dh2048.pem:
+/etc/openvpn/keys/dh.pem:
   file.managed:
-    - contents_pillar: openvpn:dh2048.pem
+    - contents_pillar: openvpn:dh.pem
     - user: root
     - group: root
     - mode: 644
