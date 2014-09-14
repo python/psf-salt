@@ -10,6 +10,7 @@ openvpn:
     - reload: True
     - watch:
       - file: /etc/openvpn/server.conf
+      - file: /etc/openvpn/server-https.conf
       - file: /etc/openvpn/keys/ca.crt
       - file: /etc/openvpn/keys/dh.pem
       - file: /etc/openvpn/keys/server.key
@@ -22,6 +23,7 @@ openvpn:
       - pkg: openvpn
       - pkg: duo-openvpn
       - file: /etc/openvpn/server.conf
+      - file: /etc/openvpn/server-https.conf
       - file: /etc/openvpn/keys/ca.crt
       - file: /etc/openvpn/keys/crl.pem
       - file: /etc/openvpn/keys/dh.pem
@@ -44,6 +46,24 @@ duo-openvpn:
   file.managed:
     - source: salt://openvpn/configs/server.conf.jinja
     - template: jinja
+    - context:
+      port: 1194
+      protocol: udp
+    - user: root
+    - group: root
+    - mode: 644
+    - requires:
+      - pkg: duo-openvpn
+      - pkg: openvpn
+
+
+/etc/openvpn/server-https.conf:
+  file.managed:
+    - source: salt://openvpn/configs/server.conf.jinja
+    - template: jinja
+    - context:
+      port: 443
+      protocol: tcp
     - user: root
     - group: root
     - mode: 644

@@ -3,6 +3,10 @@
 
 firewall:
   openvpn:
+    port: 1194
+    protocol: udp
+
+  openvpn-https:
     port: 443
     protocol: tcp
 
