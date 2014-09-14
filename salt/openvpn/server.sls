@@ -144,7 +144,7 @@ duo-openvpn:
 
 /etc/sysctl.d/10-ip-forwarding.conf:
   file.managed:
-    - contents: net.ipv4.ip_forward = 1
+    - source: salt://openvpn/configs/10-ip-forwarding.conf
     - user: root
     - group: root
     - mode: 644
