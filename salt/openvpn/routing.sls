@@ -16,4 +16,9 @@
         ipaddr: 10.8.0.0
         netmask: 255.255.255.0
         gateway: 192.168.5.10
+
+  cmd.wait:  # Work around https://bugs.launchpad.net/ubuntu/+source/ifupdown/+bug/1301015
+    - name: ifdown {{ interface }} && ifup {{ interface }}
+    - watch:
+      - network: {{ interface }}
 {% endfor %}
