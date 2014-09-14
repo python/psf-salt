@@ -3,7 +3,7 @@
 
 firewall:
   openvpn:
-    port: 1194
+    port: 443
     protocol: udp
 
   openvpn-forward-in:
@@ -11,6 +11,3 @@ firewall:
 
   openvpn-forward-out:
     raw: -A FORWARD -o tun0 -d {{ vpn_cidr }} -j ACCEPT
-
-  openvpn-https-port:
-    raw: -t NAT -A PREROUTING -p udp --dport 443 -j REDIRECT --to-ports 1194

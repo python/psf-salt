@@ -8,7 +8,7 @@
 {% set psf_internal = salt["ip_picker.subnet_mask_for_cidr"](cidr=psf_internal) %}
 {% set pypi_internal = salt["ip_picker.subnet_mask_for_cidr"](cidr=pypi_internal) %}
 
-port 1194
+port 443
 proto udp
 
 dev tun
