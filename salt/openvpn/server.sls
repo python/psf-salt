@@ -2,8 +2,6 @@ openvpn:
   pkg.installed:
     - pkgs:
       - openvpn
-    - sources:
-      - salt://openvpn/packages/duo_openvpn-2.1.0_amd64.deb
 
   service.running:
     - enable: True
@@ -17,6 +15,7 @@ openvpn:
       - file: /etc/openvpn/keys/ta.key
     - require:
       - pkg: openvpn
+      - pkg: duo-openvpn
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/keys/ca.crt
       - file: /etc/openvpn/keys/crl.pem
@@ -24,6 +23,13 @@ openvpn:
       - file: /etc/openvpn/keys/server.key
       - file: /etc/openvpn/keys/server.crt
       - file: /etc/openvpn/keys/ta.key
+
+duo-openvpn:
+  pkg.installed:
+    - sources:
+      - salt://openvpn/packages/duo_openvpn-2.1.0_amd64.deb
+    - require:
+      - pkg: openvpn
 
 
 /etc/openvpn/server.conf:
@@ -33,6 +39,7 @@ openvpn:
     - group: root
     - mode: 644
     - requires:
+      - pkg: duo-openvpn
       - pkg: openvpn
 
 
