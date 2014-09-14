@@ -4,7 +4,7 @@
 firewall:
   openvpn:
     port: 443
-    protocol: udp
+    protocol: tcp
 
   openvpn-forward-in:
     raw: -A FORWARD -i tun0 -s {{ vpn_cidr }} -j ACCEPT
