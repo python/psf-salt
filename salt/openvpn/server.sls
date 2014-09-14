@@ -34,7 +34,8 @@ duo-openvpn:
 
 /etc/openvpn/server.conf:
   file.managed:
-    - source: salt://openvpn/configs/server.conf
+    - source: salt://openvpn/configs/server.conf.jinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 644
