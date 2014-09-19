@@ -11,7 +11,6 @@ server {
 
 {% for domain in info.get("extra_domains", []) %}
 server {
-    listen 80;
     server_name {{ domain }};
     error_log /var/log/nginx/redir-{{ domain }}.error.log;
     access_log /var/log/nginx/redir-{{ domain }}.error.log;
