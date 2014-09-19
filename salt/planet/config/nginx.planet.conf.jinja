@@ -1,10 +1,23 @@
-{% for site in salt["pillar.get"]("planet_sites") %}
+{% for site, info in salt["pillar.get"]("planet_sites").iteritems() %}
+
 server {
     listen 80;
-    server_name {{ site }}
+    server_name {{ site }};
     error_log /var/log/nginx/{{ site }}.error.log;
     access_log /var/log/nginx/{{ site }}.access.log;
 
     root /srv/{{ site }}/;
 }
+
+{% for domain in info.get("extra_domains", []) %}
+server {
+    listen 80;
+    server_name {{ site }};
+    error_log /var/log/nginx/redir-{{ domain }}.error.log;
+    access_log /var/log/nginx/redir-{{ domain }}.error.log;
+
+    return 302 $scheme://$host$request_uri;
+}
+{% endfor %}
+
 {% endfor %}
