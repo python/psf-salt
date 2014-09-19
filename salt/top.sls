@@ -7,6 +7,7 @@ base:
     - sudoers
     - backup.client
     - auto-security
+    - psf-ca
 
   '* and not G@roles:vpn':
     - match: compound
