@@ -1,4 +1,4 @@
-git pull --git-dir=/srv/planet/
+git --git-dir=/srv/planet/ pull
 {% for site in salt["pillar.get"]("planet_sites").itervalues() %}
 python /srv/planet/code/planet.py /srv/planet/config/{{ site["config"] }}
 {% endfor %}
