@@ -43,6 +43,7 @@ https://github.com/python/planet:
 /srv/run-planet.sh:
   file.managed:
     - source: salt://planet/config/run-planet.sh.jinja
+    - template: jinja
     - user: planet
     - group: planet
     - mode: 544
