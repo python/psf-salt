@@ -16,7 +16,7 @@ server {
     error_log /var/log/nginx/redir-{{ domain }}.error.log;
     access_log /var/log/nginx/redir-{{ domain }}.error.log;
 
-    return 302 $scheme://$host$request_uri;
+    return 302 $scheme://{{ domain }}$request_uri;
 }
 {% endfor %}
 
