@@ -37,6 +37,10 @@ base:
     - match: grain
     - jython
 
+  'roles:planet':
+    - match: grain
+    - planet
+
   'roles:loadbalancer':
     - match: grain
     - haproxy

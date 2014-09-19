@@ -38,6 +38,11 @@ base:
     - groups.jython
     - firewall.http
 
+  'roles:planet':
+    - match: grain
+    - planet
+    - firewall.http
+
   'roles:backup-server':
     - match: grain
     - backup.server

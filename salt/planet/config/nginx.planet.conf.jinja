@@ -1,0 +1,10 @@
+{% for site in salt["pillar.get"]("planet_sites") %}
+server {
+    listen 80;
+    server_name {{ site }}
+    error_log /var/log/nginx/{{ site }}.error.log;
+    access_log /var/log/nginx/{{ site }}.access.log;
+
+    root /srv/{{ site }}/;
+}
+{% endfor %}
