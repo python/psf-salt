@@ -4,6 +4,7 @@ base:
     - networking
     - users
     - sudoers
+    - psf-ca
 
   'roles:cdn-logs':
     - match: grain

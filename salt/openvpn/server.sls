@@ -87,7 +87,7 @@ duo-openvpn:
 
 /etc/openvpn/keys/ca.crt:
   file.managed:
-    - contents_pillar: openvpn:ca.crt
+    - contents_pillar: psf-ca:ca.crt
     - user: root
     - group: root
     - mode: 644
@@ -97,7 +97,7 @@ duo-openvpn:
 
 /etc/openvpn/keys/crl.pem:
   file.managed:
-    - contents_pillar: openvpn:crl.pem
+    - contents_pillar: psf-ca:crl.pem
     - user: root
     - group: root
     - mode: 644
