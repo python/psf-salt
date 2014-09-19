@@ -16,6 +16,8 @@ planet-user:
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - file: /etc/nginx/sites.d/
 
 https://github.com/python/planet:
   git.latest:
