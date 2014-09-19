@@ -22,7 +22,7 @@ planet-user:
 /srv/planet/:
   file.directory:
     - user: planet
-    - group: plnaet
+    - group: planet
     - mode: 755
 
 https://github.com/python/planet:
