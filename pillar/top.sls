@@ -44,6 +44,10 @@ base:
     - planet
     - firewall.http
 
+  'roles:postgresql':
+    - match: grain
+    - postgresql.server
+
   'roles:backup-server':
     - match: grain
     - backup.server

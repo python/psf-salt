@@ -1,0 +1,123 @@
+{% set postgresql = salt["pillar.get"]("postgresql") %}
+
+
+{#
+#------------------------------------------------------------------------------
+# pgtune
+#
+# These are taken from pgtune (https://github.com/gregs1104/pgtune and
+# https://github.com/le0pard/pgtune) assuming the "web" database type.
+#------------------------------------------------------------------------------
+#}
+
+{% set shared_buffers = ((grains.mem_total|int) / 4)|round|int %}
+{% set effective_cache_size = (((grains.mem_total|int) * 3) / 4)|round|int %}
+{% set work_mem = (((grains.mem_total|int) - shared_buffers) / (postgresql.max_connections * 3))|round|int %}
+{% set maintenance_work_mem = ((grains.mem_total|int) / 16)|round|int %}
+
+{# Cap maintenance RAM at 2GB on servers with lots of memory #}
+{% if maintenance_work_mem > 2048 %}
+  {% set maintenance_work_mem = 2048 %}
+{% endif %}
+
+{% set checkpoint_segments = 32 %}
+{% set checkpoint_completion_target = 0.7 %}
+
+{% set default_statistics_target = 100 %}
+
+#------------------------------------------------------------------------------
+# FILE LOCATIONS
+#------------------------------------------------------------------------------
+
+# The default values of these variables are driven from the -D command-line
+# option or PGDATA environment variable, represented here as ConfigDir.
+
+data_directory    = '{{ postgresql.data_dir }}'
+hba_file          = '{{ postgresql.hba_file }}'
+ident_file        = '{{ postgresql.ident_file }}'
+external_pid_file = '{{ postgresql.pid_file }}'
+
+
+#------------------------------------------------------------------------------
+# CONNECTIONS AND AUTHENTICATION
+#------------------------------------------------------------------------------
+
+# - Connection Settings -
+
+#listen_addresses = 'localhost'         # what IP address(es) to listen on;
+                                        # comma-separated list of addresses;
+                                        # defaults to 'localhost'; use '*' for all
+                                        # (change requires restart)
+port = {{ postgresql.port }}
+max_connections = {{ postgresql.max_connections }}
+unix_socket_directories = '/var/run/postgresql'
+
+# - Security and Authentication -
+
+ssl = true
+ssl_ciphers = 'ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:!aNULL:!MD5:!DSS'
+ssl_cert_file = '/etc/ssl/certs/ssl-cert-snakeoil.pem'
+ssl_key_file = '/etc/ssl/private/ssl-cert-snakeoil.key'
+ssl_ca_file = '/etc/ssl/certs/psf-ca.pem'
+ssl_crl_file = '/etc/ssl/crl/psf-crl.pem'
+
+
+#------------------------------------------------------------------------------
+# RESOURCE USAGE (except WAL)
+#------------------------------------------------------------------------------
+
+# - Memory -
+
+shared_buffers = {{ shared_buffers }}MB
+work_mem = {{ work_mem  }}MB
+maintenance_work_mem = {{ maintenance_work_mem }}MB
+
+
+#------------------------------------------------------------------------------
+# WRITE AHEAD LOG
+#------------------------------------------------------------------------------
+
+# - Checkpoints -
+
+checkpoint_segments = {{ checkpoint_segments }}
+checkpoint_completion_target = {{ checkpoint_completion_target }}
+
+
+#------------------------------------------------------------------------------
+# QUERY TUNING
+#------------------------------------------------------------------------------
+
+# - Planner Cost Constants -
+
+effective_cache_size = {{ effective_cache_size }}MB
+
+# - Other Planner Options -
+
+default_statistics_target = {{ default_statistics_target }}
+
+
+#------------------------------------------------------------------------------
+# ERROR REPORTING AND LOGGING
+#------------------------------------------------------------------------------
+
+# - What to Log -
+
+log_line_prefix = '%t '
+log_timezone = 'UTC'
+
+
+#------------------------------------------------------------------------------
+# CLIENT CONNECTION DEFAULTS
+#------------------------------------------------------------------------------
+
+# - Locale and Formatting -
+
+datestyle = 'iso, mdy'
+timezone = 'UTC'
+
+lc_messages = 'en_US.UTF-8'
+lc_monetary = 'en_US.UTF-8'
+lc_numeric = 'en_US.UTF-8'
+lc_time = 'en_US.UTF-8'
+
+default_text_search_config = 'pg_catalog.english'

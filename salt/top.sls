@@ -42,6 +42,10 @@ base:
     - match: grain
     - planet
 
+  'roles:postgresql':
+    - match: grain
+    - postgresql.server
+
   'roles:loadbalancer':
     - match: grain
     - haproxy
