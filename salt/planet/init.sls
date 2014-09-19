@@ -19,6 +19,12 @@ planet-user:
     - require:
       - file: /etc/nginx/sites.d/
 
+/srv/planet/:
+  file.directory:
+    - user: planet
+    - group: plnaet
+    - mode: 755
+
 https://github.com/python/planet:
   git.latest:
     - target: /srv/planet/
@@ -26,6 +32,7 @@ https://github.com/python/planet:
     - require:
       - user: planet-user
       - pkg: git
+      - file: /srv/planet/
 
 /srv/cache/:
   file.directory:
