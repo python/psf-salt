@@ -19,6 +19,14 @@ postgresql-data:
     - opts: "data=writeback,noatime,nodiratime"
     - require:
       - blockdev: postgresql-data
+
+  file.directory:
+    - name: /srv/postgresql/9.3
+    - user: root
+    - group: root
+    - mode: 777
+    - require:
+      - mount: postgresql-data
 {% endfor %}
 
 
@@ -102,7 +110,7 @@ postgresql-psf-cluster:
     - require:
       - pkg: postgresql-server
       {% if data_partitions %}
-      - mount: postgresql-data
+      - file: postgresql-data
       {% endif %}
       {% if "postgresql-replica" in grains["roles"] %}
       - file: /etc/ssl/db/replicator.key
