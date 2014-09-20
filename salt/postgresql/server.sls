@@ -96,7 +96,7 @@ postgresql-psf-cluster:
       {% if data_partitions %}
       - mount: postgresql-data
       {% endif %}
-      {% if "postgresql-replica" in grains["roles"] %}}
+      {% if "postgresql-replica" in grains["roles"] %}
       - file: /etc/ssl/db/replicator.key
       - file: /etc/ssl/db/replicator.crt
       {% endif %}
