@@ -86,11 +86,16 @@ postgresql-psf-cluster:
     {% if "postgresql-primary" in grains["roles"] %}
     - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.3 --port {{ postgresql.port }} psf
     {% elif "postgresql-replica" in grains["roles"] %}
-    - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -h {{ postgresql.primary }} -p {{ postgresql.port }} -U replicator
+    - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -U replicator
     - env:
-      - PGSSLMODE: require
+      - PGHOST: pg.psf.io
+      - PGHOSTADDR: {{ postgresql.primary }}
+      - PGPORT: {{ postgresql.port }}
+      - PGSSLMODE: verify-full
       - PGSSLCERT: /etc/ssl/db/replicator.crt
       - PGSSLKEY: /etc/ssl/db/replicator.key
+      - PGSSLROOTCERT: /etc/ssl/certs/psf-ca.pem
+      - PGSSLCRL: /etc/ssl/crl/psf-crl.pem
     - user: postgres
     {% endif %}
     - unless: pg_lsclusters | grep '^9\.3\s\+psf\s\+'

@@ -2,4 +2,4 @@
 
 standby_mode = on
 
-primary_conninfo = 'host={{ postgresql.primary }} port={{ postgresql.port }} user=replicator sslmode=require sslcert=/etc/ssl/db/replicator.crt sslkey=/etc/ssl/db/replicator.key'
+primary_conninfo = 'host=pg.psf.io hostaddr={{ postgresql.primary }} port={{ postgresql.port }} user=replicator sslmode=verify-full sslcert=/etc/ssl/db/replicator.crt sslkey=/etc/ssl/db/replicator.key sslrootcert=/etc/ssl/certs/psf-ca.pem sslcrl=/etc/ssl/crl/psf-crl.pem'
