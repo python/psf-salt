@@ -17,6 +17,8 @@ postgresql-data:
     - fstype: ext4
     - mkmnt: True
     - opts: "data=writeback,noatime,nodiratime"
+    - require:
+      - blockdev: postgresql-data
 {% endfor %}
 
 
@@ -51,6 +53,9 @@ postgresql-psf-cluster:
     - unless: pg_lsclusters | grep '^9\.3\s\+psf\s\+'
     - require:
       - pkg: postgresql-server
+      {% if data_partitions %}
+      - mount: postgresql-data
+      {% endif %}
 
 
 {{ postgresql.hba_file }}:
