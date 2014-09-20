@@ -97,6 +97,11 @@ postgresql-psf-basebackup:
     - require:
       - cmd: postgresql-psf-basebackup
 
+{{ postgresql.data_dir }}/pg_ident.conf:
+  file.managed:
+    - require:
+      - cmd: postgresql-psf-basebackup
+
 {% endif %}
 
 
@@ -113,6 +118,7 @@ postgresql-psf-cluster:
       - cmd: postgresql-psf-basebackup
       - file: {{ postgresql.data_dir }}/postgresql.conf
       - file: {{ postgresql.data_dir }}/pg_hba.conf
+      - file: {{ postgresql.data_dir }}/pg_ident.conf
       {% endif %}
 
 
