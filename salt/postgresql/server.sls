@@ -8,12 +8,12 @@ This Does Not Support Multi Data Disk Servers!!!!
 {% for partition in data_partitions %}
 postgresql-data:
   blockdev.formatted:
-    - name: /dev/{{ partition }}
+    - name: {{ partition.partition }}
     - fs_type: ext4
 
   mount.mounted:
     - name: /srv/postgresql
-    - device: /dev/{{ partition }}
+    - device: {{ partition.partition }}
     - fstype: ext4
     - mkmnt: True
     - opts: "data=writeback,noatime,nodiratime"
