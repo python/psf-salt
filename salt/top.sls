@@ -1,6 +1,7 @@
 base:
   '*':
     - base.sanity
+    - base.disks
     - groups
     - firewall
     - users
