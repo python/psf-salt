@@ -48,6 +48,7 @@ base:
     - match: grain
     - firewall.postgresql
     - postgresql.server
+    - secrets.psf-ca.pg
 
   'roles:postgresql-replica':
     - match: grain
@@ -69,6 +70,3 @@ base:
     - firewall.vpn
     - secrets.openvpn.vpn
     - secrets.duosec.vpn
-
-  'pg0.psf.io':
-    - secrets.psf-ca.pg0-psf-io
