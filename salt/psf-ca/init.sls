@@ -5,8 +5,6 @@
     - user: root
     - group: ssl-cert
     - mode: 640
-    - require:
-      - group: psf-ca-group
 {% endfor %}
 
 /etc/ssl/certs/psf-ca.pem:
