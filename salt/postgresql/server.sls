@@ -89,6 +89,7 @@ postgresql-psf-cluster:
       - PGSSLMODE: require
       - PGSSLCERT: /etc/ssl/db/replicator.crt
       - PGSSLKEY: /etc/ssl/db/replicator.key
+    - user: postgres
     {% endif %}
     - unless: pg_lsclusters | grep '^9\.3\s\+psf\s\+'
     - require:
