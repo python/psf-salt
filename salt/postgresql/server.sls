@@ -78,9 +78,9 @@ postgresql-psf-cluster:
     {% if "postgresql-primary" in grains["roles"] %}
     - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.3 --port {{ postgresql.port }} psf
     {% elif "postgresql-replica" in grains["roles"] %}
-    - name: exit 1
+    - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -h {{ postgresql.primary }} -p {{ postgresql.port }} -U replicator
     - env:
-      - PGSSLMODE: require
+      - PGSSLMODE: verify-ca
       - PGSSLCERT: /etc/ssl/db/replicator.crt
       - PGSSLKEY: /etc/ssl/db/replicator.key
     {% endif %}
