@@ -58,7 +58,7 @@ postgresql-server:
     - contents_pillar: postgresql-users:replicator:key
     - user: root
     - group: root
-    - mode: 640
+    - mode: 600
     - require:
       - file: /etc/ssl/db
 
