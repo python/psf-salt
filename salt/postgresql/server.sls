@@ -87,8 +87,13 @@ postgresql-psf-basebackup:
       - mount: postgresql-data
       {% endif %}
 
+{{ postgresql.data_dir }}/postgresql.conf:
   file.managed:
-    - name: {{ postgresql.data_dir }}/postgresql.conf
+    - require:
+      - cmd: postgresql-psf-basebackup
+
+{{ postgresql.data_dir }}/pg_hba.conf:
+  file.managed:
     - require:
       - cmd: postgresql-psf-basebackup
 
@@ -106,7 +111,8 @@ postgresql-psf-cluster:
       {% endif %}
       {% if "postgresql-replica" in grains["roles"] %}
       - cmd: postgresql-psf-basebackup
-      - file: postgresql-psf-basebackup
+      - file: {{ postgresql.data_dir }}/postgresql.conf
+      - file: {{ postgresql.data_dir }}/pg_hba.conf
       {% endif %}
 
 
