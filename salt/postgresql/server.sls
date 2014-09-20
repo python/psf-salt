@@ -78,3 +78,8 @@ postgresql-psf-cluster:
     - mode: 640
     - requires:
       - cmd: postgresql-psf-cluster
+
+
+replicator:
+  postgres_user.present:
+    - replication: True
