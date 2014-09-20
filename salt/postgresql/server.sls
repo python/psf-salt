@@ -1,4 +1,24 @@
 {% set postgresql = salt["pillar.get"]("postgresql") %}
+{% set data_partitions = salt["rackspace.data_partitions"]() %}
+
+{% if data_partitions|len() > 1 %}
+This Does Not Support Multi Data Disk Servers!!!!
+{% endif %}
+
+{% for partition in data_partitions %}
+postgresql-data:
+  blockdev.formatted:
+    - name: {{ partition }}
+    - fs_type: ext4
+
+  mount.mounted:
+    - name: /srv/postgresql
+    - device: {{ partition }}
+    - fstype: ext4
+    - mkmnt: True
+    - opts: "data=writeback,noatime,nodiratime"
+{% endfor %}
+
 
 postgresql-server:
   pkg.installed:
