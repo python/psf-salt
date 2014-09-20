@@ -106,6 +106,7 @@ postgresql-psf-cluster:
     - user: postgres
     - group: postgres
     - mode: 755
+    - makedirs: True
     - require:
       - cmd: postgresql-psf-cluster
 
