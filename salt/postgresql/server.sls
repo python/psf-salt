@@ -106,6 +106,7 @@ postgresql-psf-cluster:
       {% endif %}
       {% if "postgresql-replica" in grains["roles"] %}
       - cmd: postgresql-psf-basebackup
+      - file: postgresql-psf-basebackup
       {% endif %}
 
 
