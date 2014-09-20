@@ -101,6 +101,14 @@ postgresql-psf-cluster:
       - file: /etc/ssl/db/replicator.crt
       {% endif %}
 
+{{ postgresql.config_dir }}:
+  file.directory:
+    - user: postgres
+    - group: postgres
+    - mode: 755
+    - require:
+     - cmd: postgresql-psf-cluster
+
 
 {{ postgresql.hba_file }}:
   file.managed:
@@ -111,6 +119,7 @@ postgresql-psf-cluster:
     - mode: 640
     - require:
       - cmd: postgresql-psf-cluster
+      - file: {{ postgresql.config_dir }}
 
 
 {{ postgresql.config_file }}:
@@ -122,6 +131,7 @@ postgresql-psf-cluster:
     - mode: 640
     - require:
       - cmd: postgresql-psf-cluster
+      - file: {{ postgresql.config_dir }}
 
 
 {% if "postgresql-replica" in grains["roles"] %}
@@ -134,6 +144,7 @@ postgresql-psf-cluster:
     - mode: 640
     - require:
       - cmd: postgresql-psf-cluster
+      - file: {{ postgresql.config_dir }}
 {% endif %}
 
 

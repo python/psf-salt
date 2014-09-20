@@ -1,5 +1,6 @@
 postgresql:
   data_dir: /srv/postgresql/9.3/psf
+  config_dir: /etc/postgresql/9.3/psf
   config_file: /etc/postgresql/9.3/psf/postgresql.conf
   hba_file: /etc/postgresql/9.3/psf/pg_hba.conf
   ident_file: /etc/postgresql/9.3/psf/pg_ident.conf
