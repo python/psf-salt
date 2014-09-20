@@ -49,7 +49,11 @@ postgresql-server:
 
 postgresql-psf-cluster:
   cmd.run:
+    {% if "postgresql-primary" in grains["roles"] %}
     - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.3 --port {{ postgresql.port }} psf
+    {% elif "postgresql-replica" in grains["roles"] %}
+    - name: exit 1
+    {% endif %}
     - unless: pg_lsclusters | grep '^9\.3\s\+psf\s\+'
     - require:
       - pkg: postgresql-server

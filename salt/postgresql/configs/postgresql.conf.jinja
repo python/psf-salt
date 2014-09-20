@@ -95,6 +95,11 @@ checkpoint_completion_target = {{ checkpoint_completion_target }}
 max_wal_senders = 3
 wal_keep_segments = 32
 
+{% if "postgresql-replica" in grains["roles"] %}
+# - Standby Servers -
+
+hot_standby = on
+{% endif %}
 
 #------------------------------------------------------------------------------
 # QUERY TUNING
