@@ -52,14 +52,53 @@ postgresql-server:
       {% endif %}
 
 
+{% if "postgresql-replica" in grains["roles"] %}
+/etc/ssl/db:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 750
+
+/etc/ssl/db/replicator.key:
+  file.managed:
+    - contents_pillar: postgresql-users:replicator:key
+    - user: root
+    - group: root
+    - mode: 600
+    - require:
+      - file: /etc/ssl/db
+
+/etc/ssl/db/replicator.crt:
+  file.managed:
+    - contents_pillar: postgresql-users:replicator:crt
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - file: /etc/ssl/db
+{% endif %}
+
+
 postgresql-psf-cluster:
   cmd.run:
+    {% if "postgresql-primary" in grains["roles"] %}
     - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.3 --port {{ postgresql.port }} psf
+    {% elif "postgresql-replica" in grains["roles"] %}
+    - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -h {{ postgresql.primary }} -p {{ postgresql.port }} -U replicator
+    - env:
+      - PGSSLMODE: require
+      - PGSSLCERT: /etc/ssl/db/replicator.crt
+      - PGSSLKEY: /etc/ssl/db/replicator.key
+    {% endif %}
     - unless: pg_lsclusters | grep '^9\.3\s\+psf\s\+'
     - require:
       - pkg: postgresql-server
       {% if data_partitions %}
       - mount: postgresql-data
+      {% endif %}
+      {% if "postgresql-replica" in grains["roles"] %}}
+      - file: /etc/ssl/db/replicator.key
+      - file: /etc/ssl/db/replicator.crt
       {% endif %}
 
 
@@ -86,53 +125,6 @@ postgresql-psf-cluster:
 
 
 {% if "postgresql-replica" in grains["roles"] %}
-/etc/ssl/db:
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 750
-
-/etc/ssl/db/replicator.key:
-  file.managed:
-    - contents_pillar: postgresql-users:replicator:key
-    - user: root
-    - group: root
-    - mode: 600
-    - require:
-      - file: /etc/ssl/db
-
-/etc/ssl/db/replicator.crt:
-  file.managed:
-    - contents_pillar: postgresql-users:replicator:crt
-    - user: root
-    - group: root
-    - mode: 640
-    - require:
-      - file: /etc/ssl/db
-
-postgresql-psf-delete-data:
-  cmd.wait:
-    - name: rm -rf {{ postgresql.data_dir }}
-    - watch:
-      - cmd: postgresql-psf-cluster
-
-postgresql-psf-basebackup:
-  cmd.wait:
-    - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -h {{ postgresql.primary }} -p {{ postgresql.port }} -U replicator
-    - env:
-      - PGSSLMODE: require
-      - PGSSLCERT: /etc/ssl/db/replicator.crt
-      - PGSSLKEY: /etc/ssl/db/replicator.key
-    - watch:
-      - cmd: postgresql-psf-delete-data
-    - require:
-      - pkg: postgresql-server
-      - file: /etc/ssl/db/replicator.key
-      - file: /etc/ssl/db/replicator.crt
-      {% if data_partitions %}
-      - mount: postgresql-data
-      {% endif %}
-
 {{ postgresql.recovery_file }}:
   file.managed:
     - source: salt://postgresql/configs/recovery.conf.jinja
@@ -142,7 +134,6 @@ postgresql-psf-basebackup:
     - mode: 640
     - requires:
       - cmd: postgresql-psf-cluster
-
 {% endif %}
 
 
