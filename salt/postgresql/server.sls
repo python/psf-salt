@@ -60,7 +60,7 @@ postgresql-psf-cluster:
 
 {{ postgresql.hba_file }}:
   file.managed:
-    - source: salt://postgres/configs/pg_hba.conf.jinja
+    - source: salt://postgresql/configs/pg_hba.conf.jinja
     - template: jinja
     - user: postgres
     - group: postgres
@@ -71,7 +71,7 @@ postgresql-psf-cluster:
 
 {{ postgresql.config_file }}:
   file.managed:
-    - source: salt://postgres/configs/postgresql.conf.jinja
+    - source: salt://postgresql/configs/postgresql.conf.jinja
     - template: jinja
     - user: postgres
     - group: postgres
