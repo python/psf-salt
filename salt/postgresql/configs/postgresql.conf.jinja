@@ -79,6 +79,7 @@ maintenance_work_mem = {{ maintenance_work_mem }}MB
 # - Settings -
 
 wal_level = hot_standby
+synchronous_commit = local
 
 # - Checkpoints -
 
@@ -95,11 +96,18 @@ checkpoint_completion_target = {{ checkpoint_completion_target }}
 max_wal_senders = 3
 wal_keep_segments = 32
 
-{% if "postgresql-replica" in grains["roles"] %}
+# - Master Server -
+
+# These settings are ignored on a standby server.
+
+synchronous_standby_names = '*'
+
 # - Standby Servers -
 
+# These settings are ignored on a master server.
+
 hot_standby = on
-{% endif %}
+
 
 #------------------------------------------------------------------------------
 # QUERY TUNING
