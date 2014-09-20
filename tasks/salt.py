@@ -25,34 +25,6 @@ def bootstrap(host, roles=None):
         if fabric.contrib.files.exists("/etc/salt/minion.d/local.conf"):
             raise RuntimeError("{} is already bootstrapped.".format(host))
 
-        # Locate all the devices and their partitions on this machine.
-        results = fabric.api.run("lsblk -l -n -o NAME,TYPE,FSTYPE,MOUNTPOINT")
-        devices = {}
-        for blk in [x.split() for x in results.splitlines()]:
-            if blk[1] == "disk":
-                devices.setdefault(blk[0], {})
-            elif blk[1] == "part":
-                blk_data = devices.setdefault(blk[0][:4], {})
-                blk_data[blk[0]] = blk[2:]
-
-        # Figure out which devices are data disks, they'll be the ones that
-        # do not have a partition with a Filesystem.
-        data_disks = []
-        for dev, parts in devices.items():
-            has_fs = []
-            for part, data in parts.items():
-                has_fs.append(True if data else False)
-
-            # All of the partitions on this disk have no data
-            if has_fs and all(has_fs):
-                continue
-            elif has_fs and any(has_fs):
-                raise ValueError("Disk %r has some filesystems not all?" % dev)
-            elif has_fs:
-                data_disks.extend("/dev/" + p for p in parts)
-            else:
-                assert False, "Cannot handle disks with no partition"
-
         # Ok, we're going to bootstrap, first we need to add the Salt PPA
         fabric.api.run("apt-add-repository -y ppa:saltstack/salt")
 
@@ -79,7 +51,6 @@ def bootstrap(host, roles=None):
             context={
                 "master": SALT_MASTER,
                 "roles": [r.strip() for r in roles.split(",") if r.strip()],
-                "data_disks": data_disks,
             },
             use_jinja=True,
             mode=0o0644,
