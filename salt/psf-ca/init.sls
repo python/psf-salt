@@ -9,6 +9,7 @@ psf-ca-group:
     - contents_pillar: psf-ca-server-certificate:{{ name }}
     - user: root
     - group: psf-ca
+    - mode: 640
     - require:
       - group: psf-ca-group
 {% endfor %}
