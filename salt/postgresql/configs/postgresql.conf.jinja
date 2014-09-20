@@ -76,10 +76,24 @@ maintenance_work_mem = {{ maintenance_work_mem }}MB
 # WRITE AHEAD LOG
 #------------------------------------------------------------------------------
 
+# - Settings -
+
+wal_level = hot_standby
+
 # - Checkpoints -
 
 checkpoint_segments = {{ checkpoint_segments }}
 checkpoint_completion_target = {{ checkpoint_completion_target }}
+
+
+#------------------------------------------------------------------------------
+# REPLICATION
+#------------------------------------------------------------------------------
+
+# - Sending Server(s) -
+
+max_wal_senders = 3
+wal_keep_segments = 32
 
 
 #------------------------------------------------------------------------------

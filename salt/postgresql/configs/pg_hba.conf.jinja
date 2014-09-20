@@ -1,3 +1,5 @@
+{% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
+
 # PostgreSQL Client Authentication Configuration File
 # ===================================================
 #
@@ -7,3 +9,7 @@
 # Database administrative login by Unix domain socket
 local   all             postgres                                peer
 
+{% if "postgresql-primary" in grains["roles"] %}
+# Replication
+hostssl replication     replicator      {{ psf_internal }}      cert
+{% endif %}

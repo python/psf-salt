@@ -80,6 +80,10 @@ postgresql-psf-cluster:
       - cmd: postgresql-psf-cluster
 
 
+{% if "postgresql-primary" in grains["roles"] %}
+
 replicator:
   postgres_user.present:
     - replication: True
+
+{% endif %}
