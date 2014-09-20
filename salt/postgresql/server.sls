@@ -107,7 +107,7 @@ postgresql-psf-cluster:
     - group: postgres
     - mode: 755
     - require:
-     - cmd: postgresql-psf-cluster
+      - cmd: postgresql-psf-cluster
 
 
 {{ postgresql.hba_file }}:
