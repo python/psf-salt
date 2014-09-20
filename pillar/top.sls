@@ -46,6 +46,7 @@ base:
 
   'roles:postgresql':
     - match: grain
+    - firewall.postgresql
     - postgresql.server
 
   'roles:backup-server':
