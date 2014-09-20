@@ -57,13 +57,13 @@ postgresql-server:
   file.directory:
     - user: root
     - group: root
-    - mode: 750
+    - mode: 755
 
 /etc/ssl/db/replicator.key:
   file.managed:
     - contents_pillar: postgresql-users:replicator:key
-    - user: root
-    - group: root
+    - user: postgres
+    - group: postgres
     - mode: 600
     - require:
       - file: /etc/ssl/db
@@ -71,8 +71,8 @@ postgresql-server:
 /etc/ssl/db/replicator.crt:
   file.managed:
     - contents_pillar: postgresql-users:replicator:crt
-    - user: root
-    - group: root
+    - user: postgres
+    - group: postgres
     - mode: 640
     - require:
       - file: /etc/ssl/db
@@ -100,6 +100,22 @@ postgresql-psf-cluster:
       - file: /etc/ssl/db/replicator.key
       - file: /etc/ssl/db/replicator.crt
       {% endif %}
+
+
+# Make sure that our log directory is writeable
+/var/log/postgres:
+  file.directory:
+    - user: postgres
+    - group: postgres
+    - mode: 755
+
+# Make sure that our log file is writeable
+/var/log/postgres/postgresql-9.3-psf.log:
+  file.managed:
+    - user: postgres
+    - group: postgres
+    - mode: 640
+
 
 {{ postgresql.config_dir }}:
   file.directory:
