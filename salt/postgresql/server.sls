@@ -70,20 +70,29 @@ postgresql-server:
     - mode: 640
     - require:
       - file: /etc/ssl/db
-{% endif %}
 
-
-postgresql-psf-cluster:
+postgresql-psf-basebackup:
   cmd.run:
-    {% if "postgresql-primary" in grains["roles"] %}
-    - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.3 --port {{ postgresql.port }} psf
-    {% elif "postgresql-replica" in grains["roles"] %}
     - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -h {{ postgresql.primary }} -p {{ postgresql.port }} -U replicator
     - env:
       - PGSSLMODE: require
       - PGSSLCERT: /etc/ssl/db/replicator.crt
       - PGSSLKEY: /etc/ssl/db/replicator.key
-    {% endif %}
+    - unless: ls {{ postgresql.data_dir }}
+    - require:
+      - pkg: postgresql-server
+      - file: /etc/ssl/db/replicator.key
+      - file: /etc/ssl/db/replicator.crt
+      {% if data_partitions %}
+      - mount: postgresql-data
+      {% endif %}
+
+{% endif %}
+
+
+postgresql-psf-cluster:
+  cmd.run:
+    - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.3 --port {{ postgresql.port }} psf
     - unless: pg_lsclusters | grep '^9\.3\s\+psf\s\+'
     - require:
       - pkg: postgresql-server
@@ -91,8 +100,7 @@ postgresql-psf-cluster:
       - mount: postgresql-data
       {% endif %}
       {% if "postgresql-replica" in grains["roles"] %}
-      - file: /etc/ssl/db/replicator.key
-      - file: /etc/ssl/db/replicator.crt
+      - cmd: postgresql-psf-basebackup
       {% endif %}
 
 
