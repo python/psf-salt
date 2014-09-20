@@ -55,12 +55,6 @@ postgresql-psf-cluster:
       {% if data_partitions %}
       - mount: postgresql-data
       {% endif %}
-      {% if "postgresql-replica" in grains["roles"] %}
-      - cmd: postgresql-psf-basebackup
-      - file: {{ postgresql.data_dir }}/postgresql.conf
-      - file: {{ postgresql.data_dir }}/pg_hba.conf
-      - file: {{ postgresql.data_dir }}/pg_ident.conf
-      {% endif %}
 
 
 {{ postgresql.hba_file }}:
