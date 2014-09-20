@@ -109,7 +109,7 @@ postgresql-psf-cluster:
     - user: postgres
     - group: postgres
     - mode: 640
-    - requires:
+    - require:
       - cmd: postgresql-psf-cluster
 
 
@@ -120,7 +120,7 @@ postgresql-psf-cluster:
     - user: postgres
     - group: postgres
     - mode: 640
-    - requires:
+    - require:
       - cmd: postgresql-psf-cluster
 
 
@@ -132,7 +132,7 @@ postgresql-psf-cluster:
     - user: postgres
     - group: postgres
     - mode: 640
-    - requires:
+    - require:
       - cmd: postgresql-psf-cluster
 {% endif %}
 
@@ -142,5 +142,7 @@ postgresql-psf-cluster:
 replicator:
   postgres_user.present:
     - replication: True
+    - require:
+      - service: postgresql-server
 
 {% endif %}
