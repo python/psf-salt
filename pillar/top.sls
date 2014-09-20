@@ -49,6 +49,10 @@ base:
     - firewall.postgresql
     - postgresql.server
 
+  'roles:postgresql-replica':
+    - match: grain
+    - secrets.postgresql-users.replica
+
   'roles:backup-server':
     - match: grain
     - backup.server
