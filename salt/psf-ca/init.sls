@@ -1,3 +1,18 @@
+psf-ca-group:
+  group.present:
+    - name: psf-ca
+    - system: True
+
+{% for name in salt["pillar.get"]("psf-ca-server-certificate", {}) %}
+/etc/ssl/private/{{ name }}:
+  file.managed:
+    - contents_pillar: psf-ca-server-certificate:{{ name }}
+    - user: root
+    - group: psf-ca
+    - require:
+      - group: psf-ca-group
+{% endfor %}
+
 /etc/ssl/certs/psf-ca.pem:
   file.managed:
     - contents_pillar: psf-ca:ca.crt

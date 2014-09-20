@@ -69,3 +69,6 @@ base:
     - firewall.vpn
     - secrets.openvpn.vpn
     - secrets.duosec.vpn
+
+  'pg0.psf.io':
+    - secrets.psf-ca.pg0-psf-io
