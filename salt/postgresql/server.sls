@@ -1,7 +1,7 @@
 {% set postgresql = salt["pillar.get"]("postgresql") %}
 {% set data_partitions = salt["rackspace.data_partitions"]() %}
 
-{% if data_partitions|len() > 1 %}
+{% if data_partitions|length() > 1 %}
 This Does Not Support Multi Data Disk Servers!!!!
 {% endif %}
 
