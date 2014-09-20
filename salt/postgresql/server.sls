@@ -87,6 +87,11 @@ postgresql-psf-basebackup:
       - mount: postgresql-data
       {% endif %}
 
+  file.managed:
+    - name: {{ postgresql.data_dir }}/postgresql.conf
+    - require:
+      - cmd: postgresql-psf-basebackup
+
 {% endif %}
 
 
