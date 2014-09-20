@@ -13,7 +13,7 @@ SALT_MASTER = "192.168.5.1"
 
 
 @invoke.task
-def bootstrap(host, roles=None, fs="ext4", fs_options="", mount_options=None):
+def bootstrap(host, roles=None):
     # If the host does not have a . in it's address, then we'll assume it's the
     # short for of host.psf.io and add the .psf.io onto it.
     if "." not in host:
@@ -53,11 +53,6 @@ def bootstrap(host, roles=None, fs="ext4", fs_options="", mount_options=None):
             else:
                 assert False, "Cannot handle disks with no partition"
 
-        # Partition and format any data disks which are attached to this system
-        assert len(data_disks) in [0, 1], "Cannot handle multiple data disks"
-        for disk in data_disks:
-            fabric.api.run("mkfs -t {} {} {}".format(fs, disk, fs_options))
-
         # Ok, we're going to bootstrap, first we need to add the Salt PPA
         fabric.api.run("apt-add-repository -y ppa:saltstack/salt")
 
@@ -84,15 +79,7 @@ def bootstrap(host, roles=None, fs="ext4", fs_options="", mount_options=None):
             context={
                 "master": SALT_MASTER,
                 "roles": [r.strip() for r in roles.split(",") if r.strip()],
-                "data_disks": [
-                    {
-                        "mount": "/data",
-                        "device": dev,
-                        "fs": fs,
-                        "opts": mount_options,
-                    }
-                    for dev in data_disks
-                ],
+                "data_disks": data_disks,
             },
             use_jinja=True,
             mode=0o0644,
