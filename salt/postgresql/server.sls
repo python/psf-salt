@@ -37,7 +37,6 @@ postgresql-server:
   service.running:
     - name: postgresql
     - enable: True
-    - reload: True
     - watch:
       - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
