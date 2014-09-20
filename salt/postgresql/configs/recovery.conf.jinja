@@ -1,0 +1,5 @@
+{% set postgresql = salt["pillar.get"]("postgresql") %}
+
+standby_mode = on
+
+primary_conninfo = 'host={{ postgresql.primary }} port={{ postgresql.port }} user=replicator sslmode=require sslcert=/etc/ssl/db/replicator.crt sslkey=/etc/ssl/db/replicator.key'

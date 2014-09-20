@@ -40,10 +40,16 @@ postgresql-server:
     - watch:
       - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
+      {% if "postgresql-replica" in grains["roles"] %}
+      - file: {{ postgresql.recovery_file }}
+      {% endif %}
     - require:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
+      {% if "postgresql-replica" in grains["roles"] %}
+      - file: {{ postgresql.recovery_file }}
+      {% endif %}
 
 
 postgresql-psf-cluster:
@@ -126,6 +132,16 @@ postgresql-psf-basebackup:
       {% if data_partitions %}
       - mount: postgresql-data
       {% endif %}
+
+{{ postgresql.recovery_file }}:
+  file.managed:
+    - source: salt://postgresql/configs/recovery.conf.jinja
+    - template: jinja
+    - user: postgres
+    - group: postgres
+    - mode: 640
+    - requires:
+      - cmd: postgresql-psf-cluster
 
 {% endif %}
 
