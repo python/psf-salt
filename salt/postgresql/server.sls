@@ -40,6 +40,7 @@ postgresql-server:
     - watch:
       - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
+      - file: {{ postgresql.ident_file }}
       {% if "postgresql-replica" in grains["roles"] %}
       - file: {{ postgresql.recovery_file }}
       {% endif %}
@@ -47,6 +48,7 @@ postgresql-server:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
+      - file: {{ postgresql.ident_file }}
       {% if "postgresql-replica" in grains["roles"] %}
       - file: {{ postgresql.recovery_file }}
       {% endif %}
@@ -143,6 +145,18 @@ postgresql-psf-cluster:
 {{ postgresql.config_file }}:
   file.managed:
     - source: salt://postgresql/configs/postgresql.conf.jinja
+    - template: jinja
+    - user: postgres
+    - group: postgres
+    - mode: 640
+    - require:
+      - cmd: postgresql-psf-cluster
+      - file: {{ postgresql.config_dir }}
+
+
+{{ postgresql.ident_file }}:
+  file.managed:
+    - source: salt://postgresql/configs/pg_ident.conf.jinja
     - template: jinja
     - user: postgres
     - group: postgres
