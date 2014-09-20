@@ -1,4 +1,6 @@
 {% set postgresql = salt["pillar.get"]("postgresql") %}
+{% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
+{% set pypi_internal = salt["pillar.get"]("pypi_internal_network") %}
 
 
 {#
@@ -44,10 +46,7 @@ external_pid_file = '{{ postgresql.pid_file }}'
 
 # - Connection Settings -
 
-#listen_addresses = 'localhost'         # what IP address(es) to listen on;
-                                        # comma-separated list of addresses;
-                                        # defaults to 'localhost'; use '*' for all
-                                        # (change requires restart)
+listen_addresses = '{{ salt["ip_picker.ip_addrs"](cidr=psf_internal)[0] }},{{ salt["ip_picker.ip_addrs"](cidr=pypi_internal)[0] }}'
 port = {{ postgresql.port }}
 max_connections = {{ postgresql.max_connections }}
 unix_socket_directories = '/var/run/postgresql'
