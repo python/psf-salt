@@ -1,6 +1,7 @@
 base:
   '*':
     - base.auto-highstate
+    - base.salt
     - base.sanity
     - groups
     - firewall
