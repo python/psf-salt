@@ -35,6 +35,10 @@ base:
     - hg
     - ssh.host_keys
 
+  'roles:tracker':
+    - match: grain
+    - postgresql.client
+
   'roles:jython-web':
     - match: grain
     - jython
