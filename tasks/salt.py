@@ -62,7 +62,7 @@ def bootstrap(host, roles=None):
 
     # SSH into our salt master and accept the key for this server.
     with ssh_host("salt-master.psf.io"):
-        fabric.api.sudo("salt-key -a {}".format(host))
+        fabric.api.sudo("salt-key -ya {}".format(host))
 
     # Finally SSH into our server one more time to run salt-call
     # state.highstate for real this time.
