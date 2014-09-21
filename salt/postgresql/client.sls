@@ -1,3 +1,5 @@
+{% set servers = salt["mine.get"]("roles:postgresql", "minealiases.psf_internal", expr_form="grain") %}
+
 postgresql:
   pkg.installed:
     - pkgs:
@@ -27,7 +29,7 @@ postgresql:
       - pkg: postgresql
 
 
-{% for server in salt["mine.get"]("roles:postgresql", "minealiases.psf_internal", expr_form="grain") %}
+{% for server in servers %}
 /var/run/stunnel4/{{ server }}:
   file.directory:
     - user: root
@@ -46,3 +48,6 @@ stunnel4:
     - require:
       - pkg: postgresql
       - file: /etc/stunnel/stunnel.conf
+      {% for server in servers %}
+      - file: /var/run/stunnel4/{{ server }}
+      {% endfor %}
