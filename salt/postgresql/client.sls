@@ -27,13 +27,15 @@ postgresql:
       - pkg: postgresql
 
 
-/var/run/stunnel4:
+{% for server in salt["mine.get"]("roles:postgresql", "minealiases.psf_internal", expr_form="grain") %}
+/var/run/stunnel4/{{ server }}:
   file.directory:
     - user: root
     - group: root
     - mode: 750
     - require:
       - pkg: postgresql
+{% endfor %}
 
 
 stunnel4:
