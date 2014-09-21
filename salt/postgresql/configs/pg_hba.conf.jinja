@@ -10,7 +10,11 @@
 local   all             postgres                                peer
 
 # Replication
-hostssl replication     replicator      {{ psf_internal }}      cert
+{% for server, addrs in salt["mine.get"]("roles:postgresql-replica", "minealiases.psf_internal", expr_form="grain").items() %}
+{% for addr in addrs %}
+hostssl replication     replicator      {{ addr }} 255.255.255.255 cert
+{% endfor %}
+{% endfor %}
 
 # bugs.python.org
 {% for server, addrs in salt["mine.get"]("roles:tracker", "minealiases.psf_internal", expr_form="grain").items() %}
