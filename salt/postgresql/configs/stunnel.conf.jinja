@@ -8,4 +8,5 @@ accept = /var/run/stunnel/{{ server }}
 connect = {{ (addrs|sort())[0] }}:5432
 options = NO_TICKET
 retry = yes
+{% endif %}
 {% endfor %}
