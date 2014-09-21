@@ -17,7 +17,7 @@ postgresql:
       - pkg: postgresql
 
 
-/etc/default/stunnel:
+/etc/default/stunnel4:
   file.managed:
     - source: salt://postgresql/configs/stunnel-default
     - user: root
