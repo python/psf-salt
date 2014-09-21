@@ -29,6 +29,23 @@ postgresql:
       - pkg: postgresql
 
 
+{% for user in salt["pillar.get"]("postgresql-users") %}
+/etc/ssl/certs/{{ user }}.pem:
+  file.managed:
+    - contents_pillar: postgresql-users:{{ user }}:crt
+    - user: root
+    - group: ssl-cert
+    - mode: 640
+
+/etc/ssl/private/{{ user }}.key:
+  file.managed:
+    - contents_pillar: postgresql-users:{{ user }}:key
+    - user: root
+    - group: ssl-cert
+    - mode: 640
+{% endfor %}
+
+
 {% for server in servers %}
 /var/run/stunnel4/{{ server }}:
   file.directory:
