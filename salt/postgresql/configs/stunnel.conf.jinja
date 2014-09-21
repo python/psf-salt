@@ -1,0 +1,11 @@
+client = yes
+
+{% for server, addrs in (salt["mine.get"]("roles:postgresql-primary", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
+{% if addrs %}
+[{{ server }}]
+protocol = pgsql
+accept = /var/run/stunnel/{{ server }}
+connect = {{ (addrs|sort())[0] }}:5432
+options = NO_TICKET
+retry = yes
+{% endfor %}
