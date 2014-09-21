@@ -19,6 +19,6 @@ hostssl replication     replicator      {{ addr }} 255.255.255.255 cert
 # bugs.python.org
 {% for server, addrs in (salt["mine.get"]("roles:tracker", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
 {% for addr in addrs|sort() %}
-hostssl bugs-python     bugs-python     {{ addr }} 255.255.255.255 cert
+host bugs-python     bugs-python     {{ addr }} 255.255.255.255 md5
 {% endfor %}
 {% endfor %}
