@@ -3,7 +3,7 @@ postgresql:
     - pkgs:
       - postgresql-client-9.3
       - pgbouncer
-      - stunnel
+      - stunnel4
 
 
 /var/run/stunnel:
