@@ -15,6 +15,6 @@ hostssl replication     replicator      {{ psf_internal }}      cert
 # bugs.python.org
 {% for server, addrs in salt["mine.get"]("roles:tracker", "minealiases.psf_internal", expr_form="grain").items() %}
 {% for addr in addrs %}
-hostssl bugs-python     bugs-python     {{ addr }}              cert
+hostssl bugs-python     bugs-python     {{ addr }}/24           cert
 {% endfor %}
 {% endfor %}
