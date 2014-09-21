@@ -29,19 +29,19 @@ def bootstrap(host, roles=None):
         fabric.api.run("apt-add-repository -y ppa:saltstack/salt")
 
         # Then we need to update our local apt
-        fabric.api.run("apt-get update -y")
+        fabric.api.run("apt-get update -qy")
 
         # Then, upgrade all of the packages that are currently on this
         # machine.
-        fabric.api.run("apt-get upgrade -y")
-        fabric.api.run("apt-get dist-upgrade -y")
+        fabric.api.run("apt-get upgrade -qy")
+        fabric.api.run("apt-get dist-upgrade -qy")
 
         # Reboot the server to make sure any upgrades have been loaded.
         fabric.api.reboot()
 
         # Install salt-minion and python-apt so we can manage things with
         # salt.
-        fabric.api.run("apt-get install -y salt-minion python-apt")
+        fabric.api.run("apt-get install -qy salt-minion python-apt")
 
         # Drop the /etc/salt/minion.d/local.conf onto the server so that it
         # can connect with our salt master.
