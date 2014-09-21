@@ -34,15 +34,6 @@ duosec:
     - pkgs:
       - duo-unix
 
-  service.running:
-    - name: ssh
-    - enable: True
-    - reload: True
-    - watch:
-      - file: /etc/ssh/sshd_config
-    - require:
-      - file: /etc/ssh/sshd_config
-
 
 /etc/duo/pam_duo.conf:
   file.managed:
@@ -51,8 +42,12 @@ duosec:
     - user: root
     - group: root
     - mode: 600
+    - watch_in:
+      - service: ssh
     - require:
       - pkg: duosec
+    - require_in:
+      - file: /etc/ssh/sshd_config
 
 
 /etc/pam.d/sshd:
@@ -61,18 +56,10 @@ duosec:
     - user: root
     - group: root
     - mode: 600
+    - watch_in:
+      - service: ssh
     - require:
       - pkg: duosec
       - file: /etc/duo/pam_duo.conf
-
-
-/etc/ssh/sshd_config:
-  file.managed:
-    - source: salt://duosec/config/sshd_config
-    - user: root
-    - group: root
-    - mode: 644
-    - require:
-      - pkg: duosec
-      - file: /etc/duo/pam_duo.conf
-      - file: /etc/pam.d/sshd
+    - require_in:
+      - file: /etc/ssh/sshd_config
