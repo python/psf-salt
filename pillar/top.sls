@@ -29,6 +29,10 @@ base:
     - secrets.backup.hg
     - secrets.ssh.hg
 
+  'roles:tracker':
+    - match: grain
+    - secrets.postgresql-users.tracker
+
   'roles:salt-master':
     - match: grain
     - salt-master
