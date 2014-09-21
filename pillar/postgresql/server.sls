@@ -10,3 +10,9 @@ postgresql:
   primary: 192.168.5.11
   port: 5432
   max_connections: 100
+
+  users:
+    - bugs-python
+
+  databases:
+    - bugs-python
