@@ -17,6 +17,16 @@ postgresql:
       - pkg: postgresql
 
 
+/etc/default/stunnel:
+  file.managed:
+    - source: salt://postgresql/configs/stunnel-default
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: postgresql
+
+
 stunnel4:
   service.running:
     - enable: True
