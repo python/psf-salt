@@ -9,8 +9,11 @@ accept = /var/run/stunnel4/{{ server }}/{{ user }}/.s.PGSQL.5432
 connect = {{ (addrs|sort())[0] }}:5432
 options = NO_TICKET
 retry = yes
+CAfile = /etc/ssl/certs/psf-ca.pem
+CRLfile = /etc/ssl/crl/psf-crl.pem
 cert = /etc/ssl/certs/{{ user }}.pem
 key = /etc/ssl/private/{{ user }}.key
+verify = 3
 {% endfor %}
 {% endif %}
 {% endfor %}
