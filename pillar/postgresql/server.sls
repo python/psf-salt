@@ -11,8 +11,6 @@ postgresql:
   port: 5432
   max_connections: 100
 
-  users:
-    - bugs-python
-
   databases:
+    # database: owner
     bugs-python: "bugs-python"

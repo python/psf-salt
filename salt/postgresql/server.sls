@@ -201,10 +201,11 @@ replicator:
     - require:
       - service: postgresql-server
 
-{% for user in postgresql.users %}
+{% for user, password in salt["pillar.get"]("postgresql-users").items() %}
 {{ user }}-user:
   postgres_user.present:
     - name: {{ user }}
+    - password: {{ password }}
     - require:
       - service: postgresql-server
 {% endfor %}

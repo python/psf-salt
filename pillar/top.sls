@@ -54,6 +54,10 @@ base:
     - postgresql.server
     - secrets.psf-ca.pg
 
+  'roles:postgresql-primary':
+    - match: grain
+    - secrets.postgresql-users.all
+
   'roles:postgresql-replica':
     - match: grain
     - secrets.postgresql-users.replica
