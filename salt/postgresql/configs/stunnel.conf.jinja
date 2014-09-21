@@ -1,6 +1,6 @@
 client = yes
 
-{% for server, addrs in (salt["mine.get"]("roles:postgresql-primary", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
+{% for server, addrs in (salt["mine.get"]("roles:postgresql", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
 {% if addrs %}
 [{{ server }}]
 protocol = pgsql
