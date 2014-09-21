@@ -15,4 +15,4 @@ postgresql:
     - bugs-python
 
   databases:
-    - bugs-python
+    bugs-python: "bugs-python"

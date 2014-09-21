@@ -209,12 +209,14 @@ replicator:
       - service: postgresql-server
 {% endfor %}
 
-{% for database in postgresql.databases %}
+{% for database, user in postgresql.databases.items() %}
 {{ database }}-database:
   postgres_database.present:
     - name: {{ database }}
+    - owner: {{ user }}
     - require:
       - service: postgresql-server
+      - postgres_user: {{ user }}-user
 {% endfor %}
 
 {% endif %}
