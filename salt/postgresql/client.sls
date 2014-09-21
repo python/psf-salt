@@ -53,6 +53,7 @@ postgresql:
     - user: root
     - group: root
     - mode: 750
+    - makedirs: True
     - require:
       - pkg: postgresql
 {% endfor %}
@@ -68,5 +69,7 @@ stunnel4:
       - pkg: postgresql
       - file: /etc/stunnel/stunnel.conf
       {% for server in servers %}
-      - file: /var/run/stunnel4/{{ server }}
+      {% for user in salt["pillar.get"]("postgresql-users") %}
+      - file: /var/run/stunnel4/{{ server }}/{{ user }}
+      {% endfor %}
       {% endfor %}
