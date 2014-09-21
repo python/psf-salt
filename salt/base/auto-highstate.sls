@@ -1,6 +1,7 @@
 
 15m-interval-highstate:
   cron.present:
+    - identifier: 15m-interval-highstate
     - name: salt-call state.highstate >> /var/log/salt/cron-highstate.log 2>&1
     - minute: '*/15'
 
