@@ -10,15 +10,15 @@
 local   all             postgres                                peer
 
 # Replication
-{% for server, addrs in salt["mine.get"]("roles:postgresql-replica", "minealiases.psf_internal", expr_form="grain").items() %}
-{% for addr in addrs %}
+{% for server, addrs in (salt["mine.get"]("roles:postgresql-replica", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
+{% for addr in addrs|sort() %}
 hostssl replication     replicator      {{ addr }} 255.255.255.255 cert
 {% endfor %}
 {% endfor %}
 
 # bugs.python.org
-{% for server, addrs in salt["mine.get"]("roles:tracker", "minealiases.psf_internal", expr_form="grain").items() %}
-{% for addr in addrs %}
+{% for server, addrs in (salt["mine.get"]("roles:tracker", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
+{% for addr in addrs|sort() %}
 hostssl bugs-python     bugs-python     {{ addr }} 255.255.255.255 cert
 {% endfor %}
 {% endfor %}
