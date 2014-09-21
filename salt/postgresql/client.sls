@@ -47,13 +47,15 @@ postgresql:
 
 
 {% for server in servers %}
-/var/run/stunnel4/{{ server }}:
+{% for user in salt["pillar.get"]("postgresql-users") %}
+/var/run/stunnel4/{{ server }}/{{ user }}:
   file.directory:
     - user: root
     - group: root
     - mode: 750
     - require:
       - pkg: postgresql
+{% endfor %}
 {% endfor %}
 
 

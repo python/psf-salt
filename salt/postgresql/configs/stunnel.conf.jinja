@@ -2,11 +2,15 @@ client = yes
 
 {% for server, addrs in (salt["mine.get"]("roles:postgresql", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
 {% if addrs %}
-[{{ server }}]
+{% for user in salt["pillar.get"]("postgresql-users") %}
+[{{ server }}-{{ user }}]
 protocol = pgsql
-accept = /var/run/stunnel4/{{ server }}/.s.PGSQL.5432
+accept = /var/run/stunnel4/{{ server }}/{{ user }}/.s.PGSQL.5432
 connect = {{ (addrs|sort())[0] }}:5432
 options = NO_TICKET
 retry = yes
+cert = /etc/ssl/certs/{{ user }}.pem
+key = /etc/ssl/private/{{ user }}.key
+{% endfor %}
 {% endif %}
 {% endfor %}
