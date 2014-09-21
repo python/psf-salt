@@ -6,3 +6,12 @@ rackspace_iad_service_net: 10.0.0.0/8
 
 psf_internal_vpn_gateway: 192.168.5.10
 pypi_internal_vpn_gateway: 172.16.57.17
+
+
+mine_functions:
+  psf-internal:
+    mine_function: ip_picker.ip_addrs
+    cidr: 192.168.5.0/24
+  pypi-internal:
+    mine_function: ip_picker.ipaddrs
+    cidr: 172.16.57.0/24
