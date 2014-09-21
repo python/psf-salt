@@ -15,7 +15,6 @@ postgresql:
     - mode: 640
     - require:
       - pkg: postgresql
-      - file: /var/run/stunnel4
 
 
 stunnel4:
