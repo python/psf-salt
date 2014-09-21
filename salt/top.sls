@@ -64,3 +64,7 @@ base:
     - match: grain
     - duosec
     - openvpn.server
+
+  'roles:monitoring':
+    - match: grain
+    - monitoring.server
