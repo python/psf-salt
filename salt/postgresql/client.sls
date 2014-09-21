@@ -27,6 +27,15 @@ postgresql:
       - pkg: postgresql
 
 
+/var/run/stunnel4:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 750
+    - require:
+      - pkg: postgresql
+
+
 stunnel4:
   service.running:
     - enable: True
