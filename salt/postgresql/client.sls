@@ -6,15 +6,6 @@ postgresql:
       - stunnel4
 
 
-/var/run/stunnel:
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 750
-    - require:
-      - pkg: postgresql
-
-
 /etc/stunnel/stunnel.conf:
   file.managed:
     - source: salt://postgresql/configs/stunnel.conf.jinja
@@ -25,3 +16,12 @@ postgresql:
     - require:
       - pkg: postgresql
       - file: /var/run/stunnel
+
+
+stunnel4:
+  service.running:
+    - enable: True
+    - watch:
+      - file: /etc/stunnel/stunnel.conf
+    - require:
+      - file: /etc/stunnel/stunnel.conf

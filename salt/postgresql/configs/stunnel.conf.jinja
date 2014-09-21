@@ -4,7 +4,7 @@ client = yes
 {% if addrs %}
 [{{ server }}]
 protocol = pgsql
-accept = /var/run/stunnel/{{ server }}
+accept = /var/run/stunnel4/{{ server }}
 connect = {{ (addrs|sort())[0] }}:5432
 options = NO_TICKET
 retry = yes
