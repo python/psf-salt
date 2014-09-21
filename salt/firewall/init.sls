@@ -8,8 +8,20 @@
     - require:
       - pkg: iptables-persistent
 
+
+/etc/iptables/rules.v6:
+  file.managed:
+    - source: salt://firewall/config/ip6tables.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 600
+    - reuqire:
+      - pkg: iptables-persistent
+
 iptables-persistent:
   pkg.installed: []
   service.enabled:
     - watch:
       - file: /etc/iptables/rules.v4
+      - file: /etc/iptables/rules.v6
