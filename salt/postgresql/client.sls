@@ -23,4 +23,5 @@ stunnel4:
     - watch:
       - file: /etc/stunnel/stunnel.conf
     - require:
+      - pkg: postgresql
       - file: /etc/stunnel/stunnel.conf
