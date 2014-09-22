@@ -8,6 +8,6 @@
 salt-minion:
   service.running:
     - enable: True
-    - reload: True
+    - restart: True
     - watch:
       - file: /etc/salt/minion.d/mine.conf
