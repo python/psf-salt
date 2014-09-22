@@ -13,18 +13,18 @@
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
 {% for rule, config in rules.iteritems() -%}
 {% if not config.get("raw") and not config.get("raw_v6") -%}
-    {% set port = config.get('port', 22) -%}
-    {% set proto = config.get('protocol', 'tcp') -%}
-    {% set source = config.get('source') -%}
-    {% if not source or (source and salt["ip_picker.ip_family"](source) == "ipv4") -%}
+{% set port = config.get('port', 22) -%}
+{% set proto = config.get('protocol', 'tcp') -%}
+{% set source = config.get('source') -%}
+{% if not source or (source and salt["ip_picker.ip_family"](source) == "ipv4") -%}
 # {{ rule }}
 -A INPUT -m state --state NEW -m {{ proto }} -p {{ proto }} -s {{ source|default('0.0.0.0/0', true) }} --dport {{ port }} -j ACCEPT
-    {% endif -%}
+{% endif -%}
 {% elif config.get("raw") -%}
 # {{ rule }}
 {{ config.raw }}
 {% endif -%}
 {% endfor -%}
--A INPUT -j REJECT --reject-with icmp-host-prohibited
--A FORWARD -j REJECT --reject-with icmp-host-prohibited
+-A INPUT -j REJECT --reject-with icmp6-adm-prohibited
+-A FORWARD -j REJECT --reject-with icmp6-adm-prohibited
 COMMIT
