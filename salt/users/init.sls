@@ -1,3 +1,18 @@
+include:
+  - .dotfiles
+{% for user_name, user_config in pillar["users"].iteritems() %}
+{% set admin = user_config.get("admin", false) %}
+{% set access = {} %}
+{% for pat, data in user_config.get("access", {}).iteritems() if salt["match.grain"](pat) %}
+  {% do access.update(data) %}
+{% endfor %}
+
+{% if access.get("allowed", false) or admin %}
+{% if user_config.get("dotfiles") %}
+  - .dotfiles.{{ user_name }}
+{% endif %}
+{% endif %}
+
 /home/psf-users:
   file.directory:
     - mode: 755
