@@ -19,9 +19,18 @@
     - reuqire:
       - pkg: iptables-persistent
 
+
 iptables-persistent:
-  pkg.installed: []
+  pkg.installed
+
   service.enabled:
+    - require:
+      - file: /etc/iptables/rules.v4
+      - file: /etc/iptables/rules.v6
+
+  module.watch:
+    - name: service.restart
+    - m_name: iptables-persistent
     - watch:
       - file: /etc/iptables/rules.v4
       - file: /etc/iptables/rules.v6
