@@ -12,6 +12,7 @@ include:
   - .dotfiles.{{ user_name }}
 {% endif %}
 {% endif %}
+{% endfor %}
 
 /home/psf-users:
   file.directory:
