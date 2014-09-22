@@ -21,7 +21,7 @@
 
 
 iptables-persistent:
-  pkg.installed
+  pkg.installed: []
 
   service.enabled:
     - require:
