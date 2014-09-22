@@ -11,7 +11,7 @@ unattended-upgrades:
 
 /etc/apt/apt.conf.d/10periodic:
   file.managed:
-    - source: salt://auto-security/config/10periodic
+    - source: salt://unattended-upgrades/config/10periodic
     - user: root
     - group: root
     - mode: 644
@@ -19,7 +19,7 @@ unattended-upgrades:
 
 /etc/apt/apt.conf.d/50unattended-upgrades:
   file.managed:
-    - source: salt://auto-security/config/50unattended-upgrades
+    - source: salt://unattended-upgrades/config/50unattended-upgrades
     - user: root
     - group: root
     - mode: 644

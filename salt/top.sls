@@ -10,7 +10,7 @@ base:
     - firewall
     - sudoers
     - backup.client
-    - auto-security
+    - unattended-upgrades
     - psf-ca
 
   '* and not G@roles:vpn':
