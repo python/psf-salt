@@ -19,7 +19,7 @@
     {% if not source or (source and salt["ip_picker.ip_family"](source) == "ipv4") -%}
 # {{ rule }}
 -A INPUT -m state --state NEW -m {{ proto }} -p {{ proto }} -s {{ source|default('0.0.0.0/0', true) }} --dport {{ port }} -j ACCEPT
-    {% endif %}
+    {% endif -%}
 {% elif config.get("raw") -%}
 # {{ rule }}
 {{ config.raw }}
