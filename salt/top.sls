@@ -3,13 +3,14 @@ base:
     - base.auto-highstate
     - base.salt
     - base.sanity
+    - base.mail
     - groups
     - users
     - ssh
     - firewall
     - sudoers
     - backup.client
-    - auto-security
+    - unattended-upgrades
     - psf-ca
 
   '* and not G@roles:vpn':
