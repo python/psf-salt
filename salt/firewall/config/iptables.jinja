@@ -28,11 +28,12 @@
 {% elif config.get("raw") -%}
 # {{ rule }}
 {{ config.raw }}
-{% endif -%}
+{% endif %}
 
 {% endfor -%}
 
 # Rejections
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
+
 COMMIT
