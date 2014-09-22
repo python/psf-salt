@@ -3,6 +3,7 @@ base:
     - base.auto-highstate
     - base.salt
     - base.sanity
+    - base.mail
     - groups
     - users
     - ssh

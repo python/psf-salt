@@ -5,6 +5,7 @@ base:
     - users
     - sudoers
     - psf-ca
+    - secrets.system-mail
 
   'roles:cdn-logs':
     - match: grain
