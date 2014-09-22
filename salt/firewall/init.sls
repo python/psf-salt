@@ -21,7 +21,9 @@
 
 iptables-persistent:
   pkg.installed: []
-  service.enabled:
+  service.running:
+    - enable: True
+    - restart: True
     - watch:
       - file: /etc/iptables/rules.v4
       - file: /etc/iptables/rules.v6
