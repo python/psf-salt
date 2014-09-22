@@ -76,5 +76,6 @@ base:
     - match: grain
     - openvpn
     - firewall.vpn
+    - ssh.duosec
     - secrets.openvpn.vpn
     - secrets.duosec.vpn

@@ -4,8 +4,9 @@ base:
     - base.salt
     - base.sanity
     - groups
-    - firewall
     - users
+    - ssh
+    - firewall
     - sudoers
     - backup.client
     - auto-security
@@ -34,7 +35,6 @@ base:
   'roles:hg':
     - match: grain
     - hg
-    - ssh.host_keys
 
   'roles:tracker':
     - match: grain

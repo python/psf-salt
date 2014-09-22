@@ -49,7 +49,7 @@ PermitEmptyPasswords no
 
 # Change to yes to enable challenge-response passwords (beware issues with
 # some PAM modules and threads)
-ChallengeResponseAuthentication yes
+ChallengeResponseAuthentication no
 
 # Change to no to disable tunnelled clear text passwords
 PasswordAuthentication no
@@ -90,6 +90,3 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 # PAM authentication, then enable this but set PasswordAuthentication
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
-
-# Require Two Forms of authentication
-AuthenticationMethods publickey,keyboard-interactive:pam
