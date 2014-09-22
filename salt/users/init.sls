@@ -12,6 +12,14 @@
 {% if access.get("allowed", false) or admin %}
 {% set sudoer = admin or access.get("sudo", false) %}
 {{ user_name }}-user:
+{% if user_config.get("packages") %}
+  pkg.installed:
+    - pkgs:
+{% for pkg in user_config["packages"] %}
+      - {{ pkg }}
+{% endfor %}
+{% endif %}
+
   user.present:
     - name: {{ user_name }}
     - fullname: {{ user_config["fullname"] }}
@@ -28,6 +36,9 @@
 {% for group in groups %}
       - group: {{ group }}
 {% endfor %}
+{% if user_config.get("packages") %}
+      - pkg: {{ user_name }}-user
+{% endif %}
 
 {{ user_name }}-ssh_dir:
   file.directory:
