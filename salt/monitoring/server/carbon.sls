@@ -22,7 +22,7 @@ carbon-data:
 {% endfor %}
 
   file.directory:
-    - name: /srv/carbon/data
+    - name: /srv/carbon/whisper
     - user: root
     - group: root
     - mode: 777
