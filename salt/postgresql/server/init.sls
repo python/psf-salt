@@ -124,14 +124,14 @@ postgresql-psf-cluster:
 
 
 # Make sure that our log directory is writeable
-/var/log/postgres:
+/var/log/postgresql:
   file.directory:
     - user: postgres
     - group: postgres
     - mode: 755
 
 # Make sure that our log file is writeable
-/var/log/postgres/postgresql-9.3-psf.log:
+/var/log/postgresql/postgresql-9.3-psf.log:
   file.managed:
     - user: postgres
     - group: postgres
