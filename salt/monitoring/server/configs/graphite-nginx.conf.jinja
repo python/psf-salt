@@ -1,0 +1,27 @@
+upstream app_server {
+    server unix:/var/run/gunicorn/graphite.sock fail_timeout=0;
+}
+
+server {
+    listen 80 default;
+    client_max_body_size 4G;
+    server_name _;
+
+    keepalive_timeout 5;
+
+    # path for static files
+    root /usr/share/graphite-web;
+
+    location / {
+        # checks for static file, if not found proxy to app
+        try_files $uri @proxy_to_app;
+    }
+
+    location @proxy_to_app {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+
+        proxy_pass   http://app_server;
+    }
+}
