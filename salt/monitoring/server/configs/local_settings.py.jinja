@@ -84,9 +84,9 @@ CONTENT_DIR = '/usr/share/graphite-web/static'
 # Data directories
 # NOTE: If any directory is unreadable in DATA_DIRS it will break metric
 # browsing
-WHISPER_DIR = '/var/lib/graphite/whisper'
-# RRD_DIR = '/opt/graphite/storage/rrd'
-# DATA_DIRS = [WHISPER_DIR, RRD_DIR] # Default: set from the above variables
+WHISPER_DIR = '/srv/carbon/whisper/'
+RRD_DIR = '/srv/carbon/whisper/rrd/'
+DATA_DIRS = [WHISPER_DIR, RRD_DIR]
 LOG_DIR = '/var/log/graphite'
 INDEX_FILE = '/var/lib/graphite/search_index'  # Search index file
 
