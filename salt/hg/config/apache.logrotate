@@ -1,7 +1,7 @@
 /var/log/apache2/*.log {
     daily
     rotate 30
-    missingonk
+    missingok
     notifempty
     create 640 root adm
     compress

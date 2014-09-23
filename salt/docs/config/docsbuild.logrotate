@@ -1,7 +1,7 @@
 /var/log/docsbuild/*.log {
     weekly
     rotate 5
-    missingonk
+    missingok
     notifempty
     nocompress
     create 644 docsbuild docsbuild
