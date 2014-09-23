@@ -102,3 +102,21 @@ wal-e-gpg-key:
     - user: postgres
     - watch:
       - file: /var/lib/postgresql/wal-e.gpg
+
+
+wal-e-initial-backup:
+  cmd.run:
+    - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d backup-push && touch /var/lib/postgresql/wal-e.initial'
+    - user: postgres
+    - unless: ls /var/lib/postgresql/wal-e.initial
+    - require:
+      - service: postgresql-server
+      - pkg: wal-e
+      - cmd: wal-e-gpg-key
+      - file: {{ postgresql.config_dir }}/conf.d
+      - file: /etc/wal-e.d/WALE_SWIFT_PREFIX
+      - file: /etc/wal-e.d/SWIFT_AUTHURL
+      - file: /etc/wal-e.d/SWIFT_REGION
+      - file: /etc/wal-e.d/SWIFT_USER
+      - file: /etc/wal-e.d/SWIFT_PASSWORD
+      - file: /etc/wal-e.d/WALE_GPG_KEY_ID
