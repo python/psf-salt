@@ -74,3 +74,30 @@ wal-e:
     - mode: 640
     - require:
       - file: /etc/wal-e.d
+
+
+/etc/wal-e.d/WALE_GPG_KEY_ID:
+  file.managed:
+    - contents_pillar: wal-e:gpg-key-id
+    - user: root
+    - group: postgres
+    - mode: 640
+    - require:
+      - file: /etc/wal-e.d
+
+
+/var/lib/postgresql/wal-e.gpg:
+  file.managed:
+    - contents_pillar: wal-e:gpg-key
+    - user: root
+    - group: postgres
+    - mode: 644
+    - require:
+      - pkg: postgresql-server
+
+
+wal-e-gpg-key:
+  cmd.wait:
+    - name: gpg --import /var/lib/postgresql/wal-e.gpg
+    - watch:
+      - file: /var/lib/postgresql/wal-e.gpg
