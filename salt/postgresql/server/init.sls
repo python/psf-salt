@@ -5,8 +5,10 @@
 This Does Not Support Multi Data Disk Servers!!!!
 {% endif %}
 
+{% if "postgresql-primary" in grains["roles"] %}
 include:
   - .wal-e
+{% endif %}
 
 {% for partition in data_partitions %}
 postgresql-data:
