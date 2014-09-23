@@ -99,5 +99,6 @@ wal-e:
 wal-e-gpg-key:
   cmd.wait:
     - name: gpg --import /var/lib/postgresql/wal-e.gpg
+    - user: postgres
     - watch:
       - file: /var/lib/postgresql/wal-e.gpg
