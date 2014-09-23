@@ -136,7 +136,8 @@ wal-e-initial-backup:
 
 {{ postgresql.config_dir }}/conf.d/wal-e.conf:
   file.managed:
-    - source: salt://postgresql/server/configs/wal-e.conf
+    - source: salt://postgresql/server/configs/wal-e.conf.jinja
+    - template: jinja
     - user: postgres
     - group: postgres
     - mode: 640
