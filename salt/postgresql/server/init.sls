@@ -143,6 +143,16 @@ postgresql-psf-cluster:
       - cmd: postgresql-psf-cluster
 
 
+{{ postgresql.config_dir }}/conf.d:
+  file.directory:
+    - user: postgres
+    - group: postgres
+    - mode: 755
+    - makedirs: True
+    - require:
+      - file: {{ postgresql.config_dir }}
+
+
 {{ postgresql.hba_file }}:
   file.managed:
     - source: salt://postgresql/server/configs/pg_hba.conf.jinja
