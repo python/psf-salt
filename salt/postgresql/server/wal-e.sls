@@ -153,3 +153,13 @@ wal-e-initial-backup:
       - file: /var/lib/postgresql/.gnupg/gpg.conf
     - watch_in:
       - service: postgresql-server
+
+
+weekly-interval-wal-e-backup:
+  cron.present:
+    - identifier: weekly-interval-wal-e-backup
+    - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d wal-e backup-push {{ postgresql.data_dir }}' >> /var/log/postgres/cron-backup.log 2>&1
+    - user: postgres
+    - minute: '0'
+    - hour: '0'
+    - dayweek: '0'
