@@ -104,6 +104,17 @@ wal-e-gpg-key:
       - file: /var/lib/postgresql/wal-e.gpg
 
 
+/var/lib/postgresql/.gnugpg/gpg.conf:
+  file.managed:
+    - source: salt://postgresql/server/configs/gpg.conf.jinja
+    - template: jinja
+    - user: postgres
+    - group: postgres
+    - mode: 600
+    - require:
+      - cmd: wal-e-gpg-key
+
+
 wal-e-initial-backup:
   cmd.run:
     - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d wal-e backup-push {{ postgresql.data_dir }} && touch /var/lib/postgresql/wal-e.initial'
