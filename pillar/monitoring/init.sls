@@ -3,7 +3,7 @@ diamond:
     ConnTrack:
       enabled: True
       dir: /proc/sys/net/netfilter
-      files: "nf_conntrack_count,nf_conntrack_max"
+      files: '"nf_conntrack_count,nf_conntrack_max"'
     CPU:
       enabled: True
     DiskSpace:
