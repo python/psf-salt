@@ -54,6 +54,7 @@ base:
   'roles:postgresql':
     - match: grain
     - firewall.postgresql
+    - monitoring.postgresql
     - postgresql.server
     - secrets.wal-e
     - secrets.psf-ca.pg
