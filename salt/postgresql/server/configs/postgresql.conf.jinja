@@ -46,7 +46,7 @@ external_pid_file = '{{ postgresql.pid_file }}'
 
 # - Connection Settings -
 
-listen_addresses = '{{ salt["ip_picker.ip_addrs"](cidr=psf_internal)[0] }},{{ salt["ip_picker.ip_addrs"](cidr=pypi_internal)[0] }}'
+listen_addresses = 'localhost,{{ salt["ip_picker.ip_addrs"](cidr=psf_internal)[0] }},{{ salt["ip_picker.ip_addrs"](cidr=pypi_internal)[0] }}'
 port = {{ postgresql.port }}
 max_connections = {{ postgresql.max_connections }}
 unix_socket_directories = '/var/run/postgresql'
