@@ -216,7 +216,7 @@ replicator:
     - require:
       - service: postgresql-server
 
-diamond:
+diamond-postgres-user:
   postgres_user.present:
     - superuser: True
     - require:
