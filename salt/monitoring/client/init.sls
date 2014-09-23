@@ -32,6 +32,7 @@ diamond:
     - require:
       - pkg: diamond
       - user: diamond
+      - file: /var/log/diamond
 
 
 /etc/diamond/diamond.conf:
@@ -41,6 +42,15 @@ diamond:
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - pkg: diamond
+
+
+/var/log/diamond:
+  file.directory:
+    - user: root
+    - group: diamond
+    - mode: 770
     - require:
       - pkg: diamond
 
