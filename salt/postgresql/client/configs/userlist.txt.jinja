@@ -1,4 +1,6 @@
-{% set databases = salt["pillar.get"]("pgbouncer") -%}
+{% set pgbouncer = salt["pillar.get"]("pgbouncer") -%}
 {% for database in pgbouncer.databases -%}
+{# We do this here, because otherwise on the set operation we get a dict back -#}
+{% set ignored = salt["grains.get_or_set_hash"]("postgresql:" + database, length=50) -%}
 "{{ database }}" "{{ salt["grains.get_or_set_hash"]("postgresql:" + database, length=50) }}"
 {% endfor -%}

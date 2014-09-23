@@ -10,6 +10,7 @@ pgbouncer:
     - watch:
       - file: /etc/pgbouncer/pgbouncer.ini
       - file: /etc/pgbouncer/userlist.txt
+      - file: /etc/default/pgbouncer
     - require:
       - pkg: pgbouncer
 
@@ -32,5 +33,15 @@ pgbouncer:
     - user: postgres
     - group: postgres
     - mode: 640
+    - require:
+      - pkg: pgbouncer
+
+
+/etc/default/pgbouncer:
+  file.managed:
+    - source: salt://postgresql/client/configs/pgbouncer-default
+    - user: root
+    - group: root
+    - mode: 644
     - require:
       - pkg: pgbouncer
