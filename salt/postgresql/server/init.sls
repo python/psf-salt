@@ -5,6 +5,9 @@
 This Does Not Support Multi Data Disk Servers!!!!
 {% endif %}
 
+include:
+  - .wal-e
+
 {% for partition in data_partitions %}
 postgresql-data:
   blockdev.formatted:
