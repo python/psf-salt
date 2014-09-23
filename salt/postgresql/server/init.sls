@@ -216,6 +216,12 @@ replicator:
     - require:
       - service: postgresql-server
 
+diamond:
+  postgres_user.present:
+    - superuser: True
+    - require:
+      - serivce: postgresql-server
+
 {% for user, password in salt["pillar.get"]("postgresql-users").items() %}
 {{ user }}-user:
   postgres_user.present:
