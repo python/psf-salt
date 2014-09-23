@@ -1,9 +1,9 @@
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
 
 [cache]
-STORAGE_DIR    = /var/lib/carbon/
-LOCAL_DATA_DIR = /var/lib/carbon/whisper/
-WHITELISTS_DIR = /var/lib/carbon/lists/
+STORAGE_DIR    = /srv/carbon/
+LOCAL_DATA_DIR = /srv/carbon/whisper/
+WHITELISTS_DIR = /srv/carbon/lists/
 CONF_DIR       = /etc/carbon/
 LOG_DIR        = /var/log/carbon/
 PID_DIR        = /var/run/
