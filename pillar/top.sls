@@ -84,7 +84,7 @@ base:
 
   'roles:monitoring':
     - match: grain
-    - firewall.http
+    - firewall.monitoring
     - pgbouncer.monitoring
     - secrets.postgresql-users.monitoring
     - secrets.monitoring.server
