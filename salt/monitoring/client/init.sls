@@ -26,6 +26,8 @@ diamond:
     - enable: True
     - watch:
       - file: /etc/diamond/diamond.conf
+      - file: /etc/diamond/handlers/ArchiveHandler.conf
+      - file: /etc/diamond/handlers/GraphiteHandler.conf
 {% for collector in pillar.get("diamind:collectors", {}) %}
       - file: /etc/diamond/collectors/{{ collector }}Collector.conf
 {% endfor %}
@@ -51,6 +53,27 @@ diamond:
     - user: root
     - group: diamond
     - mode: 770
+    - require:
+      - pkg: diamond
+
+
+/etc/diamond/handlers/ArchiveHandler.conf:
+  file.managed:
+    - source: salt://monitoring/client/configs/ArchiveHandler.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: diamond
+
+
+/etc/diamond/handlers/GraphiteHandler.conf:
+  file.managed:
+    - source: salt://monitoring/client/configs/GraphiteHandler.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
     - require:
       - pkg: diamond
 

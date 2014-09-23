@@ -1,5 +1,3 @@
-{% set server = (salt["mine.get"]("roles:monitoring", "minealiases.psf_internal", expr_form="grain").values())|sort|first|first %}
-
 ################################################################################
 # Diamond Configuration File
 ################################################################################
@@ -42,33 +40,6 @@ collectors_reload_interval = 3600
 
 # daemon logging handler(s)
 keys = rotated_file
-
-### Defaults options for all Handlers
-[[default]]
-
-[[ArchiveHandler]]
-
-# File to write archive log files
-log_file = /var/log/diamond/archive.log
-
-# Number of days to keep archive log files
-days = 7
-
-[[GraphiteHandler]]
-### Options for GraphiteHandler
-
-# Graphite server host
-host = {{ server }}
-
-# Port to send metrics to
-port = 2003
-
-# Socket timeout (seconds)
-timeout = 15
-
-# Batch size for metrics
-batch = 1
-
 
 ################################################################################
 ### Options for collectors
