@@ -28,7 +28,6 @@ wal-e:
 
 /etc/wal-e.d/WALE_SWIFT_PREFIX:
   file.managed:
-    - contents_pillar: wal-e:swift-prefix
     - contents: "{{ pillar['wal-e']['swift-prefix'] }}/{{ grains['fqdn'] }}"
     - user: root
     - group: postgres
