@@ -28,7 +28,7 @@ diamond:
       - file: /etc/diamond/diamond.conf
       - file: /etc/diamond/handlers/ArchiveHandler.conf
       - file: /etc/diamond/handlers/GraphiteHandler.conf
-{% for collector in pillar.get("diamond:collectors", {}) %}
+{% for collector in salt["pillar.get"]("diamond:collectors", {}) %}
       - file: /etc/diamond/collectors/{{ collector }}Collector.conf
 {% endfor %}
     - require:
@@ -78,7 +78,7 @@ diamond:
       - pkg: diamond
 
 
-{% for collector, config in pillar.get("diamond:collectors", {}).items() %}
+{% for collector, config in salt["pillar.get"]("diamond:collectors", {}).items() %}
 /etc/diamond/collectors/{{ collector }}Collector.conf:
   file.managed:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
