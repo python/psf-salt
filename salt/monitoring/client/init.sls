@@ -84,7 +84,7 @@ diamond:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector: config
+      collector: {{ config }}
     - user: root
     - group: root
     - mode: 644
