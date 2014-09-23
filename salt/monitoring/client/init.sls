@@ -22,6 +22,14 @@ diamond:
     - require:
       - group: diamond
 
+  service.running:
+    - enable: True
+    - watch:
+      - file: /etc/diamond/diamond.conf
+    - require:
+      - pkg: diamond
+      - user: diamond
+
 
 /etc/diamond/diamond.conf:
   file.managed:
@@ -32,5 +40,3 @@ diamond:
     - mode: 644
     - require:
       - pkg: diamond
-
-
