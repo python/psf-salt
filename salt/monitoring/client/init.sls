@@ -26,6 +26,9 @@ diamond:
     - enable: True
     - watch:
       - file: /etc/diamond/diamond.conf
+{% for collector in pillar.get("diamind:collectors", {}) %}
+      - file: /etc/diamond/collectors/{{ collector }}Collector.conf
+{% endfor %}
     - require:
       - pkg: diamond
       - user: diamond
@@ -40,3 +43,16 @@ diamond:
     - mode: 644
     - require:
       - pkg: diamond
+
+
+{% for collector, config in pillar.get("diamind:collectors", {}).items() %}
+/etc/diamond/collectors/{{ collector }}Collector.conf:
+  file.managed:
+    - source: salt://monitoring/client/configs/Collector.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: diamond
+{% endfor %}

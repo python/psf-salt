@@ -4,6 +4,7 @@ base:
     - networking
     - users
     - sudoers
+    - monitoring
     - psf-ca
     - secrets.system-mail
 
