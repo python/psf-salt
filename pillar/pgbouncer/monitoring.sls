@@ -1,6 +1,6 @@
 pgbouncer:
   pool_mode: transaction
   databases:
-    bugs:
+    monitoring:
       dbname: monitoring
       user: monitoring
