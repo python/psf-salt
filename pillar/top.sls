@@ -32,6 +32,7 @@ base:
 
   'roles:tracker':
     - match: grain
+    - pgbouncer.tracker
     - secrets.postgresql-users.tracker
 
   'roles:salt-master':
