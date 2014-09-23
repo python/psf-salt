@@ -131,3 +131,24 @@ wal-e-initial-backup:
       - file: /etc/wal-e.d/SWIFT_USER
       - file: /etc/wal-e.d/SWIFT_PASSWORD
       - file: /etc/wal-e.d/WALE_GPG_KEY_ID
+      - file: /var/lib/postgresql/.gnupg/gpg.conf
+
+
+{{ postgresql.config_dir }}/conf.d/wal-e.conf:
+  file.managed:
+    - source: salt://postgresql/server/configs/wal-e.conf
+    - user: postgres
+    - group: postgres
+    - mode: 640
+    - require:
+      - pkg: wal-e
+      - file: {{ postgresql.config_dir }}/conf.d
+      - file: /etc/wal-e.d/WALE_SWIFT_PREFIX
+      - file: /etc/wal-e.d/SWIFT_AUTHURL
+      - file: /etc/wal-e.d/SWIFT_REGION
+      - file: /etc/wal-e.d/SWIFT_USER
+      - file: /etc/wal-e.d/SWIFT_PASSWORD
+      - file: /etc/wal-e.d/WALE_GPG_KEY_ID
+      - file: /var/lib/postgresql/.gnupg/gpg.conf
+    - watch_in:
+      - service: postgresql-server
