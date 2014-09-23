@@ -14,7 +14,7 @@ wal-e-dependencies:
 wal-e:
   pkg.installed:
     - sources:
-      - wal-e: salt://postgresql/server/packages/python-wal-e_0.7.2_all.deb
+      - python-wal-e: salt://postgresql/server/packages/python-wal-e_0.7.2_all.deb
     - require:
       - pkg: wal-e-dependencies
 
