@@ -56,16 +56,6 @@ wal-e:
       - file: /etc/wal-e.d
 
 
-/etc/wal-e.d/SWIFT_TENANT:
-  file.managed:
-    - contents_pillar: wal-e:swift-tenant
-    - user: root
-    - group: postgres
-    - mode: 640
-    - require:
-      - file: /etc/wal-e.d
-
-
 /etc/wal-e.d/SWIFT_USER:
   file.managed:
     - contents_pillar: wal-e:swift-user
