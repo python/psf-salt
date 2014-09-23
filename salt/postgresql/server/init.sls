@@ -220,7 +220,7 @@ diamond-postgres-user:
   postgres_user.present:
     - superuser: True
     - require:
-      - serivce: postgresql-server
+      - service: postgresql-server
 
 {% for user, password in salt["pillar.get"]("postgresql-users").items() %}
 {{ user }}-user:
