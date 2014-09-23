@@ -10,6 +10,7 @@ base:
     - firewall
     - sudoers
     - backup.client
+    - monitoring.client
     - unattended-upgrades
     - psf-ca
 
