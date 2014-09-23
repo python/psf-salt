@@ -14,3 +14,4 @@ postgresql:
   databases:
     # database: owner
     bugs-python: "bugs-python"
+    monitoring: monitoring

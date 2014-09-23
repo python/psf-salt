@@ -82,3 +82,10 @@ base:
     - ssh.duosec
     - secrets.openvpn.vpn
     - secrets.duosec.vpn
+
+  'roles:monitoring':
+    - match: grain
+    - firewall.monitoring
+    - pgbouncer.monitoring
+    - secrets.postgresql-users.monitoring
+    - secrets.monitoring.server
