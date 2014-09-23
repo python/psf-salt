@@ -1,6 +1,6 @@
 {% set graphite = salt["pillar.get"]("graphite-web") %}
 {# We do this here, because otherwise on the set operation we get a dict back #}
-{% set ignored = salt["grains.get_or_set_hash"]("postgresql:" + database, length=50) %}
+{% set ignored = salt["grains.get_or_set_hash"]("postgresql:monitoring", length=50) %}
 
 # Graphite local_settings.py
 # Edit this file to customize the default Graphite webapp settings
