@@ -104,7 +104,7 @@ wal-e-gpg-key:
       - file: /var/lib/postgresql/wal-e.gpg
 
 
-/var/lib/postgresql/.gnugpg/gpg.conf:
+/var/lib/postgresql/.gnupg/gpg.conf:
   file.managed:
     - source: salt://postgresql/server/configs/gpg.conf.jinja
     - template: jinja
