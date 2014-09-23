@@ -1,5 +1,6 @@
 include:
   - nginx
+  - postgresql.client
 
 
 graphite:
