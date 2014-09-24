@@ -1,10 +1,5 @@
 {% set partition = salt["rackspace.data_partitions"]("xvdb")|first %}
 
-{% if data_partitions|length() > 1 %}
-This Does Not Support Multi Data Disk Servers!!!!
-{% endif %}
-
-
 carbon-data:
   blockdev.formatted:
     - name: /dev/{{ partition.partition }}
