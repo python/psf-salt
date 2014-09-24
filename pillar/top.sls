@@ -4,7 +4,6 @@ base:
     - networking
     - users
     - sudoers
-    - monitoring
     - psf-ca
     - secrets.system-mail
 
@@ -54,10 +53,7 @@ base:
   'roles:postgresql':
     - match: grain
     - firewall.postgresql
-    - monitoring.postgresql
     - postgresql.server
-    - monitoring.postgresql
-    - secrets.monitoring.postgresql
     - secrets.wal-e
     - secrets.psf-ca.pg
 
