@@ -2,59 +2,59 @@
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
 
 global
-        log /dev/log    local0
-        log /dev/log    local1 notice
+    log /dev/log    local0
+    log /dev/log    local1 notice
 
-        chroot /var/lib/haproxy
+    chroot /var/lib/haproxy
 
-        stats socket /run/haproxy/admin.sock mode 660 level admin
-        stats timeout 30s
+    stats socket /run/haproxy/admin.sock mode 660 level admin
+    stats timeout 30s
 
-        user haproxy
-        group haproxy
+    user haproxy
+    group haproxy
 
-        daemon
+    daemon
 
-        maxconn 4096
+    maxconn 4096
 
-        ca-base /etc/ssl/certs
-        crt-base /etc/ssl/private
+    ca-base /etc/ssl/certs
+    crt-base /etc/ssl/private
 
-        ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS
-        ssl-server-verify required
+    ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS
+    ssl-server-verify required
 
-        tune.ssl.default-dh-param 2048
+    tune.ssl.default-dh-param 2048
 
 defaults
-        log     global
+    log     global
 
-        mode    http
+    mode    http
 
-        retries 3
+    retries 3
 
-        option  dontlognull
-        option  httpchk
-        option  httplog
-        option  http-server-close
-        option  forwardfor
-        option  splice-auto
-        option  redispatch
+    option  dontlognull
+    option  httpchk
+    option  httplog
+    option  http-server-close
+    option  forwardfor
+    option  splice-auto
+    option  redispatch
 
-        balance roundrobin
+    balance roundrobin
 
-        timeout connect 5000
-        timeout client  50000
-        timeout server  50000
+    timeout connect 5000
+    timeout client  50000
+    timeout server  50000
 
-        monitor-uri /_haproxy_status
+    monitor-uri /_haproxy_status
 
-        errorfile 400 /etc/haproxy/errors/400.http
-        errorfile 403 /etc/haproxy/errors/403.http
-        errorfile 408 /etc/haproxy/errors/408.http
-        errorfile 500 /etc/haproxy/errors/500.http
-        errorfile 502 /etc/haproxy/errors/502.http
-        errorfile 503 /etc/haproxy/errors/503.http
-        errorfile 504 /etc/haproxy/errors/504.http
+    errorfile 400 /etc/haproxy/errors/400.http
+    errorfile 403 /etc/haproxy/errors/403.http
+    errorfile 408 /etc/haproxy/errors/408.http
+    errorfile 500 /etc/haproxy/errors/500.http
+    errorfile 502 /etc/haproxy/errors/502.http
+    errorfile 503 /etc/haproxy/errors/503.http
+    errorfile 504 /etc/haproxy/errors/504.http
 
 
 frontend main
