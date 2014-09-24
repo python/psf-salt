@@ -42,7 +42,7 @@ diamond:
     - source: salt://monitoring/client/configs/diamond.conf.jinja
     - template: jinja
     - user: root
-    - group: root
+    - group: diamond
     - mode: 640
     - require:
       - pkg: diamond
@@ -61,7 +61,7 @@ diamond:
   file.managed:
     - source: salt://monitoring/client/configs/ArchiveHandler.conf
     - user: root
-    - group: root
+    - group: diamond
     - mode: 640
     - require:
       - pkg: diamond
@@ -72,7 +72,7 @@ diamond:
     - source: salt://monitoring/client/configs/GraphiteHandler.conf.jinja
     - template: jinja
     - user: root
-    - group: root
+    - group: diamond
     - mode: 640
     - require:
       - pkg: diamond
