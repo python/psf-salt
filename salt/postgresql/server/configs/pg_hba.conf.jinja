@@ -16,6 +16,9 @@ hostssl replication     replicator      {{ addr }} 255.255.255.255 cert
 {% endfor %}
 {% endfor %}
 
+# Monitoring
+host    postgres         diamond         127.0.0.1/32           md5
+
 # bugs.python.org
 {% for server, addrs in (salt["mine.get"]("roles:tracker", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
 {% for addr in addrs|sort() %}
