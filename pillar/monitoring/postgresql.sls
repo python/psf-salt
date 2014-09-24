@@ -6,6 +6,5 @@ diamond-extra:
     Postgresql:
       enabled: True
       extended: True
-      host: null
       interval: 30
 
