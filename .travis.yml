@@ -1,0 +1,18 @@
+language: python
+
+env:
+  - TOXENV=docs
+
+install: pip install tox
+
+script: tox
+
+branches:
+  only:
+    - master
+
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#python-infra"
+    use_notice: true
