@@ -12,7 +12,7 @@ def __virtual__():
     return True
 
 
-def data_partitions():
+def data_partitions(dev=None):
     """
     Returns a list of data disks attached to this instance.
     """
@@ -41,5 +41,9 @@ def data_partitions():
                 partition_data.update({"fs": data[0], "mount": data[1]})
 
             data_disks.append(partition_data)
+
+    # Filter down to only the one device if we were given one.
+    if dev:
+        data_disks = [x for x in data_disks if x.startswith(dev)]
 
     return data_disks
