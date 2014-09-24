@@ -1,4 +1,5 @@
 {% set haproxy = salt["pillar.get"]("haproxy", {}) %}
+{% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
 
 global
         log /dev/log    local0
@@ -131,3 +132,17 @@ listen testpypi.python.org
     server web0.pypi.io 172.16.57.8:40714 check
     server web1.pypi.io 172.16.57.9:40714 check
     server web2.pypi.io 172.16.57.1:40714 check
+
+
+listen stats
+    bind 127.0.0.1:4646
+    bind {{ {{ salt["ip_picker.ip_addrs"](cidr=psf_internal)[0] }} }}:4646
+
+    mode            http
+    log             global
+
+    stats enable
+    stats hide-version
+    stats refresh 30s
+    stats show-node
+    stats uri  /haproxy?stats
