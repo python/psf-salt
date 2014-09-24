@@ -22,6 +22,7 @@ openvpn:
     - require:
       - pkg: openvpn
       - pkg: duo-openvpn
+      - file: /var/log/openvpn
       - file: /etc/openvpn/server.conf
       - file: /etc/openvpn/server-https.conf
       - file: /etc/openvpn/keys/ca.crt
@@ -42,6 +43,13 @@ duo-openvpn:
       - pkg: openvpn
 
 
+/var/log/openvpn:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 777
+
+
 /etc/openvpn/server.conf:
   file.managed:
     - source: salt://openvpn/configs/server.conf.jinja
@@ -51,6 +59,7 @@ duo-openvpn:
       protocol: udp
       bind: {{ salt["pillar.get"]("vpn0_internal_network") }}
       device: tun0
+      name: primary
     - user: root
     - group: root
     - mode: 644
@@ -68,6 +77,7 @@ duo-openvpn:
       protocol: tcp
       bind: {{ salt["pillar.get"]("vpn1_internal_network") }}
       device: tun1
+      name: https
     - user: root
     - group: root
     - mode: 644

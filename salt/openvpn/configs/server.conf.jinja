@@ -41,7 +41,7 @@ group nogroup
 persist-key
 persist-tun
 
-status openvpn-status.log
+status /var/log/openvpn/{{ name }}-status.log
 verb 3
 
 client-config-dir ccd
