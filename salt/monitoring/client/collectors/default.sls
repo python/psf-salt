@@ -10,7 +10,7 @@
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
-      service: diamond
+      - service: diamond
 
 {% set collectors = [
   "CPU", "DiskSpace", "DiskUsage", "EntropyStat", "LoadAverage", "Memory",
@@ -28,7 +28,7 @@
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
-      service: diamond
+      - service: diamond
 {% endfor %}
 
 
@@ -42,4 +42,4 @@
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
-      service: diamond
+      - service: diamond

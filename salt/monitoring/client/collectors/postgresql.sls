@@ -17,4 +17,6 @@ monitoring-psycopg2:
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
-      service: diamond
+      - service: diamond
+    - require:
+      - pkg: monitoring-psycopg2
