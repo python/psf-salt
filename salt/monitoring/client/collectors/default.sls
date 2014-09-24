@@ -14,7 +14,7 @@
 
 {% set collectors = [
   "CPU", "DiskSpace", "DiskUsage", "EntropyStat", "LoadAverage", "Memory",
-  "Network", "Ntpd",
+  "Network", "Ntpd", "TCP", "UDP",
 ] %}
 
 {% for collector in collectors %}
