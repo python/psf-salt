@@ -1,0 +1,9 @@
+###### Ubuntu Main Repos
+deb http://us.archive.ubuntu.com/ubuntu/ trusty main restricted
+deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main restricted
+
+###### Ubuntu Update Repos
+deb http://us.archive.ubuntu.com/ubuntu/ trusty-security main restricted
+deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates main restricted
+deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-security main restricted
+deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates main restricted
