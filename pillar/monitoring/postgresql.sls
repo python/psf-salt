@@ -7,7 +7,5 @@ diamond-extra:
       enabled: True
       extended: True
       host: null
-      user: diamond
-      password: None
       interval: 30
 

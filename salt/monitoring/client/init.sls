@@ -1,5 +1,6 @@
 {% set collectors = salt["pillar.get"]("diamond:collectors", {}) %}
 {% set extra_collectors = salt["pillar.get"]("diamond-extra:collectors", {}) %}
+{% set secrets = salt["pillar.get"]("diamond-secrets", {}) %}
 
 diamond-depends:
   pkg.installed:
@@ -100,9 +101,10 @@ diamond:
     - template: jinja
     - context:
       collector: {{ config }}
+      secrets: {{ secrets.get(collector, {}) }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: 640
     - require:
       - pkg: diamond
 {% endif %}
@@ -116,9 +118,10 @@ diamond:
     - template: jinja
     - context:
       collector: {{ config }}
+      secrets: {{ secrets.get(collector, {}) }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: 640
     - require:
       - pkg: diamond
 {% endfor %}

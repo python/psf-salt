@@ -56,6 +56,8 @@ base:
     - firewall.postgresql
     - monitoring.postgresql
     - postgresql.server
+    - monitoring.postgresql
+    - secrets.monitoring.postgresql
     - secrets.wal-e
     - secrets.psf-ca.pg
 
