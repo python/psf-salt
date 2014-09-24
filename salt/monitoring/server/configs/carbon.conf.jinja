@@ -46,9 +46,9 @@ WHISPER_FALLOCATE_CREATE = True
 
 [relay]
 USER = _graphite
-LINE_RECEIVER_INTERFACE = 0.0.0.0
+LINE_RECEIVER_INTERFACE = {{ salt["ip_picker.ip_addrs"](cidr=psf_internal)[0] }}
 LINE_RECEIVER_PORT = 2013
-PICKLE_RECEIVER_INTERFACE = 0.0.0.0
+PICKLE_RECEIVER_INTERFACE = {{ salt["ip_picker.ip_addrs"](cidr=psf_internal)[0] }}
 PICKLE_RECEIVER_PORT = 2014
 
 LOG_LISTENER_CONNECTIONS = True
@@ -72,10 +72,10 @@ USE_FLOW_CONTROL = True
 
 [aggregator]
 USER = _graphite
-LINE_RECEIVER_INTERFACE = 0.0.0.0
+LINE_RECEIVER_INTERFACE = {{ salt["ip_picker.ip_addrs"](cidr=psf_internal)[0] }}
 LINE_RECEIVER_PORT = 2023
 
-PICKLE_RECEIVER_INTERFACE = 0.0.0.0
+PICKLE_RECEIVER_INTERFACE = {{ salt["ip_picker.ip_addrs"](cidr=psf_internal)[0] }}
 PICKLE_RECEIVER_PORT = 2024
 
 LOG_LISTENER_CONNECTIONS = True
