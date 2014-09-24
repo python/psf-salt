@@ -1,3 +1,7 @@
+include:
+  - monitoring.client.collectors.apache
+
+
 hg-deps:
   pkg.installed:
     - pkgs:
