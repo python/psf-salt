@@ -1,5 +1,5 @@
-include:
-  - monitoring.client.collectors.apache
+exclude:
+  - id: /etc/diamond/collectors/HttpdCollector.conf
 
 
 hg-deps:
@@ -100,3 +100,18 @@ irker:
     - require:
       - user: irker
       - file: /etc/init/irker.conf
+
+
+HttpdCollector-Override:
+  file.managed:
+    - name: /etc/diamond/collectors/HttpdCollector.conf
+    - source: salt://monitoring/client/configs/Collector.conf.jinja
+    - template: jinja
+    - context:
+      collector:
+        enabled: True
+        urls: "http://localhost:9000/_server-status?auto"
+    - use:
+      - file: /etc/diamond/diamond.conf
+    - watch_in:
+      - service: diamond
