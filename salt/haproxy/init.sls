@@ -1,3 +1,6 @@
+include:
+  - monitoring.client.collectors.haproxy
+
 
 haproxy:
   pkgrepo.managed:
