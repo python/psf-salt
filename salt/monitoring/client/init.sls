@@ -103,7 +103,7 @@ diamond:
       collector: {{ config }}
       secrets: {{ secrets.get(collector, {}) }}
     - user: root
-    - group: root
+    - group: diamond
     - mode: 640
     - require:
       - pkg: diamond
@@ -120,7 +120,7 @@ diamond:
       collector: {{ config }}
       secrets: {{ secrets.get(collector, {}) }}
     - user: root
-    - group: root
+    - group: diamond
     - mode: 640
     - require:
       - pkg: diamond
