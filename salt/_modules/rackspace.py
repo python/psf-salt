@@ -45,7 +45,7 @@ def data_disks():
         for part in parts:
             if part.name.startswith(disk.name) and part.mount_point != "/":
                 part_data = data_disks.setdefault(disk.name, {}) \
-                    .setdefault("partitions", ())
+                    .setdefault("partitions", {})
                 part_data[part.name] = {
                     "fstype": part.fstype,
                     "mount_point": part.mount_point,
