@@ -182,3 +182,17 @@ duo-openvpn:
     - user: root
     - group: root
     - mode: 644
+
+
+/etc/diamond/collectors/OpenVPNCollector.conf:
+  file.managed:
+    - source: salt://monitoring/client/configs/Collector.conf.jinja
+    - template: jinja
+    - context:
+      collector:
+        enabled: True
+        instances: "file:///var/log/openvpn/primary-status.log?primary,file:///var/log/openvpn/https-status.log?https"
+    - use:
+      - file: /etc/diamond/diamond.conf
+    - watch_in:
+      - service: diamond
