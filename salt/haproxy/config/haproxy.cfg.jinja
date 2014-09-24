@@ -87,6 +87,7 @@ backend {{ config.role }}_{{ config.port }}
     server {{ server }} {{ addr }}:{{ config.port }} check
 {% endfor -%}
 {% endfor -%}
+{% endfor %}
 
 
 {% for name, config in haproxy.listens.items() %}
@@ -105,6 +106,8 @@ listen {{ name }}
     server {{ server }} {{ addr }}:{{ config.port }} check
 {% endfor -%}
 {% endfor -%}
+
+{% endfor %}
 
 
 listen stats
