@@ -1,13 +1,11 @@
-{% set partition = salt["rackspace.data_partitions"]("xvdb")|sort(attribute="partition")|first %}
-
 carbon-data:
   blockdev.formatted:
-    - name: /dev/{{ partition.partition }}
+    - name: /dev/xvdb1
     - fs_type: ext4
 
   mount.mounted:
     - name: /srv/carbon
-    - device: /dev/{{ partition.partition }}
+    - device: /dev/xvdb1
     - fstype: ext4
     - mkmnt: True
     - opts: "data=writeback,noatime,nodiratime"
