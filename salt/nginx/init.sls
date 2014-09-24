@@ -1,3 +1,6 @@
+include:
+  - monitoring.client.collectors.nginx
+
 nginx:
   user.present:
     - system: True
