@@ -6,6 +6,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   services/index.rst
+
 
 
 Indices and tables
