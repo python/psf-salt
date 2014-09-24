@@ -1,12 +1,4 @@
-import collections
-
 import salt
-
-
-BlockDevice = collections.namedtuple(
-    "BlockDevice",
-    ["name", "type", "fstype", "mount_point"],
-)
 
 
 def __virtual__():
@@ -18,6 +10,15 @@ def __virtual__():
         return False
 
     return True
+
+
+class BlockDevice(object):
+
+    def __init__(self, name, type_, fstype=None, mount_point=None):
+        self.name = name
+        self.type = type_
+        self.fstype = fstype
+        self.mount_point = mount_point
 
 
 def data_disks():
