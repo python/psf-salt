@@ -1,3 +1,9 @@
+monitoring-collectors-default-packages:
+  pkg.installed:
+    - pkgs:
+      - python-utmp
+
+
 /etc/diamond/collectors/ConnTrackCollector.conf:
   file.managed:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
@@ -12,9 +18,10 @@
     - watch_in:
       - service: diamond
 
+
 {% set collectors = [
   "CPU", "DiskSpace", "DiskUsage", "EntropyStat", "LoadAverage", "Memory",
-  "Network", "Ntpd", "TCP", "UDP",
+  "Network", "Ntpd", "TCP", "UDP", "Users",
 ] %}
 
 {% for collector in collectors %}
