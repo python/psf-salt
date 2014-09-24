@@ -5,8 +5,9 @@
 This Does Not Support Multi Data Disk Servers!!!!
 {% endif %}
 
-{% if "postgresql-primary" in grains["roles"] %}
 include:
+  - monitoring.client.collectors.postgresql
+{% if "postgresql-primary" in grains["roles"] %}
   - .wal-e
 {% endif %}
 

@@ -53,7 +53,6 @@ base:
   'roles:postgresql':
     - match: grain
     - postgresql.server
-    - monitoring.client.collectors.postgresql
 
   'roles:loadbalancer':
     - match: grain
