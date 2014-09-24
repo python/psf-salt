@@ -23,4 +23,4 @@ HttpdCollector-Override:
     - watch_in:
       - service: diamond
     - require:
-      - file: /etc/nginx/sites.d/status.conf
+      - file: /etc/apache2/sites-available/stats.conf
