@@ -59,7 +59,7 @@ duo-openvpn:
       protocol: udp
       bind: {{ salt["pillar.get"]("vpn0_internal_network") }}
       device: tun0
-      name: primary
+      instance: primary
     - user: root
     - group: root
     - mode: 644
@@ -77,7 +77,7 @@ duo-openvpn:
       protocol: tcp
       bind: {{ salt["pillar.get"]("vpn1_internal_network") }}
       device: tun1
-      name: https
+      instance: https
     - user: root
     - group: root
     - mode: 644
