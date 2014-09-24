@@ -70,17 +70,17 @@ frontend main
     reqadd X-Forwarded-Proto:\ https
 
     # Setup our ACLs
-{% for domain, config in haproxy.domains -%}
+{% for domain, config in haproxy.domains.items() -%}
     acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }}
 {% endfor -%}
 
     # Dispatch to a backend based on our domain ACLs
-{% for domain, config in haproxy.domains -%}
+{% for domain, config in haproxy.domains.items() -%}
     use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
 {% endfor -%}
 
 
-{% for domain, config in haproxy.domains %}
+{% for domain, config in haproxy.domains.items() %}
 backend {{ config.role }}_{{ config.port }}
 {% for server, addrs in salt["mine.get"]("roles:" + config.role, "minealiases.psf_internal", expr_form="grain").items() -%}
 {% for addr in addrs -%}
