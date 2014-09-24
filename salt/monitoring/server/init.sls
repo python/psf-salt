@@ -1,3 +1,3 @@
 include:
   - monitoring.server.carbon
-  # - monitoring.server.graphite-web
+  - monitoring.server.graphite-web
