@@ -40,4 +40,4 @@ HttpdCollector-Override:
       - service: diamond
     - require:
       - file: /etc/apache2/sites-available/stats.conf
-      - file: /etc/apache2/sites-enabled/stats.conf
+      - cmd: /etc/apache2/sites-enabled/stats.conf
