@@ -1,21 +1,12 @@
 firewall:
-  http:
-    port: 51386
+  http_0:
+    port: 20000
 
-  https:
-    port: 38303
+  http_1:
+    port: 20001
 
-  redirect_to_https:
-    port: 13764
-
-  "hg.python.org:https":
-    port: 44931
+  http_2:
+    port: 20002
 
   "hg.python.org:ssh":
-    port: 44932
-
-  pypi.python.org:
-    port: 40713
-
-  testpypi.python.org:
-    port: 40714
+    port: 20100
