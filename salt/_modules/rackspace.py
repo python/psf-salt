@@ -44,6 +44,6 @@ def data_partitions(dev=None):
 
     # Filter down to only the one device if we were given one.
     if dev:
-        data_disks = [x for x in data_disks if x.startswith(dev)]
+        data_disks = [x for x in data_disks if x["device"] == dev]
 
     return data_disks
