@@ -50,3 +50,17 @@ monitoring-collectors-default-packages:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+
+
+/etc/diamond/collectors/UserScriptsCollector.conf:
+  file.managed:
+    - source: salt://monitoring/client/configs/Collector.conf.jinja
+    - template: jinja
+    - context:
+      collector:
+        enabled: True
+        scripts_path: /usr/local/share/diamond/user_scripts/
+    - use:
+      - file: /etc/diamond/diamond.conf
+    - watch_in:
+      - service: diamond
