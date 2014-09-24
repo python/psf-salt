@@ -1,4 +1,4 @@
-{% set partition = salt["rackspace.data_partitions"]("xvdb")|first %}
+{% set partition = salt["rackspace.data_partitions"]("xvdb")|sort(attribute="partition")|first %}
 
 carbon-data:
   blockdev.formatted:
