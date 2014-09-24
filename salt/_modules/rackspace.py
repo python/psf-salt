@@ -42,14 +42,19 @@ def data_disks():
 
     # Find all disks that are not mounted on the root FS
     for disk in disks:
-        for part in parts:
-            if part.name.startswith(disk.name) and part.mount_point != "/":
-                part_data = data_disks.setdefault(disk.name, {}) \
-                    .setdefault("partitions", {})
-                part_data[part.name] = {
-                    "fstype": part.fstype,
-                    "mount_point": part.mount_point,
-                }
+        disk_parts = [x for x in parts if x.name.startswith(disk.name)]
+
+        if not disk_parts:
+            data_disks.setdefault(disk.name, {})
+        else:
+            for part in disk_parts:
+                if part.name.startswith(disk.name) and part.mount_point != "/":
+                    partitions = (data_disks.setdefault(disk.name, {})
+                                  .setdefault("partitions", {}))
+                    partitions[part.name] = {
+                        "fstype": part.fstype,
+                        "mount_point": part.mount_point,
+                    }
 
     return data_disks
 
