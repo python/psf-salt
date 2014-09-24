@@ -70,23 +70,23 @@ frontend main
     reqadd X-Forwarded-Proto:\ https
 
     # Setup our ACLs
-{% for domain, config in haproxy.domains.items() -%}
+    {% for domain, config in haproxy.domains.items() %}
     acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }}
-{% endfor -%}
+    {% endfor %}
 
     # Dispatch to a backend based on our domain ACLs
-{% for domain, config in haproxy.domains.items() -%}
+    {% for domain, config in haproxy.domains.items() %}
     use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
-{% endfor -%}
+    {% endfor %}
 
 
 {% for domain, config in haproxy.domains.items() %}
 backend {{ config.role }}_{{ config.port }}
-{% for server, addrs in salt["mine.get"]("roles:" + config.role, "minealiases.psf_internal", expr_form="grain").items() -%}
-{% for addr in addrs -%}
+    {% for server, addrs in salt["mine.get"]("roles:" + config.role, "minealiases.psf_internal", expr_form="grain").items() %}
+    {% for addr in addrs %}
     server {{ server }} {{ addr }}:{{ config.port }} check
-{% endfor -%}
-{% endfor -%}
+    {% endfor %}
+    {% endfor %}
 {% endfor %}
 
 
@@ -96,16 +96,16 @@ listen {{ name }}
 
     mode {{ config.mode }}
 
-{% if config.mode == "tcp" -%}
+    {% if config.mode == "tcp" %}
     option tcplog
     option tcp-check
-{% endif -%}
+    {% endif %}
 
-{% for server, addrs in salt["mine.get"]("roles:" + config.role, "minealiases.psf_internal", expr_form="grain").items() -%}
-{% for addr in addrs -%}
+    {% for server, addrs in salt["mine.get"]("roles:" + config.role, "minealiases.psf_internal", expr_form="grain").items() %}
+    {% for addr in addrs %}
     server {{ server }} {{ addr }}:{{ config.port }} check
-{% endfor -%}
-{% endfor -%}
+    {% endfor %}
+    {% endfor %}
 
 {% endfor %}
 
