@@ -7,7 +7,7 @@ haproxy:
       - pkg: haproxy
 
   pkg:
-    - latest
+    - installed
 
   service.running:
     - enable: True
