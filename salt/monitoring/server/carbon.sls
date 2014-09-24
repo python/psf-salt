@@ -1,4 +1,4 @@
-{% set data_partitions = salt["rackspace.data_partitions"]("xvdb") %}
+{% set partition = salt["rackspace.data_partitions"]("xvdb")|first %}
 
 {% if data_partitions|length() > 1 %}
 This Does Not Support Multi Data Disk Servers!!!!
@@ -6,7 +6,6 @@ This Does Not Support Multi Data Disk Servers!!!!
 
 
 carbon-data:
-{% for partition in data_partitions %}
   blockdev.formatted:
     - name: /dev/{{ partition.partition }}
     - fs_type: ext4
@@ -19,7 +18,6 @@ carbon-data:
     - opts: "data=writeback,noatime,nodiratime"
     - require:
       - blockdev: carbon-data
-{% endfor %}
 
   file.directory:
     - name: /srv/carbon/whisper
@@ -27,10 +25,8 @@ carbon-data:
     - group: root
     - mode: 777
     - makedirs: True
-    {% if data_partitions %}
     - require:
       - mount: carbon-data
-    {% endif %}
 
 
 graphite-carbon:
