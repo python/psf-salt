@@ -38,7 +38,7 @@
     - template: jinja
     - context:
       collector:
-        enabled: True
+        enabled: False
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
