@@ -1,4 +1,12 @@
+import collections
+
 import salt
+
+
+BlockDevice = collections.namedtuple(
+    "BlockDevice",
+    ["name", "type", "fstype", "mount_point"],
+)
 
 
 def __virtual__():
@@ -10,6 +18,39 @@ def __virtual__():
         return False
 
     return True
+
+
+def data_disks():
+    """
+    Returns a list of data disks attached to this instance.
+    """
+    data_disks = {}
+
+    disks = []
+    parts = []
+
+    results = __salt__["cmd.run"]("lsblk -l -n -o NAME,TYPE,FSTYPE,MOUNTPOINT")
+
+    # Get a list for all the disks and partitions
+    for line in results.splitlines():
+        dev = BlockDevice(*line.split())
+        if dev.type.lower() == "disk":
+            disks.append(dev)
+        elif dev.type.lower() == "part":
+            parts.append(dev)
+
+    # Find all disks that are not mounted on the root FS
+    for disk in disks:
+        for part in parts:
+            if part.name.startswith(disk.name) and part.mount_point != "/":
+                part_data = (data_disks.setdefault(disk.name, {})
+                             .setdefault("partitions", ()))
+                part_data[part.name] = {
+                    "fstype": part.fstype,
+                    "mount_point": part.mount_point,
+                }
+
+    return data_disks
 
 
 def data_partitions():
