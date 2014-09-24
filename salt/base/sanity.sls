@@ -25,3 +25,13 @@ root-cron-path:
     - name: PATH
     - user: root
     - value: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+
+# Get rid of the Rackspace Mirrors and use the real mirrors, the Rackspace
+# mirrors are often way behind.
+/etc/apt/sources.list:
+  file.managed:
+    - source: salt://base/config/sources.list
+    - user: root
+    - group: root
+    - mode: 644
