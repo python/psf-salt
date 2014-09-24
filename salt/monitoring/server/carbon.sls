@@ -1,36 +1,36 @@
-# {% set data_partitions = salt["rackspace.data_partitions"]() %}
+{% set data_partitions = salt["rackspace.data_partitions"]() %}
 
-# {% if data_partitions|length() > 1 %}
-# This Does Not Support Multi Data Disk Servers!!!!
-# {% endif %}
+{% if data_partitions|length() > 1 %}
+This Does Not Support Multi Data Disk Servers!!!!
+{% endif %}
 
 
-# carbon-data:
-# {% for partition in data_partitions %}
-#   blockdev.formatted:
-#     - name: /dev/{{ partition.partition }}
-#     - fs_type: ext4
+carbon-data:
+{% for partition in data_partitions %}
+  blockdev.formatted:
+    - name: /dev/{{ partition.partition }}
+    - fs_type: ext4
 
-#   mount.mounted:
-#     - name: /srv/carbon
-#     - device: /dev/{{ partition.partition }}
-#     - fstype: ext4
-#     - mkmnt: True
-#     - opts: "data=writeback,noatime,nodiratime"
-#     - require:
-#       - blockdev: carbon-data
-# {% endfor %}
+  mount.mounted:
+    - name: /srv/carbon
+    - device: /dev/{{ partition.partition }}
+    - fstype: ext4
+    - mkmnt: True
+    - opts: "data=writeback,noatime,nodiratime"
+    - require:
+      - blockdev: carbon-data
+{% endfor %}
 
-#   file.directory:
-#     - name: /srv/carbon/whisper
-#     - user: root
-#     - group: root
-#     - mode: 777
-#     - makedirs: True
-#     {% if data_partitions %}
-#     - require:
-#       - mount: carbon-data
-#     {% endif %}
+  file.directory:
+    - name: /srv/carbon/whisper
+    - user: root
+    - group: root
+    - mode: 777
+    - makedirs: True
+    {% if data_partitions %}
+    - require:
+      - mount: carbon-data
+    {% endif %}
 
 
 # graphite-carbon:

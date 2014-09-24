@@ -12,53 +12,6 @@ def __virtual__():
     return True
 
 
-class BlockDevice(object):
-
-    def __init__(self, name, type_, fstype=None, mount_point=None):
-        self.name = name
-        self.type = type_
-        self.fstype = fstype
-        self.mount_point = mount_point
-
-
-def data_disks():
-    """
-    Returns a list of data disks attached to this instance.
-    """
-    data_disks = {}
-
-    disks = []
-    parts = []
-
-    results = __salt__["cmd.run"]("lsblk -l -n -o NAME,TYPE,FSTYPE,MOUNTPOINT")
-
-    # Get a list for all the disks and partitions
-    for line in results.splitlines():
-        dev = BlockDevice(*line.split())
-        if dev.type.lower() == "disk":
-            disks.append(dev)
-        elif dev.type.lower() == "part":
-            parts.append(dev)
-
-    # Find all disks that are not mounted on the root FS
-    for disk in disks:
-        disk_parts = [x for x in parts if x.name.startswith(disk.name)]
-
-        if not disk_parts:
-            data_disks.setdefault(disk.name, {})
-        else:
-            for part in disk_parts:
-                if part.name.startswith(disk.name) and part.mount_point != "/":
-                    partitions = (data_disks.setdefault(disk.name, {})
-                                  .setdefault("partitions", {}))
-                    partitions[part.name] = {
-                        "fstype": part.fstype,
-                        "mount_point": part.mount_point,
-                    }
-
-    return data_disks
-
-
 def data_partitions():
     """
     Returns a list of data disks attached to this instance.
