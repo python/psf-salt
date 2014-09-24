@@ -183,7 +183,7 @@ duo-openvpn:
     - context:
       collector:
         enabled: True
-        instances: "file:///var/log/openvpn/primary-status.log?primary,file:///var/log/openvpn/https-status.log?https"
+        instances: "tcp://127.0.0.1:4646?primary,tcp://127.0.0.1:4647?https"
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
