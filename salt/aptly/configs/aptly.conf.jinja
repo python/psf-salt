@@ -13,14 +13,5 @@
   "gpgDisableVerify": false,
   "downloadSourcePackages": true,
   "ppaDistributorID": "ubuntu",
-  "ppaCodename": "",
-  "S3PublishEndpoints": {
-    {% for endpoint, config in salt["pillar.get"]("aptly:endpoints").items() %}
-    "{{ endpoint }}": {
-      {% for key, value in config.items() %}
-      "{{ key }}": "{{ value }}"{% if not loop.last %},{% endif %}
-      {% endfor %}
-    }{% if not loop.last %},{% endif %}
-    {% endfor %}
-  }
+  "ppaCodename": ""
 }

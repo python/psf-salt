@@ -98,8 +98,8 @@ aptly-gpg:
 
 aptly-psf-repo-publish:
   cmd.run:
-    - name: "aptly publish repo -component=main -distribution=trusty psf {{ pillar["aptly"]["publish_target"] }}"
-    - unless: "aptly publish list | grep 's3:psf-aptly:./trusty \\[amd64\\] publishes {main: \\[psf\\]}'"
+    - name: "aptly publish repo -component=main -distribution=trusty psf"
+    - unless: "aptly publish list | grep './trusty \\[amd64\\] publishes {main: \\[psf\\]}'"
     - user: aptly
     - require:
       - cmd: aptly-psf-repo
