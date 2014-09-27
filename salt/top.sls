@@ -69,3 +69,7 @@ base:
   'roles:monitoring':
     - match: grain
     - monitoring.server
+
+  'roles:apt':
+    - match: grain
+    - reprepro

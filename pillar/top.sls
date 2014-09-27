@@ -89,3 +89,7 @@ base:
     - pgbouncer.monitoring
     - secrets.postgresql-users.monitoring
     - secrets.monitoring.server
+
+  'roles:apt':
+    - match: grain
+    - firewall.http
