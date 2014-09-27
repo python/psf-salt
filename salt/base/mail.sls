@@ -1,3 +1,4 @@
+{% if not grains.get("vagrant") %}
 mail-pkgs:
   pkg.installed:
     - pkgs:
@@ -14,3 +15,4 @@ mail-pkgs:
     - mode: 640
     - require:
       - pkg: mail-pkgs
+{% endif %}
