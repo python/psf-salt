@@ -33,7 +33,7 @@ nginx:
     - group: root
     - mode: 644
     - require:
-      - file: /var/log/nginx
+      - pkg: nginx
 
 /etc/nginx/conf.d/PLACEHOLDER.conf:
   file.managed:
@@ -41,12 +41,16 @@ nginx:
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - pkg: nginx
 
 /etc/nginx/sites.d/:
   file.directory:
     - user: root
     - group: root
     - mode: 755
+    - require:
+      - pkg: nginx
 
 /etc/logrotate.d/nginx:
   file.managed:
@@ -54,6 +58,8 @@ nginx:
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - pkg: nginx
 
 /var/log/nginx:
   file.directory:
@@ -61,4 +67,5 @@ nginx:
     - group: root
     - mode: 0755
     - require:
+      - pkg: nginx
       - user: nginx
