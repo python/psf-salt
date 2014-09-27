@@ -1,0 +1,105 @@
+/etc/apt/keys:
+  file.directory:
+    - user: root
+    - group: root
+    - dir_mode: 755
+    - file_mode: 644
+
+
+/etc/apt/keys/aptly-squeeze-main.gpg:
+  file.managed:
+    - source: salt://aptly/configs/APT-GPG-KEY-APTLY
+    - user: root
+    - group: root
+    - mode: 644
+
+  cmd.wait:
+    - name: apt-key add /etc/apt/keys/aptly-squeeze-main.gpg
+    - watch:
+      - file: /etc/apt/keys/aptly-squeeze-main.gpg
+
+aptly:
+  pkgrepo.managed:
+    - name: deb http://repo.aptly.info/ squeeze main
+    - file: /etc/apt/sources.list.d/aptly.list
+    - require:
+      - file: /etc/apt/keys/aptly-squeeze-main.gpg
+      - cmd: /etc/apt/keys/aptly-squeeze-main.gpg
+    - require_in:
+      - pkg: aptly
+
+  pkg:
+    - installed
+
+  group.present:
+    - system: True
+
+  user.present:
+    - gid_from_name: True
+    - home: /srv/aptly
+    - createhome: False
+    - system: True
+    - require:
+      - group: aptly
+
+
+/srv/aptly:
+  file.directory:
+    - user: aptly
+    - group: aptly
+    - mode: 750
+    - require:
+      - user: aptly
+
+
+/etc/aptly.conf:
+  file.managed:
+    - source: salt://aptly/configs/aptly.conf.jinja
+    - template: jinja
+    - user: root
+    - group: aptly
+    - mode: 640
+    - require:
+      - pkg: aptly
+      - user: aptly
+
+
+aptly-psf-repo:
+  cmd.run:
+    - name: aptly repo create -distribution=trusty psf
+    - unless: aptly repo show psf
+    - user: aptly
+    - require:
+      - pkg: aptly
+      - file: /etc/aptly.conf
+      - file: /srv/aptly
+
+
+/srv/aptly/signing.key:
+  file.managed:
+    - contents_pillar: aptly:signing.key
+    - user: root
+    - group: aptly
+    - mode: 640
+    - require:
+      - file: /srv/aptly
+      - user: aptly
+
+
+aptly-gpg:
+  cmd.wait:
+    - name: gpg --allow-secret-key-import --import /srv/aptly/signing.key
+    - user: aptly
+    - watch:
+      - file: /srv/aptly/signing.key
+    - require:
+      - user: aptly
+
+
+aptly-psf-repo-publish:
+  cmd.run:
+    - name: "aptly publish repo -component=main -distribution=trusty psf {{ pillar["aptly"]["publish_target"] }}"
+    - unless: "aptly publish list | grep 's3:psf-aptly:./trusty \\[amd64\\] publishes {main: \\[psf\\]}'"
+    - user: aptly
+    - require:
+      - cmd: aptly-psf-repo

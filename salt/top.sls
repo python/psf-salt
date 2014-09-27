@@ -72,4 +72,4 @@ base:
 
   'roles:apt':
     - match: grain
-    - reprepro
+    - aptly
