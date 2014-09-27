@@ -51,7 +51,7 @@ aptly:
   file.directory:
     - user: aptly
     - group: aptly
-    - mode: 750
+    - mode: 755
     - require:
       - user: aptly
 
