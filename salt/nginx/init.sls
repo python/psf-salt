@@ -60,3 +60,5 @@ nginx:
     - user: nginx
     - group: root
     - mode: 0755
+    - require:
+      - user: nginx
