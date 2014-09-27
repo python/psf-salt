@@ -1,3 +1,7 @@
+include:
+  - nginx
+
+
 /etc/apt/keys:
   file.directory:
     - user: root
@@ -103,3 +107,13 @@ aptly-psf-repo-publish:
     - user: aptly
     - require:
       - cmd: aptly-psf-repo
+
+
+/etc/nginx/sites.d/apt.conf:
+  file.managed:
+    - source: salt://aptly/configs/nginx.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - sls: nginx
