@@ -109,7 +109,7 @@ aptly-uploaders:
 aptly-psf-repo-incoming:
   cron.present:
     - identifier: aptly-psf-repo-incoming
-    - name: "aptly repo add -remove-files=true psf /srv/aptly/incoming/psf >> /var/log/aptly/incoming.log && aptly-trusty-update >> /var/log/aptly/incoming.log"
+    - name: "aptly repo add -remove-files=true psf /srv/aptly/incoming/psf >> /var/log/aptly/incoming.log && aptly publish update trusty >> /var/log/aptly/incoming.log"
     - user: aptly
     - minute: '*/5'
 
