@@ -1,11 +1,11 @@
 Welcome to Python Infrastructure's documentation!
 =================================================
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :titlesonly:
 
+   packages.rst
    services/index.rst
 
 
