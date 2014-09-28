@@ -71,6 +71,41 @@ aptly-psf-repo:
       - file: /srv/aptly
 
 
+aptly-uploaders:
+  group.present:
+    - system: True
+
+
+/srv/aptly/incoming:
+  file.directory:
+    - user: aptly
+    - group: aptly-uploaders
+    - mode: 770
+    - require:
+      - user: aptly
+      - group: aptly-uploaders
+      - file: /srv/aptly
+
+
+/srv/aptly/incoming/psf:
+  file.directory:
+    - user: aptly
+    - group: aptly-uploaders
+    - mode: 770
+    - require:
+      - user: aptly
+      - group: aptly-uploaders
+      - file: /srv/aptly
+
+
+aptly-psf-repo-incoming:
+  cron.present:
+    - identifier: aptly-psf-repo-incoming
+    - name: aptly repo add -remove-files=true psf /srv/aptly/incoming/psf
+    - user: aptly
+    - minute: '*/5'
+
+
 /srv/aptly/signing.key:
   file.managed:
     - contents_pillar: aptly:signing.key
