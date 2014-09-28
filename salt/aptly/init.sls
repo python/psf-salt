@@ -100,15 +100,7 @@ aptly-uploaders:
 aptly-psf-repo-incoming:
   cron.present:
     - identifier: aptly-psf-repo-incoming
-    - name: aptly repo add -remove-files=true psf /srv/aptly/incoming/psf
-    - user: aptly
-    - minute: '*/5'
-
-
-aptly-trusty-update:
-  cron.present:
-    - identifier: aptly-trusty-update
-    - name: aptly publish update trusty
+    - name: "aptly repo add -remove-files=true psf /srv/aptly/incoming/psf && aptly-trusty-update"
     - user: aptly
     - minute: '*/5'
 
