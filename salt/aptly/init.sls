@@ -90,7 +90,7 @@ aptly-uploaders:
   file.directory:
     - user: aptly
     - group: aptly-uploaders
-    - mode: 770
+    - mode: 2770
     - require:
       - user: aptly
       - group: aptly-uploaders
