@@ -114,6 +114,11 @@ aptly-psf-repo-incoming:
     - minute: '*/5'
 
 
+/etc/logrotate.d/aptly:
+  file.managed:
+    - source: salt://aptly/configs/aptly-logrotate.conf
+
+
 /srv/aptly/signing.key:
   file.managed:
     - contents_pillar: aptly:signing.key
