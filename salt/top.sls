@@ -1,9 +1,10 @@
 base:
   '*':
     - base.auto-highstate
+    - base.mail
+    - base.repo
     - base.salt
     - base.sanity
-    - base.mail
     - groups
     - users
     - ssh

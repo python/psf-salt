@@ -1,11 +1,3 @@
-/etc/apt/keys:
-  file.directory:
-    - user: root
-    - group: root
-    - dir_mode: 755
-    - file_mode: 644
-
-
 /etc/apt/keys/duosecurity-trusty-main.gpg:
   file.managed:
     - source: salt://duosec/config/APT-GPG-KEY-DUO

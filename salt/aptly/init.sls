@@ -2,14 +2,6 @@ include:
   - nginx
 
 
-/etc/apt/keys:
-  file.directory:
-    - user: root
-    - group: root
-    - dir_mode: 755
-    - file_mode: 644
-
-
 /etc/apt/keys/aptly-squeeze-main.gpg:
   file.managed:
     - source: salt://aptly/configs/APT-GPG-KEY-APTLY
