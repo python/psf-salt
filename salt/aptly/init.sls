@@ -106,6 +106,14 @@ aptly-psf-repo-incoming:
     - minute: '*/5'
 
 
+aptly-trusty-update:
+  cron.present:
+    - identifier: aptly-trusty-update
+    - name: aptly publish update trusty
+    - user: aptly
+    - minute: '*/5'
+
+
 /srv/aptly/signing.key:
   file.managed:
     - contents_pillar: aptly:signing.key
