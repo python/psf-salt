@@ -74,7 +74,7 @@ aptly-psf-repo:
 aptly-uploaders:
   group.present:
     - system: True
-
+    - members: {{ salt["pillar.get"]("aptly:uploaders", []) }}  # " # Syntax Highlighter Hack
 
 /srv/aptly/incoming:
   file.directory:

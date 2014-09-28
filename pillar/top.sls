@@ -93,4 +93,5 @@ base:
   'roles:apt':
     - match: grain
     - firewall.http
+    - aptly
     - secrets.aptly
