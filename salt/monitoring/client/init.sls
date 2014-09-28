@@ -1,19 +1,9 @@
 include:
   - .collectors.default
 
-diamond-depends:
-  pkg.installed:
-    - pkgs:
-      - python-configobj
-      - python-psutil
-
-
 diamond:
   pkg.installed:
-    - sources:
-      - python-diamond: salt://monitoring/client/packages/python-diamond_3.4.421_all.deb
-    - require:
-      - pkg: diamond-depends
+    - name: python-diamond
 
   group.present:
     - system: True
