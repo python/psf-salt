@@ -41,7 +41,7 @@ def bootstrap(host, roles=None):
 
         # Install salt-minion and python-apt so we can manage things with
         # salt.
-        fabric.api.run("apt-get install -qy salt-minion python-apt")
+        fabric.api.run("apt-get install -qy salt-minion")
 
         # Drop the /etc/salt/minion.d/local.conf onto the server so that it
         # can connect with our salt master.
