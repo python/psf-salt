@@ -1,5 +1,5 @@
-Welcome to Python Infrastructure's documentation!
-=================================================
+Python Infrastructure
+=====================
 
 .. toctree::
    :maxdepth: 2
