@@ -94,3 +94,4 @@ base:
     - match: grain
     - firewall.http
     - secrets.aptly
+    - secrets.backup.apt

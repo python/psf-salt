@@ -22,3 +22,8 @@ backup-server:
       user: hg
       increment_retention: 90D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS0sTCNKlCfJd/TyiKW3HRwTUouo3+PvPOK3ddyfpY17bJ4KdpaMZgc7fNg5VKzFvvuHBqjvVJsdewP3LesLOuaQCQoSu1DniLoodZGRdJ9gqgtbRZf4ekzsn7E7WZUnVI0fbofvFWjbPt3PSxVtm8hCqwmwia53Ehh9G3xRurDhNUqIjrGcTStM3kloQHjKing+EGdCqPvikuwN1eMZXyNnt4zuoU4e39JGCBqRBfXumvrYvYzuNbAN8OZtNAfByzLFJ6DIWq0ihK6WS/KRYKGKivaaK26whafutfv44bP0w3LvZZyTMGGqiS/zLNPx0tkYK3JEt4bpLlyHZHbIBh
+    apt:
+      directory: /backup/aptly
+      user: aptly
+      increment_retention: 90D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjbb0e2BjwuPXE2EcNM5c+Elwfh/RdCjVI/Th9+NM1FPMcRA3Tdg8yBz2OrjFHihSEOwGOu4920VZlmc+sr9akEPuf0euj77Rwtc3j2aXdtlMH6bn+6aBxmxn+Rzo5M/jCp5j/0u7hE9BxnMfKzcZ0+8rAjC58E/SXot7PPu7Cm+ZM6FYSlumzEWB4jx37LbIT4JirrlIIjeZXqP+Zm1YcuogbEQOMsEiG+WEywRJMlXPwmdTH6xGjAARLkhgr8ACEmON3y0nYEozQoQ84t+7Qhq5+x2shHrc76KF2tTkzznKBOs0MfWAxKbUPXKXKcqcmZYHIc1B5Fcrht2GPsnK1
