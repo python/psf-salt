@@ -97,10 +97,19 @@ aptly-uploaders:
       - file: /srv/aptly
 
 
+/var/log/aptly:
+  file.directory:
+    - user: aptly
+    - group: aptly
+    - mode: 755
+    - require:
+      - user: aptly
+
+
 aptly-psf-repo-incoming:
   cron.present:
     - identifier: aptly-psf-repo-incoming
-    - name: "aptly repo add -remove-files=true psf /srv/aptly/incoming/psf && aptly-trusty-update"
+    - name: "aptly repo add -remove-files=true psf /srv/aptly/incoming/psf >> /var/log/aptly/incoming.log && aptly-trusty-update >> /var/log/aptly/incoming.log"
     - user: aptly
     - minute: '*/5'
 
