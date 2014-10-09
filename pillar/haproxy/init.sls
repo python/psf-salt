@@ -1,5 +1,9 @@
 haproxy:
   domains:
+    console.python.org:
+      role: console-proxy
+      external_backend: www.pythonanywhere.com
+
     hg.python.org:
       role: hg
       port: 9000  # Can we refactor this better?

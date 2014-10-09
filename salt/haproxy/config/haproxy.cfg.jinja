@@ -83,11 +83,20 @@ frontend main
 
 {% for domain, config in haproxy.domains.items() %}
 backend {{ config.role }}_{{ config.port }}
+    {% if config.external_backend is defined %}
+
+    server {{ config.role }} {{ config.external_backend }} ssl force-tlsv12 verify required verifyhost {{ config.external_backend }}
+    ca-file ca-certificates.crt
+
+    {% else %}
+
     {% for server, addrs in salt["mine.get"]("roles:" + config.role, "minealiases.psf_internal", expr_form="grain").items() %}
     {% for addr in addrs %}
     server {{ server }} {{ addr }}:{{ config.port }} check
     {% endfor %}
     {% endfor %}
+
+    {% endif %}
 {% endfor %}
 
 
