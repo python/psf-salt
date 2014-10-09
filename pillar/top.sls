@@ -22,11 +22,6 @@ base:
     - fastly-logging
     - firewall.fastly-logging
 
-  'roles:console-proxy':
-    - match: grain
-    - firewall.http
-    - secrets.tls.certs.loadbalancer
-
   'roles:docs':
     - match: grain
     - firewall.fastly-backend
