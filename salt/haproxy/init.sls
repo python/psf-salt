@@ -49,3 +49,10 @@ haproxy:
     - user: root
     - group: root
     - mode: 600
+
+/etc/ssl/private/star.python.org.pem:
+  file.managed:
+    - contents_pillar: tls_certs:star.python.org
+    - user: root
+    - group: root
+    - mode: 600
