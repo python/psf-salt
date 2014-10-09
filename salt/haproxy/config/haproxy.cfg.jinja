@@ -85,8 +85,8 @@ frontend main
 backend {{ config.role }}_{{ config.port }}
     {% if config.external_backend is defined %}
 
-    server {{ config.role }} {{ config.external_backend }} ssl force-tlsv12 verify required verifyhost {{ config.external_backend }}
     ca-file ca-certificates.crt
+    server {{ config.role }} {{ config.external_backend }} ssl force-tlsv12 verify required verifyhost {{ config.external_backend }}
 
     {% else %}
 
