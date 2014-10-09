@@ -2,6 +2,7 @@ haproxy:
   domains:
     console.python.org:
       role: console-proxy
+      port: 443
       external_backend: www.pythonanywhere.com
 
     hg.python.org:
