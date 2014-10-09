@@ -19,6 +19,10 @@ base:
     - match: compound
     - openvpn.routing
 
+  'roles:apt':
+    - match: grain
+    - aptly
+
   'roles:backup-server':
     - match: grain
     - backup.server
@@ -39,13 +43,13 @@ base:
     - match: grain
     - hg
 
-  'roles:tracker':
-    - match: grain
-    - postgresql.client
-
   'roles:jython-web':
     - match: grain
     - jython
+
+  'roles:monitoring':
+    - match: grain
+    - monitoring.server
 
   'roles:planet':
     - match: grain
@@ -62,15 +66,11 @@ base:
   'roles:salt-master':
     - match: grain
 
+  'roles:tracker':
+    - match: grain
+    - postgresql.client
+
   'roles:vpn':
     - match: grain
     - duosec
     - openvpn.server
-
-  'roles:monitoring':
-    - match: grain
-    - monitoring.server
-
-  'roles:apt':
-    - match: grain
-    - aptly

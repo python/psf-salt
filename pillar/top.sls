@@ -7,6 +7,16 @@ base:
     - psf-ca
     - secrets.system-mail
 
+  'roles:apt':
+    - match: grain
+    - firewall.http
+    - secrets.aptly
+    - secrets.backup.apt
+
+  'roles:backup-server':
+    - match: grain
+    - backup.server
+
   'roles:cdn-logs':
     - match: grain
     - fastly-logging
@@ -30,20 +40,24 @@ base:
     - secrets.backup.hg
     - secrets.ssh.hg
 
-  'roles:tracker':
-    - match: grain
-    - pgbouncer.tracker
-    - secrets.postgresql-users.tracker
-
-  'roles:salt-master':
-    - match: grain
-    - salt-master
-
   'roles:jython-web':
     - match: grain
     - secrets.backup.jython-web
     - groups.jython
     - firewall.http
+
+  'roles:loadbalancer':
+    - match: grain
+    - haproxy
+    - firewall.loadbalancer
+    - secrets.tls.certs.loadbalancer
+
+  'roles:monitoring':
+    - match: grain
+    - firewall.monitoring
+    - pgbouncer.monitoring
+    - secrets.postgresql-users.monitoring
+    - secrets.monitoring.server
 
   'roles:planet':
     - match: grain
@@ -65,15 +79,14 @@ base:
     - match: grain
     - secrets.postgresql-users.replica
 
-  'roles:backup-server':
+  'roles:salt-master':
     - match: grain
-    - backup.server
+    - salt-master
 
-  'roles:loadbalancer':
+  'roles:tracker':
     - match: grain
-    - haproxy
-    - firewall.loadbalancer
-    - secrets.tls.certs.loadbalancer
+    - pgbouncer.tracker
+    - secrets.postgresql-users.tracker
 
   'roles:vpn':
     - match: grain
@@ -82,16 +95,3 @@ base:
     - ssh.duosec
     - secrets.openvpn.vpn
     - secrets.duosec.vpn
-
-  'roles:monitoring':
-    - match: grain
-    - firewall.monitoring
-    - pgbouncer.monitoring
-    - secrets.postgresql-users.monitoring
-    - secrets.monitoring.server
-
-  'roles:apt':
-    - match: grain
-    - firewall.http
-    - secrets.aptly
-    - secrets.backup.apt
