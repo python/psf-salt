@@ -10,7 +10,7 @@
 
 # Default rules
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
--A INPUT -p icmp -j ACCEPT
+-A INPUT -p ipv6-icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT
 
 # SSH
@@ -19,7 +19,7 @@
 {% for rule, config in rules.iteritems() -%}
 {% if not config.get("raw") and not config.get("raw_v6") -%}
 {% set port = config.get('port', 22) -%}
-{% set proto = config.get('protocol', 'tcp') -%}
+{% set proto = config.get('protocol', 'tcp6') -%}
 {% set source = config.get('source') -%}
 {% if not source or (source and salt["ip_picker.ip_family"](source) == "ipv6") -%}
 # {{ rule }}
