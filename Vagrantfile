@@ -4,6 +4,7 @@
 SERVERS = [
   "apt",
   "backup-server",
+  "cdn-logs",
 ]
 
 SUBNET = "192.168.50"

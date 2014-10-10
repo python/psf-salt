@@ -10,10 +10,15 @@ base:
     - firewall.http
     - secrets.aptly
 
-  'roles:salt-master':
-    - match: grain
-    - firewall.salt
-
   'roles:backup-server':
     - match: grain
     - backup.server
+
+  'roles:cdn-logs':
+    - match: grain
+    - fastly-logging
+    - firewall.fastly-logging
+
+  'roles:salt-master':
+    - match: grain
+    - firewall.salt
