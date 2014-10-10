@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
     # We use a shell provisioner here instead of the run_highstate of the
     # salt provisioner because it's attempting to use --retcode passthrough
     # which doesn't yet exist.
-    config.vm.provision "shell", inline: "salt-call state.highstate"
+    salt_master.vm.provision "shell", inline: "salt-call state.highstate"
   end
 
   SERVERS.each_with_index do |server, num|
