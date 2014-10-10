@@ -44,6 +44,7 @@ diamond:
     - mode: 640
     - require:
       - pkg: diamond
+      - group: diamond
 
 
 /var/log/diamond:

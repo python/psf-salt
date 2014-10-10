@@ -17,6 +17,9 @@ monitoring-collectors-default-packages:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond
 
 
 {% set collectors = [
@@ -36,6 +39,9 @@ monitoring-collectors-default-packages:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond
 {% endfor %}
 
 
@@ -50,6 +56,9 @@ monitoring-collectors-default-packages:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond
 
 
 /etc/diamond/collectors/UserScriptsCollector.conf:
@@ -64,3 +73,6 @@ monitoring-collectors-default-packages:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond
