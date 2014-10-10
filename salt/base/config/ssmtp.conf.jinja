@@ -1,5 +1,3 @@
-{% set smtp = salt["pillar.get"]("system-mail") %}
-
 root=infrastructure-staff@python.org
 mailhub={{ smtp.server }}
 UseSTARTTLS={% if smtp.starttls %}yes{% else %}no{% endif %}
