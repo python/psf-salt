@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 SERVERS = [
+  "apt",
 ]
 
 Vagrant.configure("2") do |config|
