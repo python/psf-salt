@@ -9,6 +9,7 @@ SERVERS = [
   "downloads",
   "hg",
   "jython-web",
+  "loadbalancer",
 ]
 
 SUBNET = "192.168.50"

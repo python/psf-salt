@@ -38,6 +38,12 @@ base:
     - groups.jython
     - firewall.http
 
+  'roles:loadbalancer':
+    - match: grain
+    - haproxy
+    - firewall.loadbalancer
+    - secrets.tls.certs.loadbalancer
+
   'roles:salt-master':
     - match: grain
     - firewall.salt

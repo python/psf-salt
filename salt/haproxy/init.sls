@@ -31,8 +31,7 @@ haproxy:
     - mode: 644
     - require:
       - pkg: haproxy
-      - file: /etc/ssl/private/ev.python.org.pem
-      - file: /etc/ssl/private/hg.python.org.pem
+      - file: /etc/ssl/private/*.pem
 
 
 /etc/ssl/private/ev.python.org.pem:
