@@ -1,4 +1,3 @@
-/pillar/secrets
 /pillar/prod/secrets
 
 *.py[cod]
