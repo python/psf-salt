@@ -19,6 +19,11 @@ base:
     - fastly-logging
     - firewall.fastly-logging
 
+  'roles:docs':
+    - match: grain
+    - firewall.fastly-backend
+    - groups.docs
+
   'roles:salt-master':
     - match: grain
     - firewall.salt
