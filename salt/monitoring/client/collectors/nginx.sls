@@ -13,8 +13,8 @@
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: True
+        collector:
+          enabled: True
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
