@@ -16,8 +16,8 @@ Vagrant.configure("2") do |config|
     salt_master.vm.provision :salt do |salt|
       salt.install_master = true
 
-      salt.master_config = "vagrant/conf/master.conf"
-      salt.minion_config = "vagrant/conf/minions/salt-master.conf"
+      salt.master_config = "conf/vagrant/master.conf"
+      salt.minion_config = "conf/vagrant/minions/salt-master.conf"
     end
 
     # We use a shell provisioner here instead of the run_highstate of the
@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
       s_config.vm.network "private_network", ip: "192.168.50.#{num + 10}", virtualbox__intnet: "psf"
 
       s_config.vm.provision :salt do |salt|
-        salt.minion_config = "vagrant/conf/minions/#{server}.conf"
+        salt.minion_config = "conf/vagrant/minions/#{server}.conf"
         salt.run_highstate = true
       end
     end
