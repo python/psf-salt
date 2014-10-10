@@ -45,7 +45,7 @@ include:
     - shell: {{ user_config.get("shell", "/bin/bash") }}
 {% set groups = access.get("groups", []) %}
 {% if sudoer %}
-  {% do groups.extend(pillar["sudoer_groups"]) %}
+  {% do groups.extend(salt["pillar.get"]("sudoer_groups", [])) %}
 {% endif %}
     - groups: {{ groups }}
     - require:
