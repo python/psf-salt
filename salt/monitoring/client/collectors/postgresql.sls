@@ -19,4 +19,6 @@ monitoring-psycopg2:
     - watch_in:
       - service: diamond
     - require:
+      - pkg: diamond
+      - group: diamond
       - pkg: monitoring-psycopg2

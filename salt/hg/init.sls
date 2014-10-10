@@ -115,3 +115,6 @@ HttpdCollector-Override:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond

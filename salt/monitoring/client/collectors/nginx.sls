@@ -20,5 +20,7 @@
     - watch_in:
       - service: diamond
     - require:
+      - pkg: diamond
+      - group: diamond
       - file: /etc/nginx/sites.d/status.conf
 
