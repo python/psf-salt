@@ -13,3 +13,7 @@ base:
   'roles:salt-master':
     - match: grain
     - firewall.salt
+
+  'roles:backup-server':
+    - match: grain
+    - backup.server

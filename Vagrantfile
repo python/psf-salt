@@ -3,6 +3,7 @@
 
 SERVERS = [
   "apt",
+  "backup-server",
 ]
 
 SUBNET = "192.168.50"
