@@ -1,6 +1,7 @@
 include:
   - .dotfiles
-{% for user_name, user_config in pillar["users"].iteritems() %}
+
+{% for user_name, user_config in salt["pillar.get"]("users", {}).iteritems() %}
 {% set admin = user_config.get("admin", false) %}
 {% set access = {} %}
 {% for pat, data in user_config.get("access", {}).iteritems() if salt["match.grain"](pat) %}
@@ -18,7 +19,7 @@ include:
   file.directory:
     - mode: 755
 
-{% for user_name, user_config in pillar["users"].iteritems() %}
+{% for user_name, user_config in salt["pillar.get"]("users", {}).iteritems() %}
 {% set admin = user_config.get("admin", false) %}
 {% set access = {} %}
 {% for pat, data in user_config.get("access", {}).iteritems() if salt["match.grain"](pat) %}
