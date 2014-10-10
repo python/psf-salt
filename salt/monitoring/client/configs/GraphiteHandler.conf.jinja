@@ -1,7 +1,5 @@
-{% set server = (salt["mine.get"]("roles:monitoring", "minealiases.psf_internal", expr_form="grain").values())|sort|first|first %}
-
 # Graphite server host
-host = {{ server }}
+host = {{ servers|sort|first|first }}
 
 # Port to send metrics to
 port = 2003
