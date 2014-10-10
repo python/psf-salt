@@ -24,6 +24,11 @@ base:
     - firewall.fastly-backend
     - groups.docs
 
+  'roles:downloads':
+    - match: grain
+    - firewall.fastly-backend
+    - groups.downloads
+
   'roles:salt-master':
     - match: grain
     - firewall.salt

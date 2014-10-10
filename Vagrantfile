@@ -6,6 +6,7 @@ SERVERS = [
   "backup-server",
   "cdn-logs",
   "docs",
+  "downloads",
 ]
 
 SUBNET = "192.168.50"
