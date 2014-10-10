@@ -1,5 +1,6 @@
 base:
   '*':
+    - networking
     - users
     - sudoers
     - psf-ca
