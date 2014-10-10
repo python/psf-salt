@@ -10,6 +10,7 @@ SERVERS = [
   "hg",
   "jython-web",
   "loadbalancer",
+  "planet",
 ]
 
 SUBNET = "192.168.50"

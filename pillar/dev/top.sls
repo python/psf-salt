@@ -44,6 +44,11 @@ base:
     - firewall.loadbalancer
     - secrets.tls.certs.loadbalancer
 
+  'roles:planet':
+    - match: grain
+    - planet
+    - firewall.http
+
   'roles:salt-master':
     - match: grain
     - firewall.salt
