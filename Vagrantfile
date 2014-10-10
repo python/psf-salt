@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+SERVERS = [
+]
+
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
@@ -21,6 +24,18 @@ Vagrant.configure("2") do |config|
     # salt provisioner because it's attempting to use --retcode passthrough
     # which doesn't yet exist.
     config.vm.provision "shell", inline: "salt-call state.highstate"
+  end
+
+  SERVERS.each_with_index do |server, num|
+    config.vm.define server, autostart: false do |s_config|
+      s_config.vm.hostname = "#{server}.vagrant.psf.io"
+      s_config.vm.network "private_network", ip: "192.168.50.#{num + 10}", virtualbox__intnet: "psf"
+
+      s_config.vm.provision :salt do |salt|
+        salt.minion_config = "vagrant/conf/minions/#{server}.conf"
+        salt.run_highstate = true
+      end
+    end
   end
 
 end
