@@ -8,12 +8,12 @@ monitoring-psycopg2:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: True
-        extended: True
-        interval: 30
-        user: diamond
-        password: {{ salt["pillar.get"]("postgresql-superusers:diamond") }}
+        collector:
+          enabled: True
+          extended: True
+          interval: 30
+          user: diamond
+          password: {{ salt["pillar.get"]("postgresql-superusers:diamond") }}
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
