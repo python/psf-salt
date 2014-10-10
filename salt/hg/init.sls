@@ -108,9 +108,9 @@ HttpdCollector-Override:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: True
-        urls: "http://localhost:9000/_server-status?auto"
+        collector:
+          enabled: True
+          urls: "http://localhost:9000/_server-status?auto"
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
