@@ -33,13 +33,21 @@ Vagrant.configure("2") do |config|
     s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
   end
 
-  SERVERS.each_with_index do |server, num|
+  SERVERS.each_with_index do |server_c, num|
+    if server_c.instance_of?(Hash)
+      server = server_c[:name]
+      roles = server_c.fetch :roles, [server]
+    else
+      server = server_c
+      roles = [server_c]
+    end
+
     config.vm.define server, autostart: false do |s_config|
       s_config.vm.hostname = "#{server}.vagrant.psf.io"
       s_config.vm.network "private_network", ip: "#{SUBNET}.#{num + 10}", virtualbox__intnet: "psf"
 
       s_config.vm.provision :salt
-      s_config.vm.provision :shell, inline: "echo 'master: #{MASTER}\n\ngrains:\n  roles:\n    - #{server}' > /etc/salt/minion.d/local.conf"
+      s_config.vm.provision :shell, inline: "echo 'master: #{MASTER}\n\ngrains:\n  roles:\n    - #{roles.join("\n    - ")}' > /etc/salt/minion.d/local.conf"
       s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
     end
   end
