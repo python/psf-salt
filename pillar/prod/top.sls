@@ -81,7 +81,7 @@ base:
 
   'roles:salt-master':
     - match: grain
-    - salt-master
+    - firewall.salt
 
   'roles:tracker':
     - match: grain
