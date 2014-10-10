@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/trusty64"
+
+  config.vm.define "salt-master" do |salt_master|
+    config.vm.hostname = "salt-master.vagrant.psf.io"
+    config.vm.network "private_network", ip: "192.168.50.2", virtualbox__intnet: "psf"
+
+    salt_master.vm.synced_folder "salt/", "/srv/salt"
+    salt_master.vm.synced_folder "pillar/dev", "/srv/pillar"
+
+    salt_master.vm.provision :salt do |salt|
+      salt.install_master = true
+
+      salt.master_config = "vagrant/conf/master.conf"
+      salt.minion_config = "vagrant/conf/minions/salt-master.conf"
+    end
+
+    # We use a shell provisioner here instead of the run_highstate of the
+    # salt provisioner because it's attempting to use --retcode passthrough
+    # which doesn't yet exist.
+    config.vm.provision "shell", inline: "salt-call state.highstate"
+  end
+
+end
