@@ -33,6 +33,11 @@ base:
     - match: grain
     - firewall.rs-lb-backend
 
+  'roles:jython-web':
+    - match: grain
+    - groups.jython
+    - firewall.http
+
   'roles:salt-master':
     - match: grain
     - firewall.salt

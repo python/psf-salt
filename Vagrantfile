@@ -8,6 +8,7 @@ SERVERS = [
   "docs",
   "downloads",
   "hg",
+  "jython-web",
 ]
 
 SUBNET = "192.168.50"
