@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
     config.vm.network "private_network", ip: "192.168.50.2", virtualbox__intnet: "psf"
 
     salt_master.vm.synced_folder "salt/", "/srv/salt"
-    salt_master.vm.synced_folder "pillar/dev", "/srv/pillar"
+    salt_master.vm.synced_folder "pillar", "/srv/pillar"
 
     salt_master.vm.provision :salt do |salt|
       salt.install_master = true
