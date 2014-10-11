@@ -31,7 +31,8 @@ root-cron-path:
 # mirrors are often way behind.
 /etc/apt/sources.list:
   file.managed:
-    - source: salt://base/config/sources.list
+    - source: salt://base/config/sources.list.jinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 644

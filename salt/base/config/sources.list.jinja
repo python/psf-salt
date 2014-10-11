@@ -1,0 +1,9 @@
+###### Ubuntu Main Repos
+deb http://us.archive.ubuntu.com/ubuntu/ {{ grains["oscodename"] }} main restricted universe
+deb-src http://us.archive.ubuntu.com/ubuntu/ {{ grains["oscodename"] }} main restricted universe
+
+###### Ubuntu Update Repos
+deb http://us.archive.ubuntu.com/ubuntu/ {{ grains["oscodename"] }}-security main restricted universe
+deb http://us.archive.ubuntu.com/ubuntu/ {{ grains["oscodename"] }}-updates main restricted universe
+deb-src http://us.archive.ubuntu.com/ubuntu/ {{ grains["oscodename"] }}-security main restricted universe
+deb-src http://us.archive.ubuntu.com/ubuntu/ {{ grains["oscodename"] }}-updates main restricted universe
