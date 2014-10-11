@@ -5,11 +5,6 @@ base:
     - sudoers
     - psf-ca
 
-  'roles:apt':
-    - match: grain
-    - firewall.http
-    - secrets.aptly
-
   'roles:backup-server':
     - match: grain
     - backup.server
@@ -50,6 +45,12 @@ base:
     - pgbouncer.monitoring
     - secrets.postgresql-users.monitoring
     - secrets.monitoring.server
+
+  'roles:packages':
+    - match: grain
+    - firewall.http
+    - aptly.packages
+    - secrets.aptly
 
   'roles:planet':
     - match: grain

@@ -7,12 +7,6 @@ base:
     - psf-ca
     - secrets.system-mail
 
-  'roles:apt':
-    - match: grain
-    - firewall.http
-    - secrets.aptly
-    - secrets.backup.apt
-
   'roles:backup-server':
     - match: grain
     - backup.server
@@ -58,6 +52,12 @@ base:
     - pgbouncer.monitoring
     - secrets.postgresql-users.monitoring
     - secrets.monitoring.server
+
+  'roles:packages':
+    - match: grain
+    - aptly.packages
+    - secrets.aptly
+    - secrets.backup.packages
 
   'roles:planet':
     - match: grain

@@ -19,10 +19,6 @@ base:
     - match: compound
     - openvpn.routing
 
-  'roles:apt':
-    - match: grain
-    - aptly
-
   'roles:backup-server':
     - match: grain
     - backup.server
@@ -54,6 +50,10 @@ base:
   'roles:monitoring':
     - match: grain
     - monitoring.server
+
+  'roles:packages':
+    - match: grain
+    - aptly
 
   'roles:planet':
     - match: grain
