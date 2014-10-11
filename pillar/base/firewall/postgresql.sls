@@ -1,8 +1,10 @@
+{% include "networking.sls" %}
+
 firewall:
   postgresql-psf-internal:
     port: 5432
-    source: 192.168.5.0/24
+    source: *psf_internal_network
 
   postgresql-pypi-internal:
     port: 5432
-    source: 172.16.57.0/24
+    source: *pypi_internal_network

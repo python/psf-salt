@@ -1,3 +1,7 @@
+ssl-cert:
+  pkg:
+    - installed
+
 {% for name in salt["pillar.get"]("psf-ca-server-certificate", {}) %}
 /etc/ssl/private/{{ name }}:
   file.managed:
@@ -5,6 +9,8 @@
     - user: root
     - group: ssl-cert
     - mode: 640
+    - require:
+      - pkg: ssl-cert
 {% endfor %}
 
 /etc/ssl/certs/psf-ca.pem:

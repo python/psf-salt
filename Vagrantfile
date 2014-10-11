@@ -11,6 +11,8 @@ SERVERS = [
   "jython-web",
   "loadbalancer",
   "planet",
+  {:name => "postgresql-primary", :roles => ["postgresql", "postgresql-primary"]},
+  {:name => "postgresql-replica", :roles => ["postgresql", "postgresql-replica"]},
 ]
 
 SUBNET1 = "192.168.50"

@@ -1,5 +1,11 @@
-{% set postgresql = salt["pillar.get"]("postgresql") %}
+{% set postgresql = salt["pillar.get"]("postgresql", {}) %}
 {% set data_partitions = salt["rackspace.data_partitions"]() %}
+
+{% if "postgresql-replica" in grains["roles"] %}
+{% set postgresql_primary = ((salt["mine.get"]("roles:postgresql-primary", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0')|first)[1]|sort()|first %}
+{% else %}
+{% set postgresql_replicas = salt["mine.get"]("roles:postgresql-replica", "minealiases.psf_internal", expr_form="grain") %}
+{% endif %}
 
 {% if data_partitions|length() > 1 %}
 This Does Not Support Multi Data Disk Servers!!!!
@@ -11,29 +17,33 @@ include:
   - .wal-e
 {% endif %}
 
-{% for partition in data_partitions %}
 postgresql-data:
+{% if data_partitions %}
   blockdev.formatted:
-    - name: /dev/{{ partition.partition }}
+    - name: /dev/{{ data_partitions[0].partition }}
     - fs_type: ext4
 
   mount.mounted:
     - name: /srv/postgresql
-    - device: /dev/{{ partition.partition }}
+    - device: /dev/{{ data_partitions[0].partition }}
     - fstype: ext4
     - mkmnt: True
     - opts: "data=writeback,noatime,nodiratime"
     - require:
       - blockdev: postgresql-data
+{% endif %}
 
   file.directory:
     - name: /srv/postgresql/9.3
     - user: root
     - group: root
     - mode: 777
+{% if data_partitions %}
     - require:
       - mount: postgresql-data
-{% endfor %}
+{% else %}
+    - makedirs: True
+{% endif %}
 
 
 postgresql-server:
@@ -63,36 +73,10 @@ postgresql-server:
       - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
+      - file: {{ postgresql.config_dir }}/conf.d
       {% if "postgresql-replica" in grains["roles"] %}
       - file: {{ postgresql.recovery_file }}
       {% endif %}
-
-
-{% if "postgresql-replica" in grains["roles"] %}
-/etc/ssl/db:
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 755
-
-/etc/ssl/db/replicator.key:
-  file.managed:
-    - contents_pillar: postgresql-users:replicator:key
-    - user: postgres
-    - group: postgres
-    - mode: 600
-    - require:
-      - file: /etc/ssl/db
-
-/etc/ssl/db/replicator.crt:
-  file.managed:
-    - contents_pillar: postgresql-users:replicator:crt
-    - user: postgres
-    - group: postgres
-    - mode: 640
-    - require:
-      - file: /etc/ssl/db
-{% endif %}
 
 
 postgresql-psf-cluster:
@@ -102,26 +86,15 @@ postgresql-psf-cluster:
     {% elif "postgresql-replica" in grains["roles"] %}
     - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -U replicator
     - env:
-      - PGHOST: pg.psf.io
-      - PGHOSTADDR: {{ postgresql.primary }}
+      - PGHOST: {{ postgresql_primary }}
       - PGPORT: "{{ postgresql.port }}"
-      - PGSSLMODE: verify-full
-      - PGSSLCERT: /etc/ssl/db/replicator.crt
-      - PGSSLKEY: /etc/ssl/db/replicator.key
-      - PGSSLROOTCERT: /etc/ssl/certs/psf-ca.pem
-      - PGSSLCRL: /etc/ssl/crl/psf-crl.pem
+      - PGPASSWORD: {{ pillar["postgresql-users"]["replicator"] }}
     - user: postgres
     {% endif %}
     - unless: pg_lsclusters | grep '^9\.3\s\+psf\s\+'
     - require:
       - pkg: postgresql-server
-      {% if data_partitions %}
       - file: postgresql-data
-      {% endif %}
-      {% if "postgresql-replica" in grains["roles"] %}
-      - file: /etc/ssl/db/replicator.key
-      - file: /etc/ssl/db/replicator.crt
-      {% endif %}
 
 
 # Make sure that our log directory is writeable
@@ -214,10 +187,11 @@ postgresql-psf-cluster:
 replicator:
   postgres_user.present:
     - replication: True
+    - password: {{ pillar["postgresql-replicator"] }}
     - require:
       - service: postgresql-server
 
-{% for user, password in salt["pillar.get"]("postgresql-superusers").items() %}
+{% for user, password in salt["pillar.get"]("postgresql-superusers", {}).items() %}
 {{ user }}-superuser:
   postgres_user.present:
     - name: {{ user }}
@@ -227,7 +201,7 @@ replicator:
       - service: postgresql-server
 {% endfor %}
 
-{% for user, password in salt["pillar.get"]("postgresql-users").items() %}
+{% for user, password in salt["pillar.get"]("postgresql-users", {}).items() %}
 {{ user }}-user:
   postgres_user.present:
     - name: {{ user }}
@@ -236,7 +210,7 @@ replicator:
       - service: postgresql-server
 {% endfor %}
 
-{% for database, user in postgresql.databases.items() %}
+{% for database, user in postgresql.get("databases", {}).items() %}
 {{ database }}-database:
   postgres_database.present:
     - name: {{ database }}

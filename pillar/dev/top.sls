@@ -49,6 +49,19 @@ base:
     - planet
     - firewall.http
 
+  'roles:postgresql':
+    - match: grain
+    - firewall.postgresql
+    - postgresql.server
+
+  'roles:postgresql-primary':
+    - match: grain
+    - secrets.postgresql-users.all
+
+  'roles:postgresql-replica':
+    - match: grain
+    - secrets.postgresql-users.replica
+
   'roles:salt-master':
     - match: grain
     - firewall.salt
