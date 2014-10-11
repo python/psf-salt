@@ -47,6 +47,10 @@ base:
     - match: grain
     - jython
 
+  'roles:loadbalancer':
+    - match: grain
+    - haproxy
+
   'roles:monitoring':
     - match: grain
     - monitoring.server
@@ -58,10 +62,6 @@ base:
   'roles:postgresql':
     - match: grain
     - postgresql.server
-
-  'roles:loadbalancer':
-    - match: grain
-    - haproxy
 
   'roles:salt-master':
     - match: grain
