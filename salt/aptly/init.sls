@@ -127,7 +127,7 @@ aptly-repository-{{ name }}:
 aptly-publish-{{ name }}:
   cmd.run:
     - name: "aptly publish repo -component={{ component }} -distribution={{ distribution }} {{ name }} {{ endpoint }}"
-    - unless: "aptly publish list | grep '* \\+{{ endpoint|default('.', boolean=True) }}/\\?{{ distribution }} \\[.\\+\\] \\+publishes {{ "{" }}{{ component }}: \\[{{ name }}\\]}'"
+    - unless: "aptly publish list | grep '* \\+{{ endpoint|default('.', boolean=True) }}/{{ distribution }} \\[.\\+\\] \\+publishes {{ "{" }}{{ component }}: \\[{{ name }}\\]}'"
     - user: aptly
     - require:
       - cmd: aptly-repository-{{ name }}
