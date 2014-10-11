@@ -1,4 +1,4 @@
-/etc/apt/keys/duosecurity-trusty-main.gpg:
+/etc/apt/keys/duosecurity-main.gpg:
   file.managed:
     - source: salt://duosec/config/APT-GPG-KEY-DUO
     - user: root
@@ -6,19 +6,17 @@
     - mode: 644
 
   cmd.wait:
-    - name: apt-key add /etc/apt/keys/duosecurity-trusty-main.gpg
+    - name: apt-key add /etc/apt/keys/duosecurity-main.gpg
     - watch:
-      - file: /etc/apt/keys/duosecurity-trusty-main.gpg
-    - require:
-      - file: /etc/apt/keys/duosecurity-trusty-main.gpg
+      - file: /etc/apt/keys/duosecurity-main.gpg
 
 
 duosec:
   pkgrepo.managed:
-    - name: deb http://pkg.duosecurity.com/Ubuntu trusty main
+    - name: deb http://pkg.duosecurity.com/Ubuntu {{ grains["oscodename"] }} main
     - require:
-      - file: /etc/apt/keys/duosecurity-trusty-main.gpg
-      - cmd: /etc/apt/keys/duosecurity-trusty-main.gpg
+      - file: /etc/apt/keys/duosecurity-main.gpg
+      - cmd: /etc/apt/keys/duosecurity-main.gpg
     - require_in:
       - pkg: duosec
 
