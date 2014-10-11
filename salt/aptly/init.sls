@@ -139,7 +139,7 @@ aptly-psf-repo-incoming:
 aptly-psf-precise-repo-incoming:
   cron.present:
     - identifier: aptly-psf-precise-repo-incoming
-    - name: "aptly repo add -remove-files=true psf-precise /srv/aptly/incoming/psf >> /var/log/aptly/incoming.log && aptly publish update precise >> /var/log/aptly/incoming.log"
+    - name: "aptly repo add -remove-files=true psf-precise /srv/aptly/incoming/psf-precise >> /var/log/aptly/incoming.log && aptly publish update precise >> /var/log/aptly/incoming.log"
     - user: aptly
     - minute: '*/5'
 
