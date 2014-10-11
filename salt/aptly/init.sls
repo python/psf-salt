@@ -60,10 +60,21 @@ aptly:
       - user: aptly
 
 
-aptly-psf-repo:
+aptly-psf-trusty-repo:
   cmd.run:
     - name: aptly repo create -distribution=trusty psf
     - unless: aptly repo show psf
+    - user: aptly
+    - require:
+      - pkg: aptly
+      - file: /etc/aptly.conf
+      - file: /srv/aptly
+
+
+aptly-psf-precise-repo:
+  cmd.run:
+    - name: aptly repo create -distribution=precise psf-precise
+    - unless: aptly repo show psf-precise
     - user: aptly
     - require:
       - pkg: aptly
@@ -94,7 +105,18 @@ aptly-uploaders:
     - require:
       - user: aptly
       - group: aptly-uploaders
-      - file: /srv/aptly
+      - file: /srv/aptly/incoming
+
+
+/srv/aptly/incoming/psf-precise:
+  file.directory:
+    - user: aptly
+    - group: aptly-uploaders
+    - mode: 2770
+    - require:
+      - user: aptly
+      - group: aptly-uploaders
+      - file: /srv/aptly/incoming
 
 
 /var/log/aptly:
@@ -110,6 +132,14 @@ aptly-psf-repo-incoming:
   cron.present:
     - identifier: aptly-psf-repo-incoming
     - name: "aptly repo add -remove-files=true psf /srv/aptly/incoming/psf >> /var/log/aptly/incoming.log && aptly publish update trusty >> /var/log/aptly/incoming.log"
+    - user: aptly
+    - minute: '*/5'
+
+
+aptly-psf-precise-repo-incoming:
+  cron.present:
+    - identifier: aptly-psf-precise-repo-incoming
+    - name: "aptly repo add -remove-files=true psf-precise /srv/aptly/incoming/psf >> /var/log/aptly/incoming.log && aptly publish update precise >> /var/log/aptly/incoming.log"
     - user: aptly
     - minute: '*/5'
 
@@ -140,13 +170,22 @@ aptly-gpg:
       - user: aptly
 
 
-aptly-psf-repo-publish:
+aptly-psf-trusty-repo-publish:
   cmd.run:
     - name: "aptly publish repo -component=main -distribution=trusty psf"
     - unless: "aptly publish list | grep './trusty \\[amd64\\] publishes {main: \\[psf\\]}'"
     - user: aptly
     - require:
-      - cmd: aptly-psf-repo
+      - cmd: aptly-psf-trusty-repo
+
+
+aptly-psf-precise-repo-publish:
+  cmd.run:
+    - name: "aptly publish repo -component=main -distribution=precise psf-precise"
+    - unless: "aptly publish list | grep './precise \\[amd64\\] publishes {main: \\[psf-precise\\]}'"
+    - user: aptly
+    - require:
+      - cmd: aptly-psf-precise-repo
 
 
 /etc/nginx/sites.d/apt.conf:
