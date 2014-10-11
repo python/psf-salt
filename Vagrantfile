@@ -9,7 +9,7 @@ SERVERS = [
   "downloads",
   "hg",
   "jython-web",
-  "loadbalancer",
+  {:name => "loadbalancer", :box=> "ubuntu/precise64"},
   "monitoring",
   "planet",
   {:name => "postgresql-primary", :roles => ["postgresql", "postgresql-primary"]},
@@ -44,12 +44,18 @@ Vagrant.configure("2") do |config|
     if server_c.instance_of?(Hash)
       server = server_c[:name]
       roles = server_c.fetch :roles, [server]
+      box = server_c.fetch :box, nil
     else
       server = server_c
       roles = [server_c]
+      box = nil
     end
 
     config.vm.define server, autostart: false do |s_config|
+      if box
+        s_config.vm.box = box
+      end
+
       s_config.vm.hostname = "#{server}.vagrant.psf.io"
       s_config.vm.network "private_network", ip: "#{SUBNET1}.#{num + 10}", virtualbox__intnet: "psf1"
       s_config.vm.network "private_network", ip: "#{SUBNET2}.#{num + 10}", virtualbox__intnet: "psf2"
