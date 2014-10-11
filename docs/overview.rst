@@ -34,7 +34,6 @@ Infrastructure Providers
 The PSF uses several different cloud providers and services for its infrastructure.
 
 XS4ALL
-
    XS4ALL is the by far the oldest Python infrastructure provider. There are two
    physical servers owned by the PSF at XS4ALL: albatross and dinsdale. (There
    also used to be one called ximinez, but it seems to be unreachable now.)
@@ -43,26 +42,22 @@ XS4ALL
    providers.
 
 OSUOSL
-
    `Oregon State University Open Source Lab <http://osuosl.org/>`_ hosts VMs for
    the PSF. These VMs are provisioned using `Chef <http://www.getchef.com>`_ and
    their configuration management is in the `psf-chef git repo
    <https://github.com/python/psf-chef>`_.
 
 Rackspace
-
    `Rackspace <http://www.rackspace.com>`_ is the newest cloud provider utilized
    by the PSF. It hosts PyPI and an increasing number of python.org-related
    services (Python downloads, docs.python.org). `Salt
    <http://www.saltstack.com>`_ is used for configuration management.
 
 Dyn & Gandi
-
    `Gandi <http://www.gandi.net>`_ is our domain registar, and we use `Dyn
    <http://www.dyn.com>`_ for DNS hosting on most of our domains.
 
 Fastly
-
    `Fastly <http://www.fastly.com>`_ generously donates its content distribution
    network (CDN) to the PSF. Our highest traffic services (i.e. PyPI,
    www.python.org, docs.python.org) use this CDN to improve end-user latency.
@@ -73,54 +68,44 @@ Details of Various Services
 This section enumerates PSF services, generalities about their hosting, and contact information for the owners.
 
 Buildbot
-
    The `buildbot master <http://buildbot.python.org>`_ is a service run by
    python-dev@python.org, particularly Antoine Pitrou.
 
 bugs.python.org
-
    bugs.python.org is hosted using a server donated by `Upfront Systems
    <http://www.upfrontsystems.co.za>`_. The tracker-discuss@python.org list is
    used for discussion of the tracker.
 
 docs.python.org
-
    The Python documentation is hosted on a Rackspace VM, served through Fastly,
    and owned by Benjamin Peterson and Georg Brandl.
 
 hg.python.org
-
    The CPython Mercurial repositories are hosted on a Rackspace VM. The service
    is owned by Antoine Pitrou and Georg Brandl.
 
 mail.python.org
-
    The python.org `Mailman <http://list.org>`_ instance is hosted on
    https://mail.python.org as well as SMTP (Postfix). All inquiries should be
    directed to postmaster@python.org.
 
 planetpython.org and planet.jython.org
-
    These are hosted on a Rackspace VM. The Planet code and configuration are
    `hosted on GitHub <https://github.com/python/planet>`_ and maintained by the
    team at planet@python.org.
 
 speed.python.org
-
    speed.python.org is a beefy machine sitting around at OSUOSL doing
    nothing. It needs love.
 
 wiki.python.org
-
    This is hosted on an OSUOSL VM. Marc-André Lemburg owns it.
 
 www.jython.org
-
    This is hosted on a Rackspace VM. The setup is quite simple and shouldn't
    require much tweaking, but Benjamin Peterson can be poked about it.
 
 www.python.org
-
    The `main Python website <https://www.python.org>`_ is a Django app hosted on
    a OSUOSL VM. Its source code is available on `GitHub
    <https://github.com/python/pythondotorg>`_, and issues with the site can be
@@ -133,12 +118,10 @@ www.python.org
    because the new website's PEPs app isn't ready yet.
 
 PyCon
-
    The PyCon website is hosted on a OSUOSL VM. The contact address is
    pycon-tech@python.org.
 
 PyPI
-
    The `Python Package Index <https://pypi.python.org/>`_ sees the most load of
    any PSF service. All of its infrastructure runs on Rackspace configured by
    `pypi-salt <https://github.com/python/pypi-salt>`_, and it is served over
@@ -146,6 +129,5 @@ PyPI
    and Richard Jones.
 
 PyPy properties
-
    The `PyPy website <http://pypy.org>`_ is hosted on a OSUOSL VM and maintained
    by pypy-dev@python.org.
