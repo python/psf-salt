@@ -44,6 +44,13 @@ base:
     - firewall.loadbalancer
     - secrets.tls.certs.loadbalancer
 
+  'roles:monitoring':
+    - match: grain
+    - firewall.monitoring
+    - pgbouncer.monitoring
+    - secrets.postgresql-users.monitoring
+    - secrets.monitoring.server
+
   'roles:planet':
     - match: grain
     - planet
