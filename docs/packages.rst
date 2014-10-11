@@ -3,10 +3,9 @@ APT Packages
 
 PSF Infrastructure has the ability to create apt repositories stored on S3.
 The primary one of these is named "psf" and it is located at
-``http://psf-aptly.s3-website-us-east-1.amazonaws.com/psf/``. The psf
-repository has been added to all servers by default and can be used to ship
-things which are not available in Ubuntu or a ppa or for which there are
-patched versions required.
+``http://apt.psf.io/psf/``. The psf repository has been added to all servers by
+default and can be used to ship things which are not available in Ubuntu or a
+ppa or for which there are patched versions required.
 
 
 Install from the PSF repository
