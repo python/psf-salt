@@ -1,17 +1,14 @@
 base:
-
   '*':
     - networking
     - users
     - sudoers
     - psf-ca
-    - secrets.system-mail
 
   'roles:apt':
     - match: grain
     - firewall.http
     - secrets.aptly
-    - secrets.backup.apt
 
   'roles:backup-server':
     - match: grain
@@ -26,23 +23,18 @@ base:
     - match: grain
     - firewall.fastly-backend
     - groups.docs
-    - secrets.backup.docs
 
   'roles:downloads':
     - match: grain
     - firewall.fastly-backend
     - groups.downloads
-    - secrets.backup.downloads
 
   'roles:hg':
     - match: grain
     - firewall.rs-lb-backend
-    - secrets.backup.hg
-    - secrets.ssh.hg
 
   'roles:jython-web':
     - match: grain
-    - secrets.backup.jython-web
     - groups.jython
     - firewall.http
 
@@ -68,8 +60,6 @@ base:
     - match: grain
     - firewall.postgresql
     - postgresql.server
-    - secrets.wal-e
-    - secrets.psf-ca.pg
 
   'roles:postgresql-primary':
     - match: grain
@@ -81,17 +71,9 @@ base:
 
   'roles:salt-master':
     - match: grain
-    - salt-master
+    - firewall.salt
 
   'roles:tracker':
     - match: grain
     - pgbouncer.tracker
     - secrets.postgresql-users.tracker
-
-  'roles:vpn':
-    - match: grain
-    - openvpn
-    - firewall.vpn
-    - ssh.duosec
-    - secrets.openvpn.vpn
-    - secrets.duosec.vpn

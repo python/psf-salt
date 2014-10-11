@@ -1,5 +1,7 @@
-{% set postgresql = salt["pillar.get"]("postgresql") %}
+{% set postgresql = salt["pillar.get"]("postgresql", {}) %}
+{% set wale = salt["pillar.get"]("wal-e", {}) %}
 
+{% if wale %}
 wal-e-dependencies:
   pkg.installed:
     - pkgs:
@@ -28,7 +30,7 @@ wal-e:
 
 /etc/wal-e.d/WALE_SWIFT_PREFIX:
   file.managed:
-    - contents: "{{ pillar['wal-e']['swift-prefix'] }}/{{ grains['fqdn'] }}"
+    - contents: "{{ wale['swift-prefix'] }}/{{ grains['fqdn'] }}"
     - user: root
     - group: postgres
     - mode: 640
@@ -163,3 +165,4 @@ weekly-interval-wal-e-backup:
     - minute: '0'
     - hour: '0'
     - dayweek: '0'
+{% endif %}

@@ -9,14 +9,17 @@ monitoring-collectors-default-packages:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: True
-        dir: /proc/sys/net/netfilter
-        files: '"nf_conntrack_count,nf_conntrack_max"'
+        collector:
+          enabled: True
+          dir: /proc/sys/net/netfilter
+          files: '"nf_conntrack_count,nf_conntrack_max"'
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond
 
 
 {% set collectors = [
@@ -30,12 +33,15 @@ monitoring-collectors-default-packages:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: True
+        collector:
+          enabled: True
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond
 {% endfor %}
 
 
@@ -44,12 +50,15 @@ monitoring-collectors-default-packages:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: False
+        collector:
+          enabled: False
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond
 
 
 /etc/diamond/collectors/UserScriptsCollector.conf:
@@ -57,10 +66,13 @@ monitoring-collectors-default-packages:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: True
-        scripts_path: /usr/local/share/diamond/user_scripts/
+        collector:
+          enabled: True
+          scripts_path: /usr/local/share/diamond/user_scripts/
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond

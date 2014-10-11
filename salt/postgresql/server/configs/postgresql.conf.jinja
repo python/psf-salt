@@ -51,15 +51,6 @@ port = {{ postgresql.port }}
 max_connections = {{ postgresql.max_connections }}
 unix_socket_directories = '/var/run/postgresql'
 
-# - Security and Authentication -
-
-ssl = true
-ssl_ciphers = 'ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:!aNULL:!MD5:!DSS'
-ssl_cert_file = '/etc/ssl/private/pg.psf.io.pem'
-ssl_key_file = '/etc/ssl/private/pg.psf.io.pem'
-ssl_ca_file = '/etc/ssl/certs/psf-ca.pem'
-ssl_crl_file = '/etc/ssl/crl/psf-crl.pem'
-
 
 #------------------------------------------------------------------------------
 # RESOURCE USAGE (except WAL)

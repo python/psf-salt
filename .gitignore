@@ -1,7 +1,8 @@
-/pillar/secrets
+/pillar/prod/secrets
 
 *.py[cod]
 
 docs/_build
 
 .tox
+.vagrant

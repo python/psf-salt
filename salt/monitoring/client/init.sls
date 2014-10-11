@@ -1,3 +1,5 @@
+{% set graphite_servers = (salt["mine.get"]("roles:monitoring", "minealiases.psf_internal", expr_form="grain").values()) %}
+
 include:
   - .collectors.default
 
@@ -31,11 +33,18 @@ diamond:
   file.managed:
     - source: salt://monitoring/client/configs/diamond.conf.jinja
     - template: jinja
+    - context:
+        handlers:
+          - diamond.handler.archive.ArchiveHandler
+          {% if graphite_servers %}
+          - diamond.handler.graphite.GraphiteHandler
+          {% endif %}
     - user: root
     - group: diamond
     - mode: 640
     - require:
       - pkg: diamond
+      - group: diamond
 
 
 /var/log/diamond:
@@ -58,11 +67,17 @@ diamond:
 
 
 /etc/diamond/handlers/GraphiteHandler.conf:
+{% if graphite_servers %}
   file.managed:
     - source: salt://monitoring/client/configs/GraphiteHandler.conf.jinja
     - template: jinja
+    - context:
+        servers: {{ graphite_servers }}
     - user: root
     - group: diamond
     - mode: 640
     - require:
       - pkg: diamond
+{% else %}
+  file.absent
+{% endif %}

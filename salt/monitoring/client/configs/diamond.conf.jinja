@@ -7,7 +7,7 @@
 [server]
 
 # Handlers for published metrics.
-handlers = diamond.handler.graphite.GraphiteHandler, diamond.handler.archive.ArchiveHandler
+handlers = {{ ", ".join(handlers) }}
 
 # User diamond will run as
 # Leave empty to use the current user

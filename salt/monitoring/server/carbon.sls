@@ -1,4 +1,7 @@
+{% set data_partitions = salt["rackspace.data_partitions"]() %}
+
 carbon-data:
+{% if data_partitions %}
   blockdev.formatted:
     - name: /dev/xvdb1
     - fs_type: ext4
@@ -11,6 +14,7 @@ carbon-data:
     - opts: "data=writeback,noatime,nodiratime"
     - require:
       - blockdev: carbon-data
+{% endif %}
 
   file.directory:
     - name: /srv/carbon/whisper
@@ -18,8 +22,10 @@ carbon-data:
     - group: root
     - mode: 777
     - makedirs: True
+{% if data_partitions %}
     - require:
       - mount: carbon-data
+{% endif %}
 
 
 graphite-carbon:

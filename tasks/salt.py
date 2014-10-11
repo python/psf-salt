@@ -76,8 +76,8 @@ def sync_changes():
     # TODO: Determine what origin to use?
     invoke.run("git push origin master", echo=True)
 
-    if os.path.isdir("pillar/secrets"):
-        with cd("pillar/secrets"):
+    if os.path.isdir("pillar/prod/secrets"):
+        with cd("pillar/prod/secrets"):
             # Push our changes into the secret repository
             invoke.run("git push origin master", echo=True)
 

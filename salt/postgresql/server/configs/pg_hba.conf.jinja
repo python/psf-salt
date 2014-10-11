@@ -12,7 +12,7 @@ local   all             postgres                                peer
 # Replication
 {% for server, addrs in (salt["mine.get"]("roles:postgresql-replica", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0') %}
 {% for addr in addrs|sort() %}
-hostssl replication     replicator      {{ addr }} 255.255.255.255 cert
+host replication     replicator      {{ addr }} 255.255.255.255 md5
 {% endfor %}
 {% endfor %}
 

@@ -40,6 +40,12 @@ apache2:
     - watch:
       - file: /etc/apache2/*
       - file: /etc/apache2/sites-available/*
+      - file: /etc/apache2/sites-enabled/*
+      - file: /etc/apache2/mods-enabled/*
+
+/etc/apache2/mods-enabled/headers.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/headers.load
 
 /etc/apache2/ports.conf:
   file.managed:
@@ -99,7 +105,6 @@ irker:
       - file: /etc/init/irker.conf
     - require:
       - user: irker
-      - file: /etc/init/irker.conf
 
 
 HttpdCollector-Override:
@@ -108,10 +113,13 @@ HttpdCollector-Override:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: True
-        urls: "http://localhost:9000/_server-status?auto"
+        collector:
+          enabled: True
+          urls: "http://localhost:9000/_server-status?auto"
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
       - service: diamond
+    - require:
+      - pkg: diamond
+      - group: diamond
