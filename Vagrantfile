@@ -2,7 +2,6 @@
 
 
 SERVERS = [
-  "apt",
   "backup-server",
   "cdn-logs",
   "docs",
@@ -11,6 +10,7 @@ SERVERS = [
   "jython-web",
   {:name => "loadbalancer", :box=> "ubuntu/precise64"},
   "monitoring",
+  "packages",
   "planet",
   {:name => "postgresql-primary", :roles => ["postgresql", "postgresql-primary"]},
   {:name => "postgresql-replica", :roles => ["postgresql", "postgresql-replica"]},

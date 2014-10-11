@@ -1,9 +1,7 @@
-include:
-  - nginx
 
-
-/etc/apt/keys/aptly-squeeze-main.gpg:
+aptly:
   file.managed:
+    - name: /etc/apt/keys/aptly-squeeze-main.gpg
     - source: salt://aptly/configs/APT-GPG-KEY-APTLY
     - user: root
     - group: root
@@ -12,15 +10,14 @@ include:
   cmd.wait:
     - name: apt-key add /etc/apt/keys/aptly-squeeze-main.gpg
     - watch:
-      - file: /etc/apt/keys/aptly-squeeze-main.gpg
+      - file: aptly
 
-aptly:
   pkgrepo.managed:
     - name: deb http://repo.aptly.info/ squeeze main
     - file: /etc/apt/sources.list.d/aptly.list
     - require:
-      - file: /etc/apt/keys/aptly-squeeze-main.gpg
-      - cmd: /etc/apt/keys/aptly-squeeze-main.gpg
+      - file: aptly
+      - cmd: aptly
     - require_in:
       - pkg: aptly
 
@@ -39,13 +36,9 @@ aptly:
       - group: aptly
 
 
-/srv/aptly:
-  file.directory:
-    - user: aptly
-    - group: aptly
-    - mode: 755
-    - require:
-      - user: aptly
+aptly-uploaders:
+  group.present:
+    - system: True
 
 
 /etc/aptly.conf:
@@ -60,63 +53,9 @@ aptly:
       - user: aptly
 
 
-aptly-psf-trusty-repo:
-  cmd.run:
-    - name: aptly repo create -distribution=trusty psf
-    - unless: aptly repo show psf
-    - user: aptly
-    - require:
-      - pkg: aptly
-      - file: /etc/aptly.conf
-      - file: /srv/aptly
-
-
-aptly-psf-precise-repo:
-  cmd.run:
-    - name: aptly repo create -distribution=precise psf-precise
-    - unless: aptly repo show psf-precise
-    - user: aptly
-    - require:
-      - pkg: aptly
-      - file: /etc/aptly.conf
-      - file: /srv/aptly
-
-
-aptly-uploaders:
-  group.present:
-    - system: True
-
-/srv/aptly/incoming:
-  file.directory:
-    - user: aptly
-    - group: aptly-uploaders
-    - mode: 770
-    - require:
-      - user: aptly
-      - group: aptly-uploaders
-      - file: /srv/aptly
-
-
-/srv/aptly/incoming/psf:
-  file.directory:
-    - user: aptly
-    - group: aptly-uploaders
-    - mode: 2770
-    - require:
-      - user: aptly
-      - group: aptly-uploaders
-      - file: /srv/aptly/incoming
-
-
-/srv/aptly/incoming/psf-precise:
-  file.directory:
-    - user: aptly
-    - group: aptly-uploaders
-    - mode: 2770
-    - require:
-      - user: aptly
-      - group: aptly-uploaders
-      - file: /srv/aptly/incoming
+/etc/logrotate.d/aptly:
+  file.managed:
+    - source: salt://aptly/configs/aptly-logrotate.conf
 
 
 /var/log/aptly:
@@ -128,25 +67,13 @@ aptly-uploaders:
       - user: aptly
 
 
-aptly-psf-repo-incoming:
-  cron.present:
-    - identifier: aptly-psf-repo-incoming
-    - name: "aptly repo add -remove-files=true psf /srv/aptly/incoming/psf >> /var/log/aptly/incoming.log && aptly publish update trusty >> /var/log/aptly/incoming.log"
+/srv/aptly:
+  file.directory:
     - user: aptly
-    - minute: '*/5'
-
-
-aptly-psf-precise-repo-incoming:
-  cron.present:
-    - identifier: aptly-psf-precise-repo-incoming
-    - name: "aptly repo add -remove-files=true psf-precise /srv/aptly/incoming/psf-precise >> /var/log/aptly/incoming.log && aptly publish update precise >> /var/log/aptly/incoming.log"
-    - user: aptly
-    - minute: '*/5'
-
-
-/etc/logrotate.d/aptly:
-  file.managed:
-    - source: salt://aptly/configs/aptly-logrotate.conf
+    - group: aptly
+    - mode: 755
+    - require:
+      - user: aptly
 
 
 /srv/aptly/signing.key:
@@ -170,29 +97,57 @@ aptly-gpg:
       - user: aptly
 
 
-aptly-psf-trusty-repo-publish:
+/srv/aptly/incoming:
+  file.directory:
+    - user: aptly
+    - group: aptly-uploaders
+    - mode: 770
+    - require:
+      - user: aptly
+      - group: aptly-uploaders
+      - file: /srv/aptly
+
+
+{% for name, config in salt["pillar.get"]("aptly:repos", {}).items() %}  # Hack to fix highlighting"
+{% set component = config.get('component', 'main') %}
+{% set distribution = config.get('distribution', 'trusty') %}
+{% set endpoint = config.get("endpoint", config.get("prefix", "")) %}
+
+aptly-repository-{{ name }}:
   cmd.run:
-    - name: "aptly publish repo -component=main -distribution=trusty psf"
-    - unless: "aptly publish list | grep './trusty \\[amd64\\] publishes {main: \\[psf\\]}'"
+    - name: "aptly repo create -component={{ component }} -distribution={{ distribution }} {{ name }}"
+    - unless: aptly repo show {{ name }}
     - user: aptly
     - require:
-      - cmd: aptly-psf-trusty-repo
+      - pkg: aptly
+      - file: /etc/aptly.conf
+      - file: /srv/aptly
 
 
-aptly-psf-precise-repo-publish:
+aptly-publish-{{ name }}:
   cmd.run:
-    - name: "aptly publish repo -component=main -distribution=precise psf-precise"
-    - unless: "aptly publish list | grep './precise \\[amd64\\] publishes {main: \\[psf-precise\\]}'"
+    - name: "aptly publish repo -component={{ component }} -distribution={{ distribution }} {{ name }} {{ endpoint }}"
+    - unless: "aptly publish list | grep '* \\+{{ endpoint|default('.', boolean=True) }}/\\?{{ distribution }} \\[.\\+\\] \\+publishes {{ "{" }}{{ component }}: \\[{{ name }}\\]}'"
     - user: aptly
     - require:
-      - cmd: aptly-psf-precise-repo
+      - cmd: aptly-repository-{{ name }}
 
 
-/etc/nginx/sites.d/apt.conf:
-  file.managed:
-    - source: salt://aptly/configs/nginx.conf
-    - user: root
-    - group: root
-    - mode: 644
+/srv/aptly/incoming/{{ name }}:
+  file.directory:
+    - user: aptly
+    - group: aptly-uploaders
+    - mode: 2770
     - require:
-      - sls: nginx
+      - user: aptly
+      - group: aptly-uploaders
+      - file: /srv/aptly/incoming
+
+aptly-incoming-{{ name }}:
+  cron.present:
+    - identifier: aptly-incoming-{{ name }}
+    - name: "aptly repo add -remove-files=true {{ name }} /srv/aptly/incoming/{{ name }} >> /var/log/aptly/{{ name }}.incoming.log && aptly publish update {{ distribution }} {{ endpoint }} >> /var/log/aptly/{{ name }}.incoming.log"
+    - user: aptly
+    - minute: '*/5'
+
+{% endfor %}
