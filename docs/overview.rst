@@ -13,9 +13,9 @@ The infrastructure team is ultimately responsible maintaining PSF
 infrastructure. It is not, however, required to be a member of the
 infrastructure to run a PSF service. Indeed, the day to day operations of most
 services are handled by people not on the infrastructure team. The
-infrastructure team can assist in setting up new services and advising
-maintainers of individual services. Its members also generally handle changes to
-sensitive global systems such as DNS. The currrent team members are:
+infrastructure team can assist in setting up new services and advise maintainers
+of individual services. Its members also generally handle changes to sensitive
+global systems such as DNS. The currrent team members are:
 
 * Noah Kantrowitz (lead)
 * Ernest W. Durbin III
