@@ -57,6 +57,10 @@ Dyn & Gandi
    `Gandi <http://www.gandi.net>`_ is our domain registar, and we use `Dyn
    <http://www.dyn.com>`_ for DNS hosting on most of our domains.
 
+Pingdom
+  `Pingdom <https://www.pingdom.com>`_ provides monitoring and complains to us
+  when services are down.
+
 Fastly
    `Fastly <http://www.fastly.com>`_ generously donates its content distribution
    network (CDN) to the PSF. Our highest traffic services (i.e. PyPI,
