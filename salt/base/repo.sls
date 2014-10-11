@@ -1,7 +1,3 @@
-python-apt:
-  pkg.installed:
-    - order: 1
-
 /etc/apt/keys:
   file.directory:
     - user: root

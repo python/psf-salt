@@ -37,6 +37,7 @@ Vagrant.configure("2") do |config|
 
     s_config.vm.provision :salt, install_master: true, master_config: "conf/vagrant/master.conf"
     s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n\ngrains:\n  roles:\n    - salt-master' > /etc/salt/minion.d/local.conf"
+    s_config.vm.provision :shell, inline: "apt-get install -qy python-apt"
     s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
   end
 
@@ -62,6 +63,7 @@ Vagrant.configure("2") do |config|
 
       s_config.vm.provision :salt
       s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n\ngrains:\n  roles:\n    - #{roles.join("\n    - ")}' > /etc/salt/minion.d/local.conf"
+      s_config.vm.provision :shell, inline: "apt-get install -qy python-apt"
       s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
     end
   end
