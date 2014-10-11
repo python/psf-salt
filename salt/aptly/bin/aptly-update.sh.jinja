@@ -1,0 +1,9 @@
+#!/bin/sh
+
+{% for name in salt["pillar.get"]("aptly:repos", {}) %}
+aptly repo add -remove-files=true {{ name }} /srv/aptly/incoming/{{ name }}
+{% endfor %}
+
+{% for config in salt["pillar.get"]("aptly:repos", {}).values() %}
+aptly publish update {{ config.get('distribution', 'trusty') }} {{ config.get("endpoint", config.get("prefix", "")) }}
+{% endfor %}

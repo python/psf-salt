@@ -143,11 +143,21 @@ aptly-publish-{{ name }}:
       - group: aptly-uploaders
       - file: /srv/aptly/incoming
 
-aptly-incoming-{{ name }}:
+{% endfor %}
+
+
+/usr/local/bin/aptly-update.sh:
+  file.managed:
+    - source: salt://aptly/bin/aptly-update.sh.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 755
+
+
+aptly-incoming:
   cron.present:
-    - identifier: aptly-incoming-{{ name }}
-    - name: "aptly repo add -remove-files=true {{ name }} /srv/aptly/incoming/{{ name }} >> /var/log/aptly/{{ name }}.incoming.log && aptly publish update {{ distribution }} {{ endpoint }} >> /var/log/aptly/{{ name }}.incoming.log"
+    - identifier: aptly-incoming
+    - name: /usr/local/bin/aptly-update.sh >> /var/log/aptly/incoming.log
     - user: aptly
     - minute: '*/5'
-
-{% endfor %}
