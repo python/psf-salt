@@ -72,3 +72,8 @@ base:
   'roles:salt-master':
     - match: grain
     - firewall.salt
+
+  'roles:tracker':
+    - match: grain
+    - pgbouncer.tracker
+    - secrets.postgresql-users.tracker
