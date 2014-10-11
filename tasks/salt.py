@@ -86,7 +86,7 @@ def sync_changes():
         with fabric.api.cd("/srv/salt"):
             fabric.api.sudo("git pull --ff-only origin master")
 
-        with fabric.api.cd("/srv/pillar/secrets"):
+        with fabric.api.cd("/srv/pillar/prod/secrets"):
             fabric.api.sudo("git pull --ff-only origin master")
 
 
