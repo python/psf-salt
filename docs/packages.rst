@@ -1,24 +1,26 @@
 APT Packages
 ============
 
-PSF Infrastructure has an apt repository located at ``apt.psf.io``. This is
-added to all servers by default and can be used to ship things which are not
-available by default in Ubuntu or for which there are patched versions
-required.
+PSF Infrastructure has the ability to create apt repositories stored on S3.
+The primary one of these is named "psf" and it is located at
+``http://psf-aptly.s3-website-us-east-1.amazonaws.com/psf/``. The psf
+repository has been added to all servers by default and can be used to ship
+things which are not available in Ubuntu or a ppa or for which there are
+patched versions required.
 
 
-Install from apt.psf.io
------------------------
+Install from the PSF repository
+-------------------------------
 
-Generally nothing different needs to happen to install from apt.psf.io, just
-a simple ``apt-get install <something>`` or adding it to a salt state should
-pick up the package automatically.
+Generally nothing different needs to happen to install from the PSF repository,
+just a simple ``apt-get install <something>`` or adding it to a salt state
+should pick up the package automatically.
 
 
-Uploading to apt.psf.io
------------------------
+Uploading to the PSF repository
+-------------------------------
 
-In order to upload to ``apt.psf.io`` you must be a member of the
+In order to upload to the PSF repository you must be a member of the
 ``aptly-uploaders`` group. You can add yourself to this group by simply editing
 ``pillar/users.sls`` and adding:
 
@@ -34,11 +36,13 @@ below your user account.
 
 After you're a member of that ``aptly-uploaders`` group, you can upload a
 ``.deb`` or a ``.dsc`` file by simplying placing it in the
-``/srv/aptly/incoming/psf/`` directory. For example:
+``/srv/aptly/incoming/psf-trusty/`` or ``/srv/aptly/incoming/psf-precise/``
+directory on the packages.psf.io server depending on if the package is for
+trusty or precise. For example:
 
 .. code-block:: console
 
-    $ scp python-wal-e_0.7.2-2_all.deb apt.psf.io:/srv/aptly/incoming/psf/
+    $ scp python-wal-e_0.7.2-2_all.deb packages.psf.io:/srv/aptly/incoming/psf-trusty/
 
-Every 5 minutes ``apt.psf.io`` will scan this directory for new files, process
-them and then they will be available at ``apt.psf.io``.
+Every 5 minutes ``packages.psf.io`` will scan this directory for new files,
+process them and then they will be available in the PSF repository.
