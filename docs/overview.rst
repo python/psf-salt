@@ -26,7 +26,7 @@ global systems such as DNS. The currrent team members are:
 
 The best way to contact the infrastructure team is mailing
 infrastructure-staff@python.org. There's also often people hanging out on the
-#python-infra channel of [[http://freenode.net|Freenode]].
+#python-infra channel of `Freenode <http://freenode.net>`_.
 
 Infrastructure Providers
 ------------------------
