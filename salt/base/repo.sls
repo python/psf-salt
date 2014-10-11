@@ -24,7 +24,7 @@ python-apt:
 
 psf-apt-repo:
   pkgrepo.managed:
-    - name: "deb [arch=amd64] http://apt.psf.io/ trusty main"
+    - name: "deb [arch=amd64] http://apt.psf.io/ {{ grains['oscodename'] }} main"
     - file: /etc/apt/sources.list.d/psf.list
     - require:
       - file: /etc/apt/keys/psf.gpg
