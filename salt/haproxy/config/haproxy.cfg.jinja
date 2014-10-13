@@ -90,7 +90,7 @@ backend {{ config.role }}_{{ config.port }}
 
     {% else %}
 
-    {% for server, addrs in salt["mine.get"]("roles:" + config.role, "minealiases.psf_internal", expr_form="grain").items() %}
+    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() %}
     {% for addr in addrs %}
     server {{ server }} {{ addr }}:{{ config.port }} check
     {% endfor %}
@@ -111,7 +111,7 @@ listen {{ name }}
     option tcp-check
     {% endif %}
 
-    {% for server, addrs in salt["mine.get"]("roles:" + config.role, "minealiases.psf_internal", expr_form="grain").items() %}
+    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() %}
     {% for addr in addrs %}
     server {{ server }} {{ addr }}:{{ config.port }} check
     {% endfor %}

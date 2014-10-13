@@ -1,80 +1,81 @@
 base:
   '*':
+    - roles
     - networking
     - users
     - sudoers
     - psf-ca
 
-  'roles:backup-server':
-    - match: grain
+  'backup-server':
+    - match: nodegroup
     - backup.server
 
-  'roles:cdn-logs':
-    - match: grain
+  'cdn-logs':
+    - match: nodegroup
     - fastly-logging
     - firewall.fastly-logging
 
-  'roles:docs':
-    - match: grain
+  'docs':
+    - match: nodegroup
     - firewall.fastly-backend
     - groups.docs
 
-  'roles:downloads':
-    - match: grain
+  'downloads':
+    - match: nodegroup
     - firewall.fastly-backend
     - groups.downloads
 
-  'roles:hg':
-    - match: grain
+  'hg':
+    - match: nodegroup
     - firewall.rs-lb-backend
 
-  'roles:jython-web':
-    - match: grain
+  'jython-web':
+    - match: nodegroup
     - groups.jython
     - firewall.http
 
-  'roles:loadbalancer':
-    - match: grain
+  'loadbalancer':
+    - match: nodegroup
     - haproxy
     - firewall.loadbalancer
     - secrets.tls.certs.loadbalancer
 
-  'roles:monitoring':
-    - match: grain
+  'monitoring':
+    - match: nodegroup
     - firewall.monitoring
     - pgbouncer.monitoring
     - secrets.postgresql-users.monitoring
     - secrets.monitoring.server
 
-  'roles:packages':
-    - match: grain
+  'packages':
+    - match: nodegroup
     - firewall.http
     - aptly.packages
     - secrets.aptly
 
-  'roles:planet':
-    - match: grain
+  'planet':
+    - match: nodegroup
     - planet
     - firewall.http
 
-  'roles:postgresql':
-    - match: grain
+  'postgresql':
+    - match: nodegroup
     - firewall.postgresql
     - postgresql.server
 
-  'roles:postgresql-primary':
-    - match: grain
+  'postgresql-primary':
+    - match: nodegroup
     - secrets.postgresql-users.all
 
-  'roles:postgresql-replica':
-    - match: grain
+  'postgresql-replica':
+    - match: nodegroup
     - secrets.postgresql-users.replica
 
-  'roles:salt-master':
-    - match: grain
+  'salt-master':
+    - match: nodegroup
     - firewall.salt
 
-  'roles:tracker':
-    - match: grain
+  'tracker':
+    - match: nodegroup
     - pgbouncer.tracker
     - secrets.postgresql-users.tracker

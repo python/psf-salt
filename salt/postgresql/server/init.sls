@@ -1,10 +1,10 @@
 {% set postgresql = salt["pillar.get"]("postgresql", {}) %}
 {% set data_partitions = salt["rackspace.data_partitions"]() %}
 
-{% if "postgresql-replica" in grains["roles"] %}
-{% set postgresql_primary = ((salt["mine.get"]("roles:postgresql-primary", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0')|first)[1]|sort()|first %}
+{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+{% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0')|first)[1]|sort()|first %}
 {% else %}
-{% set postgresql_replicas = salt["mine.get"]("roles:postgresql-replica", "minealiases.psf_internal", expr_form="grain") %}
+{% set postgresql_replicas = salt["mine.get"](pillar["roles"]["postgresql-replica"], "minealiases.psf_internal", expr_form="compound") %}
 {% endif %}
 
 {% if data_partitions|length() > 1 %}
@@ -13,7 +13,7 @@ This Does Not Support Multi Data Disk Servers!!!!
 
 include:
   - monitoring.client.collectors.postgresql
-{% if "postgresql-primary" in grains["roles"] %}
+{% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
   - .wal-e
 {% endif %}
 
@@ -65,7 +65,7 @@ postgresql-server:
       - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
-      {% if "postgresql-replica" in grains["roles"] %}
+      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
       - file: {{ postgresql.recovery_file }}
       {% endif %}
     - require:
@@ -74,16 +74,16 @@ postgresql-server:
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
       - file: {{ postgresql.config_dir }}/conf.d
-      {% if "postgresql-replica" in grains["roles"] %}
+      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
       - file: {{ postgresql.recovery_file }}
       {% endif %}
 
 
 postgresql-psf-cluster:
   cmd.run:
-    {% if "postgresql-primary" in grains["roles"] %}
+    {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
     - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.3 --port {{ postgresql.port }} psf
-    {% elif "postgresql-replica" in grains["roles"] %}
+    {% else %}
     - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -U replicator
     - env:
       - PGHOST: {{ postgresql_primary }}
@@ -168,7 +168,7 @@ postgresql-psf-cluster:
       - file: {{ postgresql.config_dir }}
 
 
-{% if "postgresql-replica" in grains["roles"] %}
+{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
 {{ postgresql.recovery_file }}:
   file.managed:
     - source: salt://postgresql/server/configs/recovery.conf.jinja
@@ -182,7 +182,7 @@ postgresql-psf-cluster:
 {% endif %}
 
 
-{% if "postgresql-primary" in grains["roles"] %}
+{% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
 
 replicator:
   postgres_user.present:

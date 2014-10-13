@@ -1,5 +1,5 @@
 {% set postgresql = salt["pillar.get"]("postgresql") %}
-{% set postgresql_primary = ((salt["mine.get"]("roles:postgresql-primary", "minealiases.psf_internal", expr_form="grain").items())|sort(attribute='0')|first)[1]|sort()|first %}
+{% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0')|first)[1]|sort()|first %}
 {% set postgresql_password = salt["pillar.get"]("postgresql-users:replicator") %}
 
 standby_mode = on

@@ -1,3 +1,21 @@
+{% if salt["match.compound"](pillar["roles"]["salt-master"]) %}
+/etc/salt/master.d/roles.conf:
+  file.managed:
+    - source: salt://base/config/salt-roles.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+
+salt-master:
+  service.running:
+    - enable: True
+    - restart: True
+    - watch:
+      - file: /etc/salt/master.d/roles.conf
+{% endif %}
+
+
 /etc/salt/minion.d/mine.conf:
   file.managed:
     - contents: "mine_interval: 5"

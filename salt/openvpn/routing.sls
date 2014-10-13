@@ -1,3 +1,4 @@
+{% if not salt["match.compound"](pillar["roles"]["vpn"]) %}
 {% set vpn0_internal = salt["pillar.get"]("vpn0_internal_network") %}
 {% set vpn1_internal = salt["pillar.get"]("vpn1_internal_network") %}
 
@@ -34,3 +35,4 @@
     - watch:
       - network: {{ interface }}
 {% endfor %}
+{% endif %}

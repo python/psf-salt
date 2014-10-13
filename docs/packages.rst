@@ -26,7 +26,7 @@ In order to upload to the PSF repository you must be a member of the
 .. code-block:: yaml
 
     access:
-      "roles:packages":
+      packages:
         groups:
           - aptly-uploaders
 
