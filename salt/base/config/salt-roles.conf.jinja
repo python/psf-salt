@@ -1,0 +1,4 @@
+nodegroups:
+  {% for role, matcher in pillar["roles"].items()|sort -%}
+  "{{ role }}": "{{ matcher }}"
+  {% endfor %}

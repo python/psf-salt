@@ -13,7 +13,7 @@ SALT_MASTER = "192.168.5.1"
 
 
 @invoke.task
-def bootstrap(host, roles=None):
+def bootstrap(host):
     # If the host does not have a . in it's address, then we'll assume it's the
     # short for of host.psf.io and add the .psf.io onto it.
     if "." not in host:
@@ -50,7 +50,6 @@ def bootstrap(host, roles=None):
             "/etc/salt/minion.d/local.conf",
             context={
                 "master": SALT_MASTER,
-                "roles": [r.strip() for r in roles.split(",") if r.strip()],
             },
             use_jinja=True,
             mode=0o0644,

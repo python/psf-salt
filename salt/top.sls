@@ -14,63 +14,60 @@ base:
     - monitoring.client
     - unattended-upgrades
     - psf-ca
-
-  '* and not G@roles:vpn':
-    - match: compound
     - openvpn.routing
 
-  'roles:backup-server':
-    - match: grain
+  'backup-server':
+    - match: nodegroup
     - backup.server
 
-  'roles:cdn-logs':
-    - match: grain
+  'cdn-logs':
+    - match: nodegroup
     - cdn-logs
 
-  'roles:docs':
-    - match: grain
+  'docs':
+    - match: nodegroup
     - docs
 
-  'roles:downloads':
-    - match: grain
+  'downloads':
+    - match: nodegroup
     - downloads
 
-  'roles:hg':
-    - match: grain
+  'hg':
+    - match: nodegroup
     - hg
 
-  'roles:jython-web':
-    - match: grain
+  'jython-web':
+    - match: nodegroup
     - jython
 
-  'roles:loadbalancer':
-    - match: grain
+  'loadbalancer':
+    - match: nodegroup
     - haproxy
 
-  'roles:monitoring':
-    - match: grain
+  'monitoring':
+    - match: nodegroup
     - monitoring.server
 
-  'roles:packages':
-    - match: grain
+  'packages':
+    - match: nodegroup
     - aptly
 
-  'roles:planet':
-    - match: grain
+  'planet':
+    - match: nodegroup
     - planet
 
-  'roles:postgresql':
-    - match: grain
+  'postgresql':
+    - match: nodegroup
     - postgresql.server
 
-  'roles:salt-master':
-    - match: grain
+  'salt-master':
+    - match: nodegroup
 
-  'roles:tracker':
-    - match: grain
+  'tracker':
+    - match: nodegroup
     - postgresql.client
 
-  'roles:vpn':
-    - match: grain
+  'vpn':
+    - match: nodegroup
     - duosec
     - openvpn.server

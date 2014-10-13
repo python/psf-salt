@@ -1,4 +1,4 @@
-{% set server = (salt["mine.get"]("roles:postgresql-primary", "minealiases.psf_internal", expr_form="grain").values())|sort|first|first %}
+{% set server = (salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").values())|sort|first|first %}
 {% set pgbouncer = salt["pillar.get"]("pgbouncer") %}
 {% set database_users = salt["pillar.get"]("postgresql-users") %}
 

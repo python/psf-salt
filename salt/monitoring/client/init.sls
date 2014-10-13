@@ -1,4 +1,4 @@
-{% set graphite_servers = (salt["mine.get"]("roles:monitoring", "minealiases.psf_internal", expr_form="grain").values()) %}
+{% set graphite_servers = (salt["mine.get"](salt["pillar.get"]("roles:monitoring"), "minealiases.psf_internal", expr_form="compound").values()) %}  # " Hack for Syntax
 
 include:
   - .collectors.default
