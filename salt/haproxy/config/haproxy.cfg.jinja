@@ -26,7 +26,14 @@ global
     ssl-default-server-ciphers {{ ciphers }}
     ssl-server-verify required
 
+    # increase DH Param bits to match certificate bits
     tune.ssl.default-dh-param 2048
+
+    # lower your record size to improve Time to First Byte (TTFB)
+    tune.ssl.maxrecord 1400
+
+    # set inactivity timeout to reset record size (in ms)
+    tune.idletimer 1000
 
 defaults
     log     global
