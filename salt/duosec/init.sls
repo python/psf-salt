@@ -14,6 +14,7 @@
 duosec:
   pkgrepo.managed:
     - name: deb http://pkg.duosecurity.com/Ubuntu {{ grains["oscodename"] }} main
+    - file: /etc/apt/sources.list.d/duosec.list
     - require:
       - file: /etc/apt/keys/duosecurity-main.gpg
       - cmd: /etc/apt/keys/duosecurity-main.gpg
