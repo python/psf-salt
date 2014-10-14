@@ -181,9 +181,9 @@ duo-openvpn:
     - source: salt://monitoring/client/configs/Collector.conf.jinja
     - template: jinja
     - context:
-      collector:
-        enabled: True
-        instances: "tcp://127.0.0.1:4646?primary,tcp://127.0.0.1:4647?https"
+        collector:
+          enabled: True
+          instances: "tcp://127.0.0.1:4646?primary,tcp://127.0.0.1:4647?https"
     - use:
       - file: /etc/diamond/diamond.conf
     - watch_in:
