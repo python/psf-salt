@@ -70,10 +70,11 @@ defaults
 frontend main
     bind :20000
 
-    # advertise http/1.1 over ALPN to enable TLS False Start
-    bind :20001 ssl no-sslv3 alpn http/1.1 crt /etc/ssl/private/ev.python.org.pem
-    bind :20002 ssl no-sslv3 alpn http/1.1 crt /etc/ssl/private/hg.python.org.pem
-    bind :20003 ssl no-sslv3 alpn http/1.1 crt /etc/ssl/private/star.python.org.pem
+    # Advertise http/1.1 over NPN to enable TLS False Start
+    # TODO: Switch this to alpn once we upgade to a newer OS
+    bind :20001 ssl no-sslv3 npn http/1.1 crt /etc/ssl/private/ev.python.org.pem
+    bind :20002 ssl no-sslv3 npn http/1.1 crt /etc/ssl/private/hg.python.org.pem
+    bind :20003 ssl no-sslv3 npn http/1.1 crt /etc/ssl/private/star.python.org.pem
 
     # Redirect all HTTP traffic to HTTPS
     redirect scheme https if !{ ssl_fc }
