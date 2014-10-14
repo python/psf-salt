@@ -69,6 +69,8 @@ defaults
 
 frontend main
     bind :20000
+
+    # advertise http/1.1 over ALPN to enable TLS False Start
     bind :20001 ssl no-sslv3 alpn http/1.1 crt /etc/ssl/private/ev.python.org.pem
     bind :20002 ssl no-sslv3 alpn http/1.1 crt /etc/ssl/private/hg.python.org.pem
     bind :20003 ssl no-sslv3 alpn http/1.1 crt /etc/ssl/private/star.python.org.pem
