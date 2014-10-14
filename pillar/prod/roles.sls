@@ -21,4 +21,3 @@ roles:
   postgresql-replica: "pg*.psf.io and not pg0.psf.io"
   salt-master: "salt-master.psf.io"
   tracker: "bugs.psf.io"
-  vpn: "vpn.psf.io"

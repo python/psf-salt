@@ -21,4 +21,3 @@ roles:
   postgresql-replica: "postgresql-replica.vagrant.psf.io"
   salt-master: "salt-master.vagrant.psf.io"
   tracker: "tracker.vagrant.psf.io"
-  vpn: "vpn.vagrant.psf.io"

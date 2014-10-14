@@ -14,7 +14,6 @@ base:
     - monitoring.client
     - unattended-upgrades
     - psf-ca
-    - openvpn.routing
 
   'backup-server':
     - match: nodegroup
@@ -66,8 +65,3 @@ base:
   'tracker':
     - match: nodegroup
     - postgresql.client
-
-  'vpn':
-    - match: nodegroup
-    - duosec
-    - openvpn.server
