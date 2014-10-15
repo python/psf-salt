@@ -1,4 +1,4 @@
-aptly-gpg:
+aptly-repo-gpg:
   file.managed:
     - name: /etc/apt/keys/aptly-squeeze-main.gpg
     - source: salt://aptly/configs/APT-GPG-KEY-APTLY
@@ -20,8 +20,8 @@ aptly-repo:
     - group: root
     - mode: 644
     - require:
-      - file: aptly-gpg
-      - cmd: aptly-gpg
+      - file: aptly-repo-gpg
+      - cmd: aptly-repo-gpg
     - require_in:
       - pkg: aptly
 
