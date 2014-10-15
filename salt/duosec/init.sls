@@ -11,16 +11,26 @@
       - file: /etc/apt/keys/duosecurity-main.gpg
 
 
-duosec:
-  pkgrepo.managed:
-    - name: deb http://pkg.duosecurity.com/Ubuntu {{ grains["oscodename"] }} main
-    - file: /etc/apt/sources.list.d/duosec.list
+duosec-repo:
+  file.managed:
+    - name: /etc/apt/sources.list.d/duosec.list
+    - content: "deb http://pkg.duosecurity.com/Ubuntu {{ grains['oscodename'] }} main\n"
+    - user: root
+    - group: root
+    - mode: 644
     - require:
       - file: /etc/apt/keys/duosecurity-main.gpg
       - cmd: /etc/apt/keys/duosecurity-main.gpg
     - require_in:
       - pkg: duosec
 
+  module.wait:
+    - name: pkg.refresh_db
+    - watch:
+      - file: duosec-repo
+
+
+duosec:
   pkg.installed:
     - pkgs:
       - duo-unix

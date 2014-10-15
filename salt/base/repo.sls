@@ -18,10 +18,18 @@
     - watch:
       - file: /etc/apt/keys/psf.gpg
 
-psf-apt-repo:
-  pkgrepo.managed:
-    - name: "deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ {{ grains['oscodename'] }} main"
-    - file: /etc/apt/sources.list.d/psf.list
+
+/etc/apt/sources.list.d/psf.list:
+  file.managed:
+    - content: "deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ {{ grains['oscodename'] }} main\n"
+    - user: root
+    - group: root
+    - mode: 644
     - require:
       - file: /etc/apt/keys/psf.gpg
       - cmd: /etc/apt/keys/psf.gpg
+
+  module.wait:
+    - name: pkg.refresh_db
+    - watch:
+      - file: /etc/apt/sources.list.d/psf.list
