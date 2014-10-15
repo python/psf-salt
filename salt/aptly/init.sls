@@ -9,7 +9,7 @@ aptly-repo-gpg:
   cmd.wait:
     - name: apt-key add /etc/apt/keys/aptly-squeeze-main.gpg
     - watch:
-      - file: aptly
+      - file: aptly-repo-gpg
 
 
 aptly-repo:
