@@ -21,7 +21,7 @@
 
 /etc/apt/sources.list.d/psf.list:
   file.managed:
-    - content: "deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ {{ grains['oscodename'] }} main\n"
+    - contents: "deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ {{ grains['oscodename'] }} main\n"
     - user: root
     - group: root
     - mode: 644

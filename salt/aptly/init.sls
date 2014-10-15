@@ -15,7 +15,7 @@ aptly-gpg:
 aptly-repo:
   file.managed:
     - name: /etc/apt/sources.list.d/aptly.list
-    - content: "deb http://repo.aptly.info/ squeeze main\n"
+    - contents: "deb http://repo.aptly.info/ squeeze main\n"
     - user: root
     - group: root
     - mode: 644

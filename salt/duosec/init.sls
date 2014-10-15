@@ -14,7 +14,7 @@
 duosec-repo:
   file.managed:
     - name: /etc/apt/sources.list.d/duosec.list
-    - content: "deb http://pkg.duosecurity.com/Ubuntu {{ grains['oscodename'] }} main\n"
+    - contents: "deb http://pkg.duosecurity.com/Ubuntu {{ grains['oscodename'] }} main\n"
     - user: root
     - group: root
     - mode: 644
