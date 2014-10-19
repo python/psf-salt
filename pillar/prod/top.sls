@@ -1,11 +1,11 @@
 base:
   '*':
-    - roles
     - networking
-    - users
-    - sudoers
-    - psf-ca
+    - roles
     - secrets.system-mail
+    - sudoers
+    - tls
+    - users
 
   'backup-server':
     - match: nodegroup

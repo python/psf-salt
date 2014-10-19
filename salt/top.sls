@@ -1,5 +1,6 @@
 base:
   '*':
+    - ca
     - base.auto-highstate
     - base.mail
     - base.repo
@@ -13,7 +14,6 @@ base:
     - backup.client
     - monitoring.client
     - unattended-upgrades
-    - psf-ca
 
   'backup-server':
     - match: nodegroup
