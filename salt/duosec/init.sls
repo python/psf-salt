@@ -43,6 +43,7 @@ duosec:
     - user: root
     - group: root
     - mode: 600
+    - show_diff: False
     - watch_in:
       - service: ssh
     - require:

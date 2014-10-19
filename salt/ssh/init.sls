@@ -33,5 +33,6 @@ ssh:
     - mode: 644
   {% else %}
     - mode: 600
+    - show_diff: False
   {% endif %}
 {% endfor %}

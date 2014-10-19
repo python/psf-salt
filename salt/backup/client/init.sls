@@ -22,6 +22,7 @@ include:
     - contents_pillar: backup:directories:{{ backup }}:ssh_key
     - user: {{ config['user'] }}
     - mode: 600
+    - show_diff: False
 
 {{ backup }}-script-dir:
   file.directory:

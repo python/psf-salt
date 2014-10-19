@@ -19,6 +19,7 @@ ssl-cert:
     - user: root
     - group: ssl-cert
     - mode: 640
+    - show_diff: False
     - require:
       - pkg: ssl-cert
 {% endfor %}

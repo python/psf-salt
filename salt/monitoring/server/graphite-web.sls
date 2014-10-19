@@ -29,6 +29,7 @@ graphite:
     - user: root
     - group: root
     - mode: 644
+    - show_diff: False
     - require:
       - pkg: graphite
 

@@ -17,6 +17,7 @@ mail-pkgs:
     - user: root
     - group: root
     - mode: 640
+    - show_diff: False
     - require:
       - pkg: mail-pkgs
 {% endif %}

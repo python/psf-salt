@@ -24,6 +24,7 @@ pgbouncer:
     - user: postgres
     - group: postgres
     - mode: 640
+    - show_diff: False
     - require:
       - pkg: pgbouncer
 
@@ -35,6 +36,7 @@ pgbouncer:
     - user: postgres
     - group: postgres
     - mode: 640
+    - show_diff: False
     - require:
       - pkg: pgbouncer
 

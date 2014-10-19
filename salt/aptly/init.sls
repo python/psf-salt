@@ -93,6 +93,7 @@ aptly-uploaders:
     - user: root
     - group: aptly
     - mode: 640
+    - show_diff: False
     - require:
       - file: /srv/aptly
       - user: aptly

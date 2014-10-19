@@ -94,6 +94,7 @@ wal-e:
     - user: root
     - group: postgres
     - mode: 644
+    - show_diff: False
     - require:
       - pkg: postgresql-server
 

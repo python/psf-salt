@@ -177,6 +177,7 @@ postgresql-psf-cluster:
     - user: postgres
     - group: postgres
     - mode: 640
+    - show_diff: False
     - require:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.config_dir }}
