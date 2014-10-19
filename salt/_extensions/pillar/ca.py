@@ -1,4 +1,7 @@
+from __future__ import division
+
 import binascii
+import datetime
 import os.path
 
 import salt.minion
@@ -87,7 +90,7 @@ def create_ca(cacert_path, ca_name,
     certp = '{0}/{1}/{2}_ca_cert.crt'.format(cacert_path, ca_name, ca_name)
     ca_keyp = '{0}/{1}/{2}_ca_cert.key'.format(cacert_path, ca_name, ca_name)
 
-    if ca_exists(cacert_path, ca_name):  # TODO: Check Expiration
+    if ca_exists(cacert_path, ca_name):
         return
 
     if not os.path.exists('{0}/{1}'.format(cacert_path, ca_name)):
@@ -163,7 +166,7 @@ def cert_exists(cacert_path, ca_name, CN):
 
 def create_ca_signed_cert(cacert_path, ca_name,
                           bits=2048,
-                          days=365,
+                          days=1,
                           CN="localhost",
                           C="US",
                           ST="NH",
@@ -177,8 +180,21 @@ def create_ca_signed_cert(cacert_path, ca_name,
     ca_certp = '{0}/{1}/{2}_ca_cert.crt'.format(cacert_path, ca_name, ca_name)
     ca_keyp = '{0}/{1}/{2}_ca_cert.key'.format(cacert_path, ca_name, ca_name)
 
-    if cert_exists(cacert_path, ca_name, CN):  # TODO: Check Expiration
-        return
+    valid_for = int(days) * 24 * 60 * 60
+
+    if cert_exists(cacert_path, ca_name, CN):
+        with open(certp, "r") as fp:
+            cert = OpenSSL.crypto.load_certificate(
+                OpenSSL.crypto.FILETYPE_PEM,
+                fp.read(),
+            )
+        not_after = datetime.datetime.strptime(
+            cert.get_notAfter(),
+            "%Y%m%d%H%M%SZ",
+        )
+        ttl = (not_after - datetime.datetime.utcnow()).total_seconds()
+        if (ttl / valid_for) > 0.25:
+            return
 
     if not os.path.exists(os.path.dirname(certp)):
         os.makedirs(os.path.dirname(certp))
@@ -211,7 +227,7 @@ def create_ca_signed_cert(cacert_path, ca_name,
     cert = OpenSSL.crypto.X509()
     cert.set_version(2)
     cert.gmtime_adj_notBefore(0)
-    cert.gmtime_adj_notAfter(int(days) * 24 * 60 * 60)
+    cert.gmtime_adj_notAfter(valid_for)
     cert.get_subject().C = C
     cert.get_subject().ST = ST
     cert.get_subject().L = L
