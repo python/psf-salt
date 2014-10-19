@@ -174,6 +174,7 @@ def create_ca_signed_cert(cacert_path, ca_name,
                           digest="sha256"):
     certp = '{0}/{1}/certs/{2}.crt'.format(cacert_path, ca_name, CN)
     keyp = '{0}/{1}/private/{2}.key'.format(cacert_path, ca_name, CN)
+    ca_certp = '{0}/{1}/{2}_ca_cert.crt'.format(cacert_path, ca_name, ca_name)
     ca_keyp = '{0}/{1}/{2}_ca_cert.key'.format(cacert_path, ca_name, ca_name)
 
     if cert_exists(cacert_path, ca_name, CN):  # TODO: Check Expiration
@@ -191,7 +192,11 @@ def create_ca_signed_cert(cacert_path, ca_name,
     if os.path.exists(keyp):
         os.remove(keyp)
 
-    ca_key = None
+    with open(ca_certp, "r") as fp:
+        ca_cert = OpenSSL.crypto.load_certificate(
+            OpenSSL.crypto.FILETYPE_PEM,
+            fp.read(),
+        )
 
     with open(ca_keyp, "r") as fp:
         ca_key = OpenSSL.crypto.load_privatekey(
@@ -216,7 +221,7 @@ def create_ca_signed_cert(cacert_path, ca_name,
     cert.get_subject().CN = CN
     cert.get_subject().emailAddress = emailAddress
     cert.set_serial_number(_new_serial())
-    cert.set_issuer(cert.get_subject())
+    cert.set_issuer(ca_cert.get_subject())
     cert.set_pubkey(key)
 
     # Sign the certificate with the CA
