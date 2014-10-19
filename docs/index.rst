@@ -7,4 +7,5 @@ Python Infrastructure
 
    overview.rst
    packages.rst
+   security
    services/index.rst
