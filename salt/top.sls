@@ -1,6 +1,5 @@
 base:
   '*':
-    - ca
     - base.auto-highstate
     - base.mail
     - base.repo
@@ -14,6 +13,7 @@ base:
     - backup.client
     - monitoring.client
     - unattended-upgrades
+    - tls
 
   'backup-server':
     - match: nodegroup

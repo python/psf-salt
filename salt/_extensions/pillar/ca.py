@@ -84,7 +84,7 @@ def create_ca(cacert_path, ca_name,
               L="Wolfeboro",
               O="Python Software Foundation",
               OU="Infrastructure Team",
-              emailAddress="infrastructure-staff@python.org",
+              emailAddress="infrastructure@python.org",
               digest="sha256"):
 
     certp = '{0}/{1}/{2}_ca_cert.crt'.format(cacert_path, ca_name, ca_name)
@@ -173,7 +173,7 @@ def create_ca_signed_cert(cacert_path, ca_name,
                           L="Wolfeboro",
                           O="Python Software Foundation",
                           OU="Infrastructure Team",
-                          emailAddress="infrastructure-staff@python.org",
+                          emailAddress="infrastructure@python.org",
                           digest="sha256"):
     certp = '{0}/{1}/certs/{2}.crt'.format(cacert_path, ca_name, CN)
     keyp = '{0}/{1}/private/{2}.key'.format(cacert_path, ca_name, CN)
@@ -268,36 +268,45 @@ def get_ca_signed_cert(cacert_path, ca_name, CN):
     return "\n".join([cert, key])
 
 
-def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", ca_opts=None):
-    if ca_opts is None:
-        ca_opts = {}
+def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA",
+               cert_opts=None):
+    if cert_opts is None:
+        cert_opts = {}
 
     # Ensure we have a CA created.
-    create_ca(base, name, **ca_opts)
+    opts = cert_opts.copy()
+    opts["CN"] = name
+    create_ca(base, name, **opts)
 
-    # Determine the certificates required by this minion
-    all_certificates = set()
-    for role, certificates in pillar.get("ca", {}).get("roles", {}).items():
-        if compound(pillar.get("roles", {}).get(role, ""), minion_id):
-            all_certificates |= set(certificates)
-
-    # Create all of the certificates required by this minion
-    for certificate in all_certificates:
-        opts = ca_opts.copy()
-        opts["CN"] = certificate
-        create_ca_signed_cert(base, name, **opts)
-
-    # Get all of the certificates required by this minion
-    data = {}
-    for certificate in all_certificates:
-        data[certificate] = get_ca_signed_cert(base, name, certificate)
-
-    return {
-        "ca": {
-            "root": {
+    # Start our pillar with just the ca certificate.
+    data = {
+        "tls": {
+            "ca": {
                 "name": name,
-                "certificate": get_ca_cert(base, name),
+                "cert": get_ca_cert(base, name),
             },
-            "certificates": data,
+            "certs": {},
         },
     }
+
+    # Create all of the certificates required by this minion
+    gen_certs = pillar.get("tls", {}).get("gen_certs", {})
+    for certificate, config in gen_certs.items():
+        role_patterns = [
+            pillar.get("roles", {}).get(r)
+            for r in config.get("roles", "")
+        ]
+        if any([compound(pat, minion_id) for pat in role_patterns]):
+            # Create the options
+            opts = cert_opts.copy()
+            opts["CN"] = certificate
+            opts["days"] = config.get("days", 1)
+
+            # Create the signed certificates
+            create_ca_signed_cert(base, name, **opts)
+
+            # Add the signed certificates to the pillar data
+            cert_data = get_ca_signed_cert(base, name, certificate)
+            data["tls"]["certs"][certificate] = cert_data
+
+    return data
