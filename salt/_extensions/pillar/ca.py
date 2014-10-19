@@ -249,7 +249,7 @@ def get_ca_signed_cert(cacert_path, ca_name, CN):
     with open(keyp, "r") as fp:
         key = fp.read()
 
-    return {"crt": cert, "key": key}
+    return "\n".join([cert, key])
 
 
 def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", ca_opts=None):
@@ -276,10 +276,12 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", ca_opts=None):
     for certificate in all_certificates:
         data[certificate] = get_ca_signed_cert(base, name, certificate)
 
-    data[name] = {"crt": get_ca_cert(base, name)}
-
     return {
         "ca": {
+            "root": {
+                "name": name,
+                "certificate": get_ca_cert(base, name),
+            },
             "certificates": data,
         },
     }

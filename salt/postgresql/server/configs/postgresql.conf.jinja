@@ -55,8 +55,8 @@ unix_socket_directories = '/var/run/postgresql'
 
 ssl = true
 ssl_ciphers = '{{ pillar["tls"]["ciphers"].get("postgresql", pillar["tls"]["ciphers"]["default"]) }}'
-ssl_cert_file = '/etc/ssl/certs/postgresql.psf.io.pem'
-ssl_key_file = '/etc/ssl/private/postgresql.psf.io.key'
+ssl_cert_file = '/etc/ssl/private/postgresql.psf.io.pem'
+ssl_key_file = '/etc/ssl/private/postgresql.psf.io.pem'
 
 
 #------------------------------------------------------------------------------

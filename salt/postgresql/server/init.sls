@@ -62,8 +62,7 @@ postgresql-server:
     - name: postgresql
     - enable: True
     - watch:
-      - file: /etc/ssl/certs/postgresql.psf.io.pem
-      - file: /etc/ssl/private/postgresql.psf.io.key
+      - file: /etc/ssl/private/postgresql.psf.io.pem
       - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
