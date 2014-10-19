@@ -51,6 +51,13 @@ port = {{ postgresql.port }}
 max_connections = {{ postgresql.max_connections }}
 unix_socket_directories = '/var/run/postgresql'
 
+# - Security and Authentication -
+
+ssl = true
+ssl_ciphers = '{{ pillar["tls"]["ciphers"].get("postgresql", pillar["tls"]["ciphers"]["default"]) }}'
+ssl_cert_file = '/etc/ssl/private/postgresql.psf.io.pem'
+ssl_key_file = '/etc/ssl/private/postgresql.psf.io.pem'
+
 
 #------------------------------------------------------------------------------
 # RESOURCE USAGE (except WAL)

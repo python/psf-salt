@@ -1,7 +1,7 @@
 {% set haproxy = salt["pillar.get"]("haproxy", {}) %}
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
 
-{% set ciphers = "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:3DES:!AES256:!aNULL:!MD5:!DSS:!PSK:!SRP" %}
+{% set ciphers = pillar["tls"]["ciphers"].get("haproxy", pillar["tls"]["ciphers"]["default"]) %}
 
 global
     log /dev/log    local0

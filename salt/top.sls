@@ -13,7 +13,7 @@ base:
     - backup.client
     - monitoring.client
     - unattended-upgrades
-    - psf-ca
+    - tls
 
   'backup-server':
     - match: nodegroup
