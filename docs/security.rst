@@ -43,3 +43,18 @@ This certificate will then be available on the servers at
 ``/etc/ssl/private/{{ name }}.pem``. That file contains both the certificate
 itself and the private key for the certificate. It can be validated against the
 ``/etc/ssl/certs/PSF_CA.pem`` file which is available on all servers as well.
+
+This requires configuration on the master like::
+
+    extension_modules: srv/salt/_extensions
+
+    ext_pillar:
+      - ca:
+          name: PSF_CA
+          cert_opts:
+            C: US
+            ST: NH
+            L: Wolfeboro
+            O: Python Software Foundation
+            OU: Infrastructure Team
+            emailAddress: infrastructure@python.org
