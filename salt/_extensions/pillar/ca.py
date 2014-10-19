@@ -74,7 +74,7 @@ def ca_exists(cacert_path, ca_name):
 
 def create_ca(cacert_path, ca_name,
               bits=2048,
-              days=365,
+              days=365 * 5,
               CN="PSF Infrastructure CA",
               C="US",
               ST="NH",
