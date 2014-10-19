@@ -17,9 +17,9 @@ haproxy:
     - reload: True
     - watch:
       - file: /etc/haproxy/haproxy.cfg
+      - file: /etc/ssl/private/*.pem
     - require:
       - pkg: haproxy
-      - file: /etc/haproxy/haproxy.cfg
 
 
 /etc/haproxy/haproxy.cfg:
@@ -32,26 +32,3 @@ haproxy:
     - require:
       - pkg: haproxy
       - file: /etc/ssl/private/*.pem
-
-
-/etc/ssl/private/ev.python.org.pem:
-  file.managed:
-    - contents_pillar: tls_certs:ev.python.org
-    - user: root
-    - group: root
-    - mode: 600
-
-
-/etc/ssl/private/hg.python.org.pem:
-  file.managed:
-    - contents_pillar: tls_certs:hg.python.org
-    - user: root
-    - group: root
-    - mode: 600
-
-/etc/ssl/private/star.python.org.pem:
-  file.managed:
-    - contents_pillar: tls_certs:star.python.org
-    - user: root
-    - group: root
-    - mode: 600
