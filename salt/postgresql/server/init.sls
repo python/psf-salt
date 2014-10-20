@@ -68,6 +68,7 @@ postgresql-server:
       - file: {{ postgresql.ident_file }}
       {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
       - file: {{ postgresql.recovery_file }}
+      - file: /etc/ssl/certs/PSF_CA.pem
       {% endif %}
     - require:
       - cmd: postgresql-psf-cluster
@@ -87,8 +88,11 @@ postgresql-psf-cluster:
     {% else %}
     - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -U replicator
     - env:
-      - PGHOST: {{ postgresql_primary }}
+      - PGHOST: postgresql.psf.io
+      - PGHOSTADDR: {{ postgresql_primary }}
       - PGPORT: "{{ postgresql.port }}"
+      - PGSSLMODE: verify-full
+      - PGSSLROOTCERT: /etc/ssl/certs/PSF_CA.pem
       - PGPASSWORD: {{ pillar["postgresql-users"]["replicator"] }}
     - user: postgres
     {% endif %}
@@ -96,6 +100,9 @@ postgresql-psf-cluster:
     - require:
       - pkg: postgresql-server
       - file: postgresql-data
+      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+      - file: /etc/ssl/certs/PSF_CA.pem
+      {% endif %}
 
 
 # Make sure that our log directory is writeable
