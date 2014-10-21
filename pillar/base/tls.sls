@@ -7,6 +7,10 @@ tls:
     haproxy: ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:3DES:!AES256:!aNULL:!eNULL:!MD5:!DSS:!PSK:!SRP
 
   gen_certs:
+    docs.psf.io:
+      roles:
+        - docs
+
     hg.psf.io:
       roles:
         - hg

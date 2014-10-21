@@ -18,7 +18,7 @@ base:
 
   'docs':
     - match: nodegroup
-    - firewall.fastly-backend
+    - firewall.rs-lb-backend
     - groups.docs
     - secrets.backup.docs
 

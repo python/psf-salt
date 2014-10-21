@@ -1,6 +1,6 @@
 include:
   - nginx
-  - nginx.fastly-backend
+
 
 # Various packages required for building documentation.
 doc-pkgs:
@@ -94,4 +94,4 @@ docsbuild-quick:
     - mode: 644
     - require:
       - file: /etc/nginx/sites.d/
-      - module: self-signed-cert
+      - file: /etc/nginx/fastly_params

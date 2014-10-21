@@ -5,6 +5,10 @@ haproxy:
       port: 443
       external_backend: www.pythonanywhere.com
 
+    docs.python.org:
+      role: docs
+      port: 9000
+
     hg.python.org:
       role: hg
       port: 9000
