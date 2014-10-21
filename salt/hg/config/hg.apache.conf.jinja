@@ -6,7 +6,7 @@
     SSLCertificateKeyFile /etc/ssl/private/hg.psf.io.pem
     SSLCipherSuite {{ pillar["tls"]["ciphers"].get("backend", pillar["tls"]["ciphers"]["default"]) }}
     SSLHonorCipherOrder on
-    SSLProtocol all
+    SSLProtocol TLSv1.2
 
     TransferLog /var/log/apache2/hg.access.log
     ErrorLog /var/log/apache2/hg.error.log
