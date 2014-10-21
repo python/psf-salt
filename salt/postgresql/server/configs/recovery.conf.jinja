@@ -4,4 +4,4 @@
 
 standby_mode = on
 
-primary_conninfo = 'application_name={{ grains["fqdn"] }} host={{ postgresql_primary }} port={{ postgresql.port }} user=replicator password={{ postgresql_password }}'
+primary_conninfo = 'application_name={{ grains["fqdn"] }} host=postgresql.psf.io hostaddr={{ postgresql_primary }} port={{ postgresql.port }} sslmode=verify-full sslrootcert=/etc/ssl/certs/PSF_CA.pem user=replicator password={{ postgresql_password }}'

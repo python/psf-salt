@@ -43,7 +43,6 @@ base:
   'monitoring':
     - match: nodegroup
     - firewall.monitoring
-    - pgbouncer.monitoring
     - secrets.postgresql-users.monitoring
     - secrets.monitoring.server
 
@@ -77,5 +76,4 @@ base:
 
   'tracker':
     - match: nodegroup
-    - pgbouncer.tracker
     - secrets.postgresql-users.tracker
