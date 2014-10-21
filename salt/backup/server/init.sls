@@ -56,6 +56,6 @@ include:
     - context:
       cron: '0 3 * * *'
       job_user: root
-      job_command: 'rdiff-backup --force --remove-older-than {{ config['increment_retention'] }} {{ config['directory'] }}'
+      job_command: 'rdiff-backup --terminal-verbosity 2 --force --remove-older-than {{ config['increment_retention'] }} {{ config['directory'] }}'
 
 {% endfor %}
