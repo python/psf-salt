@@ -120,7 +120,7 @@ backend {{ config.role }}_{{ config.port }}
     # backend, any value from them that needs to be passed backwards should be
     # aliased to a "standard"-ish value and implemented whether it's coming via
     # Fastly or not.
-    reqidel ^Fastly-[a-z]+:.*
+    reqidel ^Fastly-[a-z0-9]+:.*
 
     {% if config.external_backend is defined %}
 
