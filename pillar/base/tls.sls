@@ -11,6 +11,10 @@ tls:
       roles:
         - hg
 
+    lb.psf.io:
+      roles:
+        - loadbalancer
+
     postgresql.psf.io:
       days: 7
       roles:

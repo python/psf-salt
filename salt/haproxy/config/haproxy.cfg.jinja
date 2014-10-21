@@ -75,6 +75,7 @@ frontend main
     bind :20001 ssl no-sslv3 npn http/1.1 crt ev.python.org.pem
     bind :20002 ssl no-sslv3 npn http/1.1 crt hg.python.org.pem
     bind :20003 ssl no-sslv3 npn http/1.1 crt star.python.org.pem
+    bind :20004 ssl force-tlsv12          crt lb.psf.io.pem
 
     # Redirect all HTTP traffic to HTTPS
     redirect scheme https if !{ ssl_fc }
