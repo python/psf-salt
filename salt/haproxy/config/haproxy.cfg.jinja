@@ -105,10 +105,10 @@ frontend main
     # not. This should pretty much *always* be yes since we unconditionally
     # redirect to HTTPS in HAProxy and Fastly should also be configured to do
     # the same.
-    http-request set-header X-Forwarded-Proto https if is_fastly fastly_tls
-    http-request set-header X-Forwarded-Proto http if is_fastly !fastly_tls
-    http-request set-header X-Forwarded-Proto https if !is_fastly { ssl_fc }
-    http-request set-header X-Forwarded-Proto http if !is_fastly !{ ssl_fc }
+    http-request set-header X-Forwarded-Proto https if is_fastly  fastly_tls
+    http-request set-header X-Forwarded-Proto http  if is_fastly !fastly_tls
+    http-request set-header X-Forwarded-Proto https if !is_fastly  { ssl_fc }
+    http-request set-header X-Forwarded-Proto http  if !is_fastly !{ ssl_fc }
 
     # Strip out the headers from Fastly, we don't want to pass these to the
     # backend, any value from them that needs to be passed backwards should be
