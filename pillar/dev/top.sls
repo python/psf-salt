@@ -17,12 +17,12 @@ base:
 
   'docs':
     - match: nodegroup
-    - firewall.fastly-backend
+    - firewall.rs-lb-backend
     - groups.docs
 
   'downloads':
     - match: nodegroup
-    - firewall.fastly-backend
+    - firewall.rs-lb-backend
     - groups.downloads
 
   'hg':
@@ -38,6 +38,7 @@ base:
     - match: nodegroup
     - haproxy
     - firewall.loadbalancer
+    - secrets.fastly
     - secrets.tls.certs.loadbalancer
 
   'monitoring':

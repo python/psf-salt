@@ -20,6 +20,8 @@ nginx:
       - file: /etc/nginx/nginx.conf
       - file: /etc/nginx/conf.d/*.conf
       - file: /etc/nginx/sites.d/*.conf
+      - file: /etc/nginx/fastly_params
+      - file: /etc/ssl/private/*.pem
     - require:
       - file: /etc/nginx/nginx.conf
       - pkg: nginx
@@ -28,6 +30,16 @@ nginx:
 /etc/nginx/nginx.conf:
   file.managed:
     - source: salt://nginx/config/nginx.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: nginx
+
+/etc/nginx/fastly_params:
+  file.managed:
+    - source: salt://nginx/config/fastly_params.jinja
     - template: jinja
     - user: root
     - group: root

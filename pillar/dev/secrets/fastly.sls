@@ -1,0 +1,2 @@
+fastly:
+  token: "1"

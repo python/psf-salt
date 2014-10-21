@@ -62,6 +62,14 @@ Vagrant.configure("2") do |config|
       s_config.vm.network "private_network", ip: "#{SUBNET1}.#{num + 10}", virtualbox__intnet: "psf1"
       s_config.vm.network "private_network", ip: "#{SUBNET2}.#{num + 10}", virtualbox__intnet: "psf2"
 
+      if server == "loadbalancer"
+        s_config.vm.network "forwarded_port", guest: 20000, host: 20000
+        s_config.vm.network "forwarded_port", guest: 20001, host: 20001
+        s_config.vm.network "forwarded_port", guest: 20002, host: 20002
+        s_config.vm.network "forwarded_port", guest: 20003, host: 20003
+        s_config.vm.network "forwarded_port", guest: 20004, host: 20004
+      end
+
       s_config.vm.provision :salt
       s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf"
       s_config.vm.provision :shell, inline: "apt-get install -qy python-apt"

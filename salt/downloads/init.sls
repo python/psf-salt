@@ -1,6 +1,6 @@
 include:
   - nginx
-  - nginx.fastly-backend
+
 
 /etc/nginx/sites.d/downloads-backend.conf:
   file.managed:
@@ -9,4 +9,14 @@ include:
     - group: root
     - mode: 644
     - require:
-      - module: self-signed-cert
+      - file: /etc/nginx/sites.d/
+      - file: /etc/nginx/fastly_params
+
+
+/srv/www.python.org/_check:
+  file.managed:
+    - user: root
+    - group: downloads
+    - mode: 644
+    - makedirs: True
+    - dir_mode: 775

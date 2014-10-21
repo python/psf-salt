@@ -18,13 +18,13 @@ base:
 
   'docs':
     - match: nodegroup
-    - firewall.fastly-backend
+    - firewall.rs-lb-backend
     - groups.docs
     - secrets.backup.docs
 
   'downloads':
     - match: nodegroup
-    - firewall.fastly-backend
+    - firewall.rs-lb-backend
     - groups.downloads
     - secrets.backup.downloads
 
