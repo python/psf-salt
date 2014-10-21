@@ -32,3 +32,14 @@ haproxy:
     - require:
       - pkg: haproxy
       - file: /etc/ssl/private/*.pem
+
+
+/etc/haproxy/fastly_token:
+  file.managed:
+    - contents_pillar: fastly:token
+    - user: root
+    - group: root
+    - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: haproxy

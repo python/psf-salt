@@ -77,8 +77,7 @@ frontend main
     bind :20004 ssl force-tlsv12          crt lb.psf.io.pem
 
     # Determine if this request is coming from Fastly or not.
-    # TODO: Can I move the access token into a seperate file?
-    acl is_fastly hdr(Fastly-Token) {{ pillar["fastly"]["access-token"] }}
+    acl is_fastly hdr(Fastly-Token) -f /etc/haproxy/fastly_token
     acl fastly_tls hdr_cnt(Fastly-SSL) gt 0
 
     # Determine if this request is valid, if this has a Fastly-Token header but
