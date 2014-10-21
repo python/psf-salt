@@ -81,6 +81,12 @@ frontend main
     acl is_fastly hdr(Fastly-Token) {{ pillar["fastly"]["access-token"] }}
     acl fastly_tls hdr_cnt(Fastly-SSL) gt 0
 
+    # Determine if this request is valid, if this has a Fastly-Token header but
+    # the value is incorrect then we want to block the request instead of allow
+    # it as if we wern't attempting to be served via Fastly. This should make
+    # debugging way easier.
+    http-request deny if { hdr_cnt(Fastly-Token) gt 0 } !is_fastly
+
     # Remove any of the X-Forwarded-* headers from this request, Fastly gives
     # us these headers in a different way and we have nothing else that would
     # give us these headers.
