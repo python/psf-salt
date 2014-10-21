@@ -18,6 +18,7 @@ haproxy:
     - watch:
       - file: /etc/haproxy/haproxy.cfg
       - file: /etc/ssl/private/*.pem
+      - file: /etc/haproxy/fastly_token
     - require:
       - pkg: haproxy
 
