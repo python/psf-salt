@@ -1,5 +1,13 @@
 <VirtualHost _default_:9000>
     ServerName hg.python.org
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/private/hg.psf.io.pem
+    SSLCertificateKeyFile /etc/ssl/private/hg.psf.io.pem
+    SSLCipherSuite {{ pillar["tls"]["ciphers"].get("backend", pillar["tls"]["ciphers"]["default"]) }}
+    SSLHonorCipherOrder on
+    SSLProtocol all
+
     TransferLog /var/log/apache2/hg.access.log
     ErrorLog /var/log/apache2/hg.error.log
 

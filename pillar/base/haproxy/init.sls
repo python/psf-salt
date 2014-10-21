@@ -7,7 +7,7 @@ haproxy:
 
     hg.python.org:
       role: hg
-      port: 9000  # Can we refactor this better?
+      port: 9000
 
   listens:
     hg_ssh:

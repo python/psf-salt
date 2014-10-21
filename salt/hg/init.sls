@@ -42,10 +42,27 @@ apache2:
       - file: /etc/apache2/sites-available/*
       - file: /etc/apache2/sites-enabled/*
       - file: /etc/apache2/mods-enabled/*
+      - file: /etc/ssl/private/hg.psf.io.pem
 
 /etc/apache2/mods-enabled/headers.load:
   file.symlink:
     - target: /etc/apache2/mods-available/headers.load
+
+
+/etc/apache2/mods-enabled/ssl.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/ssl.load
+
+
+/etc/apache2/mods-enabled/ssl.conf:
+  file.symlink:
+    - target: /etc/apache2/mods-available/ssl.conf
+
+
+/etc/apache2/mods-enabled/socache_shmcb.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/socache_shmcb.load
+
 
 /etc/apache2/ports.conf:
   file.managed:
@@ -59,7 +76,8 @@ apache2:
 
 /etc/apache2/sites-available/hg.conf:
   file.managed:
-    - source: salt://hg/config/hg.apache.conf
+    - source: salt://hg/config/hg.apache.conf.jinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 644
