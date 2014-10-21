@@ -16,6 +16,7 @@ graphite:
       - file: /etc/graphite/local_settings.py
       - file: /usr/share/graphite-web/wsgi.py
       - file: /etc/init/graphite.conf
+      - file: /etc/ssl/certs/PSF_CA.pem
     - require:
       - pkg: graphite
       - file: /var/log/graphite

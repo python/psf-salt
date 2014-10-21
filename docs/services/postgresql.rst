@@ -37,29 +37,52 @@ Creating a New Database
 Giving Applications Access
 --------------------------
 
-#. Create a sls under ``pillar/secrets/postgresl-users`` for the role for the
-   application and add it to ``pillar/top.sls``.
-#. Create a sls under ``pillar/pgbouncer`` for the role for the application
-   and add it to the ``pillar/top.sls``.
-#. Edit ``salt/postgresql/server/configs/pg_hba.conf.jinja`` to add an entry
-   for this application using the salt mine to locate IP addresses for all the
-   servers with the role.
-#. Add the ``postgresql.client`` state to the role for the application.
-#. Reference
-   ``{{ salt["grains.get_or_set_hash"]("postgresql:pgb_name", length=50) }}``
-   anyplace within the application where you need the password for the
-   database. Replace ``pgb_name`` with the name you chose in the
-   ``pillar/pgbouncer`` sls.
+#. Create a sls under ``pillar/{dev,prod}/secrets/postgresl-users`` for the
+   role for the application and add it to ``pillar/{dev,prod}/top.sls``.
+#. Add the ``postgresql.client`` state to the role for the application or to
+   the states for the application.
+#. Setup the application to the connect the server(s), there is one primary
+   read/write server and zero or more (currently one) read only slaves. The
+   ip addresses for these can be fetched using salt mine like:
 
-   .. note:: It appears that when ``grains.get_or_set_hash`` actually creates
-             the hash the first time it returns a dictionary instead of a
-             string. This will cause states to fail. This can be worked around
-             by doing:
+   .. code-block:: jinja
 
-             .. code-block:: jinja
+    {% set primary_server = (salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").values())|sort|first|first %}
+    {% set read_slaves = (salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").values())|sort %}
 
-                {% set ignored = salt["grains.get_or_set_hash"]("postgresql:pgb_name", length=50) %}
-                password = {{ salt["grains.get_or_set_hash"]("postgresql:pgb_name", length=50) }}
+    databases:
+      primary: {{ primary_server }}:5432
+      read_only:
+        {% for server, addresses in read_slaves %}
+        {% for address in addresses|sort %}
+        - {{ address }}:5432
+        {% endfor %}
+        {% endfor %}
+
+   Clients should also be configured with ``sslmode = verify-full``,
+   ``sslrootcert = /etc/ssl/certs/PSF_CA.pem``, and
+   ``host = postgresql.psf.io``. The ip addresses from above should be
+   configured as ``hostaddr`` instead of ``host``. This will ensure that the
+   client will connect via TLS, verify the certificate is valid and from our
+   internal CA, and will verify that it is for the postgresql server. An
+   example of this in Django is:
+
+   .. code-block:: python
+
+      DATABASES = {
+          "default": {
+              "ENGINE": "django.db.backends.postgresql_psycopg2",
+              "HOST": "postgresql.psf.io",
+              "NAME": "dbname",
+              "USER": "dbname",
+              "PASSWORD": "the password",
+              "OPTIONS": {
+                  "hostaddr": "192.168.50.1",
+                  "sslmode": "verify-full",
+                  "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
+              },
+          },
+      }
 
 
 Application Integration

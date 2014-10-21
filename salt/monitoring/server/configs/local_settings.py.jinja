@@ -1,6 +1,5 @@
 {% set graphite = salt["pillar.get"]("graphite-web") %}
-{# We do this here, because otherwise on the set operation we get a dict back #}
-{% set ignored = salt["grains.get_or_set_hash"]("postgresql:monitoring", length=50) %}
+{% set server = (salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").values())|sort|first|first %}
 
 # Graphite local_settings.py
 # Edit this file to customize the default Graphite webapp settings
@@ -163,10 +162,16 @@ INDEX_FILE = '/var/lib/graphite/search_index'  # Search index file
 #
 DATABASES = {
     "default": {
-        "NAME": "monitoring",
         "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": "postgresql.psf.io",
+        "NAME": "monitoring",
         "USER": "monitoring",
-        "PASSWORD": "{{ salt['grains.get_or_set_hash']('postgresql:monitoring', length=50) }}",
+        "PASSWORD": "{{ pillar["postgresql-users"]["monitoring"] }}",
+        "OPTIONS": {
+            "hostaddr": "{{ server }}",
+            "sslmode": "verify-full",
+            "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
+        },
     }
 }
 

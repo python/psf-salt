@@ -17,12 +17,12 @@ hostssl replication     replicator      {{ addr }} 255.255.255.255 md5
 {% endfor %}
 
 # Monitoring
-host    all             diamond         127.0.0.1/32           md5
+host    all             diamond         127.0.0.1/32               md5
 
 # bugs.python.org
 {% for server, addrs in (salt["mine.get"](salt["pillar.get"]("roles:tracker", ""), "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0') %}
 {% for addr in addrs|sort() %}
-host bugs-python     bugs-python     {{ addr }} 255.255.255.255 md5
+hostssl bugs-python     bugs-python     {{ addr }} 255.255.255.255 md5
 {% endfor %}
 {% endfor %}
 
@@ -30,6 +30,6 @@ host bugs-python     bugs-python     {{ addr }} 255.255.255.255 md5
 # monitoring.psf.io
 {% for server, addrs in (salt["mine.get"](salt["pillar.get"]("roles:monitoring", ""), "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0') %}
 {% for addr in addrs|sort() %}
-host monitoring     monitoring     {{ addr }} 255.255.255.255 md5
+hostssl monitoring     monitoring       {{ addr }} 255.255.255.255 md5
 {% endfor %}
 {% endfor %}
