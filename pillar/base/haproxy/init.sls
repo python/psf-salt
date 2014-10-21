@@ -6,11 +6,15 @@ haproxy:
       external_backend: www.pythonanywhere.com
 
     docs.python.org:
+      domains:
+        - docs.python.org
+        - doc.python.org
       role: docs
       port: 9000
 
     www.python.org/ftp/:
-      domain: www.python.org
+      domains:
+        - www.python.org
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
       role: downloads

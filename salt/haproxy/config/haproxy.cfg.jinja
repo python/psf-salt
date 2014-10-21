@@ -127,7 +127,9 @@ frontend main
 
     # Setup our ACLs
     {% for name, config in haproxy.domains.items() %}
-    acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ config.get("domain", name) }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
+    {% for domain in config.get("domains", [name]) %}
+    acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
+    {% endfor %}
     {% endfor %}
 
     # Dispatch to a backend based on our domain ACLs
