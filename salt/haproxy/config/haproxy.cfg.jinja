@@ -105,7 +105,7 @@ backend {{ config.role }}_{{ config.port }}
 
     {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() %}
     {% for addr in addrs %}
-    server {{ server }} {{ addr }}:{{ config.port }} check ssl verifyhost {{ config.get("verify_host", config.role + ".psf.io") }} ca-file PSF_CA.pem
+    server {{ server }} {{ addr }}:{{ config.port }} check ssl force-tlsv12 verifyhost {{ config.get("verify_host", config.role + ".psf.io") }} ca-file PSF_CA.pem
     {% endfor %}
     {% endfor %}
 
