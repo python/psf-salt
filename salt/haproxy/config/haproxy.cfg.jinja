@@ -77,12 +77,26 @@ frontend main
     bind :20003 ssl no-sslv3 npn http/1.1 crt star.python.org.pem
     bind :20004 ssl force-tlsv12          crt lb.psf.io.pem
 
-    # Redirect all HTTP traffic to HTTPS
-    redirect scheme https if !{ ssl_fc }
+    # Determine if this request is coming from Fastly or not.
+    # TODO: Can I move the access token into a seperate file?
+    acl is_fastly hdr(Fastly-Token) {{ pillar["fastly"]["access-token"] }}
+    acl fastly_tls hdr_cnt(Fastly-SSL) gt 0
 
-    # At this point, we only support HTTPS traffic on the load balancer, so
-    # we'll say that this was forwarded with a protocol of https.
-    reqadd X-Forwarded-Proto:\ https
+    # Tell the backend servers whether this request is being served via TLS or
+    # not. This should pretty much *always* be yes since we unconditionally
+    # redirect to HTTPS in HAProxy and Fastly should also be configured to do
+    # the same.
+    reqadd X-Forwarded-Proto:\ https if is_fastly fastly_tls
+    reqadd X-Forwarded-Proto:\ https if !is_fastly { ssl_fc }
+    reqadd X-Forwarded-Proto:\ http if is_fastly !fastly_tls
+    reqadd X-Forwarded-Proto:\ http if !is_fastly !{ ssl_fc }
+
+    # Redirect all HTTP traffic to HTTPS
+    # Note: This only works for for domains which are not being routed via
+    #       Fastly. This is because by default Fastly does not cache content
+    #       differently for HTTPS and HTTP so the HTTP -> HTTPS redirect should
+    #       be configured within Fastly.
+    redirect scheme https if !{ ssl_fc }
 
     # Setup our ACLs
     {% for domain, config in haproxy.domains.items() %}
@@ -97,6 +111,12 @@ frontend main
 
 {% for domain, config in haproxy.domains.items() %}
 backend {{ config.role }}_{{ config.port }}
+    # Strip out the headers from Fastly, we don't want to pass these to the
+    # backend, any value from them that needs to be passed backwards should be
+    # aliased to a "standard"-ish value and implemented whether it's coming via
+    # Fastly or not.
+    reqidel ^Fastly-[a-z]+:.*
+
     {% if config.external_backend is defined %}
 
     reqirep ^Host:.* Host:\ {{ config.external_backend }}

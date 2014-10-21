@@ -38,6 +38,7 @@ base:
     - match: nodegroup
     - haproxy
     - firewall.loadbalancer
+    - secrets.fastly
     - secrets.tls.certs.loadbalancer
 
   'monitoring':
