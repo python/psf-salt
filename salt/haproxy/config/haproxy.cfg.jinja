@@ -77,6 +77,11 @@ frontend main
     bind :20003 ssl no-sslv3 npn http/1.1 crt star.python.org.pem
     bind :20004 ssl force-tlsv12          crt lb.psf.io.pem
 
+    # Remove any of the X-Forwarded-* headers from this request, Fastly gives
+    # us these headers in a different way and we have nothing else that would
+    # give us these headers.
+    reqidel ^X-Forwarded-[a-z0-9]+:.*
+
     # Determine if this request is coming from Fastly or not.
     # TODO: Can I move the access token into a seperate file?
     acl is_fastly hdr(Fastly-Token) {{ pillar["fastly"]["access-token"] }}
