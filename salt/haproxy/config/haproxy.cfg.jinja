@@ -72,9 +72,9 @@ frontend main
 
     # Advertise http/1.1 over NPN to enable TLS False Start
     # TODO: Switch this to alpn once we upgade to a newer OS
-    bind :20001 ssl no-sslv3 npn http/1.1 crt /etc/ssl/private/ev.python.org.pem
-    bind :20002 ssl no-sslv3 npn http/1.1 crt /etc/ssl/private/hg.python.org.pem
-    bind :20003 ssl no-sslv3 npn http/1.1 crt /etc/ssl/private/star.python.org.pem
+    bind :20001 ssl no-sslv3 npn http/1.1 crt ev.python.org.pem
+    bind :20002 ssl no-sslv3 npn http/1.1 crt hg.python.org.pem
+    bind :20003 ssl no-sslv3 npn http/1.1 crt star.python.org.pem
 
     # Redirect all HTTP traffic to HTTPS
     redirect scheme https if !{ ssl_fc }
@@ -105,7 +105,7 @@ backend {{ config.role }}_{{ config.port }}
 
     {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() %}
     {% for addr in addrs %}
-    server {{ server }} {{ addr }}:{{ config.port }} check ssl verifyhost {{ config.get("verify_host", config.role + ".psf.io") }} ca-file /etc/ssl/certs/PSF_CA.pem
+    server {{ server }} {{ addr }}:{{ config.port }} check ssl verifyhost {{ config.get("verify_host", config.role + ".psf.io") }} ca-file PSF_CA.pem
     {% endfor %}
     {% endfor %}
 
