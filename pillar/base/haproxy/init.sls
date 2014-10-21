@@ -9,6 +9,13 @@ haproxy:
       role: docs
       port: 9000
 
+    www.python.org/ftp/:
+      domain: www.python.org
+      path: /ftp/
+      check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
+      role: downloads
+      port: 9000
+
     hg.python.org:
       role: hg
       port: 9000

@@ -24,7 +24,7 @@ base:
 
   'downloads':
     - match: nodegroup
-    - firewall.fastly-backend
+    - firewall.rs-lb-backend
     - groups.downloads
     - secrets.backup.downloads
 

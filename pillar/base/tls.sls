@@ -11,6 +11,10 @@ tls:
       roles:
         - docs
 
+    downloads.psf.io:
+      roles:
+        - downloads
+
     hg.psf.io:
       roles:
         - hg
