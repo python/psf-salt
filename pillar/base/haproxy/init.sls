@@ -1,6 +1,7 @@
 haproxy:
   domains:
     console.python.org:
+      hsts: True
       role: console-proxy
       port: 443
       external_backend: www.pythonanywhere.com
@@ -9,6 +10,7 @@ haproxy:
       domains:
         - docs.python.org
         - doc.python.org
+      hsts: True
       role: docs
       port: 9000
 
@@ -21,6 +23,7 @@ haproxy:
       port: 9000
 
     hg.python.org:
+      hsts: True
       role: hg
       port: 9000
 
