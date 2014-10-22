@@ -70,7 +70,6 @@ frontend main
     bind :20000
 
     # Advertise http/1.1 over NPN to enable TLS False Start
-    # TODO: Switch this to alpn once we upgade to a newer OS
     bind :20001 ssl no-tls-tickets no-sslv3 npn http/1.1 crt ev.python.org.pem
     bind :20002 ssl no-tls-tickets no-sslv3 npn http/1.1 crt hg.python.org.pem
     bind :20003 ssl no-tls-tickets no-sslv3 npn http/1.1 crt star.python.org.pem
