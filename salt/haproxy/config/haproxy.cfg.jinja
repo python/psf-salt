@@ -71,10 +71,10 @@ frontend main
 
     # Advertise http/1.1 over NPN to enable TLS False Start
     # TODO: Switch this to alpn once we upgade to a newer OS
-    bind :20001 ssl no-sslv3 npn http/1.1 crt ev.python.org.pem
-    bind :20002 ssl no-sslv3 npn http/1.1 crt hg.python.org.pem
-    bind :20003 ssl no-sslv3 npn http/1.1 crt star.python.org.pem
-    bind :20004 ssl force-tlsv12          crt lb.psf.io.pem
+    bind :20001 ssl no-tls-tickets no-sslv3 npn http/1.1 crt ev.python.org.pem
+    bind :20002 ssl no-tls-tickets no-sslv3 npn http/1.1 crt hg.python.org.pem
+    bind :20003 ssl no-tls-tickets no-sslv3 npn http/1.1 crt star.python.org.pem
+    bind :20004 ssl no-tls-tickets force-tlsv12          crt lb.psf.io.pem
 
     # Determine if this request is coming from Fastly or not.
     acl is_fastly hdr(Fastly-Token) -f /etc/haproxy/fastly_token
