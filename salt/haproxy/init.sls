@@ -1,3 +1,5 @@
+{% set ocsp =  salt["pillar.get"]("tls:ocsp") %} # "
+
 include:
   - monitoring.client.collectors.haproxy
 
@@ -44,3 +46,41 @@ haproxy:
     - show_diff: False
     - require:
       - pkg: haproxy
+
+
+/usr/local/bin/haproxy-ocsp:
+  {% if ocsp %}
+  file.managed:
+    - source: salt://haproxy/bin/haproxy-ocsp
+    - user: root
+    - group: root
+    - mode: 755
+  {% else %}
+  file.absent
+  {% endif %}
+
+
+haproxy-ocsp:
+  {% if ocsp %}
+  cron.present:
+    - minute: 0
+    - hour: 0
+  {% else %}
+  cron.absent:
+  {% endif %}
+    - name: /usr/local/bin/haproxy-ocsp{% for o in ocsp %} /etc/ssl/private/{{ o }}.pem{% endfor %} >> /var/log/haproxy-ocsp.log 2>&1
+    - identifier: haproxy-ocsp
+    - user: root
+    - require:
+      - pkg: haproxy
+      - file: /usr/local/bin/haproxy-ocsp
+
+
+{% if not ocsp %}
+{% for name in salt["pillar.get"]("tls:certs", {}) %}  # " Syntax Hack
+/etc/ssl/private/{{ name }}.pem.ocsp:
+  file.absent:
+    - require_in:
+      - service: haproxy
+{% endfor %}
+{% endif %}
