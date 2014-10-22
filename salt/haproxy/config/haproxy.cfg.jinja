@@ -35,6 +35,10 @@ global
     # set inactivity timeout to reset record size (in ms)
     tune.idletimer 1000
 
+    # Allow SSL sessions to last for ~2 hours in order to improve the session
+    # hit rate.
+    tune.ssl.lifetime 2h
+
 defaults
     log     global
 
