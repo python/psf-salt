@@ -44,6 +44,7 @@ base:
     - match: nodegroup
     - haproxy
     - firewall.loadbalancer
+    - ocsp
     - secrets.fastly
     - secrets.tls.certs.loadbalancer
 

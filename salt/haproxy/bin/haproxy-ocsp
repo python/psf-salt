@@ -1,0 +1,135 @@
+#!/usr/bin/env python
+# Adapted from the Python module "pem" which is copywritten:
+#
+# Copyright (c) 2012-2014 Hynek Schlawack
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+import codecs
+import re
+import os.path
+import shutil
+import sys
+import subprocess
+import tempfile
+import urlparse
+
+
+class _Base(object):
+
+    def __init__(self, _pem_str):
+        self.pem_str = _pem_str
+
+    def __str__(self):
+        return self.pem_str
+
+    def __repr__(self):
+        return '<{0}(pem_str={1!r})>'.format(
+            self.__class__.__name__, self.pem_str
+        )
+
+
+class Certificate(_Base):
+    pass
+
+
+class Key(_Base):
+    pass
+
+
+class RSAPrivateKey(Key):
+    pass
+
+
+class DHParameters(_Base):
+    pass
+
+
+_PEM_TO_CLASS = {
+    "CERTIFICATE": Certificate,
+    "RSA PRIVATE KEY": RSAPrivateKey,
+    "DH PARAMETERS": DHParameters,
+}
+_PEM_RE = re.compile(u"""-----BEGIN ({0})-----
+.+?
+-----END \\1-----
+""".format('|'.join(_PEM_TO_CLASS.keys())), re.DOTALL)
+
+
+def parse(pem_str):
+    """
+    Extract PEM objects from *pem_str*.
+    """
+    return [
+        _PEM_TO_CLASS[match.group(1)](match.group(0))
+        for match in _PEM_RE.finditer(pem_str)
+    ]
+
+
+def parse_file(file_name):
+    """
+    Read *file_name* and parse PEM objects from it.
+    """
+    with codecs.open(file_name, 'rb', encoding='utf-8', errors='ignore') as f:
+        return parse(f.read())
+
+
+if __name__ == "__main__":
+    filenames = sys.argv[1:]
+
+    for filename in filenames:
+        tmpdir = tempfile.mkdtemp()
+        try:
+            pems = [
+                x for x in parse_file(filename)
+                if isinstance(x, Certificate)
+            ]
+
+            certpath = os.path.join(tmpdir, "cert.pem")
+            issuerpath = os.path.join(tmpdir, "issuer.pem")
+            ocsppath = os.path.join(tmpdir, "cert.ocsp")
+
+            # Write the Certificate out to a temporary file
+            with open(certpath, "w") as fp:
+                fp.write(str(pems[0]))
+
+            # Write the Issuer out to a temporary file
+            with open(issuerpath, "w") as fp:
+                fp.write(str(pems[1]))
+
+            # Get the OCSP URI from the certificate
+            ocsp_uri = subprocess.check_output([
+                "openssl", "x509", "-in", certpath, "-noout", "-ocsp_uri",
+            ]).strip()
+
+            # Get an OCSP Response
+            subprocess.check_call([
+                "openssl", "ocsp", "-issuer", issuerpath, "-no_nonce", "-cert",
+                certpath, "-url", ocsp_uri, "-respout", ocsppath,
+                "-header", "Host", urlparse.urlparse(ocsp_uri).netloc,
+                "-VAfile", issuerpath, "-CAfile", issuerpath,
+            ])
+
+            # Copy our OCSP Response into the final destination
+            shutil.copy(ocsppath, filename + ".ocsp")
+        finally:
+            shutil.rmtree(tmpdir, ignore_errors=True)
+
+    # Reload HAProxy, this uses ``service haproxy reload`` so it will be a
+    # graceful reload instead of a terminate or a restart.
+    subprocess.check_call(["service", "haproxy", "reload"])
