@@ -144,6 +144,11 @@ backend {{ config.role }}_{{ config.port }}
     option httpchk {{ config.check }}
     {% endif %}
 
+    {% if config.get("hsts") %}
+    # Add HSTS headers for anything that is configured to have them.
+    http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
+    {% endif %}
+
     {% if config.external_backend is defined %}
 
     reqirep ^Host:.* Host:\ {{ config.external_backend }}
