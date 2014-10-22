@@ -76,6 +76,11 @@ haproxy-ocsp:
       - file: /usr/local/bin/haproxy-ocsp
 
 
+/etc/logrotate.d/haproxy-ocsp:
+  file.managed:
+    - source: salt://haproxy/config/haproxy-ocsp-logrotate.conf
+
+
 {% if not ocsp %}
 {% for name in salt["pillar.get"]("tls:certs", {}) %}  # " Syntax Hack
 /etc/ssl/private/{{ name }}.pem.ocsp:
