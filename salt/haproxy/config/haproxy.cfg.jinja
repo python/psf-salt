@@ -108,6 +108,10 @@ frontend main
 frontend fastly
     bind :20004 ssl no-tls-tickets force-tlsv12          crt lb.psf.io.pem
 
+    # Adjust timeouts, Fastly can maintain long persistent connections to the
+    # backend server and thus we can keep these open for a long time.
+    timeout client 86400
+
     # Determine if this request is valid, We mandate that a Fastly-Token is
     # sent with all requests coming from Fastly and that this token matched the
     # value we expect.
