@@ -1,7 +1,7 @@
-{% set haproxy = salt["pillar.get"]("haproxy", {}) %}
-{% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
+{% set haproxy = salt["pillar.get"]("haproxy", {}) -%}
+{% set psf_internal = salt["pillar.get"]("psf_internal_network") -%}
 
-{% set ciphers = pillar["tls"]["ciphers"].get("haproxy", pillar["tls"]["ciphers"]["default"]) %}
+{% set ciphers = pillar["tls"]["ciphers"].get("haproxy", pillar["tls"]["ciphers"]["default"]) -%}
 
 global
     log /dev/log    local0
@@ -35,6 +35,7 @@ global
     # Allow SSL sessions to last for ~2 hours in order to improve the session
     # hit rate.
     tune.ssl.lifetime 2h
+
 
 defaults
     log     global
@@ -93,14 +94,14 @@ frontend main
     redirect scheme https if !is_tls
 
     # Setup our ACLs
-    {% for name, config in haproxy.domains.items() %}
-    {% for domain in config.get("domains", [name]) %}
+    {% for name, config in haproxy.domains.items() -%}
+    {% for domain in config.get("domains", [name]) -%}
     acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
-    {% endfor %}
+    {% endfor -%}
     {% endfor %}
 
     # Dispatch to a backend based on our domain ACLs
-    {% for name, config in haproxy.domains.items() %}
+    {% for name, config in haproxy.domains.items() -%}
     use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
     {% endfor %}
 
@@ -143,61 +144,55 @@ frontend fastly
     http-request del-header Fastly-Token
 
     # Setup our ACLs
-    {% for name, config in haproxy.domains.items() %}
-    {% for domain in config.get("domains", [name]) %}
+    {% for name, config in haproxy.domains.items() -%}
+    {% for domain in config.get("domains", [name]) -%}
     acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
-    {% endfor %}
+    {% endfor -%}
     {% endfor %}
 
     # Dispatch to a backend based on our domain ACLs
-    {% for name, config in haproxy.domains.items() %}
+    {% for name, config in haproxy.domains.items() -%}
     use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
     {% endfor %}
 
 
-{% for domain, config in haproxy.domains.items() %}
+{% for domain, config in haproxy.domains.items() -%}
 backend {{ config.role }}_{{ config.port }}
-    {% if config.get("check") %}
-    option httpchk {{ config.check }}
-    {% endif %}
+    {% if config.get("check") %}option httpchk {{ config.check }}{% endif -%}
 
-    {% if config.get("hsts") %}
+    {% if config.get("hsts") -%}
     # Add HSTS headers for anything that is configured to have them.
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
     {% endif %}
 
-    {% if config.external_backend is defined %}
-
+    {% if config.external_backend is defined -%}
     reqirep ^Host:.* Host:\ {{ config.external_backend }}
     server {{ config.role }} {{ config.external_backend }}:{{ config.port }} ssl force-tlsv12 verifyhost {{ config.external_backend }} ca-file ca-certificates.crt
-
     {% else %}
-
-    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() %}
-    {% for addr in addrs %}
+    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() -%}
+    {% for addr in addrs -%}
     server {{ server }} {{ addr }}:{{ config.port }} {% if config.get("check", True) %}check{% endif %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", config.role + ".psf.io") }} ca-file PSF_CA.pem
+    {% endfor -%}
     {% endfor %}
-    {% endfor %}
-
     {% endif %}
 {% endfor %}
 
 
-{% for name, config in haproxy.listens.items() %}
+{% for name, config in haproxy.listens.items() -%}
 listen {{ name }}
     bind {{ config.bind }}
 
     mode {{ config.mode }}
 
-    {% if config.mode == "tcp" %}
+    {% if config.mode == "tcp" -%}
     option tcplog
     option tcp-check
     {% endif %}
 
-    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() %}
-    {% for addr in addrs %}
+    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() -%}
+    {% for addr in addrs -%}
     server {{ server }} {{ addr }}:{{ config.port }} check
-    {% endfor %}
+    {% endfor -%}
     {% endfor %}
 
 {% endfor %}
