@@ -1,8 +1,6 @@
 {% set haproxy = salt["pillar.get"]("haproxy", {}) -%}
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") -%}
 
-{% set ciphers = pillar["tls"]["ciphers"].get("haproxy", pillar["tls"]["ciphers"]["default"]) -%}
-
 global
     log /dev/log    local0
     log /dev/log    local1 notice
@@ -22,8 +20,8 @@ global
     ca-base /etc/ssl/certs
     crt-base /etc/ssl/private
 
-    ssl-default-bind-ciphers {{ ciphers }}
-    ssl-default-server-ciphers {{ ciphers }}
+    ssl-default-bind-ciphers {{ pillar["tls"]["ciphers"].get("haproxy/bind", pillar["tls"]["ciphers"]["default"]) }}
+    ssl-default-server-ciphers {{ pillar["tls"]["ciphers"].get("haproxy/server", pillar["tls"]["ciphers"]["default"]) }}
     ssl-server-verify required
 
     # increase DH Param bits to match certificate bits
