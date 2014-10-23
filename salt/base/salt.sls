@@ -11,12 +11,27 @@ python-ipaddr:
     - group: root
     - mode: 644
 
+
+/etc/salt/master.d/reactor.conf:
+  file.managed:
+    - source: salt://base/config/salt-reactor.conf
+    - user: root
+    - group: root
+    - mode: 644
+
+  module.wait:
+    - name: saltutil.sync_grains
+    - watch:
+      - file: /etc/salt/master.d/reactor.conf
+
+
 salt-master:
   service.running:
     - enable: True
     - restart: True
     - watch:
       - file: /etc/salt/master.d/roles.conf
+      - file: /etc/salt/master.d/reactor.conf
 {% endif %}
 
 
