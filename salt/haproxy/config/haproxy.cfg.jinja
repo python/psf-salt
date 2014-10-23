@@ -73,17 +73,9 @@ frontend main
     bind :20001 ssl no-tls-tickets no-sslv3 npn http/1.1 crt ev.python.org.pem
     bind :20002 ssl no-tls-tickets no-sslv3 npn http/1.1 crt hg.python.org.pem
     bind :20003 ssl no-tls-tickets no-sslv3 npn http/1.1 crt star.python.org.pem
-    bind :20004 ssl no-tls-tickets force-tlsv12          crt lb.psf.io.pem
 
-    # Determine if this request is coming from Fastly or not.
-    acl is_fastly hdr(Fastly-Token) -f /etc/haproxy/fastly_token
-    acl fastly_tls hdr_cnt(Fastly-SSL) gt 0
-
-    # Determine if this request is valid, if this has a Fastly-Token header but
-    # the value is incorrect then we want to block the request instead of allow
-    # it as if we wern't attempting to be served via Fastly. This should make
-    # debugging way easier.
-    http-request deny if { hdr_cnt(Fastly-Token) gt 0 } !is_fastly
+    # Determine if this request has TLS on the client side or not.
+    acl is_tls ssl_fc
 
     # Remove any of the X-Forwarded-* headers from this request, Fastly gives
     # us these headers in a different way and we have nothing else that would
@@ -91,23 +83,52 @@ frontend main
     http-request del-header X-Forwarded-For
     http-request del-header X-Forwarded-Proto
 
-    # Tell the backend servers the original client IP address. This is only
-    # available for websites served through Fastly. The reason for this is
-    # because we currently have an Active-Active HAProxy cluster placed behind
-    # a Rackspace Cloud Load Balancer. This hides the original IP address
-    # unless we are willing to downgrade our TLS settings by terminating TLS
-    # at the CLB. This would also involve having plaintext communication from
-    # the CLB to the HAProxy cluster.
-    http-request set-header X-Forwarded-For %[hdr(Fastly-Client-IP)] if is_fastly { hdr_cnt(Fastly-Client-IP) gt 0 }
-
     # Tell the backend servers whether this request is being served via TLS or
     # not. This should pretty much *always* be yes since we unconditionally
-    # redirect to HTTPS in HAProxy and Fastly should also be configured to do
-    # the same.
-    http-request set-header X-Forwarded-Proto https if is_fastly  fastly_tls
-    http-request set-header X-Forwarded-Proto http  if is_fastly !fastly_tls
-    http-request set-header X-Forwarded-Proto https if !is_fastly  { ssl_fc }
-    http-request set-header X-Forwarded-Proto http  if !is_fastly !{ ssl_fc }
+    # redirect to HTTPS in HAProxy.
+    http-request set-header X-Forwarded-Proto https if is_tls
+    http-request set-header X-Forwarded-Proto http  if !is_tls
+
+    # Redirect all HTTP traffic to HTTPS
+    redirect scheme https if !is_tls
+
+    # Setup our ACLs
+    {% for name, config in haproxy.domains.items() %}
+    {% for domain in config.get("domains", [name]) %}
+    acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
+    {% endfor %}
+    {% endfor %}
+
+    # Dispatch to a backend based on our domain ACLs
+    {% for name, config in haproxy.domains.items() %}
+    use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
+    {% endfor %}
+
+
+frontend fastly
+    bind :20004 ssl no-tls-tickets force-tlsv12          crt lb.psf.io.pem
+
+    # Determine if this request is valid, We mandate that a Fastly-Token is
+    # sent with all requests coming from Fastly and that this token matched the
+    # value we expect.
+    http-request deny if { hdr(Fastly-Token) -f /etc/haproxy/fastly_token }
+
+    # Determine if this request has TLS on the client side or not.
+    acl is_tls hdr_cnt(Fastly-SSL) gt 0
+
+    # Remove any of the X-Forwarded-* headers from this request, Fastly gives
+    # us these headers in a different way.
+    http-request del-header X-Forwarded-For
+    http-request del-header X-Forwarded-Proto
+
+    # Tell the backend servers the original client IP address.
+    http-request set-header X-Forwarded-For %[hdr(Fastly-Client-IP)] if { hdr_cnt(Fastly-Client-IP) gt 0 }
+
+    # Tell the backend servers whether this request is being served via TLS or
+    # not. This should pretty much *always* be yes since Fastly should be
+    # configured to unconditionally redirect to HTTPS.
+    http-request set-header X-Forwarded-Proto https if is_tls
+    http-request set-header X-Forwarded-Proto http  if !is_tls
 
     # Strip out the headers from Fastly, we don't want to pass these to the
     # backend, any value from them that needs to be passed backwards should be
@@ -116,13 +137,6 @@ frontend main
     http-request del-header Fastly-Client-IP
     http-request del-header Fastly-SSL
     http-request del-header Fastly-Token
-
-    # Redirect all HTTP traffic to HTTPS
-    # Note: This only works for for domains which are not being routed via
-    #       Fastly. This is because by default Fastly does not cache content
-    #       differently for HTTPS and HTTP so the HTTP -> HTTPS redirect should
-    #       be configured within Fastly.
-    redirect scheme https if !{ ssl_fc }
 
     # Setup our ACLs
     {% for name, config in haproxy.domains.items() %}
