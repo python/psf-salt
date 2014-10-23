@@ -121,7 +121,7 @@ frontend fastly
     # Determine if this request is valid, We mandate that a Fastly-Token is
     # sent with all requests coming from Fastly and that this token matched the
     # value we expect.
-    http-request deny if { hdr(Fastly-Token) -f /etc/haproxy/fastly_token }
+    http-request deny unless { hdr(Fastly-Token) -f /etc/haproxy/fastly_token }
 
     # Determine if this request has TLS on the client side or not.
     acl is_tls hdr_cnt(Fastly-SSL) gt 0
