@@ -4,6 +4,7 @@
 SERVERS = [
   "backup-server",
   "cdn-logs",
+  "consul",
   "docs",
   "downloads",
   "hg",

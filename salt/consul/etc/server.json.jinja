@@ -1,0 +1,12 @@
+{% set internal = salt["pillar.get"]("psf_internal_network") %}
+
+{
+    "acl_datacenter": "rax-iad",
+    "acl_default_policy": "deny",
+    "bind_addr": "{{ salt["ip_picker.ip_addrs"](cidr=internal)[0] }}",
+    "bootstrap_expect": {{ pillar["consul"]["bootstrap-expect"] }},
+    "datacenter": "rax-iad",
+    "disable_remote_exec": true,
+    "enable_syslog": true,
+    "server": true
+}
