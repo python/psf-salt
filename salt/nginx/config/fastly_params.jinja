@@ -1,8 +1,5 @@
 port_in_redirect off;
 
-keepalive_timeout 86400;
-keepalive_requests 50000;
-
 ssl_ciphers {{ pillar["tls"]["ciphers"].get("backend", pillar["tls"]["ciphers"]["default"]) }};
 ssl_protocols TLSv1.2;
 

@@ -1,7 +1,5 @@
-{% set haproxy = salt["pillar.get"]("haproxy", {}) %}
-{% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
-
-{% set ciphers = pillar["tls"]["ciphers"].get("haproxy", pillar["tls"]["ciphers"]["default"]) %}
+{% set haproxy = salt["pillar.get"]("haproxy", {}) -%}
+{% set psf_internal = salt["pillar.get"]("psf_internal_network") -%}
 
 global
     log /dev/log    local0
@@ -22,8 +20,8 @@ global
     ca-base /etc/ssl/certs
     crt-base /etc/ssl/private
 
-    ssl-default-bind-ciphers {{ ciphers }}
-    ssl-default-server-ciphers {{ ciphers }}
+    ssl-default-bind-ciphers {{ pillar["tls"]["ciphers"].get("haproxy/bind", pillar["tls"]["ciphers"]["default"]) }}
+    ssl-default-server-ciphers {{ pillar["tls"]["ciphers"].get("haproxy/server", pillar["tls"]["ciphers"]["default"]) }}
     ssl-server-verify required
 
     # increase DH Param bits to match certificate bits
@@ -32,8 +30,10 @@ global
     # lower your record size to improve Time to First Byte (TTFB)
     tune.ssl.maxrecord 1400
 
-    # set inactivity timeout to reset record size (in ms)
-    tune.idletimer 1000
+    # Allow SSL sessions to last for ~2 hours in order to improve the session
+    # hit rate.
+    tune.ssl.lifetime 2h
+
 
 defaults
     log     global
@@ -42,7 +42,6 @@ defaults
 
     retries 3
 
-    option  dontlognull
     option  httpchk
     option  httplog
     option  http-server-close
@@ -52,8 +51,8 @@ defaults
     balance roundrobin
 
     timeout connect 5000
-    timeout client  50000
-    timeout server  50000
+    timeout client  10000
+    timeout server  10000
 
     monitor-uri /_haproxy_status
 
@@ -70,21 +69,12 @@ frontend main
     bind :20000
 
     # Advertise http/1.1 over NPN to enable TLS False Start
-    # TODO: Switch this to alpn once we upgade to a newer OS
     bind :20001 ssl no-tls-tickets no-sslv3 npn http/1.1 crt ev.python.org.pem
     bind :20002 ssl no-tls-tickets no-sslv3 npn http/1.1 crt hg.python.org.pem
     bind :20003 ssl no-tls-tickets no-sslv3 npn http/1.1 crt star.python.org.pem
-    bind :20004 ssl no-tls-tickets force-tlsv12          crt lb.psf.io.pem
 
-    # Determine if this request is coming from Fastly or not.
-    acl is_fastly hdr(Fastly-Token) -f /etc/haproxy/fastly_token
-    acl fastly_tls hdr_cnt(Fastly-SSL) gt 0
-
-    # Determine if this request is valid, if this has a Fastly-Token header but
-    # the value is incorrect then we want to block the request instead of allow
-    # it as if we wern't attempting to be served via Fastly. This should make
-    # debugging way easier.
-    http-request deny if { hdr_cnt(Fastly-Token) gt 0 } !is_fastly
+    # Determine if this request has TLS on the client side or not.
+    acl is_tls ssl_fc
 
     # Remove any of the X-Forwarded-* headers from this request, Fastly gives
     # us these headers in a different way and we have nothing else that would
@@ -92,23 +82,56 @@ frontend main
     http-request del-header X-Forwarded-For
     http-request del-header X-Forwarded-Proto
 
-    # Tell the backend servers the original client IP address. This is only
-    # available for websites served through Fastly. The reason for this is
-    # because we currently have an Active-Active HAProxy cluster placed behind
-    # a Rackspace Cloud Load Balancer. This hides the original IP address
-    # unless we are willing to downgrade our TLS settings by terminating TLS
-    # at the CLB. This would also involve having plaintext communication from
-    # the CLB to the HAProxy cluster.
-    http-request set-header X-Forwarded-For %[hdr(Fastly-Client-IP)] if is_fastly { hdr_cnt(Fastly-Client-IP) gt 0 }
-
     # Tell the backend servers whether this request is being served via TLS or
     # not. This should pretty much *always* be yes since we unconditionally
-    # redirect to HTTPS in HAProxy and Fastly should also be configured to do
-    # the same.
-    http-request set-header X-Forwarded-Proto https if is_fastly  fastly_tls
-    http-request set-header X-Forwarded-Proto http  if is_fastly !fastly_tls
-    http-request set-header X-Forwarded-Proto https if !is_fastly  { ssl_fc }
-    http-request set-header X-Forwarded-Proto http  if !is_fastly !{ ssl_fc }
+    # redirect to HTTPS in HAProxy.
+    http-request set-header X-Forwarded-Proto https if is_tls
+    http-request set-header X-Forwarded-Proto http  if !is_tls
+
+    # Redirect all HTTP traffic to HTTPS
+    redirect scheme https if !is_tls
+
+    # Setup our ACLs
+    {% for name, config in haproxy.domains.items() -%}
+    {% for domain in config.get("domains", [name]) -%}
+    acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
+    {% endfor -%}
+    {% endfor %}
+
+    # Dispatch to a backend based on our domain ACLs
+    {% for name, config in haproxy.domains.items() -%}
+    use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
+    {% endfor %}
+
+
+frontend fastly
+    bind :20004 ssl no-tls-tickets force-tlsv12          crt lb.psf.io.pem
+
+    # Adjust timeouts, Fastly can maintain long persistent connections to the
+    # backend server and thus we can keep these open for a long time.
+    timeout client 86400
+
+    # Determine if this request is valid, We mandate that a Fastly-Token is
+    # sent with all requests coming from Fastly and that this token matched the
+    # value we expect.
+    http-request deny if { hdr(Fastly-Token) -f /etc/haproxy/fastly_token }
+
+    # Determine if this request has TLS on the client side or not.
+    acl is_tls hdr_cnt(Fastly-SSL) gt 0
+
+    # Remove any of the X-Forwarded-* headers from this request, Fastly gives
+    # us these headers in a different way.
+    http-request del-header X-Forwarded-For
+    http-request del-header X-Forwarded-Proto
+
+    # Tell the backend servers the original client IP address.
+    http-request set-header X-Forwarded-For %[hdr(Fastly-Client-IP)] if { hdr_cnt(Fastly-Client-IP) gt 0 }
+
+    # Tell the backend servers whether this request is being served via TLS or
+    # not. This should pretty much *always* be yes since Fastly should be
+    # configured to unconditionally redirect to HTTPS.
+    http-request set-header X-Forwarded-Proto https if is_tls
+    http-request set-header X-Forwarded-Proto http  if !is_tls
 
     # Strip out the headers from Fastly, we don't want to pass these to the
     # backend, any value from them that needs to be passed backwards should be
@@ -118,69 +141,56 @@ frontend main
     http-request del-header Fastly-SSL
     http-request del-header Fastly-Token
 
-    # Redirect all HTTP traffic to HTTPS
-    # Note: This only works for for domains which are not being routed via
-    #       Fastly. This is because by default Fastly does not cache content
-    #       differently for HTTPS and HTTP so the HTTP -> HTTPS redirect should
-    #       be configured within Fastly.
-    redirect scheme https if !{ ssl_fc }
-
     # Setup our ACLs
-    {% for name, config in haproxy.domains.items() %}
-    {% for domain in config.get("domains", [name]) %}
+    {% for name, config in haproxy.domains.items() -%}
+    {% for domain in config.get("domains", [name]) -%}
     acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
-    {% endfor %}
+    {% endfor -%}
     {% endfor %}
 
     # Dispatch to a backend based on our domain ACLs
-    {% for name, config in haproxy.domains.items() %}
+    {% for name, config in haproxy.domains.items() -%}
     use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
     {% endfor %}
 
 
-{% for domain, config in haproxy.domains.items() %}
+{% for domain, config in haproxy.domains.items() -%}
 backend {{ config.role }}_{{ config.port }}
-    {% if config.get("check") %}
-    option httpchk {{ config.check }}
-    {% endif %}
+    {% if config.get("check") %}option httpchk {{ config.check }}{% endif -%}
 
-    {% if config.get("hsts") %}
+    {% if config.get("hsts") -%}
     # Add HSTS headers for anything that is configured to have them.
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
     {% endif %}
 
-    {% if config.external_backend is defined %}
-
+    {% if config.external_backend is defined -%}
     reqirep ^Host:.* Host:\ {{ config.external_backend }}
     server {{ config.role }} {{ config.external_backend }}:{{ config.port }} ssl force-tlsv12 verifyhost {{ config.external_backend }} ca-file ca-certificates.crt
-
     {% else %}
-
-    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() %}
-    {% for addr in addrs %}
+    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() -%}
+    {% for addr in addrs -%}
     server {{ server }} {{ addr }}:{{ config.port }} {% if config.get("check", True) %}check{% endif %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", config.role + ".psf.io") }} ca-file PSF_CA.pem
+    {% endfor -%}
     {% endfor %}
-    {% endfor %}
-
     {% endif %}
 {% endfor %}
 
 
-{% for name, config in haproxy.listens.items() %}
+{% for name, config in haproxy.listens.items() -%}
 listen {{ name }}
     bind {{ config.bind }}
 
     mode {{ config.mode }}
 
-    {% if config.mode == "tcp" %}
+    {% if config.mode == "tcp" -%}
     option tcplog
     option tcp-check
     {% endif %}
 
-    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() %}
-    {% for addr in addrs %}
+    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() -%}
+    {% for addr in addrs -%}
     server {{ server }} {{ addr }}:{{ config.port }} check
-    {% endfor %}
+    {% endfor -%}
     {% endfor %}
 
 {% endfor %}
