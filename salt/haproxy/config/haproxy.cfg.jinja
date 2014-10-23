@@ -73,6 +73,10 @@ frontend main
     bind :20002 ssl no-tls-tickets no-sslv3 npn http/1.1 crt hg.python.org.pem
     bind :20003 ssl no-tls-tickets no-sslv3 npn http/1.1 crt star.python.org.pem
 
+    # Custom logging format, this is the same as the normal "httplog" in
+    # HAProxy except information about the TLS connection is included.
+    log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tq/%Tw/%Tc/%Tr/%Tt\ %sslv/%sslc\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
+
     # Determine if this request has TLS on the client side or not.
     acl is_tls ssl_fc
 
