@@ -194,6 +194,10 @@ listen {{ name }}
     option tcp-check
     {% endif %}
 
+    {% for line in config.get("extra", []) -%}
+    {{ line }}
+    {% endfor %}
+
     {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() -%}
     {% for addr in addrs -%}
     server {{ server }} {{ addr }}:{{ config.port }} check
