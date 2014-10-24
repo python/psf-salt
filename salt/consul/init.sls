@@ -15,20 +15,12 @@ consul:
 
   service.running:
     - enable: True
-    - reload: True
+    - restart: True
     - require:
       - pkg: consul
     - watch:
-      - file: consul
-
-  file.managed:
-    - name: /etc/consul/consul.json
-    - source: salt://consul/etc/{{ consul_type }}.json.jinja
-    - template: jinja
-    - user: root
-    - group: root
-    - require:
-      - pkg: consul
+      - file: /etc/consul/consul.json
+      - file: /etc/consul/conf.d/encrypt.json
 
   {% if servers %}
   cmd.run:
@@ -37,5 +29,27 @@ consul:
     - require:
       - service: consul
   {% endif %}
+
+
+/etc/consul/consul.json:
+  file.managed:
+    - source: salt://consul/etc/{{ consul_type }}.json.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - require:
+      - pkg: consul
+
+
+/etc/consul/conf.d/encrypt.json:
+  file.managed:
+    - source: salt://consul/etc/encrypt.json.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - show_diff: False
+    - require:
+      - pkg: consul
+
 
 {% endif %}
