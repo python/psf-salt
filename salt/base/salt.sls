@@ -10,6 +10,7 @@ python-ipaddr:
     - user: root
     - group: root
     - mode: 644
+    - order: 1
 
 
 /etc/salt/master.d/reactor.conf:
@@ -18,9 +19,11 @@ python-ipaddr:
     - user: root
     - group: root
     - mode: 644
+    - order: 1
 
   module.wait:
     - name: saltutil.sync_grains
+    - order: 1
     - watch:
       - file: /etc/salt/master.d/reactor.conf
 
@@ -29,6 +32,7 @@ salt-master:
   service.running:
     - enable: True
     - restart: True
+    - order: 1
     - watch:
       - file: /etc/salt/master.d/roles.conf
       - file: /etc/salt/master.d/reactor.conf

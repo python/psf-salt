@@ -1,9 +1,13 @@
-{% set consul_servers = (salt["mine.get"](salt["pillar.get"]("roles:consul", ""), "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0') %} # "
+{% if grains.dc in salt["pillar.get"]("consul:dcs") %} # "
+
 {% if salt["match.compound"](salt["pillar.get"]("roles:consul", "")) %}  # "
 {% set consul_type = "server" %}
 {% else %}
 {% set consul_type = "client" %}
 {% endif %}
+
+{% set servers = (salt["mine.get"]("G@dc:" + grains.dc + " and not " +  grains.id, "minealiases.psf_internal", expr_form="compound").values()) %} # "
+
 
 consul:
   pkg:
@@ -26,8 +30,12 @@ consul:
     - require:
       - pkg: consul
 
+  {% if servers %}
   cmd.run:
-    - name: consul join {{ grains.master }}
+    - name: consul join{% for addrs in servers %}{% for addr in addrs %} {{ addr }}{% endfor %}{% endfor %}
     - onlyif: consul members | wc -l | grep ^2$
     - require:
       - service: consul
+  {% endif %}
+
+{% endif %}

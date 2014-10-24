@@ -38,8 +38,9 @@ Vagrant.configure("2") do |config|
       v.cpus = 2
     end
 
-    s_config.vm.synced_folder "salt/", "/srv/salt"
-    s_config.vm.synced_folder "pillar", "/srv/pillar"
+    s_config.vm.synced_folder "salt/", "/srv/salt/"
+    s_config.vm.synced_folder "pillar/", "/srv/pillar/"
+    s_config.vm.synced_folder "reactor/", "/srv/reactor/"
 
     s_config.vm.provision :file, source: "salt/base/config/APT-GPG-KEY-PSF", destination: "~/APT-GPG-KEY-PSF"
     s_config.vm.provision :shell, inline: "apt-key add - < /home/vagrant/APT-GPG-KEY-PSF"
