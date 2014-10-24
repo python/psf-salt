@@ -282,8 +282,7 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA",
     data = {
         "tls": {
             "ca": {
-                "name": name,
-                "cert": get_ca_cert(base, name),
+                name: get_ca_cert(base, name),
             },
             "certs": {},
         },

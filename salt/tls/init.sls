@@ -2,14 +2,16 @@ ssl-cert:
   pkg.installed
 
 
-/etc/ssl/certs/{{ pillar["tls"]["ca"]["name"] }}.pem:
+{% for name in salt["pillar.get"]("tls:cas", {}) %}  # " Syntax Hack
+/etc/ssl/certs/{{ name }}.pem:
   file.managed:
-    - contents_pillar: tls:ca:cert
+    - contents_pillar: tls:cas:{{ name }}
     - user: root
     - group: ssl-cert
     - mode: 644
     - require:
       - pkg: ssl-cert
+{% endfor %}
 
 
 {% for name in salt["pillar.get"]("tls:certs", {}) %}  # " Syntax Hack
