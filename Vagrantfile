@@ -4,7 +4,7 @@
 SERVERS = [
   "backup-server",
   "cdn-logs",
-  {:name => "consul", :ports => [8500]},
+  "consul",
   "docs",
   "downloads",
   "hg",
