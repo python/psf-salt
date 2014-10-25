@@ -33,6 +33,3 @@ haproxy:
       mode: tcp
       role: hg
       port: 22
-      extra:
-        - timeout client  50000
-        - timeout server  50000
