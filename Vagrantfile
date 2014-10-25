@@ -4,12 +4,12 @@
 SERVERS = [
   "backup-server",
   "cdn-logs",
-  "consul",
+  {:name => "consul", :ports => [8500]},
   "docs",
   "downloads",
   "hg",
   "jython-web",
-  {:name => "loadbalancer", :box => "ubuntu/precise64", :codename => "precise"},
+  {:name => "loadbalancer", :box=> "ubuntu/precise64", :codename => "precise", :ports => [20000, 20001, 20002, 20003, 20004]},
   "monitoring",
   "packages",
   "planet",
@@ -60,11 +60,13 @@ Vagrant.configure("2") do |config|
       roles = server_c.fetch :roles, [server]
       box = server_c.fetch :box, nil
       codename = server_c.fetch :codename, "trusty"
+      ports = server_c.fetch :ports, []
     else
       server = server_c
       roles = [server_c]
       box = nil
       codename = "trusty"
+      ports = []
     end
 
     config.vm.define server, autostart: false do |s_config|
@@ -76,12 +78,8 @@ Vagrant.configure("2") do |config|
       s_config.vm.network "private_network", ip: "#{SUBNET1}.#{num + 10}", virtualbox__intnet: "psf1"
       s_config.vm.network "private_network", ip: "#{SUBNET2}.#{num + 10}", virtualbox__intnet: "psf2"
 
-      if server == "loadbalancer"
-        s_config.vm.network "forwarded_port", guest: 20000, host: 20000
-        s_config.vm.network "forwarded_port", guest: 20001, host: 20001
-        s_config.vm.network "forwarded_port", guest: 20002, host: 20002
-        s_config.vm.network "forwarded_port", guest: 20003, host: 20003
-        s_config.vm.network "forwarded_port", guest: 20004, host: 20004
+      ports.each do |port|
+        s_config.vm.network "forwarded_port", guest: port, host: port
       end
 
       if codename == "precise"
