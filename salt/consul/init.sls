@@ -1,7 +1,7 @@
 {% if grains.dc in salt["pillar.get"]("consul:dcs") %} # "
 
 {% set is_server = salt["match.compound"](salt["pillar.get"]("roles:consul", "")) %}  # "
-{% set servers = (salt["mine.get"]("G@dc:" + grains.dc + " and not " +  grains.id, "minealiases.psf_internal", expr_form="compound").values()) %} # "
+{% set servers = (salt["mine.get"]("G@dc:" + grains.dc + " and " + salt["pillar.get"]("roles:consul", ""), "minealiases.psf_internal", expr_form="compound").values()) %} # "
 
 
 consul:
@@ -13,15 +13,18 @@ consul:
     - restart: True
     - require:
       - pkg: consul
+      {% if is_server %}
       - user: consul
+      {% endif %}
     - watch:
       - file: /etc/consul.d/base.json
+      - file: /etc/consul.d/encrypt.json
+      - file: /etc/consul.d/join.json
+      - file: /etc/ssl/certs/PSF_CA.pem
       {% if is_server %}
       - file: /etc/consul.d/server.json
       - file: /etc/ssl/private/consul.psf.io.pem
       {% endif %}
-      - file: /etc/consul.d/encrypt.json
-      - file: /etc/ssl/certs/PSF_CA.pem
 
   {% if is_server %}
   user.present:
@@ -30,14 +33,6 @@ consul:
     - require:
       - pkg: consul
       - pkg: ssl-cert
-  {% endif %}
-
-  {% if servers %}
-  cmd.run:
-    - name: consul join{% for addrs in servers %}{% for addr in addrs %} {{ addr }}{% endfor %}{% endfor %}
-    - onlyif: consul members | wc -l | grep ^2$
-    - require:
-      - service: consul
   {% endif %}
 
 
@@ -70,6 +65,18 @@ consul:
     - user: root
     - group: root
     - show_diff: False
+    - require:
+      - pkg: consul
+
+
+/etc/consul.d/join.json:
+  file.managed:
+    - source: salt://consul/etc/join.json.jinja
+    - template: jinja
+    - context:
+        servers: {{ servers }}
+    - user: root
+    - group: root
     - require:
       - pkg: consul
 
