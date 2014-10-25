@@ -1,7 +1,9 @@
 consul:
-  # The number of servers to expect in this cluster during the bootstrapping
-  # phase, more servers can be added latter but the bootstrapping will not
-  # start until at least this many servers have been started.
+  acl:
+    default: deny
+    dc: rax-iad
+    down: extend-cache
+    ttl: 30
   bootstrap-expect: 3
   dcs:
     - rax-iad

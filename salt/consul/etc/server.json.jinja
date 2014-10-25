@@ -1,8 +1,4 @@
-{% set internal = salt["pillar.get"]("psf_internal_network") %}
-
 {
-    "acl_datacenter": "{{ grains.dc }}",
-    "acl_default_policy": "deny",
     "bootstrap_expect": {{ pillar["consul"]["bootstrap-expect"] }},
     "server": true
 }
