@@ -69,7 +69,7 @@ consul:
     - user: root
     - group: root
     - require:
-      - pkg:consul
+      - pkg: consul
 {% endif %}
 
 
