@@ -1,11 +1,6 @@
 {% if grains.dc in salt["pillar.get"]("consul:dcs") %} # "
 
-{% if salt["match.compound"](salt["pillar.get"]("roles:consul", "")) %}  # "
-{% set consul_type = "server" %}
-{% else %}
-{% set consul_type = "client" %}
-{% endif %}
-
+{% set is_server = salt["match.compound"](salt["pillar.get"]("roles:consul", "")) %}  # "
 {% set servers = (salt["mine.get"]("G@dc:" + grains.dc + " and not " +  grains.id, "minealiases.psf_internal", expr_form="compound").values()) %} # "
 
 
@@ -19,10 +14,13 @@ consul:
     - require:
       - pkg: consul
     - watch:
-      - file: /etc/consul/consul.json
-      - file: /etc/consul/conf.d/encrypt.json
-      - file: /etc/consul/ca.pem
-      - file: /etc/consul/cert.pem
+      - file: /etc/consul.d/base.json
+      {% if is_server %}
+      - file: /etc/consul.d/server.json
+      {% endif %}
+      - file: /etc/consul.d/encrypt.json
+      - file: /etc/consul.d/ca.pem
+      - file: /etc/consul.d/cert.pem
 
   {% if servers %}
   cmd.run:
@@ -33,7 +31,7 @@ consul:
   {% endif %}
 
 
-/etc/consul/ca.pem:
+/etc/consul.d/ca.pem:
   file.managed:
     - contents_pillar: consul:encryption:ca
     - user: root
@@ -43,7 +41,7 @@ consul:
       - pkg: consul
 
 
-/etc/consul/cert.pem:
+/etc/consul.d/cert.pem:
   file.managed:
     - contents_pillar: consul:encryption:cert
     - user: root
@@ -53,9 +51,9 @@ consul:
       - pkg: consul
 
 
-/etc/consul/consul.json:
+/etc/consul.d/base.json:
   file.managed:
-    - source: salt://consul/etc/{{ consul_type }}.json.jinja
+    - source: salt://consul/etc/base.json.jinja
     - template: jinja
     - user: root
     - group: root
@@ -63,7 +61,19 @@ consul:
       - pkg: consul
 
 
-/etc/consul/conf.d/encrypt.json:
+{% if is_server %}
+/etc/consul.d/server.json:
+  file.managed:
+    - source: salt://consul/etc/server.json.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - require:
+      - pkg:consul
+{% endif %}
+
+
+/etc/consul.d/encrypt.json:
   file.managed:
     - source: salt://consul/etc/encrypt.json.jinja
     - template: jinja
