@@ -2,7 +2,44 @@ import base64
 import os
 import os.path
 
-import ca
+
+def _secure_open_write(filename, fmode):
+    # We only want to write to this file, so open it in write only mode
+    flags = os.O_WRONLY
+
+    # os.O_CREAT | os.O_EXCL will fail if the file already exists, so we only
+    #  will open *new* files.
+    # We specify this because we want to ensure that the mode we pass is the
+    # mode of the file.
+    flags |= os.O_CREAT | os.O_EXCL
+
+    # Do not follow symlinks to prevent someone from making a symlink that
+    # we follow and insecurely open a cache file.
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+
+    # On Windows we'll mark this file as binary
+    if hasattr(os, "O_BINARY"):
+        flags |= os.O_BINARY
+
+    # Before we open our file, we want to delete any existing file that is
+    # there
+    try:
+        os.remove(filename)
+    except (IOError, OSError):
+        # The file must not exist already, so we can just skip ahead to opening
+        pass
+
+    # Open our file, the use of os.O_CREAT | os.O_EXCL will ensure that if a
+    # race condition happens between the os.remove and this line, that an
+    # error will be raised.
+    fd = os.open(filename, flags, fmode)
+    try:
+        return os.fdopen(fd, "wb")
+    except:
+        # An error occurred wrapping our FD in a file object
+        os.close(fd)
+        raise
 
 
 def _encryption_key(key_path):
@@ -12,7 +49,7 @@ def _encryption_key(key_path):
         if not os.path.exists(os.path.dirname(key_path)):
             os.makedirs(os.path.dirname(key_path))
 
-        with ca._secure_open_write(key_path, 0o0600) as fp:
+        with _secure_open_write(key_path, 0o0600) as fp:
             fp.write(data)
     else:
         with open(key_path) as fp:
@@ -21,40 +58,11 @@ def _encryption_key(key_path):
     return data
 
 
-def _ca_pem(base, name, cn, server=False):
-    # Ensure we have a CA created.
-    opts = {
-        "CN": name,
-        "C": "US",
-        "ST": "NH",
-        "L": "Wolfeboro",
-        "O": "Python Software Foundation",
-        "OU": "Infractructure Team",
-        "emailAddress": "infrastructure@python.org",
-    }
-    ca.create_ca(base, name, **opts)
-
-    # Generate a certificate for this minion
-    ca.create_ca_signed_cert(
-        base, name, CN=cn, server_auth=server, client_auth=True,
-    )
-
-
-def ext_pillar(minion_id, pillar, key_path, base="/etc/ssl"):
-    # Should this certificate be valid for servers?
-    server = ca.compound(pillar.get("roles", {}).get("consul"), minion_id)
-
-    # Create the CA and TLS Certificate
-    _ca_pem(base, "CONSUL_CA", "consul." + minion_id, server=server)
-
+def ext_pillar(minion_id, pillar, key_path):
     return {
         "consul": {
             "encryption": {
                 "key": _encryption_key(key_path),
-                "ca": ca.get_ca_cert(base, "CONSUL_CA"),
-                "cert": ca.get_ca_signed_cert(
-                    base, "CONSUL_CA", "consul." + minion_id,
-                ),
             },
         },
     }

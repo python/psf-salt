@@ -6,12 +6,11 @@
     "acl_down_policy": "{{ pillar.consul.acl.down }}",
     "acl_ttl": "{{ pillar.consul.acl.ttl }}",
     "bind_addr": "{{ salt["ip_picker.ip_addrs"](cidr=internal)[0] }}",
-    "ca_file": "/etc/consul.d/ca.pem",
-    "cert_file": "/etc/consul.d/cert.pem",
+    "ca_file": "/etc/ssl/certs/PSF_CA.pem",
     "datacenter": "{{ grains.dc }}",
     "disable_remote_exec": true,
     "enable_syslog": true,
-    "key_file": "/etc/consul.d/cert.pem",
-    "verify_incoming": true,
+    "server_name": "consul.psf.io",
+    "verify_incoming": false,
     "verify_outgoing": true
 }
