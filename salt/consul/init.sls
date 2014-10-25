@@ -13,14 +13,24 @@ consul:
     - restart: True
     - require:
       - pkg: consul
+      - user: consul
     - watch:
       - file: /etc/consul.d/base.json
       {% if is_server %}
       - file: /etc/consul.d/server.json
+      - file: /etc/ssl/private/consul.psf.io.pem
       {% endif %}
       - file: /etc/consul.d/encrypt.json
-      - file: /etc/consul.d/ca.pem
-      - file: /etc/consul.d/cert.pem
+      - file: /etc/ssl/certs/PSF_CA.pem
+
+  {% if is_server %}
+  user.present:
+    - groups:
+      - ssl-cert
+    - require:
+      - pkg: consul
+      - pkg: ssl-cert
+  {% endif %}
 
   {% if servers %}
   cmd.run:
@@ -29,26 +39,6 @@ consul:
     - require:
       - service: consul
   {% endif %}
-
-
-/etc/consul.d/ca.pem:
-  file.managed:
-    - contents_pillar: consul:encryption:ca
-    - user: root
-    - group: consul
-    - mode: 644
-    - require:
-      - pkg: consul
-
-
-/etc/consul.d/cert.pem:
-  file.managed:
-    - contents_pillar: consul:encryption:cert
-    - user: root
-    - group: consul
-    - mode: 640
-    - require:
-      - pkg: consul
 
 
 /etc/consul.d/base.json:
