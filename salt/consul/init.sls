@@ -21,6 +21,8 @@ consul:
     - watch:
       - file: /etc/consul/consul.json
       - file: /etc/consul/conf.d/encrypt.json
+      - file: /etc/consul/ca.pem
+      - file: /etc/consul/cert.pem
 
   {% if servers %}
   cmd.run:
@@ -29,6 +31,26 @@ consul:
     - require:
       - service: consul
   {% endif %}
+
+
+/etc/consul/ca.pem:
+  file.managed:
+    - contents_pillar: consul:encryption:ca
+    - user: root
+    - group: consul
+    - mode: 644
+    - require:
+      - pkg: consul
+
+
+/etc/consul/cert.pem:
+  file.managed:
+    - contents_pillar: consul:encryption:cert
+    - user: root
+    - group: consul
+    - mode: 640
+    - require:
+      - pkg: consul
 
 
 /etc/consul/consul.json:

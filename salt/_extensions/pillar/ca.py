@@ -174,7 +174,10 @@ def create_ca_signed_cert(cacert_path, ca_name,
                           O="Python Software Foundation",
                           OU="Infrastructure Team",
                           emailAddress="infrastructure@python.org",
-                          digest="sha256"):
+                          digest="sha256",
+                          server_auth=True,
+                          client_auth=False,
+                          ):
     certp = '{0}/{1}/certs/{2}.crt'.format(cacert_path, ca_name, CN)
     keyp = '{0}/{1}/private/{2}.key'.format(cacert_path, ca_name, CN)
     ca_certp = '{0}/{1}/{2}_ca_cert.crt'.format(cacert_path, ca_name, ca_name)
@@ -239,6 +242,21 @@ def create_ca_signed_cert(cacert_path, ca_name,
     cert.set_serial_number(_new_serial())
     cert.set_issuer(ca_cert.get_subject())
     cert.set_pubkey(key)
+
+    usage = []
+    if server_auth:
+        usage += ["serverAuth"]
+    if client_auth:
+        usage += ["clientAuth"]
+
+    cert.add_extensions([
+        OpenSSL.crypto.X509Extension(
+            "keyUsage", True, "digitalSignature, keyEncipherment",
+        ),
+        OpenSSL.crypto.X509Extension(
+            "extendedKeyUsage", False, ", ".join(usage),
+        ),
+    ])
 
     # Sign the certificate with the CA
     cert.sign(ca_key, digest)

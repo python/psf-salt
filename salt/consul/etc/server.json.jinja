@@ -5,8 +5,13 @@
     "acl_default_policy": "deny",
     "bind_addr": "{{ salt["ip_picker.ip_addrs"](cidr=internal)[0] }}",
     "bootstrap_expect": {{ pillar["consul"]["bootstrap-expect"] }},
+    "ca_file": "/etc/consul/ca.pem",
+    "cert_file": "/etc/consul/cert.pem",
     "datacenter": "{{ grains.dc }}",
     "disable_remote_exec": true,
     "enable_syslog": true,
-    "server": true
+    "key_file": "/etc/consul/cert.pem",
+    "server": true,
+    "verify_incoming": true,
+    "verify_outgoing": true
 }
