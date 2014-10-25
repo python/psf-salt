@@ -5,8 +5,10 @@
 
 
 consul:
-  pkg:
-    - installed
+  pkg.installed:
+    - pkgs:
+      - consul
+      - consul-template
 
   service.running:
     - enable: True
@@ -76,6 +78,5 @@ consul:
     - group: root
     - require:
       - pkg: consul
-
 
 {% endif %}
