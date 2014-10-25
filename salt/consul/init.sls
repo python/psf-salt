@@ -17,12 +17,9 @@ consul:
       - user: consul
       {% endif %}
     - watch:
-      - file: /etc/consul.d/base.json
-      - file: /etc/consul.d/encrypt.json
-      - file: /etc/consul.d/join.json
+      - file: /etc/consul.d/*.json
       - file: /etc/ssl/certs/PSF_CA.pem
       {% if is_server %}
-      - file: /etc/consul.d/server.json
       - file: /etc/ssl/private/consul.psf.io.pem
       {% endif %}
 
