@@ -14,7 +14,9 @@ def managed(name, domain, ipv4, ipv6):
         ret["result"] = True
         return ret
 
+    # This is not a bug, there is global state at play here.
     DynectSession(creds["customer"], creds["user"], creds["password"])
+
     zone = Zone(domain)
     node = zone.get_node(name)
 
