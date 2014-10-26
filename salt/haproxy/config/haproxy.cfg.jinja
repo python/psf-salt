@@ -153,16 +153,18 @@ frontend fastly
 
 {% for service, config in haproxy.services.items() %}
 backend {{ service }}
-    {% if config.get("check") %}option httpchk {{ config.check }}{% endif -%}
+    {% if config.get("check") -%}
+    option httpchk {{ config.check }}
+    {%- endif %}
 
     {% if config.get("hsts") -%}
     # Add HSTS headers for anything that is configured to have them.
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
-    {% endif -%}
+    {%- endif %}
 
     {% for item in config.get("extra", []) -%}
     {{ item }}
-    {% endfor %}
+    {% endfor -%}
 
     {{ "{{" }}range service "{{ service }}@{{ grains.dc }}"}}
     {% raw %}server {{.Name}} {{.Address}}:{{.Port}}{% endraw %}{% if config.get("check", True) %} check{% endif %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{{ "{{end}}" }}
