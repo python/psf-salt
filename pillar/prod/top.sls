@@ -82,6 +82,7 @@ base:
   'salt-master':
     - match: nodegroup
     - firewall.salt
+    - secrets.dyn
 
   'tracker':
     - match: nodegroup
