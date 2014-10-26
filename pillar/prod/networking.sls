@@ -8,3 +8,4 @@ mine_functions:
     cidr: 192.168.5.0/24
   minealiases.pypi_internal:
     cidr: 172.16.57.0/24
+  ip_picker.public_addresses: []

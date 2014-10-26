@@ -61,6 +61,7 @@ base:
 
   'salt-master':
     - match: nodegroup
+    - dns
 
   'tracker':
     - match: nodegroup
