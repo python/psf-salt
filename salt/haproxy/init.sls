@@ -17,15 +17,15 @@ haproxy:
   service.running:
     - enable: True
     - reload: True
-    - watch:
-      - file: /etc/haproxy/haproxy.cfg
-      - file: /etc/ssl/private/*.pem
-      - file: /etc/haproxy/fastly_token
     - require:
       - pkg: haproxy
+      - service: haproxy-consul
+    - watch:
+      - file: /etc/ssl/private/*.pem
+      - file: /etc/haproxy/fastly_token
 
 
-/etc/haproxy/haproxy.cfg:
+/etc/haproxy/haproxy.cfg.tmpl:
   file.managed:
     - source: salt://haproxy/config/haproxy.cfg.jinja
     - template: jinja
@@ -89,3 +89,28 @@ haproxy-ocsp:
       - service: haproxy
 {% endfor %}
 {% endif %}
+
+
+haproxy-consul:
+  file.managed:
+    - name: /etc/init/haproxy-consul.conf
+    - source: salt://consul/init/consul-template.conf.jinja
+    - template: jinja
+    - context:
+        templates:
+          - "/etc/haproxy/haproxy.cfg.tmpl:/etc/haproxy/haproxy.cfg:chmod 644 /etc/haproxy/haproxy.cfg && service haproxy reload"
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+
+  service.running:
+    - enable: True
+    - restart: True
+    - require:
+      - pkg: consul
+    - watch:
+      - file: haproxy-consul
+      - file: /etc/consul-template.conf
+      - file: /etc/haproxy/haproxy.cfg.tmpl

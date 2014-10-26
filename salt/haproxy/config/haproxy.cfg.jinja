@@ -98,6 +98,13 @@ frontend main
     # Redirect all HTTP traffic to HTTPS
     redirect scheme https if !is_tls
 
+    # Dispatch requests to the proper backend.
+    {% for service, config in haproxy.services.items() -%}
+    {% for domain in config.domains -%}
+    use_backend {{ service }} if { hdr_dom(host) -m dom {{ domain }}{% if "path" in config %} path_beg -i {{ config.path }}{% endif %} }
+    {% endfor -%}
+    {% endfor %}
+
     # Setup our ACLs
     {% for name, config in haproxy.domains.items() -%}
     {% for domain in config.get("domains", [name]) -%}
@@ -148,6 +155,13 @@ frontend fastly
     http-request del-header Fastly-SSL
     http-request del-header Fastly-Token
 
+    # Dispatch requests to the proper backend.
+    {% for service, config in haproxy.services.items() -%}
+    {% for domain in config.domains -%}
+    use_backend {{ service }} if { hdr_dom(host) -m dom {{ domain }}{% if "path" in config %} path_beg -i {{ config.path }}{% endif %} }
+    {% endfor -%}
+    {% endfor %}
+
     # Setup our ACLs
     {% for name, config in haproxy.domains.items() -%}
     {% for domain in config.get("domains", [name]) -%}
@@ -159,6 +173,20 @@ frontend fastly
     {% for name, config in haproxy.domains.items() -%}
     use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
     {% endfor %}
+
+
+{% for service, config in haproxy.services.items() -%}
+backend {{ service }}
+    {% if config.get("check") %}option httpchk {{ config.check }}{% endif -%}
+
+    {% if config.get("hsts") -%}
+    # Add HSTS headers for anything that is configured to have them.
+    http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
+    {% endif %}
+
+    {{ "{{" }}range service "{{ service }}@{{ grains.dc }}"}}
+    {% raw %}server {{.Name}} {{.Address}}:{{.Port}}{{end}}{% endraw %}
+{% endfor %}
 
 
 {% for domain, config in haproxy.domains.items() -%}

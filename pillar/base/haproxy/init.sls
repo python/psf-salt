@@ -1,4 +1,11 @@
 haproxy:
+  services:
+    docs:
+      domains:
+        - docs.python.org
+        - doc.python.org
+      hsts: True
+
   domains:
     console.python.org:
       hsts: True

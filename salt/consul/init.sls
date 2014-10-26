@@ -79,4 +79,13 @@ consul:
     - require:
       - pkg: consul
 
+
+/etc/consul-template.conf:
+  file.managed:
+    - source: salt://consul/etc/consul-template.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 640
+
 {% endif %}
