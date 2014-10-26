@@ -160,6 +160,10 @@ backend {{ service }}
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
     {% endif -%}
 
+    {% for item in config.get("extra", []) -%}
+    {{ item }}
+    {% endfor %}
+
     {{ "{{" }}range service "{{ service }}@{{ grains.dc }}"}}
     {% raw %}server {{.Name}} {{.Address}}:{{.Port}}{% endraw %}{% if config.get("check", True) %} check{% endif %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{{ "{{end}}" }}
 
