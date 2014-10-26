@@ -20,7 +20,7 @@ def cluster_ready():
     except (requests.HTTPError, requests.ConnectionError):
         return False
 
-    for node in resp.json():
+    for node in json.loads(resp.content):
         if node["Tags"]["role"] == "consul":
             break
     else:
@@ -33,7 +33,7 @@ def cluster_ready():
     except (requests.HTTPError, requests.ConnectionError):
         return False
 
-    if resp.json():
+    if json.loads(resp.content):
         return True
     else:
         return False
@@ -50,7 +50,7 @@ def node_exists(name, address, dc=None):
     )
     resp.raise_for_status()
 
-    for node in resp.json():
+    for node in json.loads(resp.content):
         if node["Node"] == name and node["Address"] == address:
             return True
 
@@ -68,7 +68,7 @@ def node_service_exists(node, service_name, port, dc=None):
     )
     resp.raise_for_status()
 
-    for service in resp.json()["Services"].values():
+    for service in json.loads(resp.content)["Services"].values():
         if service["Service"] == service_name and service["Port"] == port:
             return True
 
