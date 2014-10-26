@@ -20,3 +20,18 @@ include:
     - mode: 644
     - makedirs: True
     - dir_mode: 775
+
+
+/etc/consul.d/service-downloads.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: downloads
+        port: 9000
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+      - service: nginx
