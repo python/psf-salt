@@ -15,6 +15,7 @@ haproxy:
     console:
       domains:
         - console.python.org
+      ca-file: "ca-certificates.crt"
       hsts: True
 
     hg:
@@ -25,6 +26,4 @@ haproxy:
   listens:
     hg_ssh:
       bind: :20100
-      mode: tcp
-      role: hg
-      port: 22
+      service: hg-ssh

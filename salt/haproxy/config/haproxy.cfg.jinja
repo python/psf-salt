@@ -158,10 +158,10 @@ backend {{ service }}
     {% if config.get("hsts") -%}
     # Add HSTS headers for anything that is configured to have them.
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
-    {% endif %}
+    {% endif -%}
 
     {{ "{{" }}range service "{{ service }}@{{ grains.dc }}"}}
-    {% raw %}server {{.Name}} {{.Address}}:{{.Port}}{{end}}{% endraw %}
+    {% raw %}server {{.Name}} {{.Address}}:{{.Port}}{% endraw %}{% if config.get("check", True) %} check{% endif %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{{ "{{end}}" }}
 
 {% endfor %}
 
@@ -170,22 +170,16 @@ backend {{ service }}
 listen {{ name }}
     bind {{ config.bind }}
 
-    mode {{ config.mode }}
-
-    {% if config.mode == "tcp" -%}
+    mode tcp
     option tcplog
     option tcp-check
-    {% endif %}
 
     {% for line in config.get("extra", []) -%}
     {{ line }}
     {% endfor %}
 
-    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() -%}
-    {% for addr in addrs -%}
-    server {{ server }} {{ addr }}:{{ config.port }} check
-    {% endfor -%}
-    {% endfor %}
+    {{ "{{" }}range service "{{ config.service }}@{{ grains.dc }}"}}
+    {% raw %}server {{.Name}} {{.Address}}:{{.Port}} check{{end}}{% endraw %}
 
 {% endfor %}
 
