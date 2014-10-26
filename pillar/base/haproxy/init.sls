@@ -6,33 +6,21 @@ haproxy:
         - doc.python.org
       hsts: True
 
-  domains:
-    console.python.org:
-      hsts: True
-      role: console-proxy
-      port: 443
-      external_backend: www.pythonanywhere.com
-
-    docs.python.org:
-      domains:
-        - docs.python.org
-        - doc.python.org
-      hsts: True
-      role: docs
-      port: 9000
-
-    www.python.org/ftp/:
+    downloads:
       domains:
         - www.python.org
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
-      role: downloads
-      port: 9000
 
-    hg.python.org:
+    console:
+      domains:
+        - console.python.org
       hsts: True
-      role: hg
-      port: 9000
+
+    hg:
+      domains:
+        - hg.python.org
+      hsts: True
 
   listens:
     hg_ssh:
