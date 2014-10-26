@@ -1,14 +1,14 @@
 consul:
   acl:
     default: deny
-    dc: rax-iad
+    dc: iad
     down: extend-cache
     ttl: 30s
   bootstrap-expect: 3
   dcs:
-    - rax-iad
+    - iad
   external:
-    - datacenter: rax-iad
+    - datacenter: iad
       node: pythonanywhere
       address: www.pythonanywhere.com
       service: console

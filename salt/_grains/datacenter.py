@@ -4,6 +4,12 @@ import sys
 import subprocess
 
 
+_DATACENTERS = {
+    "rax-iad": "iad",
+    "vagrant": "vagrant",
+}
+
+
 def _which(cmd, mode=os.F_OK | os.X_OK, path=None):
     """
     Given a command, mode, and a PATH string, return the path which
@@ -70,12 +76,12 @@ def _which(cmd, mode=os.F_OK | os.X_OK, path=None):
     return None
 
 
-def dc():
+def _rackspace():
     # Determine if we have the xenstore-read command, if we do then we might be
     # on Rackspace, if we don't then we probably aren't.
     xenstore_read = _which("xenstore-read")
     if not xenstore_read:
-        return {}
+        return
 
     # Ensure that we have /proc/xen mounted, we cannot read anything with
     # xenstore-read if this is not mounted. If it does not successfully mount
@@ -88,7 +94,7 @@ def dc():
                 "mount", "-t", "xenfs", "none", "/proc/xen",
             ])
         except Exception:
-            return {}
+            return
 
     # Actually attempt to read provider data from /proc/xen and determine if
     # we are running on Rackspace.
@@ -97,9 +103,9 @@ def dc():
             "xenstore-read", "vm-data/provider_data/provider",
         ])
     except Exception:
-        return {}
+        return
     if provider.strip().lower() != "rackspace":
-        return {}
+        return
 
     # Yay, we're on Rackspace. So let's figure out what region!
     try:
@@ -107,7 +113,33 @@ def dc():
             "xenstore-read", "vm-data/provider_data/region",
         ]).strip()
     except Exception:
-        return {}
+        return
 
     # Finally, we can add a grain that says what DC we are in!
-    return {"dc": "rax-{}".format(region)}
+    return "rax-{}".format(region)
+
+
+def _vagrant():
+    """
+    This is a really rough check, however I  think it'll work OK and I can't
+    seem to locate anything better right now.
+    """
+    try:
+        subprocess.check_output(["id", "vagrant"])
+    except Exception:
+        return
+
+    return "vagrant"
+
+
+def dc():
+    for func in [_rackspace, _vagrant]:
+        datacenter = func()
+        if datacenter is not None:
+            break
+
+    real_name = _DATACENTERS.get(datacenter)
+    if real_name:
+        return {"dc": real_name}
+
+    return {}
