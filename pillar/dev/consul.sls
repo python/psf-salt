@@ -7,3 +7,9 @@ consul:
   bootstrap-expect: 1
   dcs:
     - vagrant
+  external:
+    - datacenter: vagrant
+      node: pythonanywhere
+      address: www.pythonanywhere.com
+      service: console
+      port: 443

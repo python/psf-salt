@@ -2,6 +2,10 @@ python-ipaddr:
   pkg.installed
 
 
+python-requests:
+  pkg.installed
+
+
 {% if salt["match.compound"](pillar["roles"]["salt-master"]) %}
 /etc/salt/master.d/roles.conf:
   file.managed:
