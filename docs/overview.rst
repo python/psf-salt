@@ -66,6 +66,18 @@ Fastly
    network (CDN) to the PSF. Our highest traffic services (i.e. PyPI,
    www.python.org, docs.python.org) use this CDN to improve end-user latency.
 
+
+Datacenters
+-----------
+
+====== ========= ======
+PSF DC Provider  Region
+====== ========= ======
+iad1   Rackspace IAD
+ord1   Rackspace ORD
+====== ========= ======
+
+
 Details of Various Services
 ---------------------------
 

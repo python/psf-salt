@@ -6,6 +6,7 @@ Python Infrastructure
    :titlesonly:
 
    overview.rst
+   server.rst
    packages.rst
    security
    services/index.rst
