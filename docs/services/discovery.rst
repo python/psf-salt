@@ -2,7 +2,7 @@ Discovery
 =========
 
 The Python Infrastructure uses Consul to implement service discovery. There is
-an agent running in client mode on all servers in the IAD datacenter. These
+an agent running in client mode on all servers in the iad1 datacenter. These
 can be queried on the standard ports on localhost. Consul also has a web
 interface running on localhost on all nodes.
 
@@ -73,12 +73,12 @@ The template file can contain blocks that look like:
 
 .. code-block:: text
 
-    {{range service "my-service@iad"}}
+    {{range service "my-service@iad1"}}
     server {{.Name}} {{.Address}}:{{.Port}} check{{end}}
 
 
 This will render a server line for every entry in the ``"my-service"`` service
-in the iad datacenter and tt will use the name, address, and port of the
+in the iad1 datacenter and tt will use the name, address, and port of the
 registered service. For a full list of everything you can do in this template
 file take a look at the
 `consul-template documentation <https://github.com/hashicorp/consul-template>`_.
@@ -89,7 +89,7 @@ Registering a Service
 ---------------------
 
 Registering an internal service (e.g. one that is running on a server in the
-IAD datacenter) is quite easy. You simply need to pick a name, port, and any
+iad1 datacenter) is quite easy. You simply need to pick a name, port, and any
 tags that you wish to associate with the service. Then simply add the below
 block to the state files:
 
