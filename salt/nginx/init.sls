@@ -81,3 +81,7 @@ nginx:
     - require:
       - pkg: nginx
       - user: nginx
+
+
+/etc/ssl/private/PLACEHOLDER.pem:
+  file.managed
