@@ -46,7 +46,7 @@ def managed(name, domain, ipv4, ipv6):
 
     # Add any new IPv6 Addresses
     for address in ipv6:
-        to_add.append((name, "AAA", address))
+        to_add.append((name, "AAAA", address))
 
     if not to_delete and not to_add:
         ret['result'] = True
