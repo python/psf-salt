@@ -7,7 +7,7 @@
     "acl_ttl": "{{ pillar.consul.acl.ttl }}",
     "bind_addr": "{{ salt["ip_picker.ip_addrs"](cidr=internal)[0] }}",
     "ca_file": "/etc/ssl/certs/PSF_CA.pem",
-    "datacenter": "{{ grains.dc }}",
+    "datacenter": "{{ pillar.dc }}",
     "disable_remote_exec": true,
     "enable_syslog": true,
     "server_name": "consul.psf.io",

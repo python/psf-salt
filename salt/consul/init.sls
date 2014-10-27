@@ -1,7 +1,7 @@
-{% if grains.dc in pillar["consul"]["dcs"] %}
+{% if pillar["dc"] in pillar["consul"]["dcs"] %}
 
 {% set is_server = salt["match.compound"](pillar["roles"]["consul"]) %}
-{% set servers = (salt["mine.get"]("*." + {{ grains.dc }} + ".psf.io and " + pillar["roles"]["consul"], "minealiases.psf_internal", expr_form="compound").values()) %}
+{% set servers = (salt["mine.get"]("*." + pillar["dc"] + ".psf.io and " + pillar["roles"]["consul"], "minealiases.psf_internal", expr_form="compound").values()) %}
 
 
 consul:
