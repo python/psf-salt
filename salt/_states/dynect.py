@@ -7,6 +7,13 @@ from dyn.tm.zones import Zone
 def managed(name, domain, ipv4, ipv6):
     ret = {'name': name, 'changes': {}, 'result': False, 'comment': ''}
 
+    if not name.endswith(domain):
+        ret["comment"] = "Name is not a subdomain of domain"
+        ret["result"] = False
+        return ret
+
+    node_name = name[:-len(domain) - 1]
+
     creds = __salt__["pillar.get"]("dynect:creds", None)
 
     if creds is None:
@@ -18,7 +25,7 @@ def managed(name, domain, ipv4, ipv6):
     DynectSession(creds["customer"], creds["user"], creds["password"])
 
     zone = Zone(domain)
-    node = zone.get_node(name)
+    node = zone.get_node(node_name)
 
     to_delete = []
     to_add = []
@@ -42,11 +49,11 @@ def managed(name, domain, ipv4, ipv6):
 
     # Add any new IPv4 Addresses
     for address in ipv4:
-        to_add.append((name, "A", address))
+        to_add.append((node_name, "A", address))
 
     # Add any new IPv6 Addresses
     for address in ipv6:
-        to_add.append((name, "AAAA", address))
+        to_add.append((node_name, "AAAA", address))
 
     if not to_delete and not to_add:
         ret['result'] = True
