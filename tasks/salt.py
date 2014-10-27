@@ -90,7 +90,7 @@ def sync_changes():
 
 
 @invoke.task(default=True, pre=[sync_changes])
-def highstate(hosts):
+def highstate(hosts, dc="iad1"):
     # Until invoke supports *args we need to hack around the lack of support
     # for now.
     hosts = [h.strip() for h in hosts.split(",") if h.strip()]
@@ -101,7 +101,7 @@ def highstate(hosts):
 
     # Loop over all the hosts and if they do not have a ., then we'll add
     # .psf.io to them.
-    hosts = [h if "." in h else h + ".psf.io" for h in hosts]
+    hosts = [h if "." in h else h + "." + dc + ".psf.io" for h in hosts]
 
     # Loop over all the hosts and call salt-call state.highstate on them.
     for host in hosts:
