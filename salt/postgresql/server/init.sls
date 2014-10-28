@@ -228,3 +228,24 @@ replicator:
 {% endfor %}
 
 {% endif %}
+
+
+/etc/consul.d/service-postgresql.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: postgresql
+        port: 5432
+        tags:
+          {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
+          - primary
+          {% elif salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+          - replica
+          {% endif %}
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+      - service: postgresql
