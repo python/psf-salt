@@ -30,6 +30,14 @@ def bootstrap(host, codename="trusty"):
             ("echo 'deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ "
              "{} main' > /etc/apt/sources.list.d/psf.list").format(codename)
         )
+        fabric.api.put(
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), "..",
+                "salt", "base", "config", "APT-GPG-KEY-PSF",
+            ),
+            "/tmp/APT-GPG-KEY-PSF",
+        )
+        fabric.api.run("apt-key add - < /tmp/APT-GPG-KEY-PSF")
 
         # If we're running precise we need to add a PPA
         if codename == "precise":
@@ -66,9 +74,12 @@ def bootstrap(host, codename="trusty"):
         # the Master hasn't accepted our key yet.
         fabric.api.run("salt-call state.highstate", warn_only=True)
 
+        # Get the minion ID of this server
+        minion_id = fabric.api.run("cat /etc/salt/minion_id")
+
     # SSH into our salt master and accept the key for this server.
     with ssh_host("salt.iad1.psf.io"):
-        fabric.api.sudo("salt-key -ya {}".format(host))
+        fabric.api.sudo("salt-key -ya {}".format(minion_id))
 
     # Finally SSH into our server one more time to run salt-call
     # state.highstate for real this time.
