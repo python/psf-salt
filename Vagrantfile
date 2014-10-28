@@ -32,13 +32,20 @@ Vagrant.configure("2") do |config|
     s_config.vm.network "private_network", ip: MASTER1, virtualbox__intnet: "psf1"
     s_config.vm.network "private_network", ip: MASTER2, virtualbox__intnet: "psf2"
 
+    s_config.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+      v.cpus = 2
+    end
+
     s_config.vm.synced_folder "salt/", "/srv/salt"
     s_config.vm.synced_folder "pillar", "/srv/pillar"
 
-    s_config.vm.provision :salt, install_master: true, master_config: "conf/vagrant/master.conf"
+    s_config.vm.provision :shell, inline: "dpkg -i /vagrant/salt_2014.7.0~rc6_amd64.deb || apt-get install -fy"
+    s_config.vm.provision :shell, inline: "ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf"
     s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf"
-    s_config.vm.provision :shell, inline: "apt-get install -qy python-apt"
-    s_config.vm.provision :shell, inline: "salt-call state.highstate"  # Call it once to setup the roles
+    s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-master && service salt-master restart && sleep 10"
+    s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-minion && service salt-minion restart && sleep 10"
+    s_config.vm.provision :shell, inline: "timeout 60 salt-call state.highstate || true"  # Call it once to setup the roles
     s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
   end
 
@@ -70,9 +77,9 @@ Vagrant.configure("2") do |config|
         s_config.vm.network "forwarded_port", guest: 20004, host: 20004
       end
 
-      s_config.vm.provision :salt
+      s_config.vm.provision :shell, inline: "dpkg -i /vagrant/salt_2014.7.0~rc6_amd64.deb || apt-get install -fy"
       s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf"
-      s_config.vm.provision :shell, inline: "apt-get install -qy python-apt"
+      s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-minion && service salt-minion restart"
       s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
     end
   end

@@ -13,7 +13,7 @@ SALT_MASTER = "192.168.5.1"
 
 
 @invoke.task
-def bootstrap(host):
+def bootstrap(host, codename="trusty"):
     # If the host does not have a . in it's address, then we'll assume it's the
     # short for of host.psf.io and add the .psf.io onto it.
     if "." not in host:
@@ -25,8 +25,11 @@ def bootstrap(host):
         if fabric.contrib.files.exists("/etc/salt/minion.d/local.conf"):
             raise RuntimeError("{} is already bootstrapped.".format(host))
 
-        # Ok, we're going to bootstrap, first we need to add the Salt PPA
-        fabric.api.run("apt-add-repository -y ppa:saltstack/salt")
+        # Ok, we're going to bootstrap, first we need to add our packages
+        fabric.api.run(
+            ("echo 'deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ "
+             "{} main' > /etc/apt/sources.list.d/psf.list").format(codename)
+        )
 
         # Then we need to update our local apt
         fabric.api.run("apt-get update -qy")
@@ -41,7 +44,7 @@ def bootstrap(host):
 
         # Install salt-minion and python-apt so we can manage things with
         # salt.
-        fabric.api.run("apt-get install -qy salt-minion python-apt")
+        fabric.api.run("apt-get install -qy salt")
 
         # Drop the /etc/salt/minion.d/local.conf onto the server so that it
         # can connect with our salt master.
