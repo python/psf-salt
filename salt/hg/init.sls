@@ -112,7 +112,7 @@ reload-upstart:
     - name: cmd.run
     - cmd: initctl reload-configuration
     - onchanges:
-      - /etc/init/irker.conf
+      - file: /etc/init/irker.conf
 
 irker:
   user.present:
