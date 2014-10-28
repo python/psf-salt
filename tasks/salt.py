@@ -63,7 +63,7 @@ def bootstrap(host, codename="trusty"):
         fabric.api.run("salt-call state.highstate", warn_only=True)
 
     # SSH into our salt master and accept the key for this server.
-    with ssh_host("salt-master.psf.io"):
+    with ssh_host("salt.iad1.psf.io"):
         fabric.api.sudo("salt-key -ya {}".format(host))
 
     # Finally SSH into our server one more time to run salt-call
@@ -84,7 +84,7 @@ def sync_changes():
             invoke.run("git push origin master", echo=True)
 
     # SSH into the salt master and pull our changes
-    with ssh_host("salt-master.psf.io"):
+    with ssh_host("salt.iad1.psf.io"):
         with fabric.api.cd("/srv/salt"):
             fabric.api.sudo("git pull --ff-only origin master")
 
