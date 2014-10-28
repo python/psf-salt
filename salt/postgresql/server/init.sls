@@ -3,8 +3,6 @@
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
 {% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0')|first)[1]|sort()|first %}
-{% else %}
-{% set postgresql_replicas = salt["mine.get"](pillar["roles"]["postgresql-replica"], "minealiases.psf_internal", expr_form="compound") %}
 {% endif %}
 
 {% if data_partitions|length() > 1 %}
