@@ -31,6 +31,10 @@ def bootstrap(host, codename="trusty"):
              "{} main' > /etc/apt/sources.list.d/psf.list").format(codename)
         )
 
+        # If we're running precise we need to add a PPA
+        if codename == "precise":
+            fabric.api.run("add-apt-repository ppa:chris-lea/zeromq -y")
+
         # Then we need to update our local apt
         fabric.api.run("apt-get update -qy")
 

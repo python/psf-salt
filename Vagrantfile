@@ -8,7 +8,7 @@ SERVERS = [
   "downloads",
   "hg",
   "jython-web",
-  {:name => "loadbalancer", :box=> "ubuntu/precise64"},
+  {:name => "loadbalancer", :box => "ubuntu/precise64", :codename => "precise"},
   "monitoring",
   "packages",
   "planet",
@@ -40,7 +40,10 @@ Vagrant.configure("2") do |config|
     s_config.vm.synced_folder "salt/", "/srv/salt"
     s_config.vm.synced_folder "pillar", "/srv/pillar"
 
-    s_config.vm.provision :shell, inline: "dpkg -i /vagrant/salt_2014.7.0~rc6_amd64.deb || apt-get install -fy"
+    s_config.vm.provision :file, source: "salt/base/config/APT-GPG-KEY-PSF", destination: "~/APT-GPG-KEY-PSF"
+    s_config.vm.provision :shell, inline: "apt-key add - < /home/vagrant/APT-GPG-KEY-PSF"
+    s_config.vm.provision :shell, inline: "echo 'deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ trusty main' > /etc/apt/sources.list.d/psf.list"
+    s_config.vm.provision :shell, inline: "apt-get update && apt-get install -y salt"
     s_config.vm.provision :shell, inline: "ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf"
     s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf"
     s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-master && service salt-master restart && sleep 10"
@@ -54,10 +57,12 @@ Vagrant.configure("2") do |config|
       server = server_c[:name]
       roles = server_c.fetch :roles, [server]
       box = server_c.fetch :box, nil
+      codename = server_c.fetch :codename, "trusty"
     else
       server = server_c
       roles = [server_c]
       box = nil
+      codename = "trusty"
     end
 
     config.vm.define server, autostart: false do |s_config|
@@ -77,7 +82,14 @@ Vagrant.configure("2") do |config|
         s_config.vm.network "forwarded_port", guest: 20004, host: 20004
       end
 
-      s_config.vm.provision :shell, inline: "dpkg -i /vagrant/salt_2014.7.0~rc6_amd64.deb || apt-get install -fy"
+      if codename == "precise"
+        s_config.vm.provision :shell, inline: "add-apt-repository ppa:chris-lea/zeromq -y"
+      end
+
+      s_config.vm.provision :file, source: "salt/base/config/APT-GPG-KEY-PSF", destination: "~/APT-GPG-KEY-PSF"
+      s_config.vm.provision :shell, inline: "apt-key add - < /home/vagrant/APT-GPG-KEY-PSF"
+      s_config.vm.provision :shell, inline: "echo 'deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ #{codename} main' > /etc/apt/sources.list.d/psf.list"
+      s_config.vm.provision :shell, inline: "apt-get update && apt-get install -y salt"
       s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf"
       s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-minion && service salt-minion restart"
       s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
