@@ -8,6 +8,7 @@
 roles:
   backup-server: "backup-server.vagrant.psf.io"
   cdn-logs: "cdn-logs.vagrant.psf.io"
+  consul: "consul.vagrant.psf.io"
   docs: "docs.vagrant.psf.io"
   downloads: "downloads.vagrant.psf.io"
   hg: "hg.vagrant.psf.io"

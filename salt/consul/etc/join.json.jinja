@@ -1,0 +1,7 @@
+{
+    "retry_join": [
+        {% for addrs in servers -%}
+        "{{ addrs|first }}"{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}

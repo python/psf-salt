@@ -1,5 +1,7 @@
 base:
   '*':
+    - consul
+    - firewall.consul
     - networking
     - roles
     - secrets.system-mail

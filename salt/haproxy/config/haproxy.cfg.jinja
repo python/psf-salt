@@ -98,16 +98,11 @@ frontend main
     # Redirect all HTTP traffic to HTTPS
     redirect scheme https if !is_tls
 
-    # Setup our ACLs
-    {% for name, config in haproxy.domains.items() -%}
-    {% for domain in config.get("domains", [name]) -%}
-    acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
+    # Dispatch requests to the proper backend.
+    {% for service, config in haproxy.services.items() -%}
+    {% for domain in config.domains -%}
+    use_backend {{ service }} if { hdr_dom(host) -m dom {{ domain }} }{% if "path" in config %} { path_beg -i {{ config.path }} }{% endif %}
     {% endfor -%}
-    {% endfor %}
-
-    # Dispatch to a backend based on our domain ACLs
-    {% for name, config in haproxy.domains.items() -%}
-    use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
     {% endfor %}
 
 
@@ -148,38 +143,32 @@ frontend fastly
     http-request del-header Fastly-SSL
     http-request del-header Fastly-Token
 
-    # Setup our ACLs
-    {% for name, config in haproxy.domains.items() -%}
-    {% for domain in config.get("domains", [name]) -%}
-    acl host_{{ config.role }}_{{ config.port }} hdr(host) -i {{ domain }} {% if "path" in config %}path_beg -i {{ config.path }}{% endif %}
+    # Dispatch requests to the proper backend.
+    {% for service, config in haproxy.services.items() -%}
+    {% for domain in config.domains -%}
+    use_backend {{ service }} if { hdr_dom(host) -m dom {{ domain }} }{% if "path" in config %} { path_beg -i {{ config.path }} }{% endif %}
     {% endfor -%}
     {% endfor %}
 
-    # Dispatch to a backend based on our domain ACLs
-    {% for name, config in haproxy.domains.items() -%}
-    use_backend {{ config.role }}_{{ config.port }} if host_{{ config.role }}_{{ config.port }}
-    {% endfor %}
 
-
-{% for domain, config in haproxy.domains.items() -%}
-backend {{ config.role }}_{{ config.port }}
-    {% if config.get("check") %}option httpchk {{ config.check }}{% endif -%}
+{% for service, config in haproxy.services.items() %}
+backend {{ service }}
+    {% if config.get("check") -%}
+    option httpchk {{ config.check }}
+    {%- endif %}
 
     {% if config.get("hsts") -%}
     # Add HSTS headers for anything that is configured to have them.
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
-    {% endif %}
+    {%- endif %}
 
-    {% if config.external_backend is defined -%}
-    reqirep ^Host:.* Host:\ {{ config.external_backend }}
-    server {{ config.role }} {{ config.external_backend }}:{{ config.port }} ssl force-tlsv12 verifyhost {{ config.external_backend }} ca-file ca-certificates.crt
-    {% else %}
-    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() -%}
-    {% for addr in addrs -%}
-    server {{ server }} {{ addr }}:{{ config.port }} {% if config.get("check", True) %}check{% endif %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", config.role + ".psf.io") }} ca-file PSF_CA.pem
+    {% for item in config.get("extra", []) -%}
+    {{ item }}
     {% endfor -%}
-    {% endfor %}
-    {% endif %}
+
+    {{ "{{" }}range service "{{ service }}@{{ pillar.dc }}"}}
+    {% raw %}server {{.Name}} {{.Address}}:{{.Port}}{% endraw %}{% if config.get("check", True) %} check{% endif %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{{ "{{end}}" }}
+
 {% endfor %}
 
 
@@ -187,22 +176,16 @@ backend {{ config.role }}_{{ config.port }}
 listen {{ name }}
     bind {{ config.bind }}
 
-    mode {{ config.mode }}
-
-    {% if config.mode == "tcp" -%}
+    mode tcp
     option tcplog
     option tcp-check
-    {% endif %}
 
     {% for line in config.get("extra", []) -%}
     {{ line }}
     {% endfor %}
 
-    {% for server, addrs in salt["mine.get"](salt["pillar.get"]("roles:" + config.role, ""), "minealiases.psf_internal", expr_form="compound").items() -%}
-    {% for addr in addrs -%}
-    server {{ server }} {{ addr }}:{{ config.port }} check
-    {% endfor -%}
-    {% endfor %}
+    {{ "{{" }}range service "{{ config.service }}@{{ pillar.dc }}"}}
+    {% raw %}server {{.Name}} {{.Address}}:{{.Port}} check{{end}}{% endraw %}
 
 {% endfor %}
 

@@ -1,35 +1,33 @@
 haproxy:
-  domains:
-    console.python.org:
-      hsts: True
-      role: console-proxy
-      port: 443
-      external_backend: www.pythonanywhere.com
-
-    docs.python.org:
+  services:
+    docs:
       domains:
         - docs.python.org
         - doc.python.org
       hsts: True
-      role: docs
-      port: 9000
 
-    www.python.org/ftp/:
+    downloads:
       domains:
         - www.python.org
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
-      role: downloads
-      port: 9000
 
-    hg.python.org:
+    console:
+      domains:
+        - console.python.org
+      check: False
+      ca-file: "ca-certificates.crt"
+      verify_host: www.pythonanywhere.com
       hsts: True
-      role: hg
-      port: 9000
+      extra:
+        - http-request replace-header Host ^.*$ www.pythonanywhere.com
+
+    hg:
+      domains:
+        - hg.python.org
+      hsts: True
 
   listens:
     hg_ssh:
       bind: :20100
-      mode: tcp
-      role: hg
-      port: 22
+      service: hg-ssh

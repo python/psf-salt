@@ -141,3 +141,31 @@ HttpdCollector-Override:
     - require:
       - pkg: diamond
       - group: diamond
+
+
+/etc/consul.d/service-hg.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: hg
+        port: 9000
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+
+
+/etc/consul.d/service-hg-ssh.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: hg-ssh
+        port: 22
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul

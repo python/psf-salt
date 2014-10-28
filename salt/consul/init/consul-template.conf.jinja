@@ -1,0 +1,13 @@
+description "Consul Template"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+exec /usr/bin/consul-template \
+        -config /etc/consul-template.conf \
+        -wait 1s \
+        {% for template in templates -%}
+        -template "{{ template }}"{% if not loop.last %} \{% endif %}
+        {% endfor %}
