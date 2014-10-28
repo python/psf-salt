@@ -166,7 +166,7 @@ backend {{ service }}
     {{ item }}
     {% endfor -%}
 
-    {{ "{{" }}range service "{{ service }}@{{ grains.dc }}"}}
+    {{ "{{" }}range service "{{ service }}@{{ pillar.dc }}"}}
     {% raw %}server {{.Name}} {{.Address}}:{{.Port}}{% endraw %}{% if config.get("check", True) %} check{% endif %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{{ "{{end}}" }}
 
 {% endfor %}
@@ -184,7 +184,7 @@ listen {{ name }}
     {{ line }}
     {% endfor %}
 
-    {{ "{{" }}range service "{{ config.service }}@{{ grains.dc }}"}}
+    {{ "{{" }}range service "{{ config.service }}@{{ pillar.dc }}"}}
     {% raw %}server {{.Name}} {{.Address}}:{{.Port}} check{{end}}{% endraw %}
 
 {% endfor %}
