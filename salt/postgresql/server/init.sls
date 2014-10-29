@@ -58,25 +58,21 @@ postgresql-server:
 
   service.running:
     - name: postgresql
+    - restart: True
     - enable: True
     - watch:
       - file: /etc/ssl/private/postgresql.psf.io.pem
-      - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
       {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-      - file: {{ postgresql.recovery_file }}
       - file: /etc/ssl/certs/PSF_CA.pem
       {% endif %}
     - require:
       - cmd: postgresql-psf-cluster
-      - file: {{ postgresql.hba_file }}
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
       - file: {{ postgresql.config_dir }}/conf.d
-      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-      - file: {{ postgresql.recovery_file }}
-      {% endif %}
+      - service: postgresql-consul
 
 
 postgresql-psf-cluster:
@@ -100,6 +96,8 @@ postgresql-psf-cluster:
       - file: postgresql-data
       {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
       - file: /etc/ssl/certs/PSF_CA.pem
+      - file: /etc/consul.d/service-postgresql.json
+      - service: consul
       {% endif %}
 
 
@@ -138,7 +136,7 @@ postgresql-psf-cluster:
       - file: {{ postgresql.config_dir }}
 
 
-{{ postgresql.hba_file }}:
+{{ postgresql.hba_file }}.tmpl:
   file.managed:
     - source: salt://postgresql/server/configs/pg_hba.conf.jinja
     - template: jinja
@@ -175,7 +173,7 @@ postgresql-psf-cluster:
 
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-{{ postgresql.recovery_file }}:
+{{ postgresql.recovery_file }}.tmpl:
   file.managed:
     - source: salt://postgresql/server/configs/recovery.conf.jinja
     - template: jinja
@@ -248,4 +246,34 @@ replicator:
     - mode: 644
     - require:
       - pkg: consul
-      - service: postgresql
+
+
+postgresql-consul:
+  file.managed:
+    - name: /etc/init/postgresql-consul.conf
+    - source: salt://consul/init/consul-template.conf.jinja
+    - template: jinja
+    - context:
+        templates:
+          - "{{ postgresql.hba_file }}.tmpl:{{ postgresql.hba_file }}:chmod 644 {{ postgresql.hba_file }} && service postgresql reload"
+          {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+          - "{{ postgresql.recovery_file }}.tmpl:{{ postgresql.recovery_file }}:chgrp postgres {{ postgresql.recovery_file }} && chmod 640 {{ postgresql.recovery_file }} && service postgresql restart"
+          {% endif %}
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+
+  service.running:
+    - enable: True
+    - restart: True
+    - require:
+      - pkg: consul
+    - watch:
+      - file: postgresql-consul
+      - file: /etc/consul-template.conf
+      - file: {{ postgresql.hba_file }}.tmpl
+      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+      - file: {{ postgresql.recovery_file }}.tmpl
+      {% endif %}
