@@ -1,5 +1,4 @@
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
-
 # PostgreSQL Client Authentication Configuration File
 # ===================================================
 #
@@ -9,24 +8,12 @@
 # Database administrative login by Unix domain socket
 local   all             postgres                                peer
 
-# Replication
-{{ "{{" }}range service "replica.postgresql@{{ pillar.dc }}"}}
-{% raw %}hostssl replication replicator {{.Address}} 255.255.255.255 md5{{end}}{% endraw %}
-
 # Monitoring
-host    all             diamond         127.0.0.1/32               md5
+host    all             diamond         127.0.0.1/32            md5
 
-# bugs.python.org
-{% for server, addrs in (salt["mine.get"](salt["pillar.get"]("roles:tracker", ""), "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0') %}
-{% for addr in addrs|sort() %}
-hostssl bugs-python     bugs-python     {{ addr }} 255.255.255.255 md5
-{% endfor %}
-{% endfor %}
+# Replication
+hostssl replication     replicator      {{ psf_internal }}          md5
 
-
-# monitoring.psf.io
-{% for server, addrs in (salt["mine.get"](salt["pillar.get"]("roles:monitoring", ""), "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0') %}
-{% for addr in addrs|sort() %}
-hostssl monitoring     monitoring       {{ addr }} 255.255.255.255 md5
-{% endfor %}
-{% endfor %}
+# Application Databases
+hostssl monitoring      monitoring      {{ psf_internal }}          md5
+hostssl bugs-python     bugs-python     {{ psf_internal }}          md5
