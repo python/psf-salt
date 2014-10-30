@@ -15,7 +15,7 @@ nginx:
     - installed
   service.running:
     - enable: True
-    - reload: True
+    - restart: True
     - watch:
       - file: /etc/nginx/nginx.conf
       - file: /etc/nginx/conf.d/*.conf

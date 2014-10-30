@@ -43,21 +43,18 @@ Giving Applications Access
    the states for the application.
 #. Setup the application to the connect the server(s), there is one primary
    read/write server and zero or more (currently one) read only slaves. The
-   ip addresses for these can be fetched using salt mine like:
+   addresses for this can be discovered using the service discovery mechanisms
+   detailed `here </services/discovery/>`_.
 
-   .. code-block:: jinja
+   .. code-block:: text
 
-    {% set primary_server = (salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").values())|sort|first|first %}
-    {% set read_slaves = (salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").values())|sort %}
-
-    databases:
-      primary: {{ primary_server }}:5432
+    dattabases:
+      {{with service "primary.postgresql@aid1"}}
+      primary: {{ "{{(index . 0).Address}}" }}:{{ "{{(index . 0).Port}}" }}
+      {{end}}
       read_only:
-        {% for server, addresses in read_slaves %}
-        {% for address in addresses|sort %}
-        - {{ address }}:5432
-        {% endfor %}
-        {% endfor %}
+        {{range service "replica.postgresql@aid1"}}
+        - {{.Address}}:{{.Port}}{{end}}
 
    Clients should also be configured with ``sslmode = verify-full``,
    ``sslrootcert = /etc/ssl/certs/PSF_CA.pem``, and

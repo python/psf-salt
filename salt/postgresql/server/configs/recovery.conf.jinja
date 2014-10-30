@@ -1,7 +1,8 @@
 {% set postgresql = salt["pillar.get"]("postgresql") %}
-{% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0')|first)[1]|sort()|first %}
 {% set postgresql_password = salt["pillar.get"]("postgresql-users:replicator") %}
 
 standby_mode = on
 
-primary_conninfo = 'application_name={{ grains["fqdn"] }} host=postgresql.psf.io hostaddr={{ postgresql_primary }} port={{ postgresql.port }} sslmode=verify-full sslrootcert=/etc/ssl/certs/PSF_CA.pem user=replicator password={{ postgresql_password }}'
+{{ "{{" }} with service "primary.postgresql@{{ pillar.dc }}" }}
+primary_conninfo = 'application_name={{ grains["fqdn"] }} host=postgresql.psf.io hostaddr={{ "{{(index . 0).Address}}" }} port={{ "{{(index . 0).Port}}" }} sslmode=verify-full sslrootcert=/etc/ssl/certs/PSF_CA.pem user=replicator password={{ postgresql_password }}'
+{{ "{{ end }}" }}

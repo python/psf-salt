@@ -3,8 +3,6 @@
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
 {% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").items())|sort(attribute='0')|first)[1]|sort()|first %}
-{% else %}
-{% set postgresql_replicas = salt["mine.get"](pillar["roles"]["postgresql-replica"], "minealiases.psf_internal", expr_form="compound") %}
 {% endif %}
 
 {% if data_partitions|length() > 1 %}
@@ -60,24 +58,21 @@ postgresql-server:
 
   service.running:
     - name: postgresql
+    - restart: True
     - enable: True
-    - watch:
-      - file: /etc/ssl/private/postgresql.psf.io.pem
-      - file: {{ postgresql.hba_file }}
-      - file: {{ postgresql.config_file }}
-      - file: {{ postgresql.ident_file }}
-      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-      - file: {{ postgresql.recovery_file }}
-      - file: /etc/ssl/certs/PSF_CA.pem
-      {% endif %}
     - require:
       - cmd: postgresql-psf-cluster
-      - file: {{ postgresql.hba_file }}
-      - file: {{ postgresql.config_file }}
-      - file: {{ postgresql.ident_file }}
       - file: {{ postgresql.config_dir }}/conf.d
       {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-      - file: {{ postgresql.recovery_file }}
+      - service: postgresql-consul
+      {% endif %}
+    - watch:
+      - file: /etc/ssl/private/postgresql.psf.io.pem
+      - file: {{ postgresql.config_file }}
+      - file: {{ postgresql.ident_file }}
+      - file: {{ postgresql.hba_file }}
+      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+      - file: /etc/ssl/certs/PSF_CA.pem
       {% endif %}
 
 
@@ -102,6 +97,8 @@ postgresql-psf-cluster:
       - file: postgresql-data
       {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
       - file: /etc/ssl/certs/PSF_CA.pem
+      - file: /etc/consul.d/service-postgresql.json
+      - service: consul
       {% endif %}
 
 
@@ -177,7 +174,7 @@ postgresql-psf-cluster:
 
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-{{ postgresql.recovery_file }}:
+{{ postgresql.recovery_file }}.tmpl:
   file.managed:
     - source: salt://postgresql/server/configs/recovery.conf.jinja
     - template: jinja
@@ -229,4 +226,51 @@ replicator:
       - postgres_user: {{ user }}-user
 {% endfor %}
 
+{% endif %}
+
+
+/etc/consul.d/service-postgresql.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: postgresql
+        port: 5432
+        tags:
+          {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
+          - primary
+          {% elif salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+          - replica
+          {% endif %}
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+
+
+{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+postgresql-consul:
+  file.managed:
+    - name: /etc/init/postgresql-consul.conf
+    - source: salt://consul/init/consul-template.conf.jinja
+    - template: jinja
+    - context:
+        templates:
+          - "{{ postgresql.recovery_file }}.tmpl:{{ postgresql.recovery_file }}:chgrp postgres {{ postgresql.recovery_file }} && chmod 640 {{ postgresql.recovery_file }} && service postgresql restart"
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+
+  service.running:
+    - enable: True
+    - restart: True
+    - require:
+      - pkg: consul
+    - watch:
+      - file: postgresql-consul
+      - file: /etc/consul-template.conf
+      - file: {{ postgresql.recovery_file }}.tmpl
 {% endif %}

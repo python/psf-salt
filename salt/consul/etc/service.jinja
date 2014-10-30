@@ -1,7 +1,7 @@
 {
   "service": {
     "name": "{{ name }}",
-    "tags": [{% for tag in tags|default([]) %}"{{ tag }}"{% if loop.last %},{% endif %}{% endfor %}],
+    "tags": [{% for tag in tags|default([]) %}"{{ tag }}"{% if not loop.last %},{% endif %}{% endfor %}],
     "port": {{ port }}
   }
 }
