@@ -1,5 +1,3 @@
-{% set graphite_servers = (salt["mine.get"](salt["pillar.get"]("roles:monitoring"), "minealiases.psf_internal", expr_form="compound").values()) %}  # " Hack for Syntax
-
 include:
   - .collectors.default
 
@@ -22,11 +20,11 @@ diamond:
     - watch:
       - file: /etc/diamond/diamond.conf
       - file: /etc/diamond/handlers/ArchiveHandler.conf
-      - file: /etc/diamond/handlers/GraphiteHandler.conf
     - require:
       - pkg: diamond
       - user: diamond
       - file: /var/log/diamond
+      - cmd: /etc/diamond/handlers/GraphiteHandler.conf
 
 
 /etc/diamond/diamond.conf:
@@ -36,9 +34,7 @@ diamond:
     - context:
         handlers:
           - diamond.handler.archive.ArchiveHandler
-          {% if graphite_servers %}
           - diamond.handler.graphite.GraphiteHandler
-          {% endif %}
     - user: root
     - group: diamond
     - mode: 640
@@ -66,18 +62,48 @@ diamond:
       - pkg: diamond
 
 
-/etc/diamond/handlers/GraphiteHandler.conf:
-{% if graphite_servers %}
+/etc/diamond/handlers/GraphiteHandler.conf.tmpl:
   file.managed:
     - source: salt://monitoring/client/configs/GraphiteHandler.conf.jinja
     - template: jinja
-    - context:
-        servers: {{ graphite_servers }}
     - user: root
     - group: diamond
     - mode: 640
     - require:
       - pkg: diamond
-{% else %}
-  file.absent
-{% endif %}
+
+/etc/diamond/handlers/GraphiteHandler.conf:
+  cmd.run:
+    - name: "consul-template -once -config /etc/consul-template.conf -template '/etc/diamond/handlers/GraphiteHandler.conf.tmpl:/etc/diamond/handlers/GraphiteHandler.conf'"
+    - user: root
+    - creates: /etc/diamond/handlers/GraphiteHandler.conf
+    - require:
+      - pkg: diamond
+      - file: /etc/consul-template.conf
+      - file: /etc/diamond/handlers/GraphiteHandler.conf.tmpl
+
+
+diamond-consul:
+  file.managed:
+    - name: /etc/init/diamond-consul.conf
+    - source: salt://consul/init/consul-template.conf.jinja
+    - template: jinja
+    - context:
+        templates:
+          - "/etc/diamond/handlers/GraphiteHandler.conf.tmpl:/etc/diamond/handlers/GraphiteHandler.conf:"
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+
+  service.running:
+    - enable: True
+    - restart: True
+    - require:
+      - pkg: consul
+      - service: diamond
+    - watch:
+      - file: diamond-consul
+      - file: /etc/consul-template.conf
+      - file: /etc/diamond/handlers/GraphiteHandler.conf.tmpl
