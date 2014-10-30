@@ -77,3 +77,18 @@ carbon-cache:
       - file: /etc/carbon/carbon.conf
       - file: /etc/carbon/storage-schemas.conf
       - file: carbon-data
+
+
+/etc/consul.d/service-graphite.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: graphite
+        port: 2003
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+      - service: carbon-cache

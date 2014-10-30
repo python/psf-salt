@@ -1,11 +1,13 @@
+{{ "{{" }} with service "graphite@{{ pillar.dc }}" }}
 # Graphite server host
-host = {{ servers|sort|first|first }}
+host = {{ "{{(index . 0).Address}}" }}
 
 # Port to send metrics to
-port = 2003
+port = {{ "{{(index . 0).Port}}" }}
 
 # Socket timeout (seconds)
 timeout = 15
 
 # Batch size for metrics
 batch = 1
+{{ "{{ end }}" }}
