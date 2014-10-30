@@ -1,6 +1,4 @@
 {% set graphite = salt["pillar.get"]("graphite-web") %}
-{% set server = (salt["mine.get"](pillar["roles"]["postgresql-primary"], "minealiases.psf_internal", expr_form="compound").values())|sort|first|first %}
-
 # Graphite local_settings.py
 # Edit this file to customize the default Graphite webapp settings
 #
@@ -160,20 +158,23 @@ INDEX_FILE = '/var/lib/graphite/search_index'  # Search index file
 # The default is 'django.db.backends.sqlite3' with file 'graphite.db'
 # located in STORAGE_DIR
 #
+{{ "{{" }} with service "primary.postgresql@{{ pillar.dc }}" }}
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "HOST": "postgresql.psf.io",
+        "PORT": "{{ "{{(index . 0).Port}}" }}",
         "NAME": "monitoring",
         "USER": "monitoring",
         "PASSWORD": "{{ pillar["postgresql-users"]["monitoring"] }}",
         "OPTIONS": {
-            "hostaddr": "{{ server }}",
+            "hostaddr": "{{ "{{(index . 0).Address}}" }}",
             "sslmode": "verify-full",
             "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
         },
     }
 }
+{{ "{{ end }}" }}
 
 
 #########################
