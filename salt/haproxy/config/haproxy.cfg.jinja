@@ -109,7 +109,7 @@ frontend main
     # Dispatch requests to the proper backend.
     {% for service, config in haproxy.services.items() -%}
     {% for domain in config.domains -%}
-    use_backend {{ service }} if { hdr_dom(host) -m dom {{ domain }} }{% if "path" in config %} { path_beg -i {{ config.path }} }{% endif %}
+    use_backend {{ service }} if { hdr(host) -i {{ domain }} }{% if "path" in config %} { path_beg -i {{ config.path }} }{% endif %}
     {% endfor -%}
     {% endfor %}
 
@@ -159,7 +159,7 @@ frontend fastly
     # Dispatch requests to the proper backend.
     {% for service, config in haproxy.services.items() -%}
     {% for domain in config.domains -%}
-    use_backend {{ service }} if { hdr_dom(host) -m dom {{ domain }} }{% if "path" in config %} { path_beg -i {{ config.path }} }{% endif %}
+    use_backend {{ service }} if { hdr(host) -i {{ domain }} }{% if "path" in config %} { path_beg -i {{ config.path }} }{% endif %}
     {% endfor -%}
     {% endfor %}
 
