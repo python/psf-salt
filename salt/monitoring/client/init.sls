@@ -57,7 +57,7 @@ diamond:
     - source: salt://monitoring/client/configs/ArchiveHandler.conf
     - user: root
     - group: diamond
-    - mode: 640
+    - mode: 644
     - require:
       - pkg: diamond
 
@@ -68,7 +68,7 @@ diamond:
     - template: jinja
     - user: root
     - group: diamond
-    - mode: 640
+    - mode: 644
     - require:
       - pkg: diamond
 
