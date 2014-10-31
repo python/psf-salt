@@ -9,10 +9,13 @@ nginx:
       - nginx
     - require:
       - group: nginx
+
   group.present:
     - system: True
+
   pkg:
     - installed
+
   service.running:
     - enable: True
     - restart: True
@@ -27,6 +30,7 @@ nginx:
       - pkg: nginx
       - user: nginx
 
+
 /etc/nginx/nginx.conf:
   file.managed:
     - source: salt://nginx/config/nginx.conf.jinja
@@ -36,6 +40,7 @@ nginx:
     - mode: 644
     - require:
       - pkg: nginx
+
 
 /etc/nginx/fastly_params:
   file.managed:
@@ -47,6 +52,7 @@ nginx:
     - require:
       - pkg: nginx
 
+
 /etc/nginx/conf.d/PLACEHOLDER.conf:
   file.managed:
     - contents:
@@ -56,6 +62,7 @@ nginx:
     - require:
       - pkg: nginx
 
+
 /etc/nginx/sites.d/:
   file.directory:
     - user: root
@@ -63,6 +70,7 @@ nginx:
     - mode: 755
     - require:
       - pkg: nginx
+
 
 /etc/logrotate.d/nginx:
   file.managed:
@@ -72,6 +80,7 @@ nginx:
     - mode: 644
     - require:
       - pkg: nginx
+
 
 /var/log/nginx:
   file.directory:
