@@ -20,7 +20,6 @@ include:
 nginx:
   pkgrepo.managed:
     - name: deb http://nginx.org/packages/ubuntu/ {{ grains.oscodename }} nginx
-    - dist: precise
     - file: /etc/apt/sources.list.d/nginx.list
     - require:
       - file: /etc/apt/keys/nginx.gpg
