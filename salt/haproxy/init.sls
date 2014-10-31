@@ -7,7 +7,6 @@ include:
 haproxy:
   pkgrepo.managed:
     - ppa: vbernat/haproxy-1.5
-    - keyid: CFFB779AADC995E4F350A060505D97A41C61B9CD
     - require_in:
       - pkg: haproxy
 
