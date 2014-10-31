@@ -108,7 +108,7 @@ frontend main
     http-request set-header X-Forwarded-Proto http  if !is_tls
 
     # Redirect all HTTP traffic to HTTPS
-    redirect scheme https if !is_tls
+    redirect code 301 scheme https if !is_tls
 
     # Dispatch to the redirect backend for any redirects we have, we're going
     # to do this here after the HTTP -> HTTPS redirect even though this will
