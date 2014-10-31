@@ -2,6 +2,7 @@
 
 include:
   - monitoring.client.collectors.haproxy
+  - nginx
 
 
 haproxy:
@@ -114,3 +115,14 @@ haproxy-consul:
       - file: haproxy-consul
       - file: /etc/consul-template.conf
       - file: /etc/haproxy/haproxy.cfg.tmpl
+
+
+/etc/nginx/sites.d/spdy.conf:
+  file.managed:
+    - source: salt://haproxy/config/nginx-spdy.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - sls: nginx

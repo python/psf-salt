@@ -65,13 +65,25 @@ defaults
     errorfile 504 /etc/haproxy/errors/504.http
 
 
+listen tls:
+    # Advertise http/1.1 over NPN to enable TLS False Start
+    bind :20001 ssl no-tls-tickets no-sslv3 npn spdy/3.1,http/1.1 crt ev.python.org.pem
+    bind :20002 ssl no-tls-tickets no-sslv3 npn spdy/3.1,http/1.1 crt hg.python.org.pem
+    bind :20003 ssl no-tls-tickets no-sslv3 npn spdy/3.1,http/1.1 crt star.python.org.pem
+
+    mode tcp
+
+    option tcplog
+
+    use-server spdy if { ssl_fc_npn -i spdy/3.1 }
+
+    server spdy    127.0.0.1:19000 weight 0
+    server default 127.0.0.1:19001
+
+
 frontend main
     bind :20000
-
-    # Advertise http/1.1 over NPN to enable TLS False Start
-    bind :20001 ssl no-tls-tickets no-sslv3 npn http/1.1 crt ev.python.org.pem
-    bind :20002 ssl no-tls-tickets no-sslv3 npn http/1.1 crt hg.python.org.pem
-    bind :20003 ssl no-tls-tickets no-sslv3 npn http/1.1 crt star.python.org.pem
+    bind 127.0.0.1:19001  # This is our TLS socket.
 
     # Custom logging format, this is the same as the normal "httplog" in
     # HAProxy except information about the TLS connection is included.
@@ -81,7 +93,7 @@ frontend main
     capture request header User-Agent len 512
 
     # Determine if this request has TLS on the client side or not.
-    acl is_tls ssl_fc
+    acl is_tls dst_port 19001
 
     # Remove any of the X-Forwarded-* headers from this request, Fastly gives
     # us these headers in a different way and we have nothing else that would
