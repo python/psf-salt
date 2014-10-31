@@ -1,7 +1,32 @@
 include:
   - monitoring.client.collectors.nginx
 
+
+/etc/apt/keys/nginx.gpg:
+  file.managed:
+    - source: salt://nginx/config/APT-GPG-KEY-NGINX
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/apt/keys
+
+  cmd.wait:
+    - name: apt-key add /etc/apt/keys/nginx.gpg
+    - watch:
+      - file: /etc/apt/keys/nginx.gpg
+
+
 nginx:
+  pkgrepo.managed:
+    - name: deb http://nginx.org/packages/ubuntu/ {{ grains.oscodename }} nginx
+    - dist: precise
+    - file: /etc/apt/sources.list.d/nginx.list
+    - require:
+      - file: /etc/apt/keys/nginx.gpg
+    - require_in:
+      - pkg: nginx
+
   user.present:
     - system: True
     - shell: /sbin/nologin
@@ -9,10 +34,13 @@ nginx:
       - nginx
     - require:
       - group: nginx
+
   group.present:
     - system: True
+
   pkg:
     - installed
+
   service.running:
     - enable: True
     - restart: True
@@ -27,6 +55,7 @@ nginx:
       - pkg: nginx
       - user: nginx
 
+
 /etc/nginx/nginx.conf:
   file.managed:
     - source: salt://nginx/config/nginx.conf.jinja
@@ -36,6 +65,7 @@ nginx:
     - mode: 644
     - require:
       - pkg: nginx
+
 
 /etc/nginx/fastly_params:
   file.managed:
@@ -47,6 +77,7 @@ nginx:
     - require:
       - pkg: nginx
 
+
 /etc/nginx/conf.d/PLACEHOLDER.conf:
   file.managed:
     - contents:
@@ -56,6 +87,7 @@ nginx:
     - require:
       - pkg: nginx
 
+
 /etc/nginx/sites.d/:
   file.directory:
     - user: root
@@ -63,6 +95,7 @@ nginx:
     - mode: 755
     - require:
       - pkg: nginx
+
 
 /etc/logrotate.d/nginx:
   file.managed:
@@ -72,6 +105,7 @@ nginx:
     - mode: 644
     - require:
       - pkg: nginx
+
 
 /var/log/nginx:
   file.directory:

@@ -2,12 +2,13 @@
 
 include:
   - monitoring.client.collectors.haproxy
+  - nginx
 
 
 haproxy:
-  pkgrepo.managed:
-    - ppa: vbernat/haproxy-1.5
-    - keyid: CFFB779AADC995E4F350A060505D97A41C61B9CD
+  cmd.run:
+    - name: "add-apt-repository -y ppa:vbernat/haproxy-1.5 && apt-get update"
+    - creates: /etc/apt/sources.list.d/vbernat-haproxy-1_5-{{ grains.oscodename }}.list
     - require_in:
       - pkg: haproxy
 
@@ -114,3 +115,14 @@ haproxy-consul:
       - file: haproxy-consul
       - file: /etc/consul-template.conf
       - file: /etc/haproxy/haproxy.cfg.tmpl
+
+
+/etc/nginx/sites.d/spdy.conf:
+  file.managed:
+    - source: salt://haproxy/config/nginx-spdy.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - sls: nginx

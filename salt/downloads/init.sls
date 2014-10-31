@@ -34,4 +34,3 @@ include:
     - mode: 644
     - require:
       - pkg: consul
-      - service: nginx
