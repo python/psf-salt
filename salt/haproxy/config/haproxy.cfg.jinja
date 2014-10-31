@@ -95,6 +95,14 @@ frontend main
     http-request set-header X-Forwarded-Proto https if is_tls
     http-request set-header X-Forwarded-Proto http  if !is_tls
 
+    # Handle any redirects, we do this here, before the TLS redirect because
+    # we're going to redirect to the HTTPS version anyways and there's no
+    # reason to redirect once to move to HTTPS and then a second time to move
+    # to the correct domain.
+    {% for domain, target in haproxy.redirects.items() -%}
+    redirect code 301 prefix https://{{ target }} if { hdr(host) -i {{ domain }} }
+    {% endfor %}
+
     # Redirect all HTTP traffic to HTTPS
     redirect scheme https if !is_tls
 
@@ -142,6 +150,11 @@ frontend fastly
     http-request del-header Fastly-Client-IP
     http-request del-header Fastly-SSL
     http-request del-header Fastly-Token
+
+    # Handle any redirects that we have defined here.
+    {% for domain, target in haproxy.redirects.items() -%}
+    redirect code 301 prefix https://{{ target }} if { hdr(host) -i {{ domain }} }
+    {% endfor %}
 
     # Dispatch requests to the proper backend.
     {% for service, config in haproxy.services.items() -%}

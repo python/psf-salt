@@ -24,6 +24,9 @@ haproxy:
       domains:
         - hg.python.org
 
+  redirects:
+    python.org: www.python.org
+
   listens:
     hg_ssh:
       bind: :20100
