@@ -25,7 +25,9 @@ haproxy:
         - hg.python.org
 
   redirects:
-    python.org: www.python.org
+    python.org:
+      target: www.python.org
+      hsts_subdomains: False
 
   listens:
     hg_ssh:

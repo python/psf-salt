@@ -126,3 +126,14 @@ haproxy-consul:
     - mode: 644
     - require:
       - sls: nginx
+
+
+/etc/nginx/sites.d/redirect.conf:
+  file.managed:
+    - source: salt://haproxy/config/nginx-redirect.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - sls: nginx
