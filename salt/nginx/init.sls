@@ -1,7 +1,32 @@
 include:
   - monitoring.client.collectors.nginx
 
+
+/etc/apt/keys/nginx.gpg:
+  file.managed:
+    - source: salt://nginx/config/APT-GPG-KEY-NGINX
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/apt/keys
+
+  cmd.wait:
+    - name: apt-key add /etc/apt/keys/nginx.gpg
+    - watch:
+      - file: /etc/apt/keys/nginx.gpg
+
+
 nginx:
+  pkgrepo.managed:
+    - name: deb http://nginx.org/packages/ubuntu/ {{ grains.oscodename }} nginx
+    - dist: precise
+    - file: /etc/apt/sources.list.d/nginx.list
+    - require:
+      - file: /etc/apt/keys/nginx.gpg
+    - require_in:
+      - pkg: nginx
+
   user.present:
     - system: True
     - shell: /sbin/nologin
