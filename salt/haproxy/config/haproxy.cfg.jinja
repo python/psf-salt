@@ -157,9 +157,9 @@ backend {{ service }}
     option httpchk {{ config.check }}
     {%- endif %}
 
-    {% if config.get("hsts") -%}
+    {% if config.get("hsts", True) -%}
     # Add HSTS headers for anything that is configured to have them.
-    http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}
+    http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}{% if config.get("hsts_preload", True) %};\ preload{% endif %}
     {%- endif %}
 
     {% for item in config.get("extra", []) -%}

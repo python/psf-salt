@@ -4,7 +4,6 @@ haproxy:
       domains:
         - docs.python.org
         - doc.python.org
-      hsts: True
 
     downloads:
       domains:
@@ -18,14 +17,12 @@ haproxy:
       check: False
       ca-file: "ca-certificates.crt"
       verify_host: www.pythonanywhere.com
-      hsts: True
       extra:
         - http-request replace-header Host ^.*$ www.pythonanywhere.com
 
     hg:
       domains:
         - hg.python.org
-      hsts: True
 
   listens:
     hg_ssh:
