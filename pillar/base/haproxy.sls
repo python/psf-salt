@@ -11,7 +11,6 @@ haproxy:
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
       hsts_subdomains: False
-      hsts: False
 
     console:
       domains:
