@@ -5,8 +5,9 @@ include:
 
 
 haproxy:
-  pkgrepo.managed:
-    - ppa: vbernat/haproxy-1.5
+  cmd.run:
+    - name: "add-apt-repository -y ppa:vbernat/haproxy-1.5 && apt-get update"
+    - creates: /etc/apt/sources.list.d/vbernat-haproxy-1_5-{{ grains.oscodename }}.list
     - require_in:
       - pkg: haproxy
 
