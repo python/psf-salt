@@ -8,15 +8,10 @@ wal-e-dependencies:
       - daemontools
       - lzop
       - pv
-      - python-gevent
-      - python-boto
-      - python-swiftclient
-      - python-keystoneclient
 
-wal-e:
+
+python-wal-e:
   pkg.installed:
-    - sources:
-      - python-wal-e: salt://postgresql/server/packages/python-wal-e_0.7.2-2_all.deb
     - require:
       - pkg: wal-e-dependencies
 

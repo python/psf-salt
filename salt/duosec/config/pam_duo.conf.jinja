@@ -1,6 +1,0 @@
-{% set duosec = salt["pillar.get"]("duosec:unix", {}) %}
-
-[duo]
-ikey = {{ duosec.ikey }}
-skey = {{ duosec.skey }}
-host = {{ duosec.host }}

@@ -1,34 +1,11 @@
-aptly-repo-gpg:
-  file.managed:
-    - name: /etc/apt/keys/aptly-squeeze-main.gpg
-    - source: salt://aptly/configs/APT-GPG-KEY-APTLY
-    - user: root
-    - group: root
-    - mode: 644
-
-  cmd.wait:
-    - name: apt-key add /etc/apt/keys/aptly-squeeze-main.gpg
-    - watch:
-      - file: aptly-repo-gpg
-
-
 aptly-repo:
-  file.managed:
-    - name: /etc/apt/sources.list.d/aptly.list
-    - contents: "deb http://repo.aptly.info/ squeeze main\n"
-    - user: root
-    - group: root
-    - mode: 644
-    - require:
-      - file: aptly-repo-gpg
-      - cmd: aptly-repo-gpg
+  pkgrepo.managed:
+    - name: deb http://repo.aptly.info/ squeeze main
+    - file: /etc/apt/sources.list.d/aptly.list
+    - key_url: salt://aptly/configs/APT-GPG-KEY-APTLY
+    - order: 2
     - require_in:
       - pkg: aptly
-
-  module.wait:
-    - name: pkg.refresh_db
-    - watch:
-      - file: aptly-repo
 
 
 aptly:
