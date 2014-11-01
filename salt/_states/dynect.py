@@ -4,7 +4,7 @@ from dyn.tm.session import DynectSession
 from dyn.tm.zones import Zone
 
 
-def managed(name, domain, ipv4, ipv6):
+def managed(name, domain, ipv4=[], ipv6=[]):
     ret = {'name': name, 'changes': {}, 'result': False, 'comment': ''}
 
     if not name.endswith(domain):
