@@ -36,8 +36,10 @@ root-cron-path:
     - user: root
     - group: root
     - mode: 644
+    - order: 2
 
   module.wait:
     - name: pkg.refresh_db
+    - order: 2
     - watch:
       - file: /etc/apt/sources.list
