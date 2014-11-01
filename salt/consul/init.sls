@@ -1,7 +1,7 @@
 {% if pillar["dc"] in pillar["consul"]["dcs"] %}
 
 {% set is_server = salt["match.compound"](pillar["roles"]["consul"]) %}
-{% set servers = salt["mine.get"](pillar["consul"]["dcs"][pillar["dc"]], "minealiases.psf_internal").values() %}
+{% set servers = salt["mine.get"](pillar["consul"]["dcs"][pillar["dc"]], "psf_internal").values() %}
 
 
 consul:

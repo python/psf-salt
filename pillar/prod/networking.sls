@@ -4,8 +4,8 @@ rackspace_iad_service_net: &rackspace_iad_service_net 10.0.0.0/8
 
 
 mine_functions:
-  minealiases.psf_internal:
-    cidr: 192.168.5.0/24
-  minealiases.pypi_internal:
-    cidr: 172.16.57.0/24
+  psf_internal:
+    - mine_function: network.ip_addrs
+    - cidr: *psf_internal_network
+
   ip_picker.public_addresses: []
