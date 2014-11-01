@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
     s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf"
     s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-master && service salt-master restart && sleep 10"
     s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-minion && service salt-minion restart && sleep 10"
-    s_config.vm.provision :shell, inline: "timeout 60 salt-call state.highstate || true"  # Call it once to setup the roles
+    s_config.vm.provision :shell, inline: "salt-call state.highstate"  # Call it once to setup the roles
     s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
   end
 

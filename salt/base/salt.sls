@@ -10,7 +10,7 @@ python-requests:
     - user: root
     - group: root
     - mode: 644
-    - order: 1
+    - order: last
 
 
 /etc/salt/master.d/aggregate.conf:
@@ -19,14 +19,14 @@ python-requests:
     - user: root
     - group: root
     - mode: 644
-    - order: 1
+    - order: last
 
 
 salt-master:
   service.running:
     - enable: True
     - restart: True
-    - order: 1
+    - order: last
     - watch:
       - file: /etc/salt/master.d/roles.conf
       - file: /etc/salt/master.d/aggregate.conf
