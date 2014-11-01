@@ -120,7 +120,7 @@ wal-e-initial-backup:
     - unless: ls /var/lib/postgresql/wal-e.initial
     - require:
       - service: postgresql-server
-      - pkg: wal-e
+      - pkg: python-wal-e
       - cmd: wal-e-gpg-key
       - file: {{ postgresql.config_dir }}/conf.d
       - file: /etc/wal-e.d/WALE_SWIFT_PREFIX
@@ -140,7 +140,7 @@ wal-e-initial-backup:
     - group: postgres
     - mode: 640
     - require:
-      - pkg: wal-e
+      - pkg: python-wal-e
       - file: {{ postgresql.config_dir }}/conf.d
       - file: /etc/wal-e.d/WALE_SWIFT_PREFIX
       - file: /etc/wal-e.d/SWIFT_AUTHURL
