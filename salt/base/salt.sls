@@ -17,6 +17,15 @@ python-requests:
     - order: 1
 
 
+/etc/salt/master.d/aggregate.conf:
+  file.managed:
+    - contents: "state_aggregate: True\n"
+    - user: root
+    - group: root
+    - mode: 644
+    - order: 1
+
+
 salt-master:
   service.running:
     - enable: True
@@ -24,6 +33,7 @@ salt-master:
     - order: 1
     - watch:
       - file: /etc/salt/master.d/roles.conf
+      - file: /etc/salt/master.d/aggregate.conf
 {% endif %}
 
 
