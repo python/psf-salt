@@ -6,9 +6,10 @@ include:
 
 
 haproxy:
-  cmd.run:
-    - name: "add-apt-repository -y ppa:vbernat/haproxy-1.5 && apt-get update"
-    - creates: /etc/apt/sources.list.d/vbernat-haproxy-1_5-{{ grains.oscodename }}.list
+  pkgrepo.managed:
+    - name: "deb http://ppa.launchpad.net/vbernat/haproxy-1.5/ubuntu {{ grains.oscodename }} main"
+    - file: /etc/apt/sources.list.d/haproxy.list
+    - key_url: salt://haproxy/config/APT-GPG-KEY-HAPROXY
     - require_in:
       - pkg: haproxy
 
