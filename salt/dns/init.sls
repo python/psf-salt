@@ -2,11 +2,15 @@ python-dyn:
   pkg.installed
 
 
-{% for server, addresses in salt["mine.get"]("*", "ip_picker.public_addresses").items() %}
+{% ipv4_addrs = salt["mine.get"]("*", "ipv4_addrs") %}
+{% ipv6_addrs = salt["mine.get"]("*", "ipv6_addrs") %}
+
+# We assume that a server will always have an IPv4 address.
+{% for server in ipv4_addrs %}
 {{ server }}-dns:
   dynect.managed:
     - name: {{ server }}
     - domain: psf.io
-    - ipv4: {{ addresses["ipv4"] }}
-    - ipv6: {{ addresses["ipv6"] }}
+    - ipv4: {{ ipv4_addrs.get(server, []) }}
+    - ipv6: {{ ipv6_addrs.get(Server, []) }}
 {% endfor %}

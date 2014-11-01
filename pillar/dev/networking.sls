@@ -8,4 +8,8 @@ mine_functions:
     mine_function: network.ip_addrs
     cidr: *psf_internal_network
 
-  ip_picker.public_addresses: []
+  ipv4_addrs:
+    mine_function: network.ip_addrs
+
+  ipv6_addrs:
+    mine_function: network.ip_addrs6

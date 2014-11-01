@@ -1,7 +1,3 @@
-python-ipaddr:
-  pkg.installed
-
-
 python-requests:
   pkg.installed
 

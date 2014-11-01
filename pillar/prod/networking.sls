@@ -7,5 +7,3 @@ mine_functions:
   psf_internal:
     mine_function: network.ip_addrs
     cidr: *psf_internal_network
-
-  ip_picker.public_addresses: []

@@ -21,6 +21,10 @@ def managed(name, domain, ipv4, ipv6):
         ret["result"] = True
         return ret
 
+    # Filter down the ipv4 lists to only public addresses, we're assuming that
+    # IPv6 addresses are always public.
+    ipv4 = [i for i in ipv4 if not __salt__["network.is_private"](i)]
+
     # This is not a bug, there is global state at play here.
     DynectSession(creds["customer"], creds["user"], creds["password"])
 
