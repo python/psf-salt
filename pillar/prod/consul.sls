@@ -6,7 +6,7 @@ consul:
     ttl: 30s
   bootstrap-expect: 3
   dcs:
-    - iad1
+    iad1: consul*.iad1.psf.io
   external:
     - datacenter: iad1
       node: pythonanywhere

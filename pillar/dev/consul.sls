@@ -6,7 +6,7 @@ consul:
     ttl: 30s
   bootstrap-expect: 1
   dcs:
-    - vagrant
+    vagrant: consul.vagrant.psf.io
   external:
     - datacenter: vagrant
       node: pythonanywhere
