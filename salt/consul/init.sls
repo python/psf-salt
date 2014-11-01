@@ -1,7 +1,6 @@
 {% if pillar["dc"] in pillar["consul"]["dcs"] %}
 
 {% set is_server = salt["match.compound"](pillar["roles"]["consul"]) %}
-{% set servers = salt["mine.get"](pillar["consul"]["dcs"][pillar["dc"]], "psf_internal").values() %}
 
 
 consul:
@@ -68,12 +67,15 @@ consul:
       - pkg: consul
 
 
+# Note: We're going to use the salt master to "introduce" us, this means we're
+#       going to assume that each dc with consul in it will have it's own
+#       salt master. This is fine right now as we're only running consul in
+#       iad1. If this changes we might need to re-evaluate this, perhaps to
+#       use salt syndic.
 /etc/consul.d/join.json:
   file.managed:
     - source: salt://consul/etc/join.json.jinja
     - template: jinja
-    - context:
-        servers: {{ servers }}
     - user: root
     - group: root
     - require:
