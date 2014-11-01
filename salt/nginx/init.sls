@@ -7,6 +7,7 @@ nginx:
     - name: deb http://nginx.org/packages/ubuntu/ {{ grains.oscodename }} nginx
     - file: /etc/apt/sources.list.d/nginx.list
     - key_url: salt://nginx/config/APT-GPG-KEY-NGINX
+    - order: 2
     - require_in:
       - pkg: nginx
 

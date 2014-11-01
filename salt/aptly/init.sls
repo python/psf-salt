@@ -3,6 +3,7 @@ aptly-repo:
     - name: deb http://repo.aptly.info/ squeeze main
     - file: /etc/apt/sources.list.d/aptly.list
     - key_url: salt://aptly/configs/APT-GPG-KEY-APTLY
+    - order: 2
     - require_in:
       - pkg: aptly
 

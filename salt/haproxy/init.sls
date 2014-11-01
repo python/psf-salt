@@ -10,6 +10,7 @@ haproxy:
     - name: "deb http://ppa.launchpad.net/vbernat/haproxy-1.5/ubuntu {{ grains.oscodename }} main"
     - file: /etc/apt/sources.list.d/haproxy.list
     - key_url: salt://haproxy/config/APT-GPG-KEY-HAPROXY
+    - order: 2
     - require_in:
       - pkg: haproxy
 
