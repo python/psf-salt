@@ -1,3 +1,4 @@
+{% if pillar["dc"] in pillar["consul"]["dcs"] %}
 include:
   - .collectors.default
 
@@ -107,3 +108,42 @@ diamond-consul:
       - file: diamond-consul
       - file: /etc/consul-template.conf
       - file: /etc/diamond/handlers/GraphiteHandler.conf.tmpl
+{% else %}
+diamond:
+  service.dead:
+    - enable: False
+
+  pkg.purged:
+    - name: python-diamond
+    - require:
+      - service: diamond
+
+  user.absent:
+    - require:
+      - service: diamond
+      - pkg: diamond
+
+  group.absent:
+    - require:
+      - service: diamond
+      - pkg: diamond
+      - user: diamond
+
+
+/etc/diamond:
+  file.absent
+
+
+/var/log/diamond:
+  file.absent
+
+
+diamond-consul:
+  service.dead:
+    - enable: False
+
+  file.absent:
+    - name: /etc/init/diamond-consul.conf
+    - require:
+      - service: diamond-consul
+{% endif %}
