@@ -221,7 +221,7 @@ listen {{ name }}
 
 listen stats
     bind 127.0.0.1:4646
-    bind {{ salt["ip_picker.ip_addrs"](cidr=psf_internal)|first }}:4646
+    bind {{ salt["network.ip_addrs"](cidr=psf_internal)|first }}:4646
 
     mode            http
     log             global
