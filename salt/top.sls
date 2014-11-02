@@ -60,6 +60,10 @@ base:
     - match: nodegroup
     - postgresql.server
 
+  'pythontest':
+    - match: pythontest
+    - pythontest
+
   'salt-master':
     - match: nodegroup
     - dns

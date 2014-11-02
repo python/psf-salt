@@ -81,6 +81,10 @@ base:
     - match: nodegroup
     - secrets.postgresql-users.replica
 
+  'pythontest':
+    - match: nodegroup
+    - firewall.http
+
   'salt-master':
     - match: nodegroup
     - firewall.salt

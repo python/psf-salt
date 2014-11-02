@@ -20,5 +20,6 @@ roles:
   postgresql: "pg*.iad1.psf.io"
   postgresql-primary: "pg0.iad1.psf.io"
   postgresql-replica: "pg*.iad1.psf.io and not pg0.iad1.psf.io"
+  pythontest: "pythontest.iad1.psf.io"
   salt-master: "salt.iad1.psf.io"
   tracker: "bugs.iad1.psf.io"
