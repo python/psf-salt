@@ -61,7 +61,7 @@ base:
     - postgresql.server
 
   'pythontest':
-    - match: pythontest
+    - match: nodegroup
     - pythontest
 
   'salt-master':
