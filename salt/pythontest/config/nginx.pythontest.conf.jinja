@@ -6,6 +6,10 @@ server {
     location = /redir/ {
       return 302 $scheme://$host/elsewhere/;
     }
+
+    location = /redir/with_frag/ {
+      return 302 $scheme://$host/elsewhere/#frag;
+    }
 }
 
 server {
