@@ -4,7 +4,7 @@ server {
     root /srv/python-testdata/www/;
 
     location = /redir/ {
-      return 302 $scheme://$host/elsewhere$request_uri;
+      return 302 $scheme://$host/index.html;
     }
 }
 
