@@ -2,6 +2,10 @@ server {
     listen 80;
     server_name www.pythontest.net;
     root /srv/python-testdata/www/;
+
+    location = /redir/ {
+      return 302 $scheme://$host/index.html
+    }
 }
 
 server {
