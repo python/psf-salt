@@ -1,4 +1,10 @@
 server {
+    listen 80;
+    server_name www.pythontest.net;
+    root /srv/python-testdata/www/;
+}
+
+server {
     listen 443 ssl;
     server_name self-signed.pythontest.net;
 
