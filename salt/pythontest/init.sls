@@ -4,6 +4,11 @@ include:
 mercurial:
   pkg.installed
 
+/srv/:
+  file.directory:
+    - user: www-data
+    - group: www-data
+
 testdata-repo:
   hg.latest:
     - name: https://hg.python.org/pythontestdotnet
@@ -11,6 +16,7 @@ testdata-repo:
     - user: www-data
   require:
     - pkg: mercurial
+    - file: /srv/
 
 /etc/nginx/sites.d/pythontest.conf:
   file.managed:
