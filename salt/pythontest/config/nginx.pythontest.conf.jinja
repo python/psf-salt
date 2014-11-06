@@ -11,7 +11,7 @@ server {
         return 302 $scheme://$host/elsewhere/#frag;
     }
 
-    location = /unicode/ {
+    location /unicode/ {
         gzip            on;
         gzip_min_length 1000;
         gzip_types      text/plain application/xml;
