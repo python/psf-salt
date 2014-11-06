@@ -110,6 +110,11 @@ planetpython.org and planet.jython.org
    `hosted on GitHub <https://github.com/python/planet>`_ and maintained by the
    team at planet@python.org.
 
+pythontest.net
+   `pythontest.net <www.pythontest.net>`_ hosts services and files used by the
+   Python test suite. python-dev@python.org is ultimately responsible for its
+   maintenance.
+
 speed.python.org
    speed.python.org is a beefy machine sitting around at OSUOSL doing
    nothing. It needs love.
