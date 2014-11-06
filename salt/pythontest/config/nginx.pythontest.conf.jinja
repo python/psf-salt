@@ -21,6 +21,7 @@ server {
 server {
     listen 443 ssl;
     server_name self-signed.pythontest.net;
+    root /srv/python-testdata/www/;
 
     ssl_certificate /srv/python-testdata/tls/self-signed-cert.pem;
     ssl_certificate_key /srv/python-testdata/tls/self-signed-key.pem;
