@@ -27,6 +27,11 @@ global
     # increase DH Param bits to match certificate bits
     tune.ssl.default-dh-param 2048
 
+    # Configure some default bind options
+    #   - Disable SSLv3.0
+    #   - Disable TLS Tickets
+    ssl-default-bind-options no-sslv3 no-tls-tickets
+
     # lower your record size to improve Time to First Byte (TTFB)
     tune.ssl.maxrecord 1400
 
@@ -67,9 +72,9 @@ defaults
 
 listen tls:
     # Advertise http/1.1 over NPN to enable TLS False Start
-    bind :20001 ssl no-tls-tickets no-sslv3 npn spdy/3.1,http/1.1 crt ev.python.org.pem
-    bind :20002 ssl no-tls-tickets no-sslv3 npn spdy/3.1,http/1.1 crt hg.python.org.pem
-    bind :20003 ssl no-tls-tickets no-sslv3 npn spdy/3.1,http/1.1 crt star.python.org.pem
+    bind :20001 ssl npn spdy/3.1,http/1.1 crt ev.python.org.pem
+    bind :20002 ssl npn spdy/3.1,http/1.1 crt hg.python.org.pem
+    bind :20003 ssl npn spdy/3.1,http/1.1 crt star.python.org.pem
 
     mode tcp
 
@@ -127,7 +132,7 @@ frontend main
 
 
 frontend fastly
-    bind :20004 ssl no-tls-tickets force-tlsv12          crt lb.psf.io.pem
+    bind :20004 ssl force-tlsv12 crt lb.psf.io.pem
 
     # Adjust timeouts, Fastly can maintain long persistent connections to the
     # backend server and thus we can keep these open for a long time.
