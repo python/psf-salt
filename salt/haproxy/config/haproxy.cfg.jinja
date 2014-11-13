@@ -39,6 +39,9 @@ global
     # hit rate.
     tune.ssl.lifetime 2h
 
+    # Allow more entries in the session cache to improve session cache hit rate
+    tune.ssl.cachesize 500000
+
 
 defaults
     log     global
