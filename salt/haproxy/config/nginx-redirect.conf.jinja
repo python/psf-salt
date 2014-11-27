@@ -6,7 +6,7 @@ server {
     server_name {{ domain }};
     add_header Strict-Transport-Security "max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %}; includeSubDomains{% endif %}{% if config.get("hsts_preload", True) %}; preload{% endif %}";
 
-    {% if config.get("hpkp", False) and pillar["tls"].get("pins") -%}
+    {% if config.get("hpkp", True) and pillar["tls"].get("pins") -%}
     # Add HPKP headers for anything that is configured to have them.
     add_header Public-Key-Pins 'max-age={{ config.get("hpkp_seconds", 15) }}; {% if config.get("hpkp_subdomains", True) %}includeSubDomains; {% endif %}{% for pin in pillar["tls"]["pins"] %}pin-sha256="{{ pin }}"; {% endfor %}';
     {%- endif %}

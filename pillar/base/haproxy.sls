@@ -23,7 +23,6 @@ haproxy:
     hg:
       domains:
         - hg.python.org
-      hpkp: True
 
   redirects:
     python.org:
