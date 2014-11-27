@@ -19,6 +19,7 @@ haproxy:
       verify_host: www.pythonanywhere.com
       extra:
         - http-request replace-header Host ^.*$ www.pythonanywhere.com
+        - "http-request deny unless { path_beg -i /static/ } or { path_beg -i /python-dot-org-console/ } or { path_beg -i /python-dot-org-live-consoles-status }"
 
     hg:
       domains:
