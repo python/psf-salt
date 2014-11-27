@@ -199,6 +199,11 @@ backend {{ service }}
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}{% if config.get("hsts_preload", True) %};\ preload{% endif %}
     {%- endif %}
 
+    {% if config.get("hpkp", False) and pillar["tls"].get("pins") -%}
+    # Add HPKP headers for anything that is configured to have them.
+    http-response set-header Public-Key-Pins max-age={{ config.get("hpkp_seconds", 15) }};\ {% if config.get("hpkp_subdomains", False) %}includeSubDomains;\ {% endif %}{% for pin in pillar["tls"]["pins"] %}pin-sha256="{{ pin }}";\ {% endfor %}
+    {%- endif %}
+
     {% for item in config.get("extra", []) -%}
     {{ item }}
     {% endfor -%}
