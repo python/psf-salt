@@ -33,7 +33,7 @@ pydotorg-source:
   virtualenv.managed:
     - user: pydotorg
     - requirements: /srv/pydotorg/pythondotorg/requirements.txt
-    - python: python3
+    - python: /usr/bin/python3
     - require:
       - git: pydotorg-source
       - pkg: pydotorg-deps
