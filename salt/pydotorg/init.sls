@@ -113,6 +113,15 @@ pydotorg-source:
       - service: pydotorg
       - pkg: consul
 
+compile-static:
+  cmd.run:
+    - name: /srv/pydotorg/env/bin/python3 /srv/pydotorg/pythondotorg/manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
+    - user: pydotorg
+    - require:
+      - virtualenv: /srv/pydotorg/env/
+    - onchanges:
+      - git: pydotorg-source
+
 tweak-maxconn:
   sysctl.present:
     - name: net.core.somaxconn
@@ -127,6 +136,7 @@ pydotorg:
       - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - file: /var/log/pydotorg/
       - file: /srv/pydotorg/media/
+      - cmd: compile-static
       - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
