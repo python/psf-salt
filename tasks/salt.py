@@ -12,8 +12,28 @@ from .utils import cd, ssh_host
 SALT_MASTER = "192.168.5.1"
 
 
+@invoke.task(name="sync-changes")
+def sync_changes():
+    # Push our changes to GitHub
+    # TODO: Determine what origin to use?
+    invoke.run("git push origin master", echo=True)
+
+    if os.path.isdir("pillar/prod/secrets"):
+        with cd("pillar/prod/secrets"):
+            # Push our changes into the secret repository
+            invoke.run("git push origin master", echo=True)
+
+    # SSH into the salt master and pull our changes
+    with ssh_host("salt.iad1.psf.io"):
+        with fabric.api.cd("/srv/salt"):
+            fabric.api.sudo("git pull --ff-only origin master")
+
+        with fabric.api.cd("/srv/pillar/prod/secrets"):
+            fabric.api.sudo("git pull --ff-only origin master")
+
+
 @invoke.task
-def bootstrap(host, codename="trusty"):
+def bootstrap(host, codename="trusty", pre=[sync_changes]):
     # If the host does not have a . in it's address, then we'll assume it's the
     # short for of host.psf.io and add the .psf.io onto it.
     if "." not in host:
@@ -85,26 +105,6 @@ def bootstrap(host, codename="trusty"):
     # state.highstate for real this time.
     with ssh_host("root@" + host):
         fabric.api.run("salt-call state.highstate")
-
-
-@invoke.task(name="sync-changes")
-def sync_changes():
-    # Push our changes to GitHub
-    # TODO: Determine what origin to use?
-    invoke.run("git push origin master", echo=True)
-
-    if os.path.isdir("pillar/prod/secrets"):
-        with cd("pillar/prod/secrets"):
-            # Push our changes into the secret repository
-            invoke.run("git push origin master", echo=True)
-
-    # SSH into the salt master and pull our changes
-    with ssh_host("salt.iad1.psf.io"):
-        with fabric.api.cd("/srv/salt"):
-            fabric.api.sudo("git pull --ff-only origin master")
-
-        with fabric.api.cd("/srv/pillar/prod/secrets"):
-            fabric.api.sudo("git pull --ff-only origin master")
 
 
 @invoke.task(default=True, pre=[sync_changes])
