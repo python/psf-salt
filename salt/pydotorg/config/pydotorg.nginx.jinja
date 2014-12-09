@@ -2,25 +2,12 @@ upstream pydotorg {
   server unix:///srv/pydotorg/uwsgi.sock;
 }
 
-# Catch requests without host header
-# Pass back a 200 on options requests (for LB health check)
-# Deny the rest
 server {
-  listen 9000 default;
-  server_tokens off;
-  location / {
-    if ($request_method = OPTIONS) {
-      add_header Content-Length 0;
-      add_header Content-Type text/plain;
-      return 200;
-    }
-    return 403;
-  }
-}
-
-server {
-  listen 9000;
+  listen 9000 ssl;
   server_name www.python.org staging.python.org staging2.python.org;
+
+  ssl_certificate /etc/ssl/private/pydotorg.psf.io.pem;
+  ssl_certificate_key /etc/ssl/private/pydotorg.psf.io.pem;
 
   # Legacy redirects & Rewrites from dinsdale apache
   location ~ ^/~(barry|bwarsaw)$ {

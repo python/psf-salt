@@ -34,6 +34,10 @@ tls:
       roles:
         - downloads
 
+    pydotorg.psf.io:
+      roles:
+        - pydotorg
+
     hg.psf.io:
       roles:
         - hg
