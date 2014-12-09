@@ -15,7 +15,7 @@ haproxy:
       domains:
         - staging.python.org
         - staging2.python.org
-      verifyhost: pydotorg.psf.io
+      verify_host: pydotorg.psf.io
 
     console:
       domains:
