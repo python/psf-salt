@@ -35,6 +35,13 @@ pydotorg-source:
       - user: pydotorg-user
       - pkg: git
 
+/srv/pydotorg/media/:
+  file.directory:
+    - user: pydotorg
+    - mode: 755
+    - require:
+      - user: pydotorg-user
+
 /srv/pydotorg/env/:
   virtualenv.managed:
     - user: pydotorg
@@ -103,6 +110,7 @@ pydotorg-source:
     - group: root
     - mode: 644
     - require:
+      - service: pydotorg
       - pkg: consul
 
 tweak-maxconn:
@@ -118,6 +126,7 @@ pydotorg:
       - file: /etc/init/pydotorg.conf
       - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - file: /var/log/pydotorg/
+      - file: /srv/pydotorg/media/
       - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
