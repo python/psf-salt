@@ -274,7 +274,7 @@ server {
 
   {% for url, path in static_files.iteritems() %}
   location {{ url }} {
-    alias {{ path }};
+    alias /srv/pydotorg/pythondotorg/{{ path }};
   }
   {% endfor %}
 
