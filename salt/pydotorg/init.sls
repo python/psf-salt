@@ -109,7 +109,7 @@ pydotorg-source:
 
 /etc/logrotate.d/pydotorg:
   file.managed:
-    - source: salt://docs/config/pydotorg.logrotate
+    - source: salt://pydotorg/config/pydotorg.logrotate
     - user: root
     - group: root
     - mode: 644
