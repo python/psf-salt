@@ -11,6 +11,7 @@ roles:
   consul: "consul*.iad1.psf.io"
   docs: "docs.iad1.psf.io"
   downloads: "dl-files.iad1.psf.io"
+  elasticsearch: "elasticsearch.iad1.psf.io"
   hg: "hg.iad1.psf.io"
   jython-web: "jython-web.iad1.psf.io"
   loadbalancer: "lb*.iad1.psf.io"

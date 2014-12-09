@@ -1,0 +1,3 @@
+{% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
+network.bind_host: {{ salt["network.ip_addrs"](cidr=psf_internal)[0] }}
+http.port: 9200

@@ -32,6 +32,10 @@ base:
     - match: nodegroup
     - downloads
 
+  'elasticsearch':
+    - match: nodegroup
+    - elasticsearch
+
   'hg':
     - match: nodegroup
     - hg
