@@ -87,10 +87,12 @@ base:
 
   'pydotorg-staging':
     - match: nodegroup
+    - pydotorg.staging
     - secrets.postgresql-users.pydotorg-staging
 
   'pydotorg-prod':
     - match: nodegroup
+    - pydotorg.prod
     - secrets.postgresql-users.pydotorg-prod
 
   'pythontest':
