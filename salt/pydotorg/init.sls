@@ -12,6 +12,7 @@ pydotorg-deps:
       - libxslt-dev
       - mercurial
       - python-docutils
+      - python-pip
       - python-virtualenv
       - python3-dev
       - yui-compressor
