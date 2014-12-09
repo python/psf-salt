@@ -282,7 +282,7 @@ server {
     return 302 http://legacy.python.org/sf$1;
   }
 
-  {% for url, path in static_files %}
+  {% for url, path in static_files.iteritems() %}
   location {{ url }} {
     alias {{ path }};
   }
