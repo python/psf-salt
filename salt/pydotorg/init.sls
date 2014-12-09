@@ -91,12 +91,18 @@ pydotorg-source:
     - group: root
     - mode: 644
 
+tweak-maxconn:
+  sysctl.present:
+    - name: net.core.somaxconn
+    - value: 1024
+
 pydotorg:
   service.running:
     - reload: True
     - require:
       - virtualenv: /srv/pydotorg/env/
       - file: /etc/init/pydotorg.conf
+      - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
       - virtualenv: /srv/pydotorg/env/
