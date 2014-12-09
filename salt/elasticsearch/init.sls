@@ -5,6 +5,8 @@ elasticsearch-repo:
   pkgrepo.managed:
     - name: deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main
     - key_url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+    - require_in:
+      - pkg: elasticsearch
 
 elasticsearch:
   pkg.installed:
@@ -14,8 +16,6 @@ elasticsearch:
   service.running:
     - watch:
       - file: /etc/elasticsearch/elasticsearch.yml
-    - require:
-      - pkg: elasticsearch
 
 /etc/elasticsearch/elasticsearch.yml:
   file.managed:
