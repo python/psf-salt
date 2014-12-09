@@ -87,6 +87,7 @@ base:
 
   'pydotorg':
     - match: nodegroup
+    - firewall.rs-lb-backend
     - secrets.pydotorg
 
   'pydotorg-staging':
