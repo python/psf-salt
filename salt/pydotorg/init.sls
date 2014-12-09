@@ -9,6 +9,7 @@ pydotorg-deps:
       - build-essential
       - mercurial
       - python-docutils
+      - python-virtualenv
       - python3-dev
       - yui-compressor
 
