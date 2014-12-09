@@ -12,7 +12,6 @@ elasticsearch-repo:
 elasticsearch:
   pkg.installed:
     - require:
-      - pkgrepo: elasticsearch-repo
       - pkg: default-jre-headless
   service.running:
     - watch:
