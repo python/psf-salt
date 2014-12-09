@@ -26,7 +26,7 @@ elasticsearch:
 
 /etc/logrotate.d/elasticsearch:
   file.managed:
-    - source: salt://salt/elasticsearch/config/elasticsearch.logrotate
+    - source: salt://elasticsearch/config/elasticsearch.logrotate
     - user: root
     - group: root
     - mode: 644
