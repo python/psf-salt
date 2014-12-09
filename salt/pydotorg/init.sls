@@ -115,8 +115,9 @@ pydotorg-source:
 
 compile-static:
   cmd.run:
-    - name: /srv/pydotorg/env/bin/python3 /srv/pydotorg/pythondotorg/manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
+    - name: /srv/pydotorg/env/bin/python3 manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
     - user: pydotorg
+    - cwd: /srv/pydotorg/pythondotorg/
     - require:
       - virtualenv: /srv/pydotorg/env/
     - onchanges:
