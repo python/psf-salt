@@ -24,11 +24,8 @@ elasticsearch:
     - require:
       - pkg: elasticsearch
 
-/etc/logrotate.d/elasticsearch:
+/etc/elasticsearch/logging.yml:
   file.managed:
-    - source: salt://elasticsearch/config/elasticsearch.logrotate
-    - user: root
-    - group: root
-    - mode: 644
+    - source: salt://elasticsearch/config/logging.yml
     - require:
       - pkg: elasticsearch
