@@ -29,3 +29,17 @@ elasticsearch:
     - source: salt://elasticsearch/config/logging.yml
     - require:
       - pkg: elasticsearch
+
+/etc/consul.d/service-elasticsearch.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: elasticsearch
+        port: 9200
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - service: elasticsearch
+      - pkg: consul
