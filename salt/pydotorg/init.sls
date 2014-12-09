@@ -75,11 +75,6 @@ pydotorg-source:
     - user: root
     - group: root
     - mode: 644
-    - context:
-      static_files:
-        /static: static-root
-        /images: static-root/images
-        /m: media
     - require:
       - sls: nginx
 

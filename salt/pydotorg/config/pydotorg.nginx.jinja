@@ -272,11 +272,17 @@ server {
     return 302 http://legacy.python.org/sf$1;
   }
 
-  {% for url, path in static_files.iteritems() %}
-  location {{ url }} {
-    alias /srv/pydotorg/pythondotorg/{{ path }};
+  location /m/ {
+    alias /srv/pydotorg/media/;
   }
-  {% endfor %}
+
+  location /static/ {
+    alias /srv/pydotorg/pythondotorg/static/;
+  }
+
+  location /images/ {
+    alias /srv/pydotorg/pythondotorg/static/images/;
+  }
 
   location / {
     gzip  off;
