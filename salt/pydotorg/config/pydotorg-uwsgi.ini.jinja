@@ -2,7 +2,8 @@
 uid=pydotorg
 gid=pydotorg
 env = DJANGO_SETTINGS_MODULE=pydotorg.settings.server
-wsgi-file = /srv/pydotorg/pythondotorg/pydotorg/wsgi.py
+chdir = /srv/pydotorg/pythondotorg/
+module = pydotorg.wsgi
 socket = /srv/pydotorg/uwsgi.sock
 pidfile = /srv/pydotorg/uwsgi.pid
 daemonize = 127.0.0.1:8224
