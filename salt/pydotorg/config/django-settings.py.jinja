@@ -50,6 +50,6 @@ CSRF_COOKIE_SECURE = True
 LOGGING['handlers']['log_file'] = {
     'level': 'ERROR',
     'class': 'logging.handlers.WatchedFileHandler',
-    'filename': '/var/log/pydotorg.error',
+    'filename': '/var/log/pydotorg/pydotorg.error',
 }
 LOGGING['loggers']['django.request']['handlers'].append('log_file')

@@ -91,6 +91,12 @@ pydotorg-source:
     - group: root
     - mode: 644
 
+/var/log/pydotorg/:
+  file.directory:
+    - user: pydotorg
+    - group: pydotorg
+    - mode: 755
+
 tweak-maxconn:
   sysctl.present:
     - name: net.core.somaxconn
@@ -103,6 +109,7 @@ pydotorg:
       - virtualenv: /srv/pydotorg/env/
       - file: /etc/init/pydotorg.conf
       - file: /srv/pydotorg/pydotorg-uwsgi.ini
+      - file: /var/log/pydotorg/
       - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
