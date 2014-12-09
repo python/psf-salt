@@ -8,6 +8,8 @@ pydotorg-deps:
     - pkgs:
       - build-essential
       - libpq-dev
+      - libxml2-dev
+      - libxslt-dev
       - mercurial
       - python-docutils
       - python-virtualenv
