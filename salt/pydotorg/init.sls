@@ -1,5 +1,8 @@
 {% set config = pillar["pydotorg"] %}
 
+include:
+  - nginx
+
 git:
   pkg.installed
 
@@ -77,6 +80,8 @@ pydotorg-source:
         /static: static-root
         /images: static-root/images
         /m: media
+    - require:
+      - sls: nginx
 
 /etc/init/pydotorg.conf:
   file.managed:
