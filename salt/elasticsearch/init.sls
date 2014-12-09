@@ -15,7 +15,7 @@ elasticsearch:
       - pkg: default-jre-headless
   service.running:
     - watch:
-      - file: /etc/elasticsearch/elasticsearch.yml
+      - file: /etc/elasticsearch/*.yml
 
 /etc/elasticsearch/elasticsearch.yml:
   file.managed:
