@@ -2,4 +2,8 @@ description "pydotorg uwsgi application server"
 start on runlevel [2345]
 stop on runlevel [06]
 
+console log
+setuid pydotorg
+setgid pydotorg
+
 exec /srv/pydotorg/env/bin/uwsgi /srv/pydotorg/pydotorg-uwsgi.ini --die-on-term
