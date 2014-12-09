@@ -14,6 +14,7 @@ pydotorg-deps:
 
 pydotorg-user:
   user.present:
+    - name: pydotorg
     - home: /srv/pydotorg/
     - createhome: True
 
@@ -105,7 +106,7 @@ check-out-peps:
     - user: pydotorg
     - creates: /srv/pydotorg/peps
     - require:
-      - user: pydotorg
+      - user: pydotorg-user
       - pkg: pydotorg-deps
 
 blog-feeds-cron:
@@ -115,7 +116,7 @@ blog-feeds-cron:
     - user: pydotorg
     - minute: 13
     - require:
-      - user: pydotorg
+      - user: pydotorg-user
 
 ics-events-cron:
   cron.present:
@@ -124,7 +125,7 @@ ics-events-cron:
     - user: pydotorg
     - minute: 17
     - require:
-      - user: pydotorg
+      - user: pydotorg-user
 
 update-es-index-cron:
   cron.present:
@@ -134,7 +135,7 @@ update-es-index-cron:
     - hour: 2
     - minute: 0
     - require:
-      - user: pydotorg
+      - user: pydotorg-user
 
 update-peps-cron:
   cron.present:
@@ -143,4 +144,4 @@ update-peps-cron:
     - name: make -C /srv/pydotorg/peps update all && /srv/pydotorg/env/bin/python /srv/pydotorg/pythondotorg/manage.py generate_pep_pages --settings pydotorg.settings.server
     - minute: 10
     - require:
-      - user: pydotorg
+      - user: pydotorg-user
