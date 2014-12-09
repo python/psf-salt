@@ -14,3 +14,5 @@ postgresql:
     # database: owner
     bugs-python: "bugs-python"
     monitoring: monitoring
+    pydotorg-prod: "pydotorg-prod"
+    pydotorg-staging: "pydotorg-staging"

@@ -1,0 +1,55 @@
+from .base import *
+
+DEBUG = TEMPLATE_DEBUG = False
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '{{ db_host }}',
+        'NAME': 'pydotorg-{{ type }}%>',
+        'USER': 'pydotorg-{{ type }}',
+        'PASSWORD': '{{ pillar["postgres-users"]["pydotorg" + type] }}',
+    },
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://{{ es_host }}:9200/',
+        'INDEX_NAME': 'haystack-{{ type }}',
+    },
+}
+
+SECRET_KEY = '{{ secret_key }}'
+
+ALLOWED_HOSTS = ["www.python.org", "staging.python.org"]
+
+EMAIL_HOST = "mail.python.org"
+DEFAULT_FROM_EMAIL = "webmaster@python.org"
+
+# Ubuntu uses a non-standard name for the yuicompressor binary :(
+PIPELINE_YUI_BINARY = 'yui-compressor'
+
+MEDIA_ROOT = '/srv/pydotorg/pythondotorg/shared/media'
+
+PEP_REPO_PATH = '/srv/pydotorg/peps'
+
+{% if type is "staging" %}
+
+CSRF_COOKIE_DOMAIN = 'staging.python.org'
+SESSION_COOKIE_DOMAIN = 'staging.python.org'
+
+{% else %}
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_FASTLY_SSL', '1')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+{% endif %}
+
+LOGGING['handlers']['log_file'] = {
+    'level': 'ERROR',
+    'class': 'logging.handlers.WatchedFileHandler',
+    'filename': '/var/log/pydotorg.error',
+}
+LOGGING['loggers']['django.request']['handlers'].append('log_file')

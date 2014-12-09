@@ -1,0 +1,18 @@
+[uwsgi]
+uid=pydotorg
+gid=pydotorg
+env = DJANGO_SETTINGS_MODULE=pydotorg.settings.server
+wsgi-file = /srv/pydotorg/pythondotorg/pydotorg/wsgi.py
+socket = /srv/pydotorg/uwsgi.sock
+pidfile = /srv/pydotorg/uwsgi.pid
+daemonize = 127.0.0.1:8224
+processes = 4
+harakiri = 60
+reload-on-as = 400
+max-requests = 10000
+master = 1
+post-buffering = 8192
+chmod-socket = 666
+disable-logging = true
+log-5xx = true
+listen = 1024

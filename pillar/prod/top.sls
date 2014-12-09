@@ -85,6 +85,14 @@ base:
     - match: nodegroup
     - secrets.postgresql-users.replica
 
+  'pydotorg-staging':
+    - match: nodegroup
+    - secrets.postgresql-users.pydotorg-staging
+
+  'pydotorg-prod':
+    - match: nodegroup
+    - secrets.postgresql-users.pydotorg-prod
+
   'pythontest':
     - match: nodegroup
     - firewall.http
