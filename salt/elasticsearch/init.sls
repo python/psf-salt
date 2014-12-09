@@ -11,17 +11,15 @@ elasticsearch:
     - require:
       - pkgrepo: elasticsearch-repo
       - pkg: default-jre-headless
+  service.running:
+    - watch:
+      - file: /etc/elasticsearch/elasticsearch.yml
+    - require:
+      - pkg: elasticsearch
 
 /etc/elasticsearch/elasticsearch.yml:
   file.managed:
     - source: salt://elasticsearch/config/elasticsearch.yml.jinja
     - template: jinja
-    - require:
-      - pkg: elasticsearch
-
-elasticsearch:
-  service.running:
-    - watch:
-      - file: /etc/elasticsearch/elasticsearch.yml
     - require:
       - pkg: elasticsearch
