@@ -128,6 +128,7 @@ compile-static:
     - cwd: /srv/pydotorg/pythondotorg/
     - require:
       - virtualenv: /srv/pydotorg/env/
+      - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
     - onchanges:
       - git: pydotorg-source
 
