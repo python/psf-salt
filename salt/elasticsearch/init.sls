@@ -3,8 +3,8 @@ default-jre-headless:
 
 elasticsearch-repo:
   pkgrepo.managed:
-    -name: deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main
-    -key_url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+    - name: deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main
+    - key_url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 
 elasticsearch:
   pkg.installed:
