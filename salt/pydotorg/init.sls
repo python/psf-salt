@@ -30,7 +30,7 @@ pydotorg-source:
       - pkg: git
 
 /srv/pydotorg/env/:
-  virtualenv_mod.managed:
+  virtualenv.managed:
     - user: pydotorg
     - requirements: /srv/pydotorg/pythondotorg/requirements.txt
     - python: python3
@@ -44,7 +44,7 @@ uWSGI:
     - name: uWSGI==2.0.8
     - bin_env: /srv/pydotorg/env/
     - require:
-      - virtualenv_mod: /srv/pydotorg/env/
+      - virtualenv: /srv/pydotorg/env/
 
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py:
   file.managed:
@@ -98,7 +98,7 @@ pydotorg:
       - file: /etc/init/pydotorg.conf
     - watch:
       - file: /etc/init/pydotorg.conf
-      - virtualenv_mod: /srv/pydotorg/env/
+      - virtualenv: /srv/pydotorg/env/
       - git: pydotorg-source
 
 check-out-peps:
