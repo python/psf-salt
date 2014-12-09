@@ -1,0 +1,8 @@
+/var/log/pydotorg/*.log {
+    weekly
+    rotate 5
+    missingok
+    notifempty
+    nocompress
+    create 644 pydotorg pydotorg
+}

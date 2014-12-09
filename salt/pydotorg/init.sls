@@ -107,6 +107,13 @@ pydotorg-source:
     - group: pydotorg
     - mode: 755
 
+/etc/logrotate.d/pydotorg:
+  file.managed:
+    - source: salt://docs/config/pydotorg.logrotate
+    - user: root
+    - group: root
+    - mode: 644
+
 /etc/consul.d/service-pydotorg.json:
   file.managed:
     - source: salt://consul/etc/service.jinja
