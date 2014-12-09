@@ -130,6 +130,7 @@ pydotorg:
       - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
+      - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
       - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - virtualenv: /srv/pydotorg/env/
       - git: pydotorg-source
