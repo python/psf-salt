@@ -126,6 +126,8 @@ compile-static:
     - name: /srv/pydotorg/env/bin/python3 manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
     - user: pydotorg
     - cwd: /srv/pydotorg/pythondotorg/
+    - env:
+      - LC_ALL: en_US.UTF8
     - require:
       - virtualenv: /srv/pydotorg/env/
       - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
