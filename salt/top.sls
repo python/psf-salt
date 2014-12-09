@@ -66,7 +66,7 @@ base:
 
   'pydotorg':
     - match: nodegroup
-    - postgres.client
+    - postgresql.client
     - pydotorg
 
   'pythontest':
