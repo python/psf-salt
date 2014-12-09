@@ -102,9 +102,11 @@ pydotorg:
     - require:
       - virtualenv: /srv/pydotorg/env/
       - file: /etc/init/pydotorg.conf
+      - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
+      - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - virtualenv: /srv/pydotorg/env/
       - git: pydotorg-source
 
