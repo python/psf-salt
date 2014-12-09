@@ -34,7 +34,7 @@ MEDIA_ROOT = '/srv/pydotorg/pythondotorg/shared/media'
 
 PEP_REPO_PATH = '/srv/pydotorg/peps'
 
-{% if type is "staging" %}
+{% if type == "staging" %}
 
 CSRF_COOKIE_DOMAIN = 'staging.python.org'
 SESSION_COOKIE_DOMAIN = 'staging.python.org'
