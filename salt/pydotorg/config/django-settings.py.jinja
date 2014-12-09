@@ -6,7 +6,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': '{{ db_host }}',
-        'NAME': 'pydotorg-{{ type }}%>',
+        'NAME': 'pydotorg-{{ type }}',
         'USER': 'pydotorg-{{ type }}',
         'PASSWORD': '{{ pillar["postgresql-users"]["pydotorg-" + type] }}',
     },
