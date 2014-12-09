@@ -77,7 +77,7 @@ uWSGI:
     - group: root
     - mode: 644
     - context:
-      static-files:
+      static_files:
         /static: static-root
         /images: static-root/images
         /m: media
