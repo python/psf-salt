@@ -12,7 +12,6 @@ pydotorg-deps:
       - libxslt-dev
       - mercurial
       - python-docutils
-      - python-pip
       - python-virtualenv
       - python3-dev
       - yui-compressor
@@ -42,13 +41,6 @@ pydotorg-source:
       - git: pydotorg-source
       - pkg: pydotorg-deps
       - pkg: postgresql-client
-
-uWSGI:
-  pip.installed:
-    - name: uWSGI==2.0.8
-    - bin_env: /srv/pydotorg/env/
-    - require:
-      - virtualenv: /srv/pydotorg/env/
 
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py:
   file.managed:
@@ -98,7 +90,7 @@ pydotorg:
   service.running:
     - reload: True
     - require:
-      - pip: uWSGI
+      - virtualenv: /srv/pydotorg/env/
       - file: /etc/init/pydotorg.conf
     - watch:
       - file: /etc/init/pydotorg.conf
