@@ -36,7 +36,7 @@ pydotorg-source:
     - require:
       - git: pydotorg-source
       - pkg: pydotorg-deps
-      - pkg: postgres-client
+      - pkg: postgresql-client
 
 uWSGI:
   pip.installed:
