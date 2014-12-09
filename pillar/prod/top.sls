@@ -30,6 +30,10 @@ base:
     - groups.downloads
     - secrets.backup.downloads
 
+  'elasticsearch':
+    - match: nodegroup
+    - firewall.elasticsearch
+
   'hg':
     - match: nodegroup
     - firewall.rs-lb-backend
