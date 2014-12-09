@@ -42,6 +42,14 @@ pydotorg-source:
     - require:
       - user: pydotorg-user
 
+/srv/pydotorg/pythondotorg/media:
+  file.symlink:
+    - target: /srv/pydotorg/media/
+    - user: pydotorg
+    - mode: 644
+    - require:
+      - file: /srv/pydotorg/media/
+
 /srv/pydotorg/env/:
   virtualenv.managed:
     - user: pydotorg
@@ -136,7 +144,7 @@ pydotorg:
       - file: /etc/init/pydotorg.conf
       - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - file: /var/log/pydotorg/
-      - file: /srv/pydotorg/media/
+      - file: /srv/pydotorg/pythondotorg/media
       - cmd: compile-static
       - sysctl: tweak-maxconn
     - watch:
