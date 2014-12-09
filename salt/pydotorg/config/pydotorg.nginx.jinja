@@ -6,7 +6,7 @@ upstream pydotorg {
 # Pass back a 200 on options requests (for LB health check)
 # Deny the rest
 server {
-  listen 80 default;
+  listen 9000 default;
   server_tokens off;
   location / {
     if ($request_method = OPTIONS) {
@@ -19,8 +19,8 @@ server {
 }
 
 server {
-  listen 80;
-  server_name www.python.org staging.python.org;
+  listen 9000;
+  server_name www.python.org staging.python.org staging2.python.org;
 
   # Legacy redirects & Rewrites from dinsdale apache
   location ~ ^/~(barry|bwarsaw)$ {

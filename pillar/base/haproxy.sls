@@ -11,6 +11,11 @@ haproxy:
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
 
+    pydotorg-staging:
+      domains:
+        - staging.python.org
+        - staging2.python.org
+
     console:
       domains:
         - console.python.org

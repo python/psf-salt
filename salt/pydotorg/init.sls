@@ -97,6 +97,19 @@ pydotorg-source:
     - group: pydotorg
     - mode: 755
 
+/etc/consul.d/service-pydotorg.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: pydotorg-{{ config["type"] }}
+        port: 9000
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
+
 tweak-maxconn:
   sysctl.present:
     - name: net.core.somaxconn
