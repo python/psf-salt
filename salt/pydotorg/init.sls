@@ -61,6 +61,15 @@ pydotorg-source:
       - pkg: postgresql-client
 
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py:
+  cmd.run:
+    - name: "consul-template -once -config /etc/consul-template.conf -template '/srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:/srv/pydotorg/pythondotorg/pydotorg/settings/server.py'"
+    - user: root
+    - creates: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
+    - require:
+      - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl
+      - file: /etc/consul-template.conf
+
+/srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:
   file.managed:
     - source: salt://pydotorg/config/django-settings.py.jinja
     - user: pydotorg
@@ -70,8 +79,6 @@ pydotorg-source:
     - context:
       type: {{ config["type"] }}
       secret_key: {{ pillar["pydotorg_secret_key"] }}
-      db_host: {{ config["db_host"] }}
-      es_host: {{ config["es_host"] }}
 
 /srv/pydotorg/pydotorg-uwsgi.ini:
   file.managed:
@@ -137,7 +144,7 @@ compile-static:
       - LC_ALL: en_US.UTF8
     - require:
       - virtualenv: /srv/pydotorg/env/
-      - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
+      - cmd: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
     - onchanges:
       - git: pydotorg-source
 
@@ -159,7 +166,7 @@ pydotorg:
       - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
-      - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
+      - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl
       - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - virtualenv: /srv/pydotorg/env/
       - git: pydotorg-source

@@ -2,23 +2,33 @@ from .base import *
 
 DEBUG = TEMPLATE_DEBUG = False
 
+{{ "{{" }} with service "primary.postgresql@{{ pillar.dc }}" }}
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '{{ db_host }}',
-        'NAME': 'pydotorg-{{ type }}',
-        'USER': 'pydotorg-{{ type }}',
-        'PASSWORD': '{{ pillar["postgresql-users"]["pydotorg-" + type] }}',
-    },
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": "postgresql.psf.io",
+        "PORT": "{{ "{{(index . 0).Port}}" }}",
+        "NAME": "pydotorg-{{ type }}",
+        "USER": "pydotorg-{{ type }}",
+        "PASSWORD": "{{ pillar["postgresql-users"]["pydotorg-" + type] }}",
+        "OPTIONS": {
+            "hostaddr": "{{ "{{(index . 0).Address}}" }}",
+            "sslmode": "verify-full",
+            "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
+        },
+    }
 }
+{{ "{{ end }}" }}
 
+{{ "{{" }} with service "elasticsearch@{{ pillar.dc }}" }}
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://{{ es_host }}:9200/',
+        'URL': 'http://{{ "{{(index . 0).Address}}" }}:{{ "{{(index . 0).Port}}" }}/',
         'INDEX_NAME': 'haystack-{{ type }}',
     },
 }
+{{ "{{ end }}" }}
 
 SECRET_KEY = '{{ secret_key }}'
 
