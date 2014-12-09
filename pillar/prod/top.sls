@@ -85,6 +85,10 @@ base:
     - match: nodegroup
     - secrets.postgresql-users.replica
 
+  'pydotorg':
+    - match: nodegroup
+    - secrets.pydotorg
+
   'pydotorg-staging':
     - match: nodegroup
     - pydotorg.staging
