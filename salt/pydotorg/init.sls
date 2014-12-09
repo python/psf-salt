@@ -53,7 +53,7 @@ uWSGI:
     - template: jinja
     - context:
       type: {{ config["type"] }}
-      secret_key {{ pillar["pydotorg_secret_key"] }}
+      secret_key: {{ pillar["pydotorg_secret_key"] }}
       db_host: {{ config["db_host"] }}
       es_host: {{ config["es_host"] }}
 
