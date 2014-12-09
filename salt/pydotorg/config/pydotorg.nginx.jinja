@@ -9,6 +9,9 @@ server {
   ssl_certificate /etc/ssl/private/pydotorg.psf.io.pem;
   ssl_certificate_key /etc/ssl/private/pydotorg.psf.io.pem;
 
+  error_log /var/log/nginx/pydotorg.error.log;
+  access_log /var/log/nginx/pydotorg.access.log;
+
   # Legacy redirects & Rewrites from dinsdale apache
   location ~ ^/~(barry|bwarsaw)$ {
     return 301 http://barry.warsaw.us/;
