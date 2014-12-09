@@ -12,7 +12,7 @@ elasticsearch:
       - pkgrepo: elasticsearch-repo
       - pkg: default-jre-headless
 
-/etc/elasticsearch/elasticsearch.yml
+/etc/elasticsearch/elasticsearch.yml:
   file.managed:
     - source: salt://elasticsearch/config/elasticsearch.yml.jinja
     - template: jinja
