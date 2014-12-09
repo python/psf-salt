@@ -8,7 +8,7 @@ DATABASES = {
         'HOST': '{{ db_host }}',
         'NAME': 'pydotorg-{{ type }}%>',
         'USER': 'pydotorg-{{ type }}',
-        'PASSWORD': '{{ pillar["postgres-users"]["pydotorg" + type] }}',
+        'PASSWORD': '{{ pillar["postgresql-users"]["pydotorg" + type] }}',
     },
 }
 
