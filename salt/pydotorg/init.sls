@@ -98,7 +98,7 @@ pydotorg:
     - watch:
       - file: /etc/init/pydotorg.conf
       - virtualenv_mod: /srv/pydotorg/env/
-      - git: /srv/pydotorg/pythondotorg/
+      - git: pydotorg-source
 
 check-out-peps:
   cmd.run:
