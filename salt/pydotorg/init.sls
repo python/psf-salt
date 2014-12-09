@@ -7,6 +7,7 @@ pydotorg-deps:
   pkg.installed:
     - pkgs:
       - build-essential
+      - libpq-dev
       - mercurial
       - python-docutils
       - python-virtualenv
