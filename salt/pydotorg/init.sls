@@ -62,6 +62,7 @@ pydotorg-source:
 
 settings-file-exists:
   file.managed:
+    - name: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
     - contents: ""
     - user: pydotorg
     - group: pydotorg
