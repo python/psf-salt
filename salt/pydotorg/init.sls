@@ -62,10 +62,12 @@ pydotorg-source:
 
 settings-file-exists:
   file.managed:
-    contents: ""
-    user: pydotorg
-    group: pydotorg
-    mode: 640
+    - contents: ""
+    - user: pydotorg
+    - group: pydotorg
+    - mode: 640
+    - require:
+      - user: pydotorg-user
 
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py:
   cmd.run:
