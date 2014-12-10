@@ -65,7 +65,7 @@ settings-file-exists:
     contents: ""
     user: pydotorg
     group: pydotorg
-    group: 640
+    mode: 640
 
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py:
   cmd.run:
