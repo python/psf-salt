@@ -34,7 +34,12 @@ SECRET_KEY = '{{ secret_key }}'
 
 ALLOWED_HOSTS = ["www.python.org", "staging.python.org", "staging2.python.org"]
 
-EMAIL_HOST = "mail.python.org"
+{% set mail = pillar["pydotorg_mail"] %}
+EMAIL_HOST = "{{ mail["host"] }}"
+EMAIL_HOST_USER = "{{ mail["user"] }}"
+EMAIL_HOST_PASSWORD = "{{ mail["password"] }}"
+EMAIL_PORT = "{{ mail["port"] }}"
+EMAIL_USE_TLS = "{{ mail["tls"] }}"
 DEFAULT_FROM_EMAIL = "webmaster@python.org"
 
 # Ubuntu uses a non-standard name for the yuicompressor binary :(
