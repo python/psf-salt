@@ -4,17 +4,17 @@ from .base import *
 
 DEBUG = TEMPLATE_DEBUG = False
 
-{% call simple_service("primary.postgresql") %}
+{% call(port, addr) simple_service("primary.postgresql") %}
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "HOST": "postgresql.psf.io",
-        "PORT": "{{ service_port }}",
+        "PORT": "{{ port }}",
         "NAME": "pydotorg-{{ type }}",
         "USER": "pydotorg-{{ type }}",
         "PASSWORD": "{{ pillar["postgresql-users"]["pydotorg-" + type] }}",
         "OPTIONS": {
-            "hostaddr": "{{ service_addr }}",
+            "hostaddr": "{{ addr }}",
             "sslmode": "verify-full",
             "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
         },
