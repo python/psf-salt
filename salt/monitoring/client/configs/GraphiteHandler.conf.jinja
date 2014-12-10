@@ -1,13 +1,15 @@
-{{ "{{" }} with service "graphite@{{ pillar.dc }}" }}
+{% from "consul/jinja.sls" import simple_service %}
+
+{% call(addr, port) simple_service("graphite") %}
 # Graphite server host
-host = {{ "{{(index . 0).Address}}" }}
+host = {{ addr }}
 
 # Port to send metrics to
-port = {{ "{{(index . 0).Port}}" }}
+port = {{ port }}
 
 # Socket timeout (seconds)
 timeout = 15
 
 # Batch size for metrics
 batch = 1
-{{ "{{ end }}" }}
+{% endcall %}

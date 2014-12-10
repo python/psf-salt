@@ -1,3 +1,5 @@
+{% from "consul/jinja.sls" import simple_service %}
+
 {% set graphite = salt["pillar.get"]("graphite-web") %}
 # Graphite local_settings.py
 # Edit this file to customize the default Graphite webapp settings
@@ -158,23 +160,23 @@ INDEX_FILE = '/var/lib/graphite/search_index'  # Search index file
 # The default is 'django.db.backends.sqlite3' with file 'graphite.db'
 # located in STORAGE_DIR
 #
-{{ "{{" }} with service "primary.postgresql@{{ pillar.dc }}" }}
+{% call(addr, port) simple_service("primary.postgresql") %}
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "HOST": "postgresql.psf.io",
-        "PORT": "{{ "{{(index . 0).Port}}" }}",
+        "PORT": "{{ port }}",
         "NAME": "monitoring",
         "USER": "monitoring",
         "PASSWORD": "{{ pillar["postgresql-users"]["monitoring"] }}",
         "OPTIONS": {
-            "hostaddr": "{{ "{{(index . 0).Address}}" }}",
+            "hostaddr": "{{ addr }}",
             "sslmode": "verify-full",
             "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
         },
     }
 }
-{{ "{{ end }}" }}
+{% endcall %}
 
 
 #########################

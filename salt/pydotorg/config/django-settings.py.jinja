@@ -1,10 +1,10 @@
-{% from 'consul/jinja.sls' import simple_service %}
+{% from "consul/jinja.sls" import simple_service %}
 
 from .base import *
 
 DEBUG = TEMPLATE_DEBUG = False
 
-{% call(port, addr) simple_service("primary.postgresql") %}
+{% call(addr, port) simple_service("primary.postgresql") %}
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
@@ -22,15 +22,15 @@ DATABASES = {
 }
 {% endcall %}
 
-{{ "{{" }} with service "elasticsearch@{{ pillar.dc }}" }}
+{% call(addr, port) simple_service("elasticsearch") %}
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://{{ "{{(index . 0).Address}}" }}:{{ "{{(index . 0).Port}}" }}/',
+        'URL': 'http://{{ addr }}:{{ port }}/',
         'INDEX_NAME': 'haystack-{{ type }}',
     },
 }
-{{ "{{ end }}" }}
+{% endcall %}
 
 SECRET_KEY = '{{ secret_key }}'
 
