@@ -34,7 +34,7 @@ HAYSTACK_CONNECTIONS = {
 
 SECRET_KEY = '{{ secret_key }}'
 
-ALLOWED_HOSTS = ["www.python.org", "staging.python.org", "staging2.python.org"]
+ALLOWED_HOSTS = ["www.python.org", "staging.python.org"]
 
 {% set mail = pillar["pydotorg_mail"] %}
 EMAIL_HOST = "{{ mail["host"] }}"
