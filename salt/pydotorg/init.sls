@@ -60,23 +60,13 @@ pydotorg-source:
       - pkg: pydotorg-deps
       - pkg: postgresql-client
 
-settings-file-exists:
-  file.managed:
-    - name: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
-    - user: pydotorg
-    - group: pydotorg
-    - mode: 640
-    - require:
-      - user: pydotorg-user
-
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py:
   cmd.run:
-    - name: "consul-template -once -config /etc/consul-template.conf -template '/srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:/srv/pydotorg/pythondotorg/pydotorg/settings/server.py'"
+    - name: "consul-template -once -config /etc/consul-template.conf -template '/srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:/srv/pydotorg/pythondotorg/pydotorg/settings/server.py:chown pydotorg:pydotorg /srv/pydotorg/pythondotorg/pydotorg/settings/server.py'"
     - user: root
     - onchanges:
       - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl
     - require:
-      - file: settings-file-exists
       - file: /etc/consul-template.conf
 
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:
