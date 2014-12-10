@@ -65,8 +65,9 @@ pydotorg-source:
     - name: "consul-template -once -config /etc/consul-template.conf -template '/srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:/srv/pydotorg/pythondotorg/pydotorg/settings/server.py'"
     - user: root
     - creates: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
-    - require:
+    - onchanges:
       - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl
+    - require:
       - file: /etc/consul-template.conf
 
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:
