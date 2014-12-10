@@ -39,7 +39,7 @@ EMAIL_HOST = "{{ mail["host"] }}"
 EMAIL_HOST_USER = "{{ mail["user"] }}"
 EMAIL_HOST_PASSWORD = "{{ mail["password"] }}"
 EMAIL_PORT = "{{ mail["port"] }}"
-EMAIL_USE_TLS = "{{ mail["tls"] }}"
+EMAIL_USE_TLS = {{ mail["tls"] }}
 DEFAULT_FROM_EMAIL = "webmaster@python.org"
 
 # Ubuntu uses a non-standard name for the yuicompressor binary :(
