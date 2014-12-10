@@ -1,24 +1,26 @@
+{% from 'consul/jinja.sls' import simple_service %}
+
 from .base import *
 
 DEBUG = TEMPLATE_DEBUG = False
 
-{{ "{{" }} with service "primary.postgresql@{{ pillar.dc }}" }}
+{% call simple_service("primary.postgresql") %}
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "HOST": "postgresql.psf.io",
-        "PORT": "{{ "{{(index . 0).Port}}" }}",
+        "PORT": "{{ service_port }}",
         "NAME": "pydotorg-{{ type }}",
         "USER": "pydotorg-{{ type }}",
         "PASSWORD": "{{ pillar["postgresql-users"]["pydotorg-" + type] }}",
         "OPTIONS": {
-            "hostaddr": "{{ "{{(index . 0).Address}}" }}",
+            "hostaddr": "{{ service_addr }}",
             "sslmode": "verify-full",
             "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
         },
     }
 }
-{{ "{{ end }}" }}
+{% endcall %}
 
 {{ "{{" }} with service "elasticsearch@{{ pillar.dc }}" }}
 HAYSTACK_CONNECTIONS = {
