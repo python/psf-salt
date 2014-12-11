@@ -11,6 +11,10 @@
     TransferLog /var/log/apache2/hg.access.log
     ErrorLog /var/log/apache2/hg.error.log
 
+    # Mercurial can send long headers for repositories with many heads. See
+    # http://barahilia.github.io/blog/computers/2014/10/09/hg-pull-via-http-fails-400.html
+    LimitRequestFieldSize 16384
+
     Alias /committers.txt /srv/hg/web/committers
 
     # The lookup app is better run with few processes, since it uses a cache.
