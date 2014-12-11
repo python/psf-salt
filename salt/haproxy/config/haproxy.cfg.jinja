@@ -42,6 +42,9 @@ global
     # Allow more entries in the session cache to improve session cache hit rate
     tune.ssl.cachesize 500000
 
+    # Lower the amount of space we reserve for header rewriting
+    tune.maxrewrite 1024
+
 
 defaults
     log     global
