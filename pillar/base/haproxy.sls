@@ -33,6 +33,7 @@ haproxy:
     pypa-bootstrap:
       domains:
         - bootstrap.pypa.io
+      verify_host: bootstrap.pypa.psf.io
 
   redirects:
     python.org:
