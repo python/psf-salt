@@ -8,7 +8,7 @@ server {
 
     {% if config.get("hpkp", True) and pillar["tls"].get("pins") -%}
     # Add HPKP headers for anything that is configured to have them.
-    add_header Public-Key-Pins 'max-age={{ config.get("hpkp_seconds", 600) }}; {% if config.get("hpkp_subdomains", True) %}includeSubDomains; {% endif %}{% for pin in pillar["tls"]["pins"] %}pin-sha256="{{ pin }}"; {% endfor %}';
+    add_header Public-Key-Pins 'max-age={{ config.get("hpkp_seconds", 86400) }}; {% if config.get("hpkp_subdomains", True) %}includeSubDomains; {% endif %}{% for pin in pillar["tls"]["pins"] %}pin-sha256="{{ pin }}"; {% endfor %}';
     {%- endif %}
 
     return 301 http{% if config.get("tls", True) %}s{% endif %}://{{ config.target }}$request_uri;
