@@ -34,6 +34,7 @@ haproxy:
       domains:
         - bootstrap.pypa.io
       verify_host: bootstrap.pypa.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ bootstrap.pypa.io"
 
   redirects:
     python.org:
