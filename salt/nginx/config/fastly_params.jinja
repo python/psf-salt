@@ -1,7 +1,8 @@
 port_in_redirect off;
 
 ssl_ciphers {{ pillar["tls"]["ciphers"].get("backend", pillar["tls"]["ciphers"]["default"]) }};
-ssl_protocols TLSv1.2;
+# Once the LBs upgrade to Trusty try turning this back on.
+# ssl_protocols TLSv1.2;
 
 set_real_ip_from  {{ pillar["psf_internal_network"] }};
 set_real_ip_from  {{ pillar["pypi_internal_network"] }};
