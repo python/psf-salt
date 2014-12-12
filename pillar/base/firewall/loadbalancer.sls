@@ -14,5 +14,8 @@ firewall:
   http_4:
     port: 20004
 
+  http_5:
+    port: 20005
+
   "hg.python.org:ssh":
     port: 20100

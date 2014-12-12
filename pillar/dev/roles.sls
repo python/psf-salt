@@ -22,3 +22,5 @@ roles:
   postgresql-replica: "postgresql-replica.vagrant.psf.io"
   salt-master: "salt-master.vagrant.psf.io"
   tracker: "tracker.vagrant.psf.io"
+
+  web-pypa: "pypa-web.vagrant.psf.io"

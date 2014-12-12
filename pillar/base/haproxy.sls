@@ -30,11 +30,17 @@ haproxy:
       domains:
         - hg.python.org
 
+    pypa-bootstrap:
+      domains:
+        - bootstrap.pypa.io
+
   redirects:
     python.org:
       target: www.python.org
       hsts_subdomains: False
       hpkp_subdomains: False
+    pypa.io:
+      target: www.pypa.io
 
   listens:
     hg_ssh:

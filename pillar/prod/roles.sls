@@ -27,3 +27,5 @@ roles:
   pythontest: "pythontest.iad1.psf.io"
   salt-master: "salt.iad1.psf.io"
   tracker: "bugs.iad1.psf.io"
+
+  web-pypa: "web*.pypa.iad1.psf.io"

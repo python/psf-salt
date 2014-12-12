@@ -50,3 +50,7 @@ tls:
       days: 7
       roles:
         - postgresql
+
+    bootstrap.pypa.psf.io:
+      roles:
+        - web-pypa

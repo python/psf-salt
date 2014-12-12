@@ -80,3 +80,7 @@ base:
   'tracker':
     - match: nodegroup
     - postgresql.client
+
+  'web-pypa':
+    - match: nodegroup
+    - pypa.bootstrap

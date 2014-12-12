@@ -80,3 +80,7 @@ base:
   'tracker':
     - match: nodegroup
     - secrets.postgresql-users.tracker
+
+  'web-pypa':
+    - match: nodegroup
+    - firewall.rs-lb-backend
