@@ -67,7 +67,7 @@ pydotorg-source:
     - onchanges:
       - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl
     - require:
-      - service: consul
+      - pkg: consul-template
       - file: /etc/consul-template.conf
 
 /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:
