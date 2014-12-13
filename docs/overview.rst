@@ -128,15 +128,14 @@ www.jython.org
 
 www.python.org
    The `main Python website <https://www.python.org>`_ is a Django app hosted on
-   a OSUOSL VM. Its source code is available on `GitHub
+   a Rackspace VM. Its source code is available on `GitHub
    <https://github.com/python/pythondotorg>`_, and issues with the site can be
-   reported in `GitHub issue tracker
+   reported to the `GitHub issue tracker
    <https://github.com/python/pythondotorg/issues>`_. Python downloads
-   (i.e. everything under https://www.python.org/ftp/) are hosted on a
+   (i.e. everything under https://www.python.org/ftp/) are hosted on a separate
    Rackspace VM. The whole site is behind Fastly. There is also
-   http://staging.python.org for testing the site. http://legacy.python.org is
-   the old website hosted on dinsdale. It is still the canonical source for PEPs
-   because the new website's PEPs app isn't ready yet.
+   https://staging.python.org for testing the site. http://legacy.python.org is
+   the old website hosted on dinsdale.
 
 PyCon
    The PyCon website is hosted on a OSUOSL VM. The contact address is
