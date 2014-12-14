@@ -51,6 +51,18 @@ setuptools-clone:
       - pkg: bootrap-deps
 
 
+buildout-clone:
+  git.latest:
+    - name: https://github.com/buildout/buildout.git
+    - rev: bootstrap-release
+    - target: /srv/bootstrap/buildout
+    - user: nginx
+    - force: True
+    - force_checkout: True
+    - require:
+      - pkg: bootrap-deps
+
+
 /srv/bootstrap/www/get-pip.py:
   file.symlink:
     - target: /srv/bootstrap/pip/contrib/get-pip.py
@@ -63,6 +75,13 @@ setuptools-clone:
     - target: /srv/bootstrap/setuptools/ez_setup.py
     - require:
       - git: setuptools-clone
+
+
+/src/bootstrap/www/bootstrap-buildout.py:
+  file.symlink:
+    - target: /srv/bootstrap/buildout/bootstrap/bootstrap.py
+    - require:
+      - git: buildout-clone
 
 
 refresh-pip:
@@ -81,6 +100,15 @@ refresh-setuptools:
       - file: /srv/bootstrap/www/ez_setup.py
     - onchanges:
       - git: setuptools-clone
+
+
+refresh-buildout:
+  cmd.run:
+    - name: 'curl -X PURGE https://bootstrap.pypa.io/bootstrap-buildout.py'
+    - require:
+      - file: /srv/bootstrap/www/bootstrap-buildout.py
+    - onchanges:
+      - git: buildout-clone
 
 
 /etc/consul.d/service-pypa-bootstrap.json:
