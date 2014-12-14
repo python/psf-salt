@@ -77,7 +77,7 @@ buildout-clone:
       - git: setuptools-clone
 
 
-/src/bootstrap/www/bootstrap-buildout.py:
+/srv/bootstrap/www/bootstrap-buildout.py:
   file.symlink:
     - target: /srv/bootstrap/buildout/bootstrap/bootstrap.py
     - require:
