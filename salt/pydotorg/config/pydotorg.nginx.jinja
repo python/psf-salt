@@ -17,10 +17,6 @@ server {
     return 301 http://barry.warsaw.us/;
   }
 
-  location ~ ^/~rmasse$ {
-    return 301 http://www.rogermasse.com;
-  }
-
   location ~ ^/~(.*)$ {
     resolver 8.8.8.8;
     proxy_set_header X-Real-IP $remote_addr;
