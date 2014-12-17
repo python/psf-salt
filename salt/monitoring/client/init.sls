@@ -20,11 +20,9 @@ diamond:
     - enable: True
     - watch:
       - file: /etc/diamond/diamond.conf
-      - file: /etc/diamond/handlers/ArchiveHandler.conf
     - require:
       - pkg: diamond
       - user: diamond
-      - file: /var/log/diamond
       - cmd: /etc/diamond/handlers/GraphiteHandler.conf
 
 
@@ -34,7 +32,6 @@ diamond:
     - template: jinja
     - context:
         handlers:
-          - diamond.handler.archive.ArchiveHandler
           - diamond.handler.graphite.GraphiteHandler
     - user: root
     - group: diamond
@@ -44,23 +41,20 @@ diamond:
       - group: diamond
 
 
-/var/log/diamond:
-  file.directory:
-    - user: root
-    - group: diamond
-    - mode: 770
-    - require:
-      - pkg: diamond
-
-
-/etc/diamond/handlers/ArchiveHandler.conf:
+/etc/rsyslog.d/49-diamond.conf:
   file.managed:
-    - source: salt://monitoring/client/configs/ArchiveHandler.conf
+    - source: salt://monitoring/client/configs/rsyslog-diamond.conf
     - user: root
-    - group: diamond
+    - group: root
     - mode: 644
-    - require:
-      - pkg: diamond
+
+
+/etc/logrotate.d/diamond:
+  file.managed:
+    - source: salt://monitoring/client/configs/logrotate-diamond.conf
+    - user: root
+    - group: root
+    - mode: 644
 
 
 /etc/diamond/handlers/GraphiteHandler.conf.tmpl:
@@ -134,7 +128,11 @@ diamond:
   file.absent
 
 
-/var/log/diamond:
+/etc/rsyslog.d/49-diamond.conf:
+  file.absent
+
+
+/etc/logrotate.d/diamond:
   file.absent
 
 

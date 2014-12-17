@@ -39,7 +39,7 @@ collectors_reload_interval = 3600
 [handlers]
 
 # daemon logging handler(s)
-keys = rotated_file
+keys = syslog
 
 ### Defaults options for all Handlers
 [[default]]
@@ -85,24 +85,23 @@ keys = root
 
 [formatters]
 
-keys = default
+keys = syslog
 
 [logger_root]
 
 # to increase verbosity, set DEBUG
 level = INFO
-handlers = rotated_file
+handlers = syslog
 propagate = 1
 
-[handler_rotated_file]
+[handler_syslog]
 
-class = handlers.TimedRotatingFileHandler
+class = handlers.SysLogHandler
 level = DEBUG
-formatter = default
-# rotate at midnight, each day and keep 7 days
-args = ('/var/log/diamond/diamond.log', 'midnight', 1, 7)
+formatter = syslog
+args = ('/dev/log',)
 
-[formatter_default]
+[formatter_syslog]
 
-format = [%(asctime)s] [%(threadName)s] %(message)s
-datefmt =
+format = %(asctime)-15s diamond[%(process)d] %(message)s
+datefmt = %b %d %H:%M:%S

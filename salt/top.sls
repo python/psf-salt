@@ -15,6 +15,7 @@ base:
     - monitoring.client
     - unattended-upgrades
     - tls
+    - rsyslog
 
   'backup-server':
     - match: nodegroup
