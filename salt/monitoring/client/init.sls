@@ -85,7 +85,7 @@ diamond-consul:
     - template: jinja
     - context:
         templates:
-          - "/etc/diamond/handlers/GraphiteHandler.conf.tmpl:/etc/diamond/handlers/GraphiteHandler.conf:"
+          - "/etc/diamond/handlers/GraphiteHandler.conf.tmpl:/etc/diamond/handlers/GraphiteHandler.conf:service diamond restart"
     - user: root
     - group: root
     - mode: 644
