@@ -22,22 +22,10 @@ haproxy:
     - reload: True
     - require:
       - pkg: haproxy
-      - service: haproxy-consul
+      - cmd: consul-template
     - watch:
       - file: /etc/ssl/private/*.pem
       - file: /etc/haproxy/fastly_token
-
-
-/etc/haproxy/haproxy.cfg.tmpl:
-  file.managed:
-    - source: salt://haproxy/config/haproxy.cfg.jinja
-    - template: jinja
-    - user: root
-    - group: root
-    - mode: 644
-    - require:
-      - pkg: haproxy
-      - file: /etc/ssl/private/*.pem
 
 
 /etc/haproxy/fastly_token:
@@ -49,6 +37,32 @@ haproxy:
     - show_diff: False
     - require:
       - pkg: haproxy
+
+
+/usr/share/consul-template/templates/haproxy.cfg:
+  file.managed:
+    - source: salt://haproxy/config/haproxy.cfg.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul-template
+
+
+/etc/consul-template.d/haproxy.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/template.json.jinja
+    - template: jinja
+    - context:
+        source: /usr/share/consul-template/templates/haproxy.cfg
+        destination: /etc/haproxy/haproxy.cfg
+        command: service haproxy reload
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - pkg: consul-template
 
 
 /usr/local/bin/haproxy-ocsp:
@@ -92,31 +106,6 @@ haproxy-ocsp:
       - service: haproxy
 {% endfor %}
 {% endif %}
-
-
-haproxy-consul:
-  file.managed:
-    - name: /etc/init/haproxy-consul.conf
-    - source: salt://consul/init/consul-template.conf.jinja
-    - template: jinja
-    - context:
-        templates:
-          - "/etc/haproxy/haproxy.cfg.tmpl:/etc/haproxy/haproxy.cfg:chmod 644 /etc/haproxy/haproxy.cfg && service haproxy reload"
-    - user: root
-    - group: root
-    - mode: 644
-    - require:
-      - pkg: consul
-
-  service.running:
-    - enable: True
-    - restart: True
-    - require:
-      - pkg: consul
-    - watch:
-      - file: haproxy-consul
-      - file: /etc/consul-template.conf
-      - file: /etc/haproxy/haproxy.cfg.tmpl
 
 
 /etc/nginx/sites.d/spdy.conf:

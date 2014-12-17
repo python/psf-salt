@@ -4,10 +4,7 @@
 
 
 consul:
-  pkg.installed:
-    - pkgs:
-      - consul
-      - consul-template
+  pkg.installed: []
 
   service.running:
     - enable: True
@@ -82,13 +79,35 @@ consul:
       - pkg: consul
 
 
-/etc/consul-template.conf:
+consul-template:
+  pkg.installed: []
+
+  cmd.wait:
+    - name: consul-template -config /etc/consul-template.d -once
+    - require:
+      - pkg: consul-template
+      - service: consul
+    - watch:
+      - file: /etc/consul-template.d/*.json
+      - file: /usr/share/consul-template/templates/*
+
+  service.running:
+    - enable: True
+    - restart: True
+    - require:
+      - pkg: consul-template
+      - service: consul
+    - watch:
+      - file: /etc/consul-template.d/*.json
+      - file: /usr/share/consul-template/templates/*
+
+
+/etc/consul-template.d/base.json:
   file.managed:
-    - source: salt://consul/etc/consul-template.conf.jinja
-    - template: jinja
+    - source: salt://consul/etc/consul-template/base.json
     - user: root
     - group: root
-    - mode: 640
+    - mode: 644
 
 {% endif %}
 

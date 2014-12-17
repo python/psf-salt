@@ -64,7 +64,7 @@ postgresql-server:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.config_dir }}/conf.d
       {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-      - service: postgresql-consul
+      - cmd: consul-template
       {% endif %}
     - watch:
       - file: /etc/ssl/private/postgresql.psf.io.pem
@@ -173,21 +173,6 @@ postgresql-psf-cluster:
       - file: {{ postgresql.config_dir }}
 
 
-{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-{{ postgresql.recovery_file }}.tmpl:
-  file.managed:
-    - source: salt://postgresql/server/configs/recovery.conf.jinja
-    - template: jinja
-    - user: postgres
-    - group: postgres
-    - mode: 640
-    - show_diff: False
-    - require:
-      - cmd: postgresql-psf-cluster
-      - file: {{ postgresql.config_dir }}
-{% endif %}
-
-
 {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
 
 replicator:
@@ -250,27 +235,33 @@ replicator:
 
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-postgresql-consul:
+
+/usr/share/consul-template/templates/recovery.conf:
   file.managed:
-    - name: /etc/init/postgresql-consul.conf
-    - source: salt://consul/init/consul-template.conf.jinja
+    - source: salt://postgresql/server/configs/recovery.conf.jinja
+    - template: jinja
+    - user: postgres
+    - group: postgres
+    - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: consul-template
+      - cmd: postgresql-psf-cluster
+      - file: {{ postgresql.config_dir }}
+
+
+/etc/consul-template.d/postgresql-recovery.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/template.json.jinja
     - template: jinja
     - context:
-        templates:
-          - "{{ postgresql.recovery_file }}.tmpl:{{ postgresql.recovery_file }}:chgrp postgres {{ postgresql.recovery_file }} && chmod 640 {{ postgresql.recovery_file }} && service postgresql restart"
+        source: /usr/share/consul-template/templates/recovery.conf
+        destination: {{ postgresql.recovery_file }}
+        command: "chgrp postgres {{ postgresql.recovery_file }} && chmod 640 {{ postgresql.recovery_file }} && service postgresql restart"
     - user: root
     - group: root
-    - mode: 644
+    - mode: 640
     - require:
-      - pkg: consul
+      - pkg: consul-template
 
-  service.running:
-    - enable: True
-    - restart: True
-    - require:
-      - pkg: consul
-    - watch:
-      - file: postgresql-consul
-      - file: /etc/consul-template.conf
-      - file: {{ postgresql.recovery_file }}.tmpl
 {% endif %}

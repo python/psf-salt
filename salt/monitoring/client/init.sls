@@ -1,4 +1,5 @@
 {% if pillar["dc"] in pillar["consul"]["dcs"] %}
+
 include:
   - .collectors.default
 
@@ -23,7 +24,7 @@ diamond:
     - require:
       - pkg: diamond
       - user: diamond
-      - cmd: /etc/diamond/handlers/GraphiteHandler.conf
+      - cmd: consul-template
 
 
 /etc/diamond/diamond.conf:
@@ -57,52 +58,33 @@ diamond:
     - mode: 644
 
 
-/etc/diamond/handlers/GraphiteHandler.conf.tmpl:
+/usr/share/consul-template/templates/GraphiteHandler.conf:
   file.managed:
     - source: salt://monitoring/client/configs/GraphiteHandler.conf.jinja
     - template: jinja
     - user: root
-    - group: diamond
-    - mode: 644
+    - group: root
+    - mode: 640
     - require:
-      - pkg: diamond
-
-/etc/diamond/handlers/GraphiteHandler.conf:
-  cmd.run:
-    - name: "consul-template -once -config /etc/consul-template.conf -template '/etc/diamond/handlers/GraphiteHandler.conf.tmpl:/etc/diamond/handlers/GraphiteHandler.conf'"
-    - user: root
-    - creates: /etc/diamond/handlers/GraphiteHandler.conf
-    - require:
-      - pkg: diamond
-      - file: /etc/consul-template.conf
-      - file: /etc/diamond/handlers/GraphiteHandler.conf.tmpl
+      - pkg: consul-template
 
 
-diamond-consul:
+/etc/consul-template.d/diamond.json:
   file.managed:
-    - name: /etc/init/diamond-consul.conf
-    - source: salt://consul/init/consul-template.conf.jinja
+    - source: salt://consul/etc/consul-template/template.json.jinja
     - template: jinja
     - context:
-        templates:
-          - "/etc/diamond/handlers/GraphiteHandler.conf.tmpl:/etc/diamond/handlers/GraphiteHandler.conf:service diamond restart"
+        source: /usr/share/consul-template/templates/GraphiteHandler.conf
+        destination: /etc/diamond/handlers/GraphiteHandler.conf
+        command: service diamond restart
     - user: root
     - group: root
-    - mode: 644
+    - mode: 640
     - require:
-      - pkg: consul
+      - pkg: consul-template
 
-  service.running:
-    - enable: True
-    - restart: True
-    - require:
-      - pkg: consul
-      - service: diamond
-    - watch:
-      - file: diamond-consul
-      - file: /etc/consul-template.conf
-      - file: /etc/diamond/handlers/GraphiteHandler.conf.tmpl
 {% else %}
+
 diamond:
   service.dead:
     - enable: False
@@ -136,12 +118,12 @@ diamond:
   file.absent
 
 
-diamond-consul:
-  service.dead:
-    - enable: False
+/usr/share/consul-template/templates/GraphiteHandler.conf:
+  file.absent
 
-  file.absent:
-    - name: /etc/init/diamond-consul.conf
-    - require:
-      - service: diamond-consul
+
+/etc/consul-template.d/diamond.json:
+  file.absent
+
+
 {% endif %}

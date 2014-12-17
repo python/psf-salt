@@ -30,7 +30,7 @@ graphite:
       - pkg: graphite
 
 
-/etc/graphite/local_settings.py.tmpl:
+/usr/share/consul-template/templates/local_settings.py:
   file.managed:
     - source: salt://monitoring/server/configs/local_settings.py.jinja
     - template: jinja
@@ -39,28 +39,22 @@ graphite:
     - mode: 640
     - show_diff: False
     - require:
-      - pkg: graphite
-      - file: /etc/graphite
+      - pkg: consul-template
 
 
-/etc/graphite/local_settings.py:
-  cmd.run:
-    - name: "consul-template -once -config /etc/consul-template.conf -template '/etc/graphite/local_settings.py.tmpl:/etc/graphite/local_settings.py'"
+/etc/consul-template.d/graphite.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/template.json.jinja
+    - template: jinja
+    - context:
+        source: /usr/share/consul-template/templates/local_settings.py
+        destination: /etc/graphite/local_settings.py
+        command: service graphite restart
     - user: root
-    - creates: /etc/graphite/local_settings.py
+    - group: root
+    - mode: 640
     - require:
-      - pkg: graphite
-      - file: /etc/consul-template.conf
-      - file: /etc/graphite/local_settings.py.tmpl
-      - file: /etc/graphite
-
-
-graphite-init-db:
-  cmd.run:
-    - name: graphite-manage syncdb --noinput
-    - require:
-      - pkg: graphite
-      - cmd: /etc/graphite/local_settings.py
+      - pkg: consul-template
 
 
 /usr/share/graphite-web/wsgi.py:
@@ -114,31 +108,3 @@ graphite-init-db:
     - mode: 644
     - require:
       - sls: nginx
-
-
-graphite-consul:
-  file.managed:
-    - name: /etc/init/graphite-consul.conf
-    - source: salt://consul/init/consul-template.conf.jinja
-    - template: jinja
-    - context:
-        templates:
-          - "/etc/graphite/local_settings.py.tmpl:/etc/graphite/local_settings.py:service graphite restart"
-    - user: root
-    - group: root
-    - mode: 644
-    - require:
-      - pkg: consul
-
-  service.running:
-    - enable: True
-    - restart: True
-    - require:
-      - pkg: consul
-      - cmd: /etc/graphite/local_settings.py
-      - service: nginx
-    - watch:
-      - pkg: graphite
-      - file: graphite-consul
-      - file: /etc/consul-template.conf
-      - file: /etc/graphite/local_settings.py.tmpl

@@ -60,26 +60,38 @@ pydotorg-source:
       - pkg: pydotorg-deps
       - pkg: postgresql-client
 
-/srv/pydotorg/pythondotorg/pydotorg/settings/server.py:
-  cmd.run:
-    - name: "consul-template -once -config /etc/consul-template.conf -template '/srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:/srv/pydotorg/pythondotorg/pydotorg/settings/server.py:chown pydotorg /srv/pydotorg/pythondotorg/pydotorg/settings/server.py'"
-    - user: root
-    - onchanges:
-      - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl
-    - require:
-      - service: consul
-      - file: /etc/consul-template.conf
 
-/srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl:
+/usr/share/consul-template/templates/pydotorg_settings.py:
   file.managed:
     - source: salt://pydotorg/config/django-settings.py.jinja
-    - user: pydotorg
-    - group: pydotorg
-    - mode: 640
     - template: jinja
     - context:
-      type: {{ config["type"] }}
-      secret_key: {{ pillar["pydotorg_secret_key"] }}
+        type: {{ config["type"] }}
+        secret_key: {{ pillar["pydotorg_secret_key"] }}
+    - user: root
+    - group: root
+    - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: consul-template
+      - git: pydotorg-source
+
+
+/etc/consul-template.d/pydotorg.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/template.json.jinja
+    - template: jinja
+    - context:
+        source: /usr/share/consul-template/templates/pydotorg_settings.py
+        destination: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
+        command: "chown pydotorg /srv/pydotorg/pythondotorg/pydotorg/settings/server.py && service pydotorg restart"
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - pkg: consul-template
+      - file: /etc/init/pydotorg.conf
+
 
 /srv/pydotorg/pydotorg-uwsgi.ini:
   file.managed:
