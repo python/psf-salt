@@ -3,14 +3,6 @@
     - user: syslog
     - group: adm
 
-rsyslog:
-  pkg:
-    - installed
-  service:
-    - running
-    - watch:
-      - file: /etc/rsyslog.d/*.conf
-
 /etc/rsyslog.d/25-fastly-logs.conf:
   file.managed:
     - source: salt://cdn-logs/config/fastly.rsyslog.conf
