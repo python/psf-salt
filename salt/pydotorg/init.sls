@@ -156,7 +156,7 @@ compile-static:
       - LC_ALL: en_US.UTF8
     - require:
       - virtualenv: /srv/pydotorg/env/
-      - cmd: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py
+      - cmd: consul-template
     - onchanges:
       - git: pydotorg-source
 
@@ -178,7 +178,6 @@ pydotorg:
       - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
-      - file: /srv/pydotorg/pythondotorg/pydotorg/settings/server.py.tmpl
       - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - virtualenv: /srv/pydotorg/env/
       - git: pydotorg-source
