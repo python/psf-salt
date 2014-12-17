@@ -156,7 +156,7 @@ wal-e-initial-backup:
 weekly-interval-wal-e-backup:
   cron.present:
     - identifier: weekly-interval-wal-e-backup
-    - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d wal-e backup-push {{ postgresql.data_dir }} >> /var/log/postgresql/cron-backup.log 2>&1'
+    - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d /usr/local/bin/wal-e backup-push {{ postgresql.data_dir }} >> /var/log/postgresql/cron-backup.log 2>&1'
     - user: postgres
     - minute: '0'
     - hour: '0'
