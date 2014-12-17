@@ -91,6 +91,7 @@ refresh-pip:
       - file: /srv/bootstrap/www/get-pip.py
     - onchanges:
       - git: pip-clone
+      - file: /etc/nginx/sites.d/bootstrap.pypa.io.conf
 
 
 refresh-setuptools:
@@ -100,6 +101,7 @@ refresh-setuptools:
       - file: /srv/bootstrap/www/ez_setup.py
     - onchanges:
       - git: setuptools-clone
+      - file: /etc/nginx/sites.d/bootstrap.pypa.io.conf
 
 
 refresh-buildout:
@@ -109,6 +111,7 @@ refresh-buildout:
       - file: /srv/bootstrap/www/bootstrap-buildout.py
     - onchanges:
       - git: buildout-clone
+      - file: /etc/nginx/sites.d/bootstrap.pypa.io.conf
 
 
 /etc/consul.d/service-pypa-bootstrap.json:
