@@ -44,7 +44,6 @@ haproxy:
     speed-web:
       domains:
         - speed.python.org
-        - speed2.python.org
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ speed.python.org"
 
   redirects:
