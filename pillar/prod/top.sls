@@ -110,6 +110,10 @@ base:
     - firewall.salt
     - secrets.dyn
 
+  'speed-web':
+    - match: nodegroup
+    - firewall.rs-lb-backend
+
   'tracker':
     - match: nodegroup
     - secrets.postgresql-users.tracker

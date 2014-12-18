@@ -26,6 +26,7 @@ roles:
   pydotorg-staging: "pydotorg-staging.iad1.psf.io"
   pythontest: "pythontest.iad1.psf.io"
   salt-master: "salt.iad1.psf.io"
+  speed-web: "speed-web.iad1.psf.io"
   tracker: "bugs.iad1.psf.io"
 
   web-pypa: "web*.pypa.iad1.psf.io"

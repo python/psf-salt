@@ -15,6 +15,7 @@ SERVERS = [
   "planet",
   {:name => "postgresql-primary", :roles => ["postgresql", "postgresql-primary"]},
   {:name => "postgresql-replica", :roles => ["postgresql", "postgresql-replica"]},
+  "speed-web",
   "tracker",
   "pypa-web",
 ]

@@ -78,6 +78,10 @@ base:
     - match: nodegroup
     - dns
 
+  'speed-web':
+    - match: nodegroup
+    - speed.web
+
   'tracker':
     - match: nodegroup
     - postgresql.client

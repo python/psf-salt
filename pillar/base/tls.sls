@@ -51,6 +51,10 @@ tls:
       roles:
         - postgresql
 
+    speed-web.psf.io:
+      roles:
+        - speed-web
+
     bootstrap.pypa.psf.io:
       roles:
         - web-pypa

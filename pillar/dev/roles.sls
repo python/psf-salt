@@ -21,6 +21,7 @@ roles:
   postgresql-primary: "postgresql-primary.vagrant.psf.io"
   postgresql-replica: "postgresql-replica.vagrant.psf.io"
   salt-master: "salt-master.vagrant.psf.io"
+  speed-web: "speed-web.vagrant.psf.io"
   tracker: "tracker.vagrant.psf.io"
 
   web-pypa: "pypa-web.vagrant.psf.io"

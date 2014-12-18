@@ -1,0 +1,13 @@
+server {
+    listen 9000 ssl;
+
+    ssl_certificate /etc/ssl/private/speed-web.psf.io.pem;
+    ssl_certificate_key /etc/ssl/private/speed-web.psf.io.pem;
+
+    include fastly_params;
+
+    error_log /var/log/nginx/speed-web.error.log;
+    access_log /var/log/nginx/speed-web.access.log main;
+
+    root /srv/speed.python.org;
+}
