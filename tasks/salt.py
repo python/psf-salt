@@ -34,10 +34,10 @@ def sync_changes():
 
 @invoke.task
 def bootstrap(host, codename="trusty", pre=[sync_changes]):
-    # If the host does not have a . in it's address, then we'll assume it's the
-    # short for of host.psf.io and add the .psf.io onto it.
+    # If the host does not contain '.', we'll assume it's of the form
+    # [host].iad1.psf.io.
     if "." not in host:
-        host += ".psf.io"
+        host += ".iad1.psf.io"
 
     # SSH into the root user of this server and bootstrap the server.
     with ssh_host("root@" + host):
