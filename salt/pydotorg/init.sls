@@ -147,9 +147,9 @@ pydotorg-source:
     - require:
       - pkg: consul
 
-compile-static:
+pre-reload:
   cmd.run:
-    - name: /srv/pydotorg/env/bin/python3 manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
+    - name: /srv/pydotorg/env/bin/python3 manage.py syncdb --settings pydotorg.settings.server --migrate --noinput && /srv/pydotorg/env/bin/python3 manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
     - user: pydotorg
     - cwd: /srv/pydotorg/pythondotorg/
     - env:
@@ -174,7 +174,7 @@ pydotorg:
       - file: /srv/pydotorg/pydotorg-uwsgi.ini
       - file: /var/log/pydotorg/
       - file: /srv/pydotorg/pythondotorg/media
-      - cmd: compile-static
+      - cmd: pre-reload
       - sysctl: tweak-maxconn
     - watch:
       - file: /etc/init/pydotorg.conf
