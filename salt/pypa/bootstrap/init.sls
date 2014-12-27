@@ -43,7 +43,7 @@ pip-clone:
 setuptools-clone:
   hg.latest:
     - name: https://bitbucket.org/pypa/setuptools
-    - branch: bootstrap
+    - rev: bootstrap
     - target: /srv/bootstrap/setuptools
     - user: nginx
     - force: True
