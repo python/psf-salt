@@ -7,6 +7,7 @@ bootrap-deps:
   pkg.installed:
     - pkgs:
       - git
+      - mercurial
       - curl
 
 
@@ -40,13 +41,12 @@ pip-clone:
 
 
 setuptools-clone:
-  git.latest:
-    - name: https://github.com/jaraco/setuptools.git
-    - rev: bootstrap
+  hg.latest:
+    - name: https://bitbucket.org/pypa/setuptools
+    - branch: bootstrap
     - target: /srv/bootstrap/setuptools
     - user: nginx
     - force: True
-    - force_checkout: True
     - require:
       - pkg: bootrap-deps
 
