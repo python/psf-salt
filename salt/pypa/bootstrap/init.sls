@@ -74,7 +74,7 @@ buildout-clone:
   file.symlink:
     - target: /srv/bootstrap/setuptools/ez_setup.py
     - require:
-      - git: setuptools-clone
+      - hg: setuptools-clone
 
 
 /srv/bootstrap/www/bootstrap-buildout.py:
@@ -99,7 +99,7 @@ refresh-setuptools:
     - require:
       - file: /srv/bootstrap/www/ez_setup.py
     - onchanges:
-      - git: setuptools-clone
+      - hg: setuptools-clone
 
 
 refresh-buildout:
