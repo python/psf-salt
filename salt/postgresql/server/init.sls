@@ -179,7 +179,7 @@ postgresql-psf-cluster:
 {% for replica in salt["mine.get"](pillar["roles"]["postgresql-replica"], "psf_internal").keys() %}
 replication-slot-{{ replica|split(".")|first }}:
   postgres_replica.slot:
-    - name: {{ replica|split(".")|first }}
+    - name: {{ replica.split(".")|first }}
     - require:
       - service: postgresql-server
 {% endfor %}
