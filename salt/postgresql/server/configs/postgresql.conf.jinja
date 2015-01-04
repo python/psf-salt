@@ -91,7 +91,7 @@ checkpoint_completion_target = {{ checkpoint_completion_target }}
 
 # - Sending Server(s) -
 
-max_replication_slots = {{ postgresl.replicas }}
+max_replication_slots = {{ postgresql.replicas }}
 max_wal_senders = {{ (postgresql.replicas * 1.5)|round(method="ceil")|int }}
 wal_keep_segments = 32
 
