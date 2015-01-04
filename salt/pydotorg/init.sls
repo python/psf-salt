@@ -2,6 +2,7 @@
 
 include:
   - nginx
+  - postgresql.client
 
 git:
   pkg.installed
