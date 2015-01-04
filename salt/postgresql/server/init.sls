@@ -176,12 +176,14 @@ postgresql-psf-cluster:
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
 
-{% for replica in salt["mine.get"](pillar["roles"]["postgresql-replica"], "psf_internal").keys() %}
-replication-slot-{{ replica.split(".")|first }}:
+{% for hostname in salt["mine.get"](pillar["roles"]["postgresql"], "psf_internal").keys() %}
+{% if hostname != grains["fqdn"] %}
+replication-slot-{{ hostname.split(".")|first }}:
   postgres_replica.slot:
-    - name: {{ replica.split(".")|first }}
+    - name: {{ hostname.split(".")|first }}
     - require:
       - service: postgresql-server
+{% endif %}
 {% endfor %}
 
 replicator:
