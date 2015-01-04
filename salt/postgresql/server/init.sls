@@ -11,8 +11,9 @@ This Does Not Support Multi Data Disk Servers!!!!
 
 include:
   - monitoring.client.collectors.postgresql
+  - postgresql.base
 {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
-  - .wal-e
+  - postgresql.server.wal-e
 {% endif %}
 
 postgresql-data:
@@ -32,7 +33,7 @@ postgresql-data:
 {% endif %}
 
   file.directory:
-    - name: /srv/postgresql/9.3
+    - name: /srv/postgresql/9.4
     - user: root
     - group: root
     - mode: 777
@@ -47,12 +48,12 @@ postgresql-data:
 postgresql-server:
   pkg.installed:
     - pkgs:
-      - postgresql-9.3
-      - postgresql-contrib-9.3
+      - postgresql-9.4
+      - postgresql-contrib-9.4
 
   cmd.run:
-    - name: pg_dropcluster --stop 9.3 main
-    - onlyif: pg_lsclusters | grep '^9\.3\s\+main\s\+'
+    - name: pg_dropcluster --stop 9.4 main
+    - onlyif: pg_lsclusters | grep '^9\.4\s\+main\s\+'
     - require:
       - pkg: postgresql-server
 
@@ -79,7 +80,7 @@ postgresql-server:
 postgresql-psf-cluster:
   cmd.run:
     {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
-    - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.3 --port {{ postgresql.port }} psf
+    - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.4 --port {{ postgresql.port }} psf
     {% else %}
     - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -U replicator
     - env:
@@ -91,7 +92,7 @@ postgresql-psf-cluster:
       - PGPASSWORD: {{ pillar["postgresql-users"]["replicator"] }}
     - user: postgres
     {% endif %}
-    - unless: pg_lsclusters | grep '^9\.3\s\+psf\s\+'
+    - unless: pg_lsclusters | grep '^9\.4\s\+psf\s\+'
     - require:
       - pkg: postgresql-server
       - file: postgresql-data
@@ -110,7 +111,7 @@ postgresql-psf-cluster:
     - mode: 755
 
 # Make sure that our log file is writeable
-/var/log/postgresql/postgresql-9.3-psf.log:
+/var/log/postgresql/postgresql-9.4-psf.log:
   file.managed:
     - user: postgres
     - group: postgres
