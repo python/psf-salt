@@ -5,7 +5,7 @@ The Python Infrastructure offers PostgreSQL databases to services hosted in the
 Rackspace datacenter.
 
 
-* Currently running PostgreSQL 9.3
+* Currently running PostgreSQL 9.4
 
 * Operates a 2 node cluster with a primary node configured with streaming
   replication to a replica node.
