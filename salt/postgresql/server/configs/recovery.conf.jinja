@@ -3,7 +3,7 @@
 
 standby_mode = on
 
-primary_slotname = '{{ grains["host"] }}'
+primary_slot_name = '{{ grains["host"] }}'
 
 {{ "{{" }} with service "primary.postgresql@{{ pillar.dc }}" }}
 primary_conninfo = 'application_name={{ grains["fqdn"] }} host=postgresql.psf.io hostaddr={{ "{{(index . 0).Address}}" }} port={{ "{{(index . 0).Port}}" }} sslmode=verify-full sslrootcert=/etc/ssl/certs/PSF_CA.pem user=replicator password={{ postgresql_password }}'
