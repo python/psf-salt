@@ -9,6 +9,7 @@ postgresql:
 
   port: 5432
   max_connections: 100
+  replicas: 1
 
   databases:
     # database: owner
