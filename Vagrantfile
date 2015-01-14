@@ -9,7 +9,7 @@ SERVERS = [
   "downloads",
   "hg",
   "jython-web",
-  {:name => "loadbalancer", :box=> "ubuntu/precise64", :codename => "precise", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20100]},
+  {:name => "loadbalancer", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20100]},
   "monitoring",
   "packages",
   "planet",
