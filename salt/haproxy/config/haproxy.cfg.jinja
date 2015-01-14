@@ -205,7 +205,7 @@ backend {{ service }}
 
     {% if config.get("hpkp", True) and pillar["tls"].get("pins") -%}
     # Add HPKP headers for anything that is configured to have them.
-    http-response set-header Public-Key-Pins max-age={{ config.get("hpkp_seconds", 86400) }};\ {% if config.get("hpkp_subdomains", True) %}includeSubDomains;\ {% endif %}{% for pin in pillar["tls"]["pins"] %}pin-sha256="{{ pin }}";\ {% endfor %}
+    http-response set-header Public-Key-Pins max-age={{ config.get("hpkp_seconds", 604800) }};\ {% if config.get("hpkp_subdomains", True) %}includeSubDomains;\ {% endif %}{% for pin in pillar["tls"]["pins"] %}pin-sha256="{{ pin }}";\ {% endfor %}
     {%- endif %}
 
     {% for item in config.get("extra", []) -%}
