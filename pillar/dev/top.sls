@@ -88,3 +88,7 @@ base:
   'web-pypa':
     - match: nodegroup
     - firewall.rs-lb-backend
+
+  'wiki':
+    - match: nodegroup
+    - moin

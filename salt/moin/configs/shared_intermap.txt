@@ -1,0 +1,5 @@
+PEP http://www.python.org/dev/peps/pep-$PAGE/
+SF http://bugs.python.org/issue$PAGE
+PythonMac http://pythonmac.org/wiki/
+WxPython http://wiki.wxpython.org/index.cgi/
+ISBN http://www.amazon.com/exec/obidos/ASIN/$PAGE/pythonsoftwar-20

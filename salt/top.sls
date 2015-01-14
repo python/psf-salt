@@ -88,3 +88,7 @@ base:
   'web-pypa':
     - match: nodegroup
     - pypa.bootstrap
+
+  'wiki':
+    - match: nodegroup
+    - moin

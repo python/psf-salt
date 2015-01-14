@@ -1,0 +1,111 @@
+#!python2
+# -*- coding: utf-8 -*-
+from farmconfig import FarmConfig
+from MoinMoin.auth import MoinAuth
+from MoinMoin.auth.openidrp import OpenIDAuth
+
+
+class Config(FarmConfig):
+
+    # Wiki identity ----------------------------------------------------
+
+    # Site name, used by default for wiki name-logo [Unicode]
+    sitename = u"{{ config.name }}"
+
+    # Wiki logo. You can use an image, text or both. [Unicode]
+    # Example: u'<img src="/wiki/mywiki.png" alt="My Wiki">My Wiki'
+    # For no logo or text, use ''
+    logo_string = "{{ config.get('logo', config.name) }}"
+
+    {% if 'theme' in config %}
+    theme_default = "{{ config.theme }}"
+    {% endif %}
+
+    # The interwiki name used in interwiki links
+    interwikiname = {% if 'interwiki' in config %}"{{ config.interwiki }}"{% else %}None{% endif %}
+
+    # Critical setup  ---------------------------------------------------
+
+    # Misconfiguration here will render your wiki unusable. Check that
+    # all directories are accessible by the web server or moin server.
+
+    # If you encounter problems, try to set data_dir and data_underlay_dir
+    # to absolute paths.
+
+    # Where your mutable wiki pages are. You want to make regular
+    # backups of this directory.
+    data_dir = "{{ data_dir }}"
+
+    # Security ----------------------------------------------------------
+
+    # mvl 110304 add openid. requires anonymous sessions
+    auth = [MoinAuth(), OpenIDAuth()]
+    cookie_lifetime = (1, 12)
+
+    # Security critical actions (disabled by default)
+    # Uncomment to enable options you like.
+
+    acl_rights_before = "{{ config.get('acls', {}).get('before', 'BlockedUsersGroup: AdminGroup:read,write,delete,revert,admin') }}"
+    acl_rights_default = "{{ config.get('acls', {}).get('default', 'EditorsGroup:read,write,delete,revert All:read') }}"
+    acl_rights_after = "{{ config.get('acls', {}).get('after', '') }}"
+
+    {% if config.get('linkspam', True) %}
+    # Link spam protection for public wikis
+    # Needs a reliable internet connection.
+    from MoinMoin.security.antispam import SecurityPolicy
+    {% endif %}
+
+    # Enable textchas.
+    textchas_disabled_group = u"TrustedEditorsGroup"
+    textchas = {
+        'en': {
+            # u"How many words are in this question?": ur" *(7|(?i)seven) *",
+            # u"What is Abraham Lincoln's first name?": ur" *(?i)abraham *",
+            # u"What does Python's interactive prompt look like?": ur" *>>> *",
+            u"What is van Rossum's first name?": ur" *(?i)guido *",
+            u"Which foundation protects the Python IP?": ur" *(?i)(psf|python +software +foundation|python +software|python +foundation) *",
+            u"x = 1; x += 1; x ==": ur" *(?i)(2|two) *",
+            u"x = 2; x /= 2; x ==": ur" *(?i)(1|1.0|one) *",
+            u"l = [1,2,3]; l.remove(1); l[0] ==": ur" *(?i)(2|two) *",
+            u"l = [1,2,3]; del l[1]; l[0] ==": ur" *(?i)(1|one) *",
+            u"s = 'guido'; s[3:5] ==": ur" *(?i)do *",
+            u"PyPI is also called": ur" *(?i)(cheese *shop) *",
+            u"The cheeseshop is also called": ur" *(?i)(py *pi) *",
+        },
+    }
+
+    # Mail --------------------------------------------------------------
+
+    # User interface ----------------------------------------------------
+
+    # Add your wikis important pages at the end. It is not recommended to
+    # remove the default links.  Leave room for user links - don't use
+    # more than 6 short items.
+    # You MUST use Unicode strings here, but you need not use localized
+    # page names for system and help pages, those will be used automatically
+    # according to the user selected language. [Unicode]
+    navi_bar = [
+        # Will use page_front_page, (default FrontPage)
+        u'%(page_front_page)s',
+        u'RecentChanges',
+        u'FindPage',
+        u'HelpContents',
+    ]
+
+    # Language options --------------------------------------------------
+
+    # The main wiki language, set the direction of the wiki pages
+    default_lang = "en"
+
+    # Content options ---------------------------------------------------
+
+    # Show users hostnames in RecentChanges
+    show_hosts = True
+
+    # Enumerate headlines?
+    show_section_numbers = False
+
+    # Charts size, require gdchart (Set to None to disable).
+    chart_options = {"width": 600, "height": 300}
+
+    # show_timings = True

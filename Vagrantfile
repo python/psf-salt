@@ -18,6 +18,7 @@ SERVERS = [
   "speed-web",
   "tracker",
   "pypa-web",
+  "wiki",
 ]
 
 SUBNET1 = "192.168.50"
