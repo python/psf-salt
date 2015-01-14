@@ -250,14 +250,17 @@ server {
 
   location /m/ {
     alias /srv/pydotorg/media/;
+    add_header Cache-Control "max-age=604800, public";  # 604800 is 7 days
   }
 
   location /static/ {
     alias /srv/pydotorg/pythondotorg/static-root/;
+    add_header Cache-Control "max-age=604800, public";  # 604800 is 7 days
   }
 
   location /images/ {
     alias /srv/pydotorg/pythondotorg/static-root/images/;
+    add_header Cache-Control "max-age=604800, public";  # 604800 is 7 days
   }
 
   location / {
