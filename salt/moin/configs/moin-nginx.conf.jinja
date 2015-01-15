@@ -18,6 +18,10 @@ server {
         return 301 /moin/;
     }
 
+    location = /favicon.ico {
+        alias /srv/moin/europython/img/favicon16x16.ico;
+    }
+
     location /static/europython/ {
         alias /srv/moin/europython/;
     }
