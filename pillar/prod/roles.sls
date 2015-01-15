@@ -28,5 +28,6 @@ roles:
   salt-master: "salt.iad1.psf.io"
   speed-web: "speed-web.iad1.psf.io"
   tracker: "bugs.iad1.psf.io"
+  wiki: "wiki.iad1.psf.io"
 
   web-pypa: "web*.pypa.iad1.psf.io"

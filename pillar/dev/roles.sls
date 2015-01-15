@@ -23,5 +23,6 @@ roles:
   salt-master: "salt-master.vagrant.psf.io"
   speed-web: "speed-web.vagrant.psf.io"
   tracker: "tracker.vagrant.psf.io"
+  wiki: "wiki.vagrant.psf.io"
 
   web-pypa: "pypa-web.vagrant.psf.io"

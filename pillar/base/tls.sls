@@ -54,6 +54,10 @@ tls:
       roles:
         - speed-web
 
+    wiki.psf.io:
+      roles:
+        - wiki
+
     bootstrap.pypa.psf.io:
       roles:
         - web-pypa
