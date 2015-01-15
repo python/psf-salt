@@ -108,6 +108,9 @@ class FarmConfig(multiconfig.DefaultConfig):
         "edit_on_doubleclick": False,
     }
 
+    # disable surge protection
+    surge_action_limits = None
+
     # Charting needs "gdchart" installed! (None to disable charting)
     chart_options = {"width": 600, "height": 300}
 
