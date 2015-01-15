@@ -1,0 +1,3 @@
+pastescript>=1.7.5
+kallithea==0.1
+gunicorn==19.1.1

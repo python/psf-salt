@@ -27,6 +27,11 @@ base:
     - firewall.rs-lb-backend
     - groups.downloads
 
+  'kallithea':
+    - match: nodegroup
+    - firewall.kallithea
+    - secrets.kallithea
+
   'hg':
     - match: nodegroup
     - firewall.rs-lb-backend

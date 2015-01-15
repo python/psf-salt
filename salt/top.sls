@@ -45,6 +45,10 @@ base:
     - match: nodegroup
     - jython
 
+  'kallithea':
+    - match: nodegroup
+    - kallithea
+
   'loadbalancer':
     - match: nodegroup
     - haproxy
