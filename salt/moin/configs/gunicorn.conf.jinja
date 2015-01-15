@@ -4,7 +4,7 @@ CONFIG = {
     "group": "moin",
     "args": [
         "--bind", "unix:/var/run/gunicorn/moin.sock",
-        "--workers", "{{ grains.num_cpus * 4 }}",
+        "--workers", "{{ (grains.num_cpus * 2) + 1 }}",
         "--pythonpath", "/usr/share/moin/server/",
         "moin_wsgi",
     ],
