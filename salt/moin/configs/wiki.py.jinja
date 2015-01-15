@@ -15,7 +15,7 @@ class Config(FarmConfig):
     # Wiki logo. You can use an image, text or both. [Unicode]
     # Example: u'<img src="/wiki/mywiki.png" alt="My Wiki">My Wiki'
     # For no logo or text, use ''
-    logo_string = "{{ config.get('logo', config.name) }}"
+    logo_string = """{{ config.get('logo', config.name) }}"""
 
     {% if 'theme' in config %}
     theme_default = "{{ config.theme }}"

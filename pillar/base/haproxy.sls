@@ -46,6 +46,11 @@ haproxy:
         - speed.python.org
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ speed.python.org"
 
+    wiki:
+      domains:
+        - wiki.python.org
+      check: "HEAD /moin/ HTTP/1.1\\r\\nHost:\\ wiki.python.org"
+
   redirects:
     python.org:
       target: www.python.org

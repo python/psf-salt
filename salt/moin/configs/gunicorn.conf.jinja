@@ -1,0 +1,11 @@
+CONFIG = {
+    "mode": "wsgi",
+    "user": "moin",
+    "group": "moin",
+    "args": [
+        "--bind", "unix:/var/run/gunicorn/moin.sock",
+        "--workers", "{{ grains.num_cpus * 4 }}",
+        "--pythonpath", "/usr/share/moin/server/",
+        "moin_wsgi",
+    ],
+}

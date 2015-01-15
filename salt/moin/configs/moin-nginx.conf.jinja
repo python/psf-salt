@@ -1,0 +1,36 @@
+upstream app_server {
+    server unix:/var/run/gunicorn/moin.sock fail_timeout=0;
+}
+
+server {
+    listen 9000 ssl;
+    server_name wiki.python.org;
+
+    ssl_certificate /etc/ssl/private/wiki.psf.io.pem;
+    ssl_certificate_key /etc/ssl/private/wiki.psf.io.pem;
+
+    include fastly_params;
+
+    error_log /var/log/nginx/wiki.error.log;
+    access_log /var/log/nginx/wiki.access.log main;
+
+    location = / {
+        return 301 /moin/;
+    }
+
+    location /static/europython/ {
+        alias /srv/moin/europython/;
+    }
+
+    location /static/ {
+        alias /usr/share/moin/htdocs/;
+    }
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+
+        proxy_pass   http://app_server;
+    }
+}

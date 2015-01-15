@@ -92,3 +92,4 @@ base:
   'wiki':
     - match: nodegroup
     - moin
+    - firewall.rs-lb-backend
