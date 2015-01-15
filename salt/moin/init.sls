@@ -117,7 +117,6 @@ gunicorn:
 
   service.running:
     - enable: True
-    - reload: True
     - sig: 'gunicorn: master \[moin\.conf]'
     - require:
       - pkg: gunicorn
