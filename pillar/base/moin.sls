@@ -3,7 +3,7 @@ moin:
     python:
       name: Python Wiki
       regex: '^https?://[^/]+(:\d+)?/moin.*$'
-      logo: '</a><a href="http://www.python.org"><img src="/wiki/europython/img/python-logo.gif" alt="Python" ></a><a name="logo">'
+      logo: '</a><a href="http://www.python.org"><img src="/static/europython/img/python-logo.gif" alt="Python" ></a><a name="logo">'
       theme: europython
     psf:
       name: Private PSF Wiki
@@ -17,5 +17,5 @@ moin:
     jython:
       name: Jython Wiki
       regex: '^https?://[^/]+(:\d+)?/jython.*$'
-      logo: '<img src="/wiki/europython/img/jython-new-small.gif" alt="JythonWiki">&nbsp;'
+      logo: '<img src="/static/europython/img/jython-new-small.gif" alt="JythonWiki">&nbsp;'
       interwiki: JythonWiki
