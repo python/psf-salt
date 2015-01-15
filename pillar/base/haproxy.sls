@@ -49,6 +49,7 @@ haproxy:
     wiki:
       domains:
         - wiki.python.org
+        - wiki-test.python.org
       check: "HEAD /moin/ HTTP/1.1\\r\\nHost:\\ wiki.python.org"
 
   redirects:
