@@ -51,6 +51,9 @@ MEDIA_ROOT = '/srv/pydotorg/media'
 
 PEP_REPO_PATH = '/srv/pydotorg/peps'
 
+# Fastly API Key
+FASTLY_API_KEY = '{{ pillar["fastly"]["api_key"] }}'
+
 {% if type == "staging" %}
 
 CSRF_COOKIE_DOMAIN = 'staging.python.org'

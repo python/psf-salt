@@ -100,6 +100,7 @@ base:
     - match: nodegroup
     - pydotorg.prod
     - secrets.postgresql-users.pydotorg-prod
+    - prod.secrets.fastly
 
   'pythontest':
     - match: nodegroup
