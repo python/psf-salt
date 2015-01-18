@@ -90,6 +90,7 @@ base:
     - firewall.rs-lb-backend
     - secrets.pydotorg
     - secrets.pydotorg-mail
+    - secrets.fastly
 
   'pydotorg-staging':
     - match: nodegroup
@@ -100,7 +101,6 @@ base:
     - match: nodegroup
     - pydotorg.prod
     - secrets.postgresql-users.pydotorg-prod
-    - prod.secrets.fastly
 
   'pythontest':
     - match: nodegroup
