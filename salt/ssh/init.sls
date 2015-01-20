@@ -1,5 +1,4 @@
 {% set host_keys = salt["pillar.get"]("ssh_host_keys") %}
-{% set sshd_config = salt["pillar.get"]("ssh:sshd_source", "salt://ssh/configs/sshd_config") %}
 
 
 ssh:
@@ -15,7 +14,8 @@ ssh:
 
 /etc/ssh/sshd_config:
   file.managed:
-    - source: {{ sshd_config }}
+    - source: salt://ssh/configs/sshd_config.jinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 644

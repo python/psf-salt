@@ -1,0 +1,133 @@
+# Basic configuration
+# ===================
+
+# Either disable or only allow root login via certificates.
+{% if salt["pillar.get"]("ssh:allow_root_with_key", False) %}
+PermitRootLogin without-password
+{% else %}
+PermitRootLogin no
+{% endif %}
+
+# Define which port sshd should listen to.
+{% for port in salt["pillar.get"]("ssh:ports", [22]) %}
+Port {{ port }}
+{% endfor %}
+
+# Define which addresses sshd should listen to.
+{% for address in salt["pillar.get"]("ssh:addresses", ["::", "0.0.0.0"]) %}
+ListenAddress {{ address }}
+{% endfor %}
+
+# List HostKeys here.
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+
+
+# Security configuration
+# ======================
+
+# Set the protocol version to 2 for security reasons. Disables legacy support.
+Protocol 2
+
+# Make sure sshd checks file modes and ownership before accepting logins. This
+# prevents accidental misconfiguration.
+StrictModes yes
+
+# Logging, obsoletes QuietMode and FascistLogging
+SyslogFacility AUTH
+LogLevel VERBOSE
+
+
+# Cryptography
+# ------------
+
+# Restrict ourselves to only secure ciphers
+# Note: We might need to add the CBC versions of these ciphers for older clients
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+
+# Restrict ourselves to only secure MACs
+# Note: We might need to add the SHA1 versions of these MACs for older clients
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
+
+# Restrict ourselves to only secure KEXs
+# Note: We might need to add the DH-SHA1 versions of these MACs for older clients
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+
+
+# Authentication
+# --------------
+
+# Secure Login directives.
+UseLogin no
+UsePrivilegeSeparation yes
+PermitUserEnvironment no
+LoginGraceTime 30s
+MaxAuthTries 2
+MaxSessions 10
+MaxStartups 10:30:100
+
+# Enable public key authentication
+PubkeyAuthentication yes
+
+# Never use host-based authentication. It can be exploited.
+IgnoreRhosts yes
+IgnoreUserKnownHosts yes
+HostbasedAuthentication no
+RhostsRSAAuthentication no
+
+# Enable PAM to enforce system wide rules
+UsePam {% if salt["pillar.get"]("ssh:use_pam", True) %}yes{% else %}no{% endif %}
+
+# Disable password-based authentication, it can allow for potentially easier
+# brute-force attacks.
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+
+# Only enable Kerberos authentication if it is configured.
+KerberosAuthentication no
+KerberosOrLocalPasswd no
+KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+
+# Only enable GSSAPI authentication if it is configured.
+GSSAPIAuthentication no
+GSSAPICleanupCredentials yes
+
+
+# Network
+# -------
+
+
+# Disable TCP keep alive since it is spoofable. Use ClientAlive messages
+# instead, they use the encrypted channel
+TCPKeepAlive no
+
+# Manage `ClientAlive..` signals via interval and maximum count. This will
+# periodically check up to a `..CountMax` number of times within `..Interval`
+# timeframe, and abort the connection once these fail.
+ClientAliveInterval {{ salt["pillar.get"]("ssh:client_alive_interval", 600) }}
+ClientAliveCountMax {{ salt["pillar.get"]("ssh:client_alive_count", 3) }}
+
+# Disable tunneling
+PermitTunnel no
+
+# Do not allow remote port forwardings to bind to non-loopback addresses.
+GatewayPorts no
+
+# Disable X11 forwarding, since local X11 display could be accessed through
+# forwarded connection.
+X11Forwarding no
+X11UseLocalhost yes
+
+
+# Misc. configuration
+# ===================
+
+PrintMotd no
+PrintLastLog yes
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+Subsystem sftp /usr/lib/openssh/sftp-server
