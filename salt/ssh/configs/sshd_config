@@ -10,6 +10,18 @@ Protocol 2
 HostKey /etc/ssh/ssh_host_ed25519_key
 HostKey /etc/ssh/ssh_host_rsa_key
 
+# Restrict ourselves to only secure ciphers
+# Note: We might need to add the CBC versions of these ciphers for older clients
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+
+# Restrict ourselves to only secure MACs
+# Note: We might need to add the SHA1 versions of these MACs for older clients
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
+
+# Restrict ourselves to only secure KEXs
+# Note: We might need to add the DH-SHA1 versions of these MACs for older clients
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+
 #Privilege Separation is turned on for security
 UsePrivilegeSeparation yes
 
