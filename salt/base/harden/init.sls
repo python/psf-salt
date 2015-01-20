@@ -3,3 +3,4 @@ include:
   - .login_defs
   - .minimize_access
   - .pam
+  - .profile
