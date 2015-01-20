@@ -1,6 +1,7 @@
 base:
   '*':
     - base.auto-highstate
+    - base.harden
     - base.mail
     - base.repo
     - base.salt
