@@ -16,7 +16,7 @@
     - user: root
     - group: root
     - mode: 600
-    - reuqire:
+    - require:
       - pkg: iptables-persistent
 
 
