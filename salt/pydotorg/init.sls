@@ -225,6 +225,6 @@ update-peps-cron:
     - identifier: update-peps
     - user: pydotorg
     - name: make -C /srv/pydotorg/peps update all rss && /srv/pydotorg/env/bin/python /srv/pydotorg/pythondotorg/manage.py generate_pep_pages --settings pydotorg.settings.server
-    - minute: 10
+    - minute: '*/15'
     - require:
       - user: pydotorg-user
