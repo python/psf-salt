@@ -26,6 +26,11 @@ pydotorg-user:
     - home: /srv/pydotorg/
     - createhome: True
 
+# Fix pydotorg-user umask
+pydotorg-user-umask:
+  cmd.run:
+    - name: chfn -o umask=002 pydotorg
+
 pydotorg-source:
   git.latest:
     - name: https://github.com/python/pythondotorg
