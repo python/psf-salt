@@ -26,6 +26,15 @@ pydotorg-user:
     - home: /srv/pydotorg/
     - createhome: True
 
+# Fix pydotorg-user umask
+/srv/pydotorg/.profile:
+  file.managed:
+    - source: salt://pydotorg/config/bash_profile
+    - user: pydotorg
+    - group: pydotorg
+    - require:
+      - user: pydotorg
+
 pydotorg-source:
   git.latest:
     - name: https://github.com/python/pythondotorg
