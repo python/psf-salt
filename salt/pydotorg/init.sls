@@ -27,9 +27,13 @@ pydotorg-user:
     - createhome: True
 
 # Fix pydotorg-user umask
-pydotorg-user-umask:
-  cmd.run:
-    - name: chfn -o umask=002 pydotorg
+/srv/pydotorg/.profile:
+  file.managed:
+    - source: salt://pydotorg/config/bash_profile
+    - user: pydotorg
+    - group: pydotorg
+    - require:
+      - user: pydotorg
 
 pydotorg-source:
   git.latest:
