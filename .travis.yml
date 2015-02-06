@@ -2,6 +2,9 @@ language: python
 
 sudo: false
 
+cache:
+  - pip
+
 env:
   - TOXENV=docs
 
