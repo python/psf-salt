@@ -264,7 +264,6 @@ server {
   }
 
   location / {
-    gzip  off;
     uwsgi_pass pydotorg;
     include uwsgi_params;
   }
