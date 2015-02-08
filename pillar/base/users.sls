@@ -96,6 +96,7 @@ users:
         groups:
           - docs
       downloads:
+        sudo: True
         allowed: True
         groups:
           - downloads
@@ -121,6 +122,7 @@ users:
         groups:
           - docs
       downloads:
+        sudo: True
         allowed: True
         groups:
           - downloads
@@ -132,6 +134,7 @@ users:
       - ssh-dss AAAAB3NzaC1kc3MAAACBALfLPD0tevBjI5aqbV/B8e+9a13o/CQmBeEc7zFiVJ9/ZRPMmKHmuwczpMwzrA5ABS8Ih/HZ864yG+d1IMcJZW4PSzPw0mMWGadR/rGfeZJA03nG90TNJp0DqQXQ8e5RZif9StBpPJ67qQMY3KeyKveJZU99d5oSfxpWOVxE9QwBAAAAFQCmKEkEf4fXceJisqqTEbQ932hRUwAAAIB6Otm8xZtTb1ZF7JqsD2DjfKiu7vHVx204UG78I3Fj9BwIQx4zK+fSgjI3ZyMfJjAcBekQQKE5uWnD0PsrJO7q80C2HZNzY9da7Ou8bvegltn5cME36Xh2DQEEEVBGNnTCgG0Fj8UVCVnjIjvAOOxx8jpV5LXrfty6uAoy+cs6UwAAAIBBI2qoYRr6/V7BTlVAo9Tpg3tkbbYduC64jfcdfqjJhgc9nWoqWqW4k3lMadWOXhMheXOyfndm+qhVYe1rbboUaD4MyFOGyvG/AVH4PdXdKyMVQncO47hNko7bxTCrplNERjTrWrMdOtR1CuDLfRTBkBgW1h6dhsZZkQm6rUeFNw= loewis@creosote.python.org
     access:
       downloads:
+        sudo: True
         allowed: True
         groups:
           - downloads
@@ -141,6 +144,7 @@ users:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBmTFZYEfgTq7pyY/GAF2UYVxBt/xNTfqXchlaGUhOTGQreQidR4UnmdmZmjWr838o6/TSO4wFgyQ9ZrfsMTr3cWwDAXFCiVvp0ky0o8ajWdBgYpX1Zn/CmoBTBFaRQMuppo+UzgHvWucHJjq1dyxCKkH66p4x8NkUTJ4ooKigs7MbYKNgSm8UxcSor08MLKoXI+xf+eTeDDA4Z+IzbVDPTKZmDPTt3PE7QOXardftARtXi1esdt9L36S9zaSjLgJBy62Xt1/FqQ86xngxC7gqmjVj8/E2o/XXxp9c2zf+lAU0gCLAZo/ZKacvz1F2QZ9x1SMfokcELFnX/Oyx6ObT ned.deily
     access:
       downloads:
+        sudo: True
         allowed: True
         groups:
           - downloads
@@ -159,6 +163,7 @@ users:
       - ssh-dss AAAAB3NzaC1kc3MAAAEAbYbu/Mp6NnFTwjBPtMc/I5ge8QjUCKBYbA/flb1xAXVqW/ESNe9JdwS1EaK7U36M2qWNWNtunqcgOL/jJXKskv4TgYXXYW7DTAhJjLpEuReojFu5+z8aIpnhHUaP51hg2c4x112igH7HAkB/ZdqqXZu2X998zWj8TZepz4fzu8nMNX9WA/VpJCWb/FdZKRKdL0TrI7B/zqQf6oVf1BITK45uojHFCLrww3jB9y3q+yYl2g8tVtAY9OgL95TKxB0K2esfNorfcdlqnXe11bKU5q9y1s7SAswbH9lPUgUUwZaqPOvnmgrhCoppxNoBQH75V4fbUhiBoPzVk/QOUP0gWQAAABUAqk2Iw9AgEVFglN2auIkvZk4jZEkAAAEAC6xkvewNh8wRs4HKiZ7tw4tQHlMWk2iO0STy91T7tNJIh20tCP2Eg8poIa/4rQHftJZBcFkEGnYvsfU8hM525ZB/Vjo1TzlZJG+UoRA9MFXG/dMU2y7gWVU4g5uPZ6Tj3yS3ohi+Nv/lBYaHnZ0DCN9Pkl7gteRymdNkXqAt8o1TB/h9yG2a6E3b8DN3um4Le8Fdit+2BNqitmMyTe4u3fvZ/NNKFLRiMN3RV1+uF/X8wGeHhmohVHTt7oXs5pOU6n2UX3Gb3uBbfYuof1nusgfXqN69RePDBUd8ceCo7vWY+O09qMB0817tOD4FFfmRp5a/9ZooHjeCLu6ORTcfngAAAQAOhZiibyNqQ18WwD91GJc3IqlMFQZFeXU39tE6Fzm+DIZEcD+xg9O6cViwriL+5MZOSLiI2ciXhBx9rm1Y0ov7p7GZox5mmzenHCZYEQDmYF1PKXwmjY+mHzcYfDYJbN0YNVgI+6Sloql1JPQHBYOdxF7AOjKqbgjuYcxbCJuS3au10SJsFQ9v1SmuJTPkIUUH7qw5fkushIhl28jvoFoQghPHQ3I2j83Qip45Z4IdD6hXA6OhIaxscxVbQzJn0dlF6eTRZX9g+KaWv/4QCtZ4KLHj3DGQAwrKre3b8f1N3aGBuMlq1m1iVQGURehvdM+5BgnpjQbqsO/p6OxMbZb5
     access:
       downloads:
+        sudo: True
         allowed: True
         groups:
           - downloads
