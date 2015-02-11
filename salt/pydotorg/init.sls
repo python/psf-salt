@@ -159,7 +159,7 @@ pydotorg-source:
 
 pre-reload:
   cmd.run:
-    - name: /srv/pydotorg/env/bin/python3 manage.py syncdb --settings pydotorg.settings.server --migrate --noinput && /srv/pydotorg/env/bin/python3 manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
+    - name: /srv/pydotorg/env/bin/python3 manage.py migrate --settings pydotorg.settings.server --noinput && /srv/pydotorg/env/bin/python3 manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
     - user: pydotorg
     - cwd: /srv/pydotorg/pythondotorg/
     - env:
