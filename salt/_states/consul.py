@@ -33,7 +33,7 @@ def external_service(name, datacenter, node, address, port, token=None):
         return ret
 
     __salt__["consul.register_external_service"](
-        node, address, datacenter, name, port,
+        node, address, datacenter, name, port, token,
     )
 
     ret["result"] = True
