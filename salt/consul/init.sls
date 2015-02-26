@@ -107,47 +107,47 @@ consul:
       - pkg: consul
 
 
-# consul-template:
-#   pkg.installed: []
+consul-template:
+  pkg.installed: []
 
-#   cmd.wait:
-#     - name: consul-template -config /etc/consul-template.d -once
-#     - require:
-#       - pkg: consul-template
-#       - service: consul
-#     - watch:
-#       - file: /etc/consul-template.d/*.json
-#       - file: /usr/share/consul-template/templates/*
+  cmd.wait:
+    - name: consul-template -config /etc/consul-template.d -once
+    - require:
+      - pkg: consul-template
+      - service: consul
+    - watch:
+      - file: /etc/consul-template.d/*.json
+      - file: /usr/share/consul-template/templates/*
 
-#   service.running:
-#     - enable: True
-#     - restart: True
-#     - require:
-#       - pkg: consul-template
-#       - service: consul
-#     - watch:
-#       - file: /etc/consul-template.d/*.json
-#       - file: /usr/share/consul-template/templates/*
-
-
-# /etc/consul-template.d/base.json:
-#   file.managed:
-#     - source: salt://consul/etc/consul-template/base.json
-#     - user: root
-#     - group: root
-#     - mode: 644
-
-# {% endif %}
+  service.running:
+    - enable: True
+    - restart: True
+    - require:
+      - pkg: consul-template
+      - service: consul
+    - watch:
+      - file: /etc/consul-template.d/*.json
+      - file: /usr/share/consul-template/templates/*
 
 
-# {% for service in pillar["consul"].get("external", []) %}
-# consul-external-{{ service.service }}:
-#   consul.external_service:
-#     - name: {{ service.service }}
-#     - datacenter: {{ service.datacenter }}
-#     - node: {{ service.node }}
-#     - address: {{ service.address }}
-#     - port: {{ service.port }}
-#     - require:
-#       - pkg: python-requests
-# {% endfor %}
+/etc/consul-template.d/base.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/base.json
+    - user: root
+    - group: root
+    - mode: 644
+
+{% endif %}
+
+
+{% for service in pillar["consul"].get("external", []) %}
+consul-external-{{ service.service }}:
+  consul.external_service:
+    - name: {{ service.service }}
+    - datacenter: {{ service.datacenter }}
+    - node: {{ service.node }}
+    - address: {{ service.address }}
+    - port: {{ service.port }}
+    - require:
+      - pkg: python-requests
+{% endfor %}
