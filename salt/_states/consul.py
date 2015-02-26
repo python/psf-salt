@@ -1,5 +1,8 @@
-def external_service(name, datacenter, node, address, port):
+def external_service(name, datacenter, node, address, port, token=None):
     ret = {'name': name, 'changes': {}, 'result': False, 'comment': ''}
+
+    if token is None:
+        token = __pillar__['consul']['acl']['tokens']['default']
 
     # Determine if the cluster is ready
     if not __salt__["consul.cluster_ready"]():
