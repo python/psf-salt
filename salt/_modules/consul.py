@@ -91,10 +91,7 @@ def register_external_service(node, address, datacenter, service, port, token):
         json=data,
         params={"token": token},
     )
-    try:
-        resp.raise_for_status()
-    except Exception:
-        raise Exception(resp.url)
+    resp.raise_for_status()
 
 
 def get_acl_by_name(token, name):
