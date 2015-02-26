@@ -106,7 +106,7 @@ def get_acl_by_name(token, name):
 
 
 def create_acl(token, name, rules):
-    data = {"Name": name, "Rukes": rules}
+    data = {"Name": name, "Rules": rules}
 
     resp = requests.put(
         "http://127.0.0.1:8500/v1/acl/create",
@@ -119,7 +119,7 @@ def create_acl(token, name, rules):
 
 
 def update_acl(token, id, name, rules):
-    data = {"ID": id, "Name": name, "Rukes": rules}
+    data = {"ID": id, "Name": name, "Rules": rules}
 
     resp = requests.put(
         "http://127.0.0.1:8500/v1/acl/update",
