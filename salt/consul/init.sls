@@ -6,7 +6,6 @@
 consul:
   pkg.installed: []
 
-  {% if is_server %}
   service.running:
     - enable: True
     - restart: True
@@ -22,6 +21,7 @@ consul:
       - file: /etc/ssl/private/consul.psf.io.pem
       {% endif %}
 
+  {% if is_server %}
   user.present:
     - groups:
       - ssl-cert
