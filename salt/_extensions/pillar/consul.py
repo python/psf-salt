@@ -113,7 +113,7 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
     if __salt__["consul.cluster_ready"]():
         # We have an active cluster, so see if there is already an ACL for this
         # minion.
-        acl_name = "/".join(minion_id, "default")
+        acl_name = "/".join([minion_id, "default"])
         acl = __salt__["consul.get_acl_by_name"](master_acl_token, acl_name)
 
         if acl is None:
