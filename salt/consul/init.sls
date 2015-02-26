@@ -140,6 +140,7 @@ consul-template:
 {% endif %}
 
 
+{% if "default" in pillar["consul"]["acl"]["tokens"] %}
 {% for service in pillar["consul"].get("external", []) %}
 consul-external-{{ service.service }}:
   consul.external_service:
@@ -148,6 +149,8 @@ consul-external-{{ service.service }}:
     - node: {{ service.node }}
     - address: {{ service.address }}
     - port: {{ service.port }}
+    - token: {{ pillar['consul']['acl']['tokens']['default'] }}
     - require:
       - pkg: python-requests
 {% endfor %}
+{% endif %}

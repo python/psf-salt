@@ -75,7 +75,7 @@ def node_service_exists(node, service_name, port, dc=None):
     return False
 
 
-def register_external_service(node, address, datacenter, service, port):
+def register_external_service(node, address, datacenter, service, port, token):
     data = {
         "Datacenter": datacenter,
         "Node": node,
@@ -89,6 +89,7 @@ def register_external_service(node, address, datacenter, service, port):
     resp = requests.put(
         "http://127.0.0.1:8500/v1/catalog/register",
         data=json.dumps(data),
+        params={"token": token},
     )
     resp.raise_for_status()
 
