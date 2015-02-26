@@ -59,7 +59,7 @@ def _encryption_key(key_path):
     return data
 
 
-def _gen_acl(name, acl_path):
+def _gen_master_acl(name, acl_path):
     acl_path = os.path.join(acl_path, name)
 
     if not os.path.exists(acl_path):
@@ -82,12 +82,7 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
     data = {
         "consul": {
             "acl": {
-                "tokens": {
-                    "primary": _gen_acl(
-                        os.path.join(minion_id, "primary"),
-                        acl_path,
-                    )
-                },
+                "tokens": {},
             },
             "encryption": {
                 "key": _encryption_key(key_path),
@@ -100,6 +95,6 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
     in_acl_dc = bool(pillar["dc"] == pillar["consul"]["acl"]["dc"])
     if is_server and in_acl_dc:
         data["consul"]["acl"]["tokens"]["__master__"] = \
-            _gen_acl("__master__", acl_path),
+            _gen_master_acl("__master__", acl_path),
 
     return data
