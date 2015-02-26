@@ -73,6 +73,18 @@ consul:
 {% endif %}
 
 
+/etc/consul.d/acl.json:
+  file.managed:
+    - source: salt://consul/etc/acl.json.jinja
+    - template: jinja
+    - user: root
+    - group: consul
+    - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: consul
+
+
 /etc/consul.d/encrypt.json:
   file.managed:
     - source: salt://consul/etc/encrypt.json.jinja

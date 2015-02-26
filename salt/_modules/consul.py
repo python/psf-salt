@@ -91,3 +91,31 @@ def register_external_service(node, address, datacenter, service, port):
         data=json.dumps(data),
     )
     resp.raise_for_status()
+
+
+def get_acl_by_name(token, name):
+    resp = requests.get(
+        "http://127.0.0.1:8500/v1/acl/list",
+        params={"token": token},
+    )
+    resp.raise_for_status()
+
+    for item in resp.json():
+        if name == item["name"]:
+            return item
+
+
+def create_acl(token, name, rules):
+    data = {"Name": name, "Rukes": rules}
+
+    resp = requests.put("http://127.0.0.1:8500/v1/acl/create", json=data)
+    resp.raise_for_status()
+
+    return resp.json()
+
+
+def update_acl(token, id, name, rules):
+    data = {"ID": id, "Name": name, "Rukes": rules}
+
+    resp = requests.put("http://127.0.0.1:8500/v1/acl/update", json=data)
+    resp.raise_for_status()

@@ -3,6 +3,15 @@ import os
 import os.path
 import uuid
 
+CONSUL_ACL = {
+    "service": {
+        # We don't rely on Consul to have a secure notion of
+        # what service belongs where, so we're fine with any
+        # consul node being able to write to the services.
+        "": {"policy": "write"},
+    },
+}
+
 
 def _secure_open_write(filename, fmode):
     # We only want to write to this file, so open it in write only mode
@@ -90,11 +99,39 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
         },
     }
 
+    # Generate a master ACL token
+    master_acl_token = _gen_master_acl("__master__", acl_path)
+
     # If this is a server in the ACL data center, give it the acl master token
     is_server = __salt__["match.compound"](pillar["roles"]["consul"])
     in_acl_dc = bool(pillar["dc"] == pillar["consul"]["acl"]["dc"])
     if is_server and in_acl_dc:
-        data["consul"]["acl"]["tokens"]["__master__"] = \
-            _gen_master_acl("__master__", acl_path),
+        data["consul"]["acl"]["tokens"]["__master__"] = master_acl_token
+
+    # Determine if the cluster is ready, if it is not, we can't get ACL tokens
+    # from it, so we'll skip it.
+    if __salt__["consul.cluster_ready"]():
+        # We have an active cluster, so see if there is already an ACL for this
+        # minion.
+        acl_name = "/".join(minion_id, "default")
+        acl = __salt__["consul.get_acl_by_name"](master_acl_token, acl_name)
+
+        if acl is None:
+            # We don't have an ACL, so we'll need to create one.
+            acl = __salt__["consul.create_acl"](
+                master_acl_token,
+                acl_name,
+                CONSUL_ACL,
+            )
+        else:
+            __salt__["consul.update_acl"](
+                master_acl_token,
+                acl_name,
+                CONSUL_ACL,
+            )
+
+        # Now that we have an ACL, add it to the list of tokens for this
+        # minion.
+        data["consul"]["acl"]["tokens"]["default"] = acl["ID"]
 
     return data

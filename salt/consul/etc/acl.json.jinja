@@ -1,0 +1,5 @@
+{
+    {% if "default" in pillar["consul"]["acl"]["tokens"] %}
+    "acl_token": "{{ pillar['consul']['acl']['tokens']['default'] }}"
+    {% endif %}
+}
