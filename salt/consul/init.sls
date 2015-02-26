@@ -50,6 +50,17 @@ consul:
     - group: root
     - require:
       - pkg: consul
+
+/etc/consul.d/acl.json:
+  file.managed:
+    - source: salt://consul/etc/acl.hcl.jinja
+    - templatE: jinja
+    - user: root
+    - group: root
+    - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: consul
 {% endif %}
 
 
