@@ -59,7 +59,9 @@ def _encryption_key(key_path):
     return data
 
 
-def _master_acl(acl_path):
+def _gen_acl(name, acl_path):
+    acl_path = os.path.join(acl_path, name)
+
     if not os.path.exists(acl_path):
         data = str(uuid.uuid4())
 
@@ -79,6 +81,14 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
     # Get the encryption key
     data = {
         "consul": {
+            "acl": {
+                "tokens": {
+                    "primary": _gen_acl(
+                        os.path.join(minion_id, "primary"),
+                        acl_path,
+                    )
+                },
+            },
             "encryption": {
                 "key": _encryption_key(key_path),
             },
@@ -89,8 +99,7 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
     is_server = __salt__["match.compound"](pillar["roles"]["consul"])
     in_acl_dc = bool(pillar["dc"] == pillar["consul"]["acl"]["dc"])
     if is_server and in_acl_dc:
-        data["consul"]["acl"] = {
-            "__master__": _master_acl(acl_path),
-        }
+        data["consul"]["acl"]["tokens"]["__master__"] = \
+            _gen_acl("__master__", acl_path),
 
     return data
