@@ -53,6 +53,23 @@ consul:
 {% endif %}
 
 
+{% if is_server and pillar["dc"] == pillar["consul"]["acl"]["dc"] %}
+/etc/consul.d/acl-master.json:
+  file.managed:
+    - source: salt://consul/etc/acl-master.json.jinja
+    - template: jinja
+    - user: root
+    - group: consul
+    - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: consul
+{% else %}
+/etc/consul.d/acl-master.json:
+  file.absent
+{% endif %}
+
+
 /etc/consul.d/encrypt.json:
   file.managed:
     - source: salt://consul/etc/encrypt.json.jinja

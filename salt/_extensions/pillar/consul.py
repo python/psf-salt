@@ -1,6 +1,7 @@
 import base64
 import os
 import os.path
+import uuid
 
 
 def _secure_open_write(filename, fmode):
@@ -58,11 +59,36 @@ def _encryption_key(key_path):
     return data
 
 
-def ext_pillar(minion_id, pillar, key_path):
-    return {
+def _master_acl(acl_path):
+    if not os.path.exists(acl_path):
+        data = str(uuid.uuid4())
+
+        if not os.path.exists(os.path.dirname(acl_path)):
+            os.makedirs(os.path.dirname(acl_path))
+
+        with _secure_open_write(acl_path, 0o0600) as fp:
+            fp.write(data)
+    else:
+        with open(acl_path) as fp:
+            data = fp.read()
+
+    return data
+
+
+def ext_pillar(minion_id, pillar, key_path, acl_path):
+    # Get the encryption key
+    data = {
         "consul": {
             "encryption": {
                 "key": _encryption_key(key_path),
             },
         },
     }
+
+    # If this is a server in the ACL data center, give it the acl master token
+    is_server = __salt__["match.compound"](pillar["roles"]["consul"])
+    in_acl_dc = bool(pillar["dc"] == pillar["consul"]["acl"]["dc"])
+    if is_server and in_acl_dc:
+        data["consul"]["acl"] = {
+            "__master__": _master_acl(acl_path),
+        }
