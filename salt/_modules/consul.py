@@ -88,7 +88,7 @@ def register_external_service(node, address, datacenter, service, port, token):
 
     resp = requests.put(
         "http://127.0.0.1:8500/v1/catalog/register",
-        data=json.dumps(data),
+        json=data,
         params={"token": token},
     )
     resp.raise_for_status()
