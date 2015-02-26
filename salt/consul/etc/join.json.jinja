@@ -1,7 +1,10 @@
 {
     "retry_join": [
         {% for server in pillar["consul"]["bootstrap"][pillar["dc"]] -%}
-        "{{ server }}"{% if not loop.last %},{% endif %}
+        {%- set sloop = loop -%}
+        {% for address in salt["mine.get"](server, "psf_internal").values()|sort() -%}
+        "{{ address }}"{% if not sloop.last %},{% endif %}
+        {% endfor -%}
         {% endfor %}
     ]
 }
