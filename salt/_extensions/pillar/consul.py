@@ -126,6 +126,7 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
         else:
             __salt__["consul.update_acl"](
                 master_acl_token,
+                acl["ID"],
                 acl_name,
                 CONSUL_ACL,
             )
