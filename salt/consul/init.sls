@@ -50,6 +50,9 @@ consul:
     - group: consul
     - require:
       - pkg: consul
+{% else %}
+/etc/consul.d/server.json:
+  file.absent
 {% endif %}
 
 
