@@ -70,6 +70,7 @@ consul:
     - template: jinja
     - user: root
     - group: root
+    - mode: 640
     - show_diff: False
     - require:
       - pkg: consul
