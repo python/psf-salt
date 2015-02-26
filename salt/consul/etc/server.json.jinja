@@ -1,5 +1,5 @@
 {
-    "bootstrap_expect": {{ pillar["consul"]["bootstrap-expect"] }},
+    "bootstrap_expect": {{ pillar["consul"]["bootstrap"][pillar["dc"]]|length() }},
     "cert_file": "/etc/ssl/private/consul.psf.io.pem",
     "key_file": "/etc/ssl/private/consul.psf.io.pem",
     "server": true

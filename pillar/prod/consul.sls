@@ -1,10 +1,14 @@
 consul:
+  bootstrap:
+    iad1:
+      - consul0.iad1.psf.io
+      - consul1.iad1.psf.io
+      - consul2.iad1.psf.io
   acl:
     default: deny
     dc: iad1
     down: extend-cache
     ttl: 30s
-  bootstrap-expect: 3
   dcs:
     iad1: consul*.iad1.psf.io
   external:
