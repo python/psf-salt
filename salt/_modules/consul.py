@@ -101,7 +101,7 @@ def get_acl_by_name(token, name):
     resp.raise_for_status()
 
     for item in resp.json():
-        if name == item["name"]:
+        if item["Name"] == name:
             return item
 
 
