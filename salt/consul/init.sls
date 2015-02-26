@@ -36,7 +36,7 @@ consul:
     - source: salt://consul/etc/base.json.jinja
     - template: jinja
     - user: root
-    - group: root
+    - group: consul
     - require:
       - pkg: consul
 
@@ -47,7 +47,7 @@ consul:
     - source: salt://consul/etc/server.json.jinja
     - template: jinja
     - user: root
-    - group: root
+    - group: consul
     - require:
       - pkg: consul
 
@@ -56,7 +56,7 @@ consul:
     - source: salt://consul/etc/acl.hcl.jinja
     - templatE: jinja
     - user: root
-    - group: root
+    - group: consul
     - mode: 640
     - show_diff: False
     - require:
@@ -69,7 +69,7 @@ consul:
     - source: salt://consul/etc/encrypt.json.jinja
     - template: jinja
     - user: root
-    - group: root
+    - group: consul
     - mode: 640
     - show_diff: False
     - require:
@@ -86,7 +86,7 @@ consul:
     - source: salt://consul/etc/join.json.jinja
     - template: jinja
     - user: root
-    - group: root
+    - group: consul
     - require:
       - pkg: consul
 
