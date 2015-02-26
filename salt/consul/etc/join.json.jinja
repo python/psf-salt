@@ -1,7 +1,6 @@
 {
     "retry_join": [
         {% for server in pillar["consul"]["bootstrap"][pillar["dc"]] -%}
-        "{{ server }}"{% if not loop.last %},{% endif %}
-        {% endfor -%}
+        "{{ server }}"{% if not loop.last %},{% endif %}{% endfor %}
     ]
 }
