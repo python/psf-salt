@@ -149,7 +149,7 @@ consul-external-{{ service.service }}:
     - node: {{ service.node }}
     - address: {{ service.address }}
     - port: {{ service.port }}
-    - token: {{ pillar["consul"]["acl"]["tokens"]["__master__"] }}
+    # - token: {{ pillar["consul"]["acl"]["tokens"]["__master__"] }}
     - require:
       - pkg: python-requests
 {% endfor %}
