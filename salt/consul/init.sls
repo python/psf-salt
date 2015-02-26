@@ -51,7 +51,7 @@ consul:
     - require:
       - pkg: consul
 
-/etc/consul.d/acl.json:
+/etc/consul.d/acl.hcl:
   file.managed:
     - source: salt://consul/etc/acl.hcl.jinja
     - templatE: jinja
