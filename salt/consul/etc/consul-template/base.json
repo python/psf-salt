@@ -1,2 +1,1 @@
-retry = "10s"
 wait = "10s"
