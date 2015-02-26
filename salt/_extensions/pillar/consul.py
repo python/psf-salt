@@ -92,3 +92,5 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
         data["consul"]["acl"] = {
             "__master__": _master_acl(acl_path),
         }
+
+    return data
