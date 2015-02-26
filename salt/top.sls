@@ -6,7 +6,7 @@ base:
     - base.repo
     - base.salt
     - base.sanity
-    - consul
+    # - consul
     - groups
     - users
     - ssh
