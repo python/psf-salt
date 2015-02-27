@@ -19,19 +19,11 @@ doc-pkgs:
 
 docsbuild:
   user.present:
-    - createhome: False
+    - home: /srv/docsbuild/
     - groups:
       - docs
     - require:
       - group: docs
-
-/srv/docsbuild/:
-  file.directory:
-    - user: docsbuild
-    - group: docsbuild
-    - mode: 755
-    - require:
-      - user: docsbuild
 
 docsbuild-scripts:
    git.latest:
@@ -40,7 +32,6 @@ docsbuild-scripts:
      - user: docsbuild
      - require:
        - user: docsbuild
-       - file: /srv/docsbuild/
        - pkg: doc-pkgs
 
 /srv/docsbuild/environment/:
