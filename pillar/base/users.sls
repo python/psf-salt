@@ -35,7 +35,7 @@ users:
     fullname: "Benjamin Peterson"
     admin: True
     ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAubCE0Iou9q1duI1FEDPCRMPBrT8+9X5iFOz5L/acwKa1BjzmCF2N91z4sox+H8VxN9kVkYcaizEm/4x91UDWo4oTjo+UOTHuoInrTAMYgq2EskSt1YA64PaPQ8xx0WuK+5LWvyPi0RTTXEtinriy0XCoGtXl/fDaYNjtB8V7JIqTqqyO0rAZExYBRbQed6ZpLeO8vGwc4cN/9xMmkbAoB0G4NekuGBCvvioBO5d2/MO93YdjRh/PzYNQSqycC7X6o7C4PoYy39aFc4fbDubl937MlG44R/8BAI9dKXsQu8hLqAm7XZcTdwR5kVAndXuwmzERznSZKldZmtyw9AvDWw== Benjamin Peterson
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC5RZqb06JuJrCClQkFvR/6rSvtFs9MSh7qQxe6gzVpz Benjamin Peterson
     access:
       docs:
         allowed: True
