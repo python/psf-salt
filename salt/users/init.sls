@@ -27,6 +27,7 @@ include:
 {% endfor %}
 
 {% if access.get("allowed", false) or admin %}
+
 {% set sudoer = admin or access.get("sudo", false) %}
 {{ user_name }}-user:
 {% if user_config.get("packages") %}
@@ -76,11 +77,15 @@ include:
       ssh_keys: {{ user_config["ssh_keys"] }}
     - require:
       - user: {{ user_name }}
+
 {% else %}
+
 {{ user_name }}-user:
   user.absent:
     - name: {{ user_name }}
     - purge: True
+
+
 {% endif %}
 
 {% endfor %}
