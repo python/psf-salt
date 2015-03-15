@@ -140,14 +140,14 @@ consul-template:
 {% endif %}
 
 
-{% for service in pillar["consul"].get("external", []) %}
-consul-external-{{ service.service }}:
-  consul.external_service:
-    - name: {{ service.service }}
-    - datacenter: {{ service.datacenter }}
-    - node: {{ service.node }}
-    - address: {{ service.address }}
-    - port: {{ service.port }}
-    - require:
-      - pkg: python-requests
-{% endfor %}
+# {% for service in pillar["consul"].get("external", []) %}
+# consul-external-{{ service.service }}:
+#   consul.external_service:
+#     - name: {{ service.service }}
+#     - datacenter: {{ service.datacenter }}
+#     - node: {{ service.node }}
+#     - address: {{ service.address }}
+#     - port: {{ service.port }}
+#     - require:
+#       - pkg: python-requests
+# {% endfor %}
