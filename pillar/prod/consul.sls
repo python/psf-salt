@@ -5,7 +5,7 @@ consul:
       - consul1.iad1.psf.io
       - consul2.iad1.psf.io
   acl:
-    default: deny
+    default: allow
     dc: iad1
     down: extend-cache
     ttl: 30s
