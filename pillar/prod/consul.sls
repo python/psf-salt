@@ -21,7 +21,7 @@ consul:
       address: www.pythonanywhere.com
       service: console
       port: 443
-    - datacenter: aid1
+    - datacenter: iad1
       node: pythonanywhere
       address: evote.python.org
       service: evote
