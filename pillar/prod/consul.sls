@@ -22,7 +22,7 @@ consul:
       service: console
       port: 443
     - datacenter: iad1
-      node: pythonanywhere
+      node: evote.python.org
       address: evote.python.org
       service: evote
       port: 9000
