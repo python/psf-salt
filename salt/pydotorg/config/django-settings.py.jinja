@@ -1,5 +1,9 @@
 {% from "consul/jinja.sls" import simple_service %}
 
+{% if pillar.get("sentry:dsn", None) %}
+import raven
+{% endif %}
+
 from .base import *
 
 DEBUG = TEMPLATE_DEBUG = False
@@ -73,3 +77,10 @@ LOGGING['handlers']['log_file'] = {
     'filename': '/var/log/pydotorg/pydotorg.error',
 }
 LOGGING['loggers']['django.request']['handlers'].append('log_file')
+
+{% if pillar.get("sentry:dsn", None) %}
+RAVEN_CONFIG = {
+    "dsn": "{{ pillar['sentry']['dsn'] }}",
+    "release": raven.fetch_git_sha(os.path.dirname(__file__)),
+}
+{% endif %}
