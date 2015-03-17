@@ -17,7 +17,6 @@ pydotorg-deps:
       - mercurial
       - python-docutils
       - python-virtualenv
-      - python-pip
       - python3-dev
       - yui-compressor
 
