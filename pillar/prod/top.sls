@@ -96,11 +96,13 @@ base:
     - match: nodegroup
     - pydotorg.staging
     - secrets.postgresql-users.pydotorg-staging
+    - secrets.sentry.pydotorg-staging
 
   'pydotorg-prod':
     - match: nodegroup
     - pydotorg.prod
     - secrets.postgresql-users.pydotorg-prod
+    - secrets.sentry.pydotorg-prod
 
   'pythontest':
     - match: nodegroup
