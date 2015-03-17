@@ -77,6 +77,7 @@ pydotorg-source:
     - bin_env: /srv/pydotorg/env/
     - require:
       - virtualenv: /srv/pydotorg/env/
+      - user: pydotorg-user
 
 
 /usr/share/consul-template/templates/pydotorg_settings.py:
