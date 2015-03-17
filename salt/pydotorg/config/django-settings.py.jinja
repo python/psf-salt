@@ -85,6 +85,8 @@ INSTALLED_APPS += [
 
 RAVEN_CONFIG = {
     "dsn": "{{ pillar['sentry']['dsn'] }}",
-    "release": raven.fetch_git_sha(os.path.dirname(__file__)),
+    "release": raven.fetch_git_sha(
+        os.path.join(os.path.dirname(__file__), "..", ".."),
+    ),
 }
 {% endif %}
