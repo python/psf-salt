@@ -79,6 +79,10 @@ LOGGING['handlers']['log_file'] = {
 LOGGING['loggers']['django.request']['handlers'].append('log_file')
 
 {% if pillar.get("sentry:dsn", None) %}
+INSTALLED_APPS += [
+    "raven.contrib.django.raven_compat",
+]
+
 RAVEN_CONFIG = {
     "dsn": "{{ pillar['sentry']['dsn'] }}",
     "release": raven.fetch_git_sha(os.path.dirname(__file__)),
