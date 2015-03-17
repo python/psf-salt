@@ -1,6 +1,6 @@
 {% from "consul/jinja.sls" import simple_service %}
 
-{% if pillar.get("sentry:dsn") %}
+{% if sentry_dsn %}
 import raven
 {% endif %}
 
@@ -78,7 +78,7 @@ LOGGING['handlers']['log_file'] = {
 }
 LOGGING['loggers']['django.request']['handlers'].append('log_file')
 
-{% if pillar.get("sentry:dsn") %}
+{% if sentry_dsn %}
 INSTALLED_APPS += [
     "raven.contrib.django.raven_compat",
 ]

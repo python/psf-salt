@@ -78,6 +78,7 @@ pydotorg-source:
     - context:
         type: {{ config["type"] }}
         secret_key: {{ pillar["pydotorg_secret_key"] }}
+        sentry_dsn: {{ pillar.get("sentry", {}).get("dsn") }}
     - user: root
     - group: root
     - mode: 640
