@@ -70,15 +70,6 @@ pydotorg-source:
       - pkg: pydotorg-deps
       - pkg: postgresql-client
 
-  pip.installed:
-    - name: raven
-    - user: pydotorg
-    - upgrade: True
-    - bin_env: /srv/pydotorg/env/
-    - require:
-      - virtualenv: /srv/pydotorg/env/
-      - user: pydotorg-user
-
 
 /usr/share/consul-template/templates/pydotorg_settings.py:
   file.managed:
