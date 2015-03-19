@@ -198,6 +198,9 @@ backend {{ service }}
     option httpchk {{ config.check }}
     {%- endif %}
 
+    # http://gnuterrypratchett.com/
+    http-response set-header X-Clacks-Overhead "GNU Terry Pratchett"
+
     {% if config.get("hsts", True) -%}
     # Add HSTS headers for anything that is configured to have them.
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}{% if config.get("hsts_preload", True) %};\ preload{% endif %}
