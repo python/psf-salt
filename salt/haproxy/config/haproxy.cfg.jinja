@@ -199,7 +199,7 @@ backend {{ service }}
     {%- endif %}
 
     # http://gnuterrypratchett.com/
-    http-response set-header X-Clacks-Overhead "GNU Terry Pratchett"
+    http-response set-header X-Clacks-Overhead GNU\ Terry\ Pratchett
 
     {% if config.get("hsts", True) -%}
     # Add HSTS headers for anything that is configured to have them.
