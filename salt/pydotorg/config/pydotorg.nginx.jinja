@@ -125,6 +125,10 @@ server {
     return 301 https://www.python.org/jobs/;
   }
 
+  location ~ ^/newjobs(.*)$ {
+    return 301 https://www.python.org/jobs$1;
+  }
+
   location /Help.html {
     return 301 https://www.python.org/about/help;
   }
