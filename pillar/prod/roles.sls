@@ -23,7 +23,7 @@ roles:
   postgresql-replica: "pg*.iad1.psf.io and not pg0.iad1.psf.io"
   pydotorg: "pydotorg*.iad1.psf.io"
   pydotorg-prod: "pydotorg-prod.iad1.psf.io"
-  pydotorg-staging: "pydotorg-staging.iad1.psf.io"
+  pydotorg-staging: "pydotorg-staging*.iad1.psf.io"
   pythontest: "pythontest.iad1.psf.io"
   salt-master: "salt.iad1.psf.io"
   speed-web: "speed-web.iad1.psf.io"

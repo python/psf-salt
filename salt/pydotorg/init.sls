@@ -76,6 +76,7 @@ pydotorg-source:
     - source: salt://pydotorg/config/django-settings.py.jinja
     - template: jinja
     - context:
+        name: {{ config["name"] }}
         type: {{ config["type"] }}
         secret_key: {{ pillar["pydotorg_secret_key"] }}
         sentry_dsn: {{ pillar.get("sentry", {}).get("dsn") }}
@@ -150,7 +151,7 @@ pydotorg-source:
     - source: salt://consul/etc/service.jinja
     - template: jinja
     - context:
-        name: pydotorg-{{ config["type"] }}
+        name: pydotorg-{{ config["name"] }}
         port: 9000
     - user: root
     - group: root

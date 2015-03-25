@@ -94,9 +94,14 @@ base:
 
   'pydotorg-staging':
     - match: nodegroup
-    - pydotorg.staging
     - secrets.postgresql-users.pydotorg-staging
     - secrets.sentry.pydotorg-staging
+
+  'pydotorg-staging.iad1.psf.io':
+    - pydotorg.staging
+
+  'pydotorg-staging2.iad1.psf.io':
+    - pydotorg.staging2
 
   'pydotorg-prod':
     - match: nodegroup

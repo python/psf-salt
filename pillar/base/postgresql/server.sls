@@ -17,3 +17,4 @@ postgresql:
     monitoring: monitoring
     pydotorg-prod: "pydotorg-prod"
     pydotorg-staging: "pydotorg-staging"
+    pydotorg-staging2: "pydotorg-staging2"

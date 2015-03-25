@@ -1,4 +1,5 @@
 pydotorg:
+  name: prod
   type: prod
   branch: release
 

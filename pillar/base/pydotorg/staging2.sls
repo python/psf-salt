@@ -1,5 +1,5 @@
 pydotorg:
-  name: staging
+  name: staging2
   type: staging
   branch: master
 

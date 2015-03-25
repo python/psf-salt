@@ -14,7 +14,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "HOST": "postgresql.psf.io",
         "PORT": "{{ port }}",
-        "NAME": "pydotorg-{{ type }}",
+        "NAME": "pydotorg-{{ name }}",
         "USER": "pydotorg-{{ type }}",
         "PASSWORD": "{{ pillar["postgresql-users"]["pydotorg-" + type] }}",
         "OPTIONS": {
@@ -31,7 +31,7 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
         'URL': 'http://{{ addr }}:{{ port }}/',
-        'INDEX_NAME': 'haystack-{{ type }}',
+        'INDEX_NAME': 'haystack-{{ name }}',
     },
 }
 {% endcall %}
@@ -60,8 +60,8 @@ FASTLY_API_KEY = '{{ pillar["fastly"]["api_key"] }}'
 
 {% if type == "staging" %}
 
-CSRF_COOKIE_DOMAIN = 'staging.python.org'
-SESSION_COOKIE_DOMAIN = 'staging.python.org'
+CSRF_COOKIE_DOMAIN = '{{ name }}.python.org'
+SESSION_COOKIE_DOMAIN = '{{ name }}.python.org'
 
 {% else %}
 
