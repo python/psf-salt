@@ -52,6 +52,13 @@ pydotorg-source:
     - require:
       - user: pydotorg-user
 
+/srv/pydotorg/media/fixtures/:
+  file.directory:
+    - user: pydotorg
+    - mode: 755
+    - require:
+      - user: pydotorg-user
+
 /srv/pydotorg/pythondotorg/media:
   file.symlink:
     - target: /srv/pydotorg/media/
@@ -237,5 +244,15 @@ update-peps-cron:
     - user: pydotorg
     - name: make -C /srv/pydotorg/peps update all rss && /srv/pydotorg/env/bin/python /srv/pydotorg/pythondotorg/manage.py generate_pep_pages --settings pydotorg.settings.server
     - minute: '*/15'
+    - require:
+      - user: pydotorg-user
+
+update-dev-fixtures-cron:
+  cron.present:
+    - identifier: update-dev-fixtures
+    - name: /srv/pydotorg/env/bin/python /srv/pydotorg/pythondotorg/manage.py generate_dev_fixtures --file=/srv/pydotorg/media/fixtures/dev-fixtures.json.gz --settings=pydotorg.settings.server
+    - user: pydotorg
+    - hour: 1
+    - minute: 0
     - require:
       - user: pydotorg-user
