@@ -1,7 +1,7 @@
 pydotorg:
   name: staging2
   type: staging
-  branch: master
+  branch: staging2
 
 harden:
   umask: 022
