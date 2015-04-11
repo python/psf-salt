@@ -149,5 +149,5 @@ consul-external-{{ service.service }}:
     - address: {{ service.address }}
     - port: {{ service.port }}
     - require:
-     - pkg: python-requests
+      - pkg: python-requests
 {% endfor %}
