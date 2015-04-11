@@ -29,7 +29,6 @@ haproxy:
     pycon-slides:
       domains:
         - pycon-slides.python.org
-      hsts: False
       tls: False
       check: False
 
