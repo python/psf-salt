@@ -26,3 +26,8 @@ consul:
       address: evote.python.org
       service: evote
       port: 9000
+    - datacenter: iad1
+      node: pycon-slides
+      address: 104.130.170.116
+      service: pycon-slides
+      port: 9000

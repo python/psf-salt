@@ -26,6 +26,13 @@ haproxy:
         - staging2.python.org
       verify_host: pydotorg.psf.io
 
+    pycon-slides:
+      domains:
+        - pycon-slides.python.org
+      hsts: False
+      tls: False
+      check: False
+
     console:
       domains:
         - console.python.org
