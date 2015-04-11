@@ -30,4 +30,4 @@ consul:
       node: pycon-slides
       address: 104.130.170.116
       service: pycon-slides
-      port: 9000
+      port: 8812
