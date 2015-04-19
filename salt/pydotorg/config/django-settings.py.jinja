@@ -1,5 +1,7 @@
 {% from "consul/jinja.sls" import simple_service %}
 
+import os
+
 {% if sentry_dsn %}
 import raven
 {% endif %}
