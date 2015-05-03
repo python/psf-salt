@@ -233,6 +233,10 @@ server {
     return 301 https://pypi.python.org/pypi$1?$args;
   }
 
+  location ~ ^/peps/pep-(.*)\.html$ {
+    return 301 https://www.python.org/dev/peps/pep-$1/;
+  }
+
   location = /peps/pep-0263.html {
     return 302 https://www.python.org/dev/peps/pep-0263/;
   }
