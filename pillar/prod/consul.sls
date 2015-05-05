@@ -11,7 +11,7 @@ consul:
     ttl: 30s
   dcs:
     iad1: consul*.iad1.psf.io
-  # Currently there is something wrong with consul 0.5.0 and we cannot register
+  # Currently, there is something wrong with consul 0.5.0 and we cannot register
   # external services without setting the default acl to allow. So if you add
   # something here you need to set the default acl to allow, and uncomment the
   # code at the bottom of salt/consul/init.sls.
