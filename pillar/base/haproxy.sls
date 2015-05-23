@@ -76,6 +76,9 @@ haproxy:
       request_uri: False
     packages.python.org:
       target: pythonhosted.org
+    planet.python.org:
+      target: planetpython.org
+      tls: False
     python.org:
       target: www.python.org
       hsts_subdomains: False
