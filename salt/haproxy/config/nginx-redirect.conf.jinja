@@ -11,6 +11,6 @@ server {
     add_header Public-Key-Pins 'max-age={{ config.get("hpkp_seconds", 2592000) }}; {% if config.get("hpkp_subdomains", True) %}includeSubDomains; {% endif %}{% for pin in pillar["tls"]["pins"] %}pin-sha256="{{ pin }}"; {% endfor %}';
     {%- endif %}
 
-    return 301 http{% if config.get("tls", True) %}s{% endif %}://{{ config.target }}$request_uri;
+    return 301 http{% if config.get("tls", True) %}s{% endif %}://{{ config.target }}{% if config.get("request_uri", True) %}$request_uri{% endif $};
 }
 {% endfor %}
