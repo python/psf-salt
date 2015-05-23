@@ -71,6 +71,9 @@ haproxy:
   redirects:
     cheeseshop.python.org:
       target: pypi.python.org
+    jobs.python.org:
+      target: www.python.org/jobs/
+      request_uri: False
     python.org:
       target: www.python.org
       hsts_subdomains: False
