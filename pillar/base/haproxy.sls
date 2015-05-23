@@ -69,6 +69,8 @@ haproxy:
       check: "HEAD /moin/ HTTP/1.1\\r\\nHost:\\ wiki.python.org"
 
   redirects:
+    cheeseshop.python.org:
+      target: pypi.python.org
     python.org:
       target: www.python.org
       hsts_subdomains: False
