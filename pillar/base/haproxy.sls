@@ -74,6 +74,8 @@ haproxy:
     jobs.python.org:
       target: www.python.org/jobs/
       request_uri: False
+    packages.python.org:
+      target: pythonhosted.org
     python.org:
       target: www.python.org
       hsts_subdomains: False
