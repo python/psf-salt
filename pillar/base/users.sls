@@ -148,6 +148,10 @@ users:
         allowed: True
         groups:
           - downloads
+      docs:
+        allowed: True
+        groups:
+          - docs
   pjenvey:
     fullname: "Philip Jenvey"
     ssh_keys:
