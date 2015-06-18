@@ -3,6 +3,7 @@ postgresql-users:
   monitoring: insecurepasswordlol
   pydotorg-prod: insecurepasswordlol
   pydotorg-staging: insecurepasswordlol
+  testpypi: insecurepasswordlol
 
 postgresql-superusers:
   diamond: insecurepasswordlol
