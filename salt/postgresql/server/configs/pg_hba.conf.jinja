@@ -1,4 +1,5 @@
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
+{% set pypi_internal = salt["pillar.get"]("pypi_internal_network") %}
 # PostgreSQL Client Authentication Configuration File
 # ===================================================
 #
@@ -12,11 +13,12 @@ local   all             postgres                                peer
 host    all             diamond         127.0.0.1/32            md5
 
 # Replication
-hostssl replication     replicator      {{ psf_internal }}          md5
+hostssl replication     replicator      {{ psf_internal }}      md5
 
 # Application Databases
-hostssl monitoring      monitoring      {{ psf_internal }}          md5
-hostssl bugs-python     bugs-python     {{ psf_internal }}          md5
-hostssl pydotorg-prod   pydotorg-prod   {{ psf_internal }}          md5
-hostssl pydotorg-staging pydotorg-staging {{ psf_internal }}          md5
-hostssl pydotorg-staging2 pydotorg-staging {{ psf_internal }}          md5
+hostssl monitoring        monitoring       {{ psf_internal }}   md5
+hostssl bugs-python       bugs-python      {{ psf_internal }}   md5
+hostssl pydotorg-prod     pydotorg-prod    {{ psf_internal }}   md5
+hostssl pydotorg-staging  pydotorg-staging {{ psf_internal }}   md5
+hostssl pydotorg-staging2 pydotorg-staging {{ psf_internal }}   md5
+hostssl testpypi          testpypi         {{ pypi_internal }}  md5
