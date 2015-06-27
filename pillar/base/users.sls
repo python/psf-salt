@@ -76,6 +76,8 @@ users:
         allowed: True
         groups:
           - downloads
+      mailman:
+        allowed: True
   fwierzbicki:
     fullname: "Frank Wierzbicki"
     ssh_keys:
