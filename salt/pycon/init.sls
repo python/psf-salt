@@ -51,6 +51,7 @@ pycon-source:
 /srv/pycon/env/:
   virtualenv.managed:
     - user: pycon
+    - cwd: /srv/pycon/pycon
     - requirements: /srv/pycon/pycon/requirements/project.txt
     - python: /usr/bin/python
     - require:
