@@ -1,5 +1,5 @@
 {% set config = pillar["pycon"] %}
-{% set config = pillar["pycon-secrets"] %}
+{% set secrets = pillar["pycon-secrets"] %}
 
 include:
   - nginx
