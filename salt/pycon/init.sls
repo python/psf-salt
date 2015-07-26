@@ -10,6 +10,7 @@ git:
 pycon-deps:
   pkg.installed:
     - pkgs:
+      - python-dev
       - python-virtualenv
       - build-essential
       - libpq-dev
@@ -51,13 +52,17 @@ pycon-source:
 /srv/pycon/env/:
   virtualenv.managed:
     - user: pycon
-    - cwd: /srv/pycon/pycon
-    - requirements: /srv/pycon/pycon/requirements/project.txt
     - python: /usr/bin/python
     - require:
       - git: pycon-source
       - pkg: pycon-deps
       - pkg: postgresql-client
+
+pycon-requirements:
+  cmd.run:
+    - user: pycon
+    - cwd: /srv/pycon/pycon
+    - name: /srv/pycon/env/bin/pip install -r requirements/project.txt
 
 /var/log/pycon/:
   file.directory:
