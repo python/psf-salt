@@ -18,4 +18,6 @@ postgresql:
     pydotorg-prod: "pydotorg-prod"
     pydotorg-staging: "pydotorg-staging"
     pydotorg-staging2: "pydotorg-staging"
+    pycon-prod: "pycon-prod"
+    pycon-staging: "pycon-staging"
     testpypi: testpypi
