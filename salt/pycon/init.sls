@@ -10,6 +10,7 @@ git:
 pycon-deps:
   pkg.installed:
     - pkgs:
+      - python-virtualenv
       - build-essential
       - libpq-dev
       - libjpeg8-dev
