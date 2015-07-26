@@ -1,5 +1,6 @@
 pycon:
-  branch: staging
+  deployment: staging
+  branch: salt_deploy
 
 harden:
   umask: 022
