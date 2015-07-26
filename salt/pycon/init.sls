@@ -34,7 +34,7 @@ pycon-user:
 pycon-source:
   git.latest:
     - name: https://github.com/pycon/pycon
-    - target: /srv/pycon/pythondotorg/
+    - target: /srv/pycon/pycon/
     - rev: {{ config["branch"] }}
     - user: pycon
     - require:
