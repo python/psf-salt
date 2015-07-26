@@ -70,6 +70,10 @@ base:
     - match: nodegroup
     - pydotorg
 
+  'pycon':
+    - match: nodegroup
+    - pycon
+
   'pythontest':
     - match: nodegroup
     - pythontest
