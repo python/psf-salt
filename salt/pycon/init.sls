@@ -1,4 +1,5 @@
 {% set config = pillar["pycon"] %}
+{% set config = pillar["pycon-secrets"] %}
 
 include:
   - nginx
@@ -76,3 +77,35 @@ pycon-requirements:
     - user: root
     - group: root
     - mode: 644
+
+/usr/share/consul-template/templates/pycon_settings.py:
+  file.managed:
+    - source: salt://pycon/config/django-settings.py.jinja
+    - template: jinja
+    - context:
+      deployment: {{ config['deployment'] }}
+      graylog_host: {{ secrets['graylog_host'] }}
+      secret_key: {{ secrets['secret_key'] }}
+      google_oauth2_client_id: {{ secrets['google_oauth2']['client_id'] }}
+      google_oauth2_client_secret: {{ secrets['google_oauth2']['client_secret'] }}
+    - user: root
+    - group: root
+    - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: consul-template
+      - git: pycon-source
+
+/etc/consul-template.d/pycon.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/template.json.jinja
+    - template: jinja
+    - context:
+        source: /usr/share/consul-template/templates/pycon_settings.py
+        destination: /srv/pycon/pycon/settings/local.py
+        command: "chown pycon /srv/pycon/pycon/settings/local.py"
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - pkg: consul-template

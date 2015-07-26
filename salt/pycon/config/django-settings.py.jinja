@@ -1,0 +1,112 @@
+# -*- coding: utf-8 -*-
+
+# Note: This is imported by the main settings file, so only changes to
+# what's there need to be included here.
+
+DEBUG = TEMPLATE_DEBUG = False
+
+{% from "consul/jinja.sls" import simple_service %}
+
+{% call(addr, port) simple_service("primary.postgresql") %}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": "postgresql.psf.io",
+        "PORT": "{{ port }}",
+        "NAME": "pycon-{{ deployment }}",
+        "USER": "pycon-{{ deployment }}",
+        "PASSWORD": "{{ pillar["postgresql-users"]["pycon-" + deployment ] }}",
+        "OPTIONS": {
+            "hostaddr": "{{ addr }}",
+            "sslmode": "verify-full",
+            "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
+        },
+    }
+}
+{% endcall %}
+
+ALLOWED_HOSTS = [
+     "{{ grains['fqdn'] }}"
+]
+
+SECRET_KEY = '{{ secret_key }}'
+GRAYLOG_HOST = '{{ graylog_host }}'
+
+GOOGLE_OAUTH2_CLIENT_ID = '{{ google_oauth2_client_id }}'
+GOOGLE_OAUTH2_CLIENT_SECRET = '{{ google_oauth2_client_secret }}'
+
+EMAIL_HOST = "mail.python.org"
+
+ADMINS = (
+    ('Ernest W. Durbin III', 'ewdurbin+pyconError@gmail.com'),
+    ('Alex Gaynor', 'alex.gaynor+pyconError@gmail.com'),
+    ('Caktus Pycon Team', 'pycon@caktusgroup.com'),
+)
+# From address:
+SERVER_EMAIL = 'pycon@caktusgroup.com'
+# The main settings send email to the console, go back to the default
+# that uses SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+MANAGERS = ADMINS
+
+COMPRESS_ENABLED = True
+
+MEDIA_ROOT = "/srv/pycon/media/"
+
+from django.utils.log import DEFAULT_LOGGING
+LOGGING = DEFAULT_LOGGING
+
+LOGGING['filters'].update(
+    {
+        'static_fields': {
+            '()': 'pycon.logfilters.StaticFieldFilter',
+            'fields': {'deployment': 'pycon', 'environment': 'staging'},
+            },
+        'django_exc': {
+            '()': 'pycon.logfilters.RequestFilter',
+            },
+     }
+)
+LOGGING['handlers'].update(
+    {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': False,
+            'filters': ['require_debug_false'],
+        },
+        'sam_gelf': {
+            'class': 'graypy.GELFHandler',
+            'host': GRAYLOG_HOST,
+            'port': 12201,
+            'filters': ['static_fields', 'django_exc'],
+        }
+    }
+)
+LOGGING['loggers'].update(
+    {
+        'django.request': {
+            'handlers': ['mail_admins', 'sam_gelf'],
+            'level': 'ERROR',
+            'propagate': True,
+            },
+        'pycon': {
+            # mail_admins will only accept ERROR and higher
+            'handlers': ['mail_admins', 'sam_gelf'],
+            'level': 'WARNING',
+            },
+        'symposion': {
+            # mail_admins will only accept ERROR and higher
+            'handlers': ['mail_admins', 'sam_gelf'],
+            'level': 'WARNING',
+            }
+    }
+)
+
+LOGGING['handlers']['log_file'] = {
+    'level': 'ERROR',
+    'class': 'logging.handlers.WatchedFileHandler',
+    'filename': '/var/log/pycon/pycon.error',
+}
+LOGGING['loggers']['django.request']['handlers'].append('log_file')
