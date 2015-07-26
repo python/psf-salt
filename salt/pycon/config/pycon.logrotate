@@ -1,0 +1,8 @@
+/var/log/pycon/*.log {
+    weekly
+    rotate 5
+    missingok
+    notifempty
+    nocompress
+    create 644 pycon pycon
+}
