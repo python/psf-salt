@@ -25,6 +25,7 @@ roles:
   pydotorg: "pydotorg*.iad1.psf.io"
   pydotorg-prod: "pydotorg-prod.iad1.psf.io"
   pydotorg-staging: "pydotorg-staging*.iad1.psf.io"
+  pycon: "pycon*.iad1.psf.io"
   pycon-prod: "pycon-prod.iad1.psf.io"
   pycon-staging: "pycon-staging.iad1.psf.io"
   pythontest: "pythontest.iad1.psf.io"
