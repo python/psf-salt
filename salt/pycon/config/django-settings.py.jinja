@@ -3,6 +3,8 @@
 # Note: This is imported by the main settings file, so only changes to
 # what's there need to be included here.
 
+from .production import *
+
 DEBUG = TEMPLATE_DEBUG = False
 
 {% from "consul/jinja.sls" import simple_service %}

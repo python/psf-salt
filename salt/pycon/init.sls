@@ -102,8 +102,8 @@ pycon-requirements:
     - template: jinja
     - context:
         source: /usr/share/consul-template/templates/pycon_settings.py
-        destination: /srv/pycon/pycon/settings/local.py
-        command: "chown pycon /srv/pycon/pycon/settings/local.py"
+        destination: /srv/pycon/pycon/pycon/settings/local.py
+        command: "chown pycon /srv/pycon/pycon/pycon/settings/local.py"
     - user: root
     - group: root
     - mode: 640
