@@ -59,6 +59,13 @@ pycon-source:
     - require:
       - user: pycon-user
 
+/srv/pycon/site_media/:
+  file.directory:
+    - user: pycon
+    - mode: 755
+    - require:
+      - user: pycon-user
+
 /srv/pycon/env/:
   virtualenv.managed:
     - user: pycon
@@ -139,7 +146,7 @@ pycon-requirements:
 
 pre-reload:
   cmd.run:
-    - name: /srv/pycon/env/bin/python manage.py migrate --noinput && /srv/pycon/env/bin/python manage.py collectstatic -v0 --noinput
+    - name: /srv/pycon/env/bin/python manage.py migrate --noinput && /srv/pycon/env/bin/python manage.py compress --force && /srv/pycon/env/bin/python manage.py collectstatic -v0 --noinput
     - user: pycon
     - cwd: /srv/pycon/pycon/
     - env:
