@@ -33,6 +33,15 @@ pycon-user:
     - require:
       - user: pycon
 
+pycon-archive:
+  git.latest:
+    - name: https://github.com/python/pycon-archive
+    - target: /srv/pycon-archive/
+    - rev: master
+    - user: root
+    - require:
+      - pkg: git
+
 pycon-source:
   git.latest:
     - name: https://github.com/pycon/pycon
