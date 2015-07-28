@@ -8,6 +8,7 @@ server {
   if ($http_x_forwarded_proto = "http") {
     return 301 https://$http_host$request_uri;
   }
+}
 
 server {
   listen 443 ssl;

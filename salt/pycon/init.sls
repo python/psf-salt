@@ -135,7 +135,7 @@ pycon:
       - virtualenv: /srv/pycon/env/
       - file: /etc/init/pycon.conf
       - file: /var/log/pycon/
-      - file: /srv/pycon/media
+      - file: /srv/pycon/media/
       - cmd: pre-reload
     - watch:
       - file: /etc/init/pycon.conf
