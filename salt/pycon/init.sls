@@ -141,6 +141,8 @@ pycon-requirements:
     - user: root
     - group: root
     - mode: 644
+    - context:
+      server_names: {{ config['server_names']|join(' ') }}
     - require:
       - sls: nginx
 

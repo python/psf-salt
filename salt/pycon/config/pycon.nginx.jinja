@@ -5,6 +5,8 @@ upstream pycon {
 server {
   listen 80;
 
+  server_name {{ grains['fqdn'] }} {{ server_names }};
+
   if ($http_x_forwarded_proto = "http") {
     return 301 https://$http_host$request_uri;
   }
@@ -19,7 +21,8 @@ server {
   error_log /var/log/nginx/pycon.error.log;
   access_log /var/log/nginx/pycon.access.log;
 
-  server_name {{ grains['fqdn'] }} staging-pycon.python.org us.pycon.org;
+  server_name {{ grains['fqdn'] }} {{ server_names }};
+
   location /2016/site_media/static {
     alias /srv/pycon/site_media/static;
   }
