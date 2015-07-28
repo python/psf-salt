@@ -1,0 +1,49 @@
+upstream pycon {
+  server localhost:8000;
+}
+
+server {
+  listen 80;
+
+  if ($http_x_forwarded_proto = "http") {
+    return 301 https://$http_host$request_uri;
+  }
+
+server {
+  listen 443 ssl;
+
+  ssl_certificate /etc/ssl/private/pycon.psf.io.pem;
+  ssl_certificate_key /etc/ssl/private/pycon.psf.io.pem;
+
+  error_log /var/log/nginx/pycon.error.log;
+  access_log /var/log/nginx/pycon.access.log;
+
+  server_name {{ grains['fqdn'] }} staging-pycon.python.org us.pycon.org;
+  location /2016/site_media/static {
+    alias /srv/pycon/pycon/site_media/static;
+  }
+  location /2016/site_media/media {
+    alias /srv/pycon/media;
+  }
+  location /2015 {
+    alias /srv/pycon-archive/2015;
+  }
+  location /2014 {
+    alias /srv/pycon-archive/2014;
+  }
+  location /2013 {
+    alias /srv/pycon-archive/2013;
+  }
+  location /2012 {
+    alias /srv/pycon-archive/2012;
+  }
+  location /2011 {
+    alias /srv/pycon-archive/2011;
+  }
+  location /2016 {
+    client_max_body_size 20M;
+    proxy_pass http://pycon;
+    proxy_set_header Host $http_host;
+  }
+  rewrite ^/$ /2015/ redirect;
+}

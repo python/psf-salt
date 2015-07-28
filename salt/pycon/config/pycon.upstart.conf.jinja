@@ -1,0 +1,13 @@
+description "pycon gunicorn application server"
+start on runlevel [2345]
+stop on runlevel [06]
+
+console log
+setuid pycon
+setgid pycon
+
+chdir /srv/pycon/pycon
+env FOO=BAR
+
+respawn
+exec /srv/pycon/env/bin/gunicorn symposion.wsgi -w 4 --bind 127.0.0.1:8000

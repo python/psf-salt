@@ -109,3 +109,35 @@ pycon-requirements:
     - mode: 640
     - require:
       - pkg: consul-template
+
+/etc/init/pycon.conf:
+  file.managed:
+    - source: salt://pycon/config/pycon.upstart.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+
+/etc/nginx/sites.d/pycon.conf:
+  file.managed:
+    - source: salt://pycon/config/pycon.nginx.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - sls: nginx
+
+pycon:
+  service.running:
+    - reload: True
+    - require:
+      - virtualenv: /srv/pycon/env/
+      - file: /etc/init/pycon.conf
+      - file: /var/log/pycon/
+      - file: /srv/pycon/media
+      - cmd: pre-reload
+    - watch:
+      - file: /etc/init/pycon.conf
+      - virtualenv: /srv/pycon/env/
+      - git: pycon-source

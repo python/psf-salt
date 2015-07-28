@@ -109,6 +109,10 @@ base:
     - secrets.postgresql-users.pydotorg-prod
     - secrets.sentry.pydotorg-prod
 
+  'pycon':
+    - match: nodegroup
+    - firewall.http
+
   'pycon-prod':
     - match: nodegroup
     - pycon.prod

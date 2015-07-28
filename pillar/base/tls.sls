@@ -37,6 +37,10 @@ tls:
       roles:
         - pydotorg
 
+    pycon.psf.io:
+      roles:
+        - pycon
+
     hg.psf.io:
       roles:
         - hg
