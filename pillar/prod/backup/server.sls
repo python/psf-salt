@@ -27,3 +27,13 @@ backup-server:
       user: aptly
       increment_retention: 90D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjbb0e2BjwuPXE2EcNM5c+Elwfh/RdCjVI/Th9+NM1FPMcRA3Tdg8yBz2OrjFHihSEOwGOu4920VZlmc+sr9akEPuf0euj77Rwtc3j2aXdtlMH6bn+6aBxmxn+Rzo5M/jCp5j/0u7hE9BxnMfKzcZ0+8rAjC58E/SXot7PPu7Cm+ZM6FYSlumzEWB4jx37LbIT4JirrlIIjeZXqP+Zm1YcuogbEQOMsEiG+WEywRJMlXPwmdTH6xGjAARLkhgr8ACEmON3y0nYEozQoQ84t+7Qhq5+x2shHrc76KF2tTkzznKBOs0MfWAxKbUPXKXKcqcmZYHIc1B5Fcrht2GPsnK1
+    pycon-prod:
+      directory: /backup/pycon-prod
+      user: pycon-prod
+      increment_retention: 14D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDOxrE7lV75HStJ1aXGp30km8HQxo+cu9/Ms9VoUW360/Ip/QdZ/rrYv4oVZNZ+tPhUM23rqRwcLkV891ObDfEi5wmZG+SsiO0G707GyzmJ8qKsyDsd9husFv1ne7374tsmIDHiBTnWklLYfus890S5+jU+3F9D/Ek/0DpsssASj/tTQn4H9/QH8ZdAIyf6VvQp78LpEIlnre6MkOLp2T/CeKmKptH31KGOT9xFSsKVFOK70urEasimL+okJTBJdTeqGFFGMRLtBBLVVe5HtggowcYZIloGuIeU7vp4DRPXg2dkhB1DVgbVSRRwP9E0pCEDmzngEt+PL2YtOXkC+0pt
+    pycon-staging:
+      directory: /backup/pycon-staging
+      user: pycon-staging
+      increment_retention: 14D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKv4cBqTB2n/e6hjJrP8cy2OvhRnmDdc1kWuj0x4ML2k6xZvwkx6Nnd9KyF1Z6nu5qNi8nR+LsYlLfZrjK5aa6CxySgrEuyc//BJLFmVKQPt6ZdWo++bTXdliHsZqHmS57TXLB7A2X2sm4syqMBsul2EqFDdcAmPq5LNY07WGuCYKqbTCGtg3no6qsVw+ZN8PnSLAhOCXwFiQBfqf7UDJXw3bjG9j3V/Yfy9rPPVny/qfIayDoOOKUeYkk6/u7/yQAuk6sRshI8waXHulY1mhUYsXW0aI4qI03/kpqhU38awW9mO76p0Mcz764tMuqKi0SS4Y1U5YE22Ff0bVKU8tv
