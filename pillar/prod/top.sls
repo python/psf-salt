@@ -118,12 +118,14 @@ base:
     - pycon.prod
     - secrets.postgresql-users.pycon-prod
     - secrets.pycon.prod
+    - secrets.backup.pycon.prod
 
   'pycon-staging':
     - match: nodegroup
     - pycon.staging
     - secrets.postgresql-users.pycon-staging
     - secrets.pycon.staging
+    - secrets.backup.pycon.staging
 
   'pythontest':
     - match: nodegroup
