@@ -30,7 +30,7 @@ DATABASES = {
 ALLOWED_HOSTS = [
      "{{ grains['fqdn'] }}",
 {% for server in server_names %}
-     "{{ server }}"
+     "{{ server }}",
 {% endfor %}
 ]
 
