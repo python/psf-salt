@@ -103,7 +103,7 @@ pycon-requirements:
     - context:
         source: /usr/share/consul-template/templates/pycon_settings.py
         destination: /srv/pycon/pycon/pycon/settings/local.py
-        command: "chown pycon /srv/pycon/pycon/pycon/settings/local.py"
+        command: "chown pycon /srv/pycon/pycon/pycon/settings/local.py && service pycon restart"
     - user: root
     - group: root
     - mode: 640
@@ -127,6 +127,19 @@ pycon-requirements:
     - mode: 644
     - require:
       - sls: nginx
+
+pre-reload:
+  cmd.run:
+    - name: /srv/pycon/env/bin/python manage.py migrate --noinput && /srv/pycon/env/bin/python manage.py collectstatic -v0 --noinput
+    - user: pycon
+    - cwd: /srv/pycon/pycon/
+    - env:
+      - LC_ALL: en_US.UTF8
+    - require:
+      - virtualenv: /srv/pycon/env/
+      - cmd: consul-template
+    - onchanges:
+      - git: pycon-source
 
 pycon:
   service.running:
