@@ -28,7 +28,10 @@ DATABASES = {
 {% endcall %}
 
 ALLOWED_HOSTS = [
-     "{{ grains['fqdn'] }}"
+     "{{ grains['fqdn'] }}",
+{% for server in server_names %}
+     "{{ server }}"
+{% endfor %}
 ]
 
 SECRET_KEY = '{{ secret_key }}'

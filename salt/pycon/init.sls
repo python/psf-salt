@@ -104,6 +104,7 @@ pycon-requirements:
       secret_key: {{ secrets['secret_key'] }}
       google_oauth2_client_id: {{ secrets['google_oauth2']['client_id'] }}
       google_oauth2_client_secret: {{ secrets['google_oauth2']['client_secret'] }}
+      server_names: {{ config['server_names'] }}
     - user: root
     - group: root
     - mode: 640
