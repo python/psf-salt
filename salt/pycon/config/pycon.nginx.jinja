@@ -7,7 +7,7 @@ server {
 
   server_name {{ grains['fqdn'] }} {{ server_names }};
 
-  if ($http_x_forwarded_proto = "http") {
+  if ($scheme = "http") {
     return 301 https://$http_host$request_uri;
   }
 }
