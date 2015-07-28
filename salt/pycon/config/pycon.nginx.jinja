@@ -21,7 +21,7 @@ server {
 
   server_name {{ grains['fqdn'] }} staging-pycon.python.org us.pycon.org;
   location /2016/site_media/static {
-    alias /srv/pycon/pycon/site_media/static;
+    alias /srv/pycon/site_media/static;
   }
   location /2016/site_media/media {
     alias /srv/pycon/media;
