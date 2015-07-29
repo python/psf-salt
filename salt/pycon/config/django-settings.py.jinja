@@ -40,18 +40,25 @@ GRAYLOG_HOST = '{{ graylog_host }}'
 GOOGLE_OAUTH2_CLIENT_ID = '{{ google_oauth2_client_id }}'
 GOOGLE_OAUTH2_CLIENT_SECRET = '{{ google_oauth2_client_secret }}'
 
-EMAIL_HOST = "mail.python.org"
-
 ADMINS = (
     ('Ernest W. Durbin III', 'ewdurbin+pyconError@gmail.com'),
     ('Alex Gaynor', 'alex.gaynor+pyconError@gmail.com'),
     ('Caktus Pycon Team', 'pycon@caktusgroup.com'),
 )
-# From address:
-SERVER_EMAIL = 'pycon@caktusgroup.com'
-# The main settings send email to the console, go back to the default
-# that uses SMTP
+
+SERVER_EMAIL = 'pycon-{{ deployment }}@mail.pycon.python.org'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "{{ smtp_host }}"
+EMAIL_HOST_USER = "{{ smtp_user }}"
+EMAIL_HOST_PASSWORD = "{{ smtp_password }}"
+EMAIL_PORT = {{ smtp_port }}
+EMAIL_USE_TLS = {{ smtp_tls }}
+{% if deployment == 'staging' %}
+DEFAULT_FROM_EMAIL = "noreply-staging@mail.pycon.python.org"
+{% else %}
+DEFAULT_FROM_EMAIL = "noreply@mail.pycon.python.org"
+{% endif %}
 
 MANAGERS = ADMINS
 

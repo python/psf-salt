@@ -105,6 +105,11 @@ pycon-requirements:
       google_oauth2_client_id: {{ secrets['google_oauth2']['client_id'] }}
       google_oauth2_client_secret: {{ secrets['google_oauth2']['client_secret'] }}
       server_names: {{ config['server_names'] }}
+      smtp_host: {{ config['smtp']['host'] }}
+      smtp_user: {{ config['smtp']['user'] }}
+      smtp_password: {{ config['smtp']['password'] }}
+      smtp_port: {{ config['smtp']['port'] }}
+      smtp_tls: {{ config['smtp']['tls'] }}
     - user: root
     - group: root
     - mode: 640
