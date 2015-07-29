@@ -189,3 +189,39 @@ users:
     access:
       cdn-logs:
         allowed: True
+
+  dpoirier:
+    fullname: "Dan Poirier"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAmFIbg8mdvn7MQajwpBWXdK+utvP7+d0f391Z+v2r79Pam3/9j8VFBH8mioAmp9b2iFL6DZeDOYWOIM5R3U/bIVvJ8/2kZpE+rItJRyuqYQp3ZbOkBTxmv1avRfX4LSaM4uvurtSHK+VFbRXRlSKr7gURM7d7pUXTsuqAuGiJeBRc492RhKsaRf21/7+X8LyUuIWmaGn/CRgn6SBtq1xTilCAlkiRFBbUR++qkHWonfImAeHN6EiIx9fwtvfjtJA8kW49t75io9HoIovA24psyfZZuMFYkiPzDtPDXSm0fhwx0IbAZc2W1iWqYLbrBZM7A3QGyF61JeafxuC+Jzm3Ow== dpoirier@caktusgroup.com
+    access:
+      pycon:
+        allowed: True
+        sudo: True
+
+  dchukhin:
+    fullname: "Dmitriy Chukhin"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCyaAGW8HiLvLP9whINKHck0faKwryO++lqA+GYD9G2XZkbsxcBKqU1b3STGn8jXrDjtr4FcKXFGLq8uOS4/FOiCs45TwLOcA4enyTbaPxrZA05Zw5J5hYZ1y4bBvc+GxytAoyySN3MTG7Q2Mb3TgTTl5G/J+d+zGljHBbrjn1Y3xCRPi9ed82bzqdI+6S8kk7kzub++EScjegTfbPhtsyrY4WbZ0Z/hW0Odtt4rXhsktdfLpYTZ3jJs9YapOBFHblRRlZxtc45o5Q2+4B8z8dr1t3jiFqJJdTL5Cnn+DzD/CHiJE/hT8hc4XcHJPjfymMlX2c6AhxN87RcOWHplTGirkNwSnsyquM4fzZPlXpR7aPbTXQNjGrryk95EEkes+/RmdES6QCptGCqGtcmCRFvIYh4v50r7OvyU12GJUmN3HWyDcLMY6JmDvfYzz2ETBeMPWVP++N4IVDzG08WenjA4vTkw2Yvwaodbhe8m0vodqfkNX/ll13wMKf6TAKLFOLc8NfRh4xP936d4xL7pcsGS6LC6pVd6JjJ3CKKHqGcxRuw/00IzFoRRgs+fzIhmXUKbrFtAJbkXaYpV/rfzRc+no3ddWwZ4hK0FaQ5YBU1rfkCBoJzzIWFdJc8dqfbSMwMohHtFZGDhX9seJoo5KZFUbzl0qSD2hJrehGB3k3fQ== dchukhin@gmail.com
+    access:
+      pycon:
+        allowed: True
+        sudo: True
+
+  ncnwoko:
+    fullname: "NC Nwoko"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDPauOc4l4koOoiwAH+4eDP1r3fAMAA7p45fYdzJX2Rzs2rn3bMA1pJFEOIr9aAhAY8EY+dmpoga0P/nnT1WWfkp5lRjEDHxCz332o81BAqBS9occ0b6l48iHh5itFSw6sBG0iidbMBh8Mf+vfOnwRvCdFfANa+LTDuuQJfiDdq4brrfnUgeyutAzylhSUrizWs6sQQr10uz2L5RjnmL+kc20v9ciFgXVHuSSX3aNj4ViXQVvuHEfUyOwJQwIzqJHbho/0Xh/6/aHcDo8NQ2ygAzf2RCiF3Z147xaFPQq9kF9BF3n1THLvKovP1/qMnOGLaucGsAGQ4vCezAfbgM+/BOIzdIL8jpkEKVmWIR0sR/MjZZT1zIWmnFSnTrb+2farStZo6LtiyuMH0GA4TSrin8Ss91TknjxovGqmpVi2VSO4I6CFy2Nh6dkSlGPtg6wlpi6Hx/qtdkIk2f/Ss8E6cL4FsqEvHXzCqPSaQM7gR+zAx+uLp5H/EQ68TCW+Nzgo/AMXkeUWG9xIt5LcyyInApUFnPbP3AuffdpgI/jyA1sNpZhjR4Ui3aKsBwuEM+CVl14XytjHqQUqBbDZ/Q+Aq7jVYy4wlb0FykeMJShZlP9pM2GlJPBV+jIB5bwLuQYmtiRNOYmMtDIQqsZbkMLtuHEMdKNy46G8V3xfCtLMZqw== nwoko.nc@gmail.com
+    access:
+      pycon:
+        allowed: True
+        sudo: True
+
+  trevorray:
+    fullname: "Trevor Ray"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCm56PvMfyIiOixO6r9+i3F0g10DMNmXZV8BzWQp/cORj24Q41TgWCZwziKqKkOS6OC6cTBkq5NU7qpRE8qZImfXg/sLEbHnVx0QtIM9ikYy+FUoZun85R5YGWwrwd6WgQh0RIaAT2gaJsyYbBJCb01kq3z5b9gqc/qyF/hmEIgpqV/vi/aJPPULOUN3cbkKt3wm25ysQtr3VsWSzQYn+7Ek+45229oeSdre2Vk3mtI6hQeKwA057WqwMcjCUUU0wdwmLtCAUe0pryhi2LE82YLc9o7v4CRWi0nOMcnhR4guqy6n+CvJs/oo4sfvwbh2ZdN3eXJ7kGJYT7YEE4m7OIZ tray@caktusgroup.com
+    access:
+      pycon:
+        allowed: True
+        sudo: True
