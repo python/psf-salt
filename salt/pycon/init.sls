@@ -140,6 +140,15 @@ pycon-requirements:
     - group: root
     - mode: 644
 
+/srv/pycon/htpasswd:
+  file.managed:
+    - source: salt://pycon/config/htpasswd
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - user: pycon-user
+
 /etc/nginx/sites.d/pycon.conf:
   file.managed:
     - source: salt://pycon/config/pycon.nginx.jinja
@@ -149,8 +158,11 @@ pycon-requirements:
     - mode: 644
     - context:
       server_names: {{ config['server_names']|join(' ') }}
+      use_basic_auth: {{ config['use_basic_auth'] }}
+      auth_file: /srv/pycon/htpasswd
     - require:
       - sls: nginx
+      - file: /srv/pycon/htpasswd
 
 pre-reload:
   cmd.run:
