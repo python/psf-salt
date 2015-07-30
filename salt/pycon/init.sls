@@ -79,7 +79,7 @@ pycon-requirements:
   cmd.run:
     - user: pycon
     - cwd: /srv/pycon/pycon
-    - name: /srv/pycon/env/bin/pip install -r requirements/project.txt
+    - name: /srv/pycon/env/bin/pip install -U -r requirements/project.txt
 
 /var/log/pycon/:
   file.directory:
