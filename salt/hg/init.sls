@@ -27,6 +27,17 @@ hgaccounts-user:
     - name: hgaccounts
     - home: /srv/hgaccounts
 
+/srv/hgaccounts/.ssh/authorized_keys:
+  file.managed:
+    - source: salt://hg/config/hg-account-admins
+    - user: hgaccounts
+    - group: hgaccounts
+    - mode: 600
+    - makedirs: true
+    - dir_mode: 700
+    - require:
+      - user: hgaccounts-user
+
 apache2:
   pkg.installed:
     - pkgs:
