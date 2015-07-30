@@ -48,8 +48,10 @@ server {
     client_max_body_size 20M;
     proxy_pass http://pycon;
     proxy_set_header Host $http_host;
+    {% if use_basic_auth %}
     auth_basic "New site coming soon";
     auth_basic_user_file {{ auth_file }};
+    {% endif %}
   }
   rewrite ^/$ /2015/ redirect;
 }
