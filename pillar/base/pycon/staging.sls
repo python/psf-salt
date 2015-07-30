@@ -1,6 +1,6 @@
 pycon:
   deployment: staging
-  branch: salt_deploy
+  branch: staging
   server_names:
     - staging-pycon.python.org
     - pycon-staging.python.org
