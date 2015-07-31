@@ -17,6 +17,7 @@ pycon-deps:
       - libpq-dev
       - libjpeg8-dev
       - node-less
+      - redis-server
 
 pycon-user:
   user.present:
