@@ -19,6 +19,12 @@ pycon-deps:
       - node-less
       - redis-server
 
+pycon-redis:
+  service.running:
+    - name: redis-server
+    - require:
+      - pkg: pycon-deps
+
 pycon-user:
   user.present:
     - name: pycon
