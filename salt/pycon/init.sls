@@ -149,6 +149,14 @@ pycon-requirements:
     - group: root
     - mode: 644
 
+/etc/init/pycon_worker.conf:
+  file.managed:
+    - source: salt://pycon/config/pycon_worker.upstart.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+
 /srv/pycon/htpasswd:
   file.managed:
     - source: salt://pycon/config/htpasswd
@@ -207,6 +215,20 @@ pycon:
       - cmd: pre-reload
     - watch:
       - file: /etc/init/pycon.conf
+      - virtualenv: /srv/pycon/env/
+      - git: pycon-source
+
+pycon_worker:
+  service.running:
+    - reload: True
+    - require:
+      - virtualenv: /srv/pycon/env/
+      - file: /etc/init/pycon_worker.conf
+      - file: /var/log/pycon/
+      - file: /srv/pycon/media/
+      - cmd: pre-reload
+    - watch:
+      - file: /etc/init/pycon_worker.conf
       - virtualenv: /srv/pycon/env/
       - git: pycon-source
 
