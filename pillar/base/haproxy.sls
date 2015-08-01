@@ -32,6 +32,12 @@ haproxy:
       tls: False
       check: False
 
+    pycon-staging:
+      domains:
+        - pycon-staging.python.org
+        - staging-pycon.python.org
+      verify_host: pycon.psf.io
+
     console:
       domains:
         - console.python.org
@@ -85,10 +91,6 @@ haproxy:
       hpkp_subdomains: False
     pypa.io:
       target: www.pypa.io
-    pycon-staging.python.org:
-      target: pycon-staging.global.ssl.fastly.net
-    staging-pycon.python.org:
-      target: pycon-staging.global.ssl.fastly.net
 
   listens:
     hg_ssh:
