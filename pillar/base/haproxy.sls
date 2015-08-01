@@ -85,6 +85,10 @@ haproxy:
       hpkp_subdomains: False
     pypa.io:
       target: www.pypa.io
+    pycon-staging.python.org:
+      target: pycon-staging.global.ssl.fastly.net
+    staging-pycon.python.org:
+      target: pycon-staging.global.ssl.fastly.net
 
   listens:
     hg_ssh:
