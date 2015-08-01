@@ -152,3 +152,7 @@ base:
     - match: nodegroup
     - moin
     - firewall.rs-lb-backend
+
+  'mailman':
+    - match: nodegroup
+    - firewall.mailman
