@@ -186,6 +186,16 @@ pre-reload:
     - onchanges:
       - git: pycon-source
 
+pycon-crontab:
+  file.managed:
+    - name: /etc/cron.d/pycon
+    - user: root
+    - group: root
+    - mode: 644
+    - contents: |
+        0  0  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py expunge_deleted
+        0 20  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py update_tutorial_registrants
+
 pycon:
   service.running:
     - reload: True
