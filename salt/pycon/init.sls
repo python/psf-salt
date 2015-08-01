@@ -209,3 +209,16 @@ pycon:
       - file: /etc/init/pycon.conf
       - virtualenv: /srv/pycon/env/
       - git: pycon-source
+
+/etc/consul.d/service-pycon.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: pycon-{{ config["deployment"] }}
+        port: 443
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
