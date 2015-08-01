@@ -142,6 +142,8 @@ pycon-requirements:
 /etc/init/pycon.conf:
   file.managed:
     - source: salt://pycon/config/pycon.upstart.conf.jinja
+    - context:
+      sentry_dsn: {{ secrets['sentry_dsn'] }}
     - template: jinja
     - user: root
     - group: root
