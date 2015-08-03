@@ -193,8 +193,8 @@ pycon-crontab:
     - group: root
     - mode: 644
     - contents: |
-        0  0  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py expunge_deleted > /var/log/pycon/cron.log 2>&1
-        0 20  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py update_tutorial_registrants > /var/log/pycon/cron 2>&1
+        0  0  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py expunge_deleted > /var/log/pycon/cron_expunge_deleted.log 2>&1
+        0 20  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py update_tutorial_registrants > /var/log/pycon/cron_update_tutorial_registrants 2>&1
 
 pycon:
   service.running:
