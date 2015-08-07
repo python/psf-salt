@@ -225,3 +225,12 @@ users:
       pycon:
         allowed: True
         sudo: True
+
+  lovewell:
+    fullname: "Rebecca Muraya"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB+wCuGhMEXvS1ys+Oox2BvQR+VhyaCr2/KgHTCg7txHTmEYcltyuwVKC0/uTKNFa/VBkgXMWa+6vVQUtDu9O4Yh+rZ0CCEulTwRx6w01oDipvg3SN4i4qbjHYvvA7D4WuXJ1KtKdqYqjxlOBqCbX9yqgvQm/Jntmr1ihKdWp5kKT7YliE47y0ab0kzJoPH4jTrXqKRVldpiJlUhHQbXj1uhSeN1uWYFblj2BivEfO78yR6n9mQRW/EN7CDcDRQJ99sgynEnOxHtpkpAyJZsHjSRgIrB8JUXKhSfSDINttdTNN5Th3vWq+2JdhOwpbgNfd3cJ9csvdTRjg7TfGifLBKmoEHVRg0WF0JR0YiF3YK5yayoJEJ3VeH9AAaXObUprjyiSPQqcF4zg5EY1ojgdPXNWw6gWs8aVjIrqmStQKYDy+G2s6l816hAsfg1Gf6P4ZoEdIelXgpLlzLbphocfmHujkonfN7QCgGWU8k1ABaf8MBzA1Xd5Dnbp/aQ1VCEmVRhY3T3dQp8S/SmFbn6zl27h3THCNFXkzOwpCA6+u2dhhWVgibO4xTU6DA1OCbQpZwcZvVNGGD5nBTHQRABgyU64C7ZtvKg1CHcXqM7ZCWpFZmuw3SVQdl8MK1RuhtjrB25LV5GcB9eY85hiElFlh+utKzJxLkyaU0rJDIw== lovewell@caktus007
+    access:
+      pycon:
+        allowed: True
+        sudo: True
