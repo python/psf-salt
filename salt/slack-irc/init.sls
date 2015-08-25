@@ -48,7 +48,7 @@ slack-irc:
 
 /etc/init/slack-irc.conf:
   file.managed:
-    - source: salt://salt-irc/config/slack-irc.upstart.conf.jinja
+    - source: salt://slack-irc/config/slack-irc.upstart.conf.jinja
     - template: jinja
     - user: root
     - group: root
