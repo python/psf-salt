@@ -1,0 +1,14 @@
+[
+  {
+    "nickname": "PSFSlack",
+    "server": "irc.freenode.net",
+    "token": "{% slack_token %}",
+    "autoSendCommands": [
+      ["PRIVMSG", "NickServ", "IDENTIFY {% irc_password %}"]
+    ],
+    "channelMapping": {
+      "#infrastructure": "#python-infra"
+    },
+    "commandCharacters": ["!", "."]
+  }
+]

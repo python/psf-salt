@@ -1,3 +1,5 @@
+{% set secrets = pillar["slack-secrets"] %}
+
 slack-irc:
   pkg.installed:
     - pkgs:
@@ -13,5 +15,18 @@ slack-irc:
     - pkgs:
       - slack-irc
     - user: slack-irc
+    - require:
+      - user: slack-irc
+
+  file.managed:
+    - name: /srv/slack-irc/config.json
+    - source: salt://slack-irc/config/slack-irc.json.jinja
+    - context:
+        slack_token: {{ secrets['slack_token'] }}
+        irc_password: {{ secrets['irc_password'] }}
+    - template: jinja
+    - user: slack-irc
+    - mode: 640
+    - show_diff: False
     - require:
       - user: slack-irc

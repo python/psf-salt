@@ -136,6 +136,10 @@ base:
     - firewall.salt
     - secrets.dyn
 
+  'slack':
+    - match: nodegroup
+    - secrets.slack
+
   'speed-web':
     - match: nodegroup
     - firewall.rs-lb-backend
