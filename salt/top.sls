@@ -82,6 +82,10 @@ base:
     - match: nodegroup
     - dns
 
+  'slack':
+    - match: nodegroup
+    - slack-irc
+
   'speed-web':
     - match: nodegroup
     - speed.web
