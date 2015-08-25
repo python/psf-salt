@@ -14,12 +14,9 @@ slack-irc:
   npm.installed:
     - pkgs:
       - slack-irc
-    - user: slack-irc
-    - require:
-      - user: slack-irc
 
   file.managed:
-    - name: /srv/slack-irc/config.json
+    - name: /etc/slack-irc.json
     - source: salt://slack-irc/config/slack-irc.json.jinja
     - context:
         slack_token: {{ secrets['slack_token'] }}
