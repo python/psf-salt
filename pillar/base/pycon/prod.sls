@@ -4,7 +4,7 @@ pycon:
   server_names:
     - us.pycon.org
     - pycon-prod.global.ssl.fastly.net
-  use_basic_auth: True
+  use_basic_auth: False
 
 harden:
   umask: 022
