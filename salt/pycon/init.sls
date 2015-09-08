@@ -144,6 +144,7 @@ pycon-requirements:
     - source: salt://pycon/config/pycon.upstart.conf.jinja
     - context:
       sentry_dsn: {{ secrets['sentry_dsn'] }}
+      gunicorn_workers: {{ config['gunicorn_workers'] }}
     - template: jinja
     - user: root
     - group: root

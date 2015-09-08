@@ -5,6 +5,7 @@ pycon:
     - us.pycon.org
     - pycon-prod.global.ssl.fastly.net
   use_basic_auth: False
+  gunicorn_workers: 4
 
 harden:
   umask: 022
