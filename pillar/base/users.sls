@@ -129,6 +129,9 @@ users:
         allowed: True
         groups:
           - downloads
+      hg:
+        allowed: True
+        sudo: True
   loewis:
     fullname: "Martin von Loewis"
     ssh_keys:
