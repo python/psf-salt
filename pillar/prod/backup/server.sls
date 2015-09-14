@@ -30,7 +30,7 @@ backup-server:
     pycon-prod-database:
       directory: /backup/pycon-prod/database
       user: pycon-prod
-      increment_retention: 14D
+      increment_retention: 90D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDOxrE7lV75HStJ1aXGp30km8HQxo+cu9/Ms9VoUW360/Ip/QdZ/rrYv4oVZNZ+tPhUM23rqRwcLkV891ObDfEi5wmZG+SsiO0G707GyzmJ8qKsyDsd9husFv1ne7374tsmIDHiBTnWklLYfus890S5+jU+3F9D/Ek/0DpsssASj/tTQn4H9/QH8ZdAIyf6VvQp78LpEIlnre6MkOLp2T/CeKmKptH31KGOT9xFSsKVFOK70urEasimL+okJTBJdTeqGFFGMRLtBBLVVe5HtggowcYZIloGuIeU7vp4DRPXg2dkhB1DVgbVSRRwP9E0pCEDmzngEt+PL2YtOXkC+0pt
     pycon-prod-media:
       directory: /backup/pycon-prod/media
