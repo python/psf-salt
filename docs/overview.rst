@@ -138,7 +138,7 @@ www.python.org
    the old website hosted on dinsdale.
 
 PyCon
-   The PyCon website is hosted on a OSUOSL VM. The contact address is
+   The PyCon website is hosted on Rackspace VMs. The contact address is
    pycon-tech@python.org.
 
 PyPI
