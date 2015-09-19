@@ -24,7 +24,7 @@ server {
   server_name {{ grains['fqdn'] }} {{ server_names }};
 
   {% if deployment == 'staging' %}
-  add_header X-Robots-Tag "noindex, nofollow"
+  add_header X-Robots-Tag "noindex, nofollow";
   {% endif %}
 
   location /2016/site_media/static {
