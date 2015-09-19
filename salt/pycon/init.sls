@@ -178,6 +178,7 @@ pycon-requirements:
       server_names: {{ config['server_names']|join(' ') }}
       use_basic_auth: {{ config['use_basic_auth'] }}
       auth_file: /srv/pycon/htpasswd
+      deployment: {{ config["deployment"] }}
     - require:
       - sls: nginx
       - file: /srv/pycon/htpasswd
