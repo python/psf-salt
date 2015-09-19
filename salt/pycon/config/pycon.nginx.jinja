@@ -53,7 +53,7 @@ server {
     proxy_pass http://pycon;
     proxy_set_header Host $http_host;
     {% if use_basic_auth %}
-    auth_basic "New site coming soon";
+    auth_basic "PyCon 2016 *Staging* site for development only. See https://us.pycon.org/2016/";
     auth_basic_user_file {{ auth_file }};
     {% endif %}
   }
