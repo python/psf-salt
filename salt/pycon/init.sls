@@ -222,7 +222,6 @@ pycon:
 
 pycon_worker:
   service.running:
-    - reload: True
     - require:
       - virtualenv: /srv/pycon/env/
       - file: /etc/init/pycon_worker.conf
