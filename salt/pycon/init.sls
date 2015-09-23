@@ -59,6 +59,20 @@ pycon-source:
       - user: pycon-user
       - pkg: git
 
+# If the source changes, set the pycon-dirty grain True.
+# If the pycon-dirty grain is still True when a new deploy
+# starts, then conditionals elsewhere in this state file will
+# try to force the same things to happen as if the pycon-source
+# had been updated again.  If we get through the whole deploy
+# successfully, we set this grain to False again, so that doesn't
+# happen on subsequent deploys.
+set-pycon-dirty:
+  grain.present:
+    - name: pycon-dirty
+    - value: true
+    - onchange:
+       - git: pycon-source
+
 /srv/pycon/media/:
   file.directory:
     - user: pycon
@@ -193,8 +207,13 @@ pre-reload:
     - require:
       - virtualenv: /srv/pycon/env/
       - cmd: consul-template
+{% if ! grains['pycon-dirty'] %}
+    # Just FYI, this if-statement is processed during initial parsing of this state file, so
+    # it takes effect based on the stored grain value as of the start of this deploy and
+    # is not affected by changes to the grain value that happen during this deploy.
     - onchanges:
       - git: pycon-source
+{% endif %}
 
 pycon-crontab:
   file.managed:
@@ -215,10 +234,12 @@ pycon:
       - file: /var/log/pycon/
       - file: /srv/pycon/media/
       - cmd: pre-reload
-    - watch:
+{% if ! grains['pycon-dirty'] %}
+    - onchanges:
       - file: /etc/init/pycon.conf
       - virtualenv: /srv/pycon/env/
       - git: pycon-source
+{% endif %}
 
 pycon_worker:
   service.running:
@@ -229,10 +250,12 @@ pycon_worker:
       - file: /var/log/pycon/
       - file: /srv/pycon/media/
       - cmd: pre-reload
-    - watch:
+{% if ! grains['pycon-dirty'] %}
+    - onchanges:
       - file: /etc/init/pycon_worker.conf
       - virtualenv: /srv/pycon/env/
       - git: pycon-source
+{% endif %}
 
 /etc/consul.d/service-pycon.json:
   file.managed:
@@ -246,3 +269,15 @@ pycon_worker:
     - mode: 644
     - require:
       - pkg: consul
+
+# If everything that only runs when the source changes was successful,
+# set the pycon-dirty grain False.  If not, we leave it True, and on
+# the next deploy we'll try to run those things again.
+set-pycon-clean:
+  grain.present:
+    - name: pycon-dirty
+    - value: false
+    - require:
+      - cmd: pre-reload
+      - service: pycon
+      - service: pycon_worker
