@@ -246,3 +246,12 @@ users:
       speed-web:
         allowed: True
         sudo: True
+
+  brhodes:
+    fullname: "Brandon Rhodes"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABeQX1NzdjdXsKne2LL1ygSV2vRkgFPlvkcOcq+9/yH+u+yWoEn3hscLECsKj0YqlpWi7lCF/7/wOhFgCxW0U3nkbNjmZAjfzHmliGP4h+8jPkfpF+cz8ioS3zhBdshwNy/nFOe2fqdllY3KoJhOfc0i75Ls7udZal44f6GzY9UwChCh4AKgt3T8Frx/L9SLu+hcVALKo7t+ydY440BMfylyRNMkNEFi0CjMieSrOk3mT1TZLcYOGpPg0oSdkFeQheDjOqg/5tkYSr6fHtPtdemELWB+Ys1PQWNrbcEdPIp9pXABT6KJ/kON5o6PY6DlTQ7R6PQEQDNOUpNeQrivRBGeoFldm1b3ipL3IbOVgcPyxe2kvUKeVA2Zi+z6otKVyWBrjyt8FPbalt+MVT6KKYZHqxlbQ8yX79I8pvIkHHBKVdIQZ6wKCsc/p8qaVGF36Dxa+altUxEfnsWVBjLTGswBHumyDWx3BIydVRgpOoBiDxSCpfLANpEojV brandon@bernardus
+    access:
+      pycon:
+        allowed: True
+        sudo: True
