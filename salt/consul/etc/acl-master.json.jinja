@@ -1,1 +1,1 @@
-{"acl_master_token": "{{ pillar['consul']['acl']['tokens']['__master__'] }}"}
+{"acl_master_token": "{{ salt['pillar.get']('consul:acl:tokens:__master__') }}"}

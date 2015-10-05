@@ -1,1 +1,1 @@
-{"encrypt": "{{ pillar['consul']['encryption']['key'] }}"}
+{"encrypt": "{{ salt['pillar.get']('consul:encryption:key') }}"}
