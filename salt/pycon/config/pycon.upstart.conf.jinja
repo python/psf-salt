@@ -8,6 +8,8 @@ setgid pycon
 
 chdir /srv/pycon/pycon
 env SENTRY_DSN="{{ sentry_dsn }}"
+env LC_ALL=en_US.UTF-8
+env LANG=en_US.UTF-8
 
 respawn
 exec /srv/pycon/env/bin/gunicorn symposion.wsgi -w {{ gunicorn_workers }} --bind 127.0.0.1:8000
