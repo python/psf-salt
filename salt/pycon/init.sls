@@ -5,6 +5,16 @@ include:
   - nginx
   - postgresql.client
 
+us_locale:
+  locale.present:
+    - name: en_US.UTF-8
+
+default_locale:
+  locale.system:
+    - name: en_US.UTF-8
+    - require:
+      - locale: us_locale
+
 git:
   pkg.installed
 
@@ -214,6 +224,7 @@ pycon:
       - file: /etc/init/pycon.conf
       - file: /var/log/pycon/
       - file: /srv/pycon/media/
+      - locale: us_locale
       - cmd: pre-reload
     - watch:
       - file: /etc/init/pycon.conf
@@ -227,6 +238,7 @@ pycon_worker:
       - file: /etc/init/pycon_worker.conf
       - file: /var/log/pycon/
       - file: /srv/pycon/media/
+      - locale: us_locale
       - cmd: pre-reload
     - watch:
       - file: /etc/init/pycon_worker.conf
