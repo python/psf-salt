@@ -1,5 +1,5 @@
 {
-    {% if "default" in pillar["consul"]["acl"]["tokens"] %}
+    {% if "default" in salt['pillar.get']("consul:acl:tokens", []) %}
     "acl_token": "{{ pillar['consul']['acl']['tokens']['default'] }}"
     {% endif %}
 }

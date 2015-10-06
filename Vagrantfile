@@ -44,15 +44,24 @@ Vagrant.configure("2") do |config|
     s_config.vm.synced_folder "salt/", "/srv/salt/"
     s_config.vm.synced_folder "pillar/", "/srv/pillar/"
 
-    s_config.vm.provision :file, source: "salt/base/config/APT-GPG-KEY-PSF", destination: "~/APT-GPG-KEY-PSF"
-    s_config.vm.provision :shell, inline: "apt-key add - < /home/vagrant/APT-GPG-KEY-PSF"
-    s_config.vm.provision :shell, inline: "echo 'deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ trusty main' > /etc/apt/sources.list.d/psf.list"
-    s_config.vm.provision :shell, inline: "apt-get update && apt-get install -y salt"
-    s_config.vm.provision :shell, inline: "ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf"
-    s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf"
-    s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-master && service salt-master restart && sleep 10"
-    s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-minion && service salt-minion restart && sleep 10"
-    s_config.vm.provision :shell, inline: "salt-call state.highstate"  # Call it once to setup the roles
+    # Provision the salt-master.
+    s_config.vm.provision :shell, :inline => <<-HEREDOC
+      add-apt-repository ppa:saltstack/salt -y
+      apt-get update
+      apt-get install -y salt-master
+      ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf
+      service salt-master restart
+    HEREDOC
+
+    # Provision the salt-minion
+    s_config.vm.provision :shell, :inline => <<-HEREDOC
+      apt-get install -y salt-minion
+      echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf
+      service salt-minion restart
+      salt-call state.highstate
+    HEREDOC
+
+    # Run this always, because we need to sync our states.
     s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
   end
 
@@ -88,12 +97,17 @@ Vagrant.configure("2") do |config|
         s_config.vm.provision :shell, inline: "add-apt-repository ppa:chris-lea/zeromq -y"
       end
 
-      s_config.vm.provision :file, source: "salt/base/config/APT-GPG-KEY-PSF", destination: "~/APT-GPG-KEY-PSF"
-      s_config.vm.provision :shell, inline: "apt-key add - < /home/vagrant/APT-GPG-KEY-PSF"
-      s_config.vm.provision :shell, inline: "echo 'deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ #{codename} main' > /etc/apt/sources.list.d/psf.list"
-      s_config.vm.provision :shell, inline: "apt-get update && apt-get install -y salt"
-      s_config.vm.provision :shell, inline: "echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf"
-      s_config.vm.provision :shell, inline: "echo 'ENABLED=1' > /etc/default/salt-minion && service salt-minion restart"
+      # Provision the salt-minion
+      s_config.vm.provision :shell, :inline => <<-HEREDOC
+        add-apt-repository ppa:saltstack/salt -y
+        apt-get update
+        apt-get install -y salt-minion
+        echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf
+        service salt-minion restart
+        salt-call state.highstate
+      HEREDOC
+
+      # Run this always, because we need to sync our states.
       s_config.vm.provision :shell, inline: "salt-call state.highstate", run: "always"
     end
   end

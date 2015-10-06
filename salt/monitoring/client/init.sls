@@ -25,6 +25,12 @@ diamond:
       - pkg: diamond
       - user: diamond
       - cmd: consul-template
+      - file: /etc/init/diamond.conf
+
+
+/etc/init/diamond.conf:
+  file.symlink:
+    - target: /etc/init/diamond.upstart
 
 
 /etc/diamond/diamond.conf:
