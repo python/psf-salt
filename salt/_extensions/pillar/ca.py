@@ -196,7 +196,8 @@ def create_ca_signed_cert(cacert_path, ca_name,
             "%Y%m%d%H%M%SZ",
         )
         ttl = (not_after - datetime.datetime.utcnow()).total_seconds()
-        if (ttl / valid_for) > 0.25:
+        if (not_after >= datetime.datetime.utcnow() and
+                (ttl / valid_for) > 0.25):
             return
 
     if not os.path.exists(os.path.dirname(certp)):
