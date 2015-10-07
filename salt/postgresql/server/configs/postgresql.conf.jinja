@@ -46,8 +46,8 @@ external_pid_file = '{{ postgresql.pid_file }}'
 
 # - Connection Settings -
 
-listen_addresses = 'localhost'
-port = {{ postgresql.port }}
+listen_addresses = 'localhost,{{ salt["network.ip_addrs"](cidr=psf_internal)[0] }}'
+port = {{ postgresql.port - 1 }}
 max_connections = {{ postgresql.max_connections }}
 unix_socket_directories = '/var/run/postgresql'
 
@@ -55,7 +55,6 @@ unix_socket_directories = '/var/run/postgresql'
 
 # We offload TLS handling to stunnel.
 ssl = false
-
 
 
 #------------------------------------------------------------------------------

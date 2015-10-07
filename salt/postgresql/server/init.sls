@@ -174,6 +174,19 @@ postgresql-psf-cluster:
       - file: {{ postgresql.config_dir }}
 
 
+/etc/network/if-up.d/stunnel:
+  file.managed:
+    - source: salt://postgresql/server/if-up.sh
+    - user: root
+    - group: root
+    - mode: 750
+
+  cmd.wait:
+    - name: IFACE=lo /etc/network/if-up.d/stunnel
+    - watch:
+      - file: /etc/network/if-up.d/stunnel
+
+
 /etc/stunnel/postgresql.conf:
   file.managed:
     - source: salt://postgresql/server/configs/stunnel.conf.jinja

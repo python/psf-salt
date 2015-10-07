@@ -3,15 +3,13 @@
 
 pid = /var/run/stunnel/postgresql.pid
 
-
-{% for addr in salt["network.ip_addrs"]() %}
-[postgres-{{ loop.index }}]
+[postgres]
 client = no
-accept = {{ addr }}:{{ postgresql.port }}
-connect = 127.0.0.1:{{ postgresql.port }}
+accept = {{ postgresql.port }}
+connect = {{ salt["network.ip_addrs"](cidr=psf_internal)[0] }}:{{ postgresql.port - 1 }}
+transparent = source
 protocol = pgsql
 cert = /etc/ssl/private/postgresql.psf.io.pem
 key = /etc/ssl/private/postgresql.psf.io.pem
 ciphers = {{ pillar["tls"]["ciphers"].get("postgresql", pillar["tls"]["ciphers"]["default"]) }}
 sslVersion = TLSv1.2
-{% endfor %}
