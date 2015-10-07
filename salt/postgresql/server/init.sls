@@ -10,6 +10,7 @@ This Does Not Support Multi Data Disk Servers!!!!
 {% endif %}
 
 include:
+  - stunnel
   - monitoring.client.collectors.postgresql
   - postgresql.base
 {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
@@ -68,7 +69,6 @@ postgresql-server:
       - cmd: consul-template
       {% endif %}
     - watch:
-      - file: /etc/ssl/private/postgresql.psf.io.pem
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
       - file: {{ postgresql.hba_file }}
@@ -172,6 +172,17 @@ postgresql-psf-cluster:
     - require:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.config_dir }}
+
+
+/etc/stunnel/postgresql.conf:
+  file.managed:
+    - source: salt://postgresql/server/configs/stunnel.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: stunnel
 
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}

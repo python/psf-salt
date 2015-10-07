@@ -1,0 +1,17 @@
+{% set postgresql = salt["pillar.get"]("postgresql") %}
+{% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
+
+pid = /var/run/stunnel/postgresql.pid
+
+
+{% for addr in salt["network.ip_addrs"]() %}
+[postgres-{{ loop.index }}]
+client = no
+accept = {{ addr }}:{{ postgresql.port }}
+connect = 127.0.0.1:{{ postgresql.port }}
+protocol = pgsql
+cert = /etc/ssl/private/postgresql.psf.io.pem
+key = /etc/ssl/private/postgresql.psf.io.pem
+ciphers = {{ pillar["tls"]["ciphers"].get("postgresql", pillar["tls"]["ciphers"]["default"]) }}
+sslVersion = TLSv1.2
+{% endfor %}
