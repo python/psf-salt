@@ -116,7 +116,7 @@ haproxy-ocsp:
     - group: root
     - mode: 644
     - require:
-      - sls: nginx
+      - file: /etc/nginx/sites.d/
 
 
 /etc/nginx/sites.d/redirect.conf:
@@ -127,4 +127,4 @@ haproxy-ocsp:
     - group: root
     - mode: 644
     - require:
-      - sls: nginx
+      - file: /etc/nginx/sites.d/

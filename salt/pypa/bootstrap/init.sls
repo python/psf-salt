@@ -24,7 +24,7 @@ bootrap-deps:
     - source: salt://pypa/bootstrap/config/nginx.conf.jinja
     - template: jinja
     - require:
-      - pkg: nginx
+      - file: /etc/nginx/sites.d/
       - file: /srv/bootstrap/www
 
 

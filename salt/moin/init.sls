@@ -138,7 +138,7 @@ gunicorn:
     - group: root
     - mode: 644
     - require:
-      - sls: nginx
+      - file: /etc/nginx/sites.d/
 
 
 /etc/consul.d/service-wiki.json:

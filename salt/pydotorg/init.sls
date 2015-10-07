@@ -130,7 +130,7 @@ pydotorg-source:
     - group: root
     - mode: 644
     - require:
-      - sls: nginx
+      - file: /etc/nginx/sites.d/
 
 /etc/init/pydotorg.conf:
   file.managed:

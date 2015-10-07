@@ -190,7 +190,7 @@ pycon-requirements:
       auth_file: /srv/pycon/htpasswd
       deployment: {{ config["deployment"] }}
     - require:
-      - sls: nginx
+      - file: /etc/nginx/sites.d/
       - file: /srv/pycon/htpasswd
 
 pre-reload:

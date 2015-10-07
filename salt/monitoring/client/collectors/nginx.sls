@@ -5,7 +5,7 @@
     - group: root
     - mode: 644
     - require:
-      - pkg: nginx
+      - file: /etc/nginx/sites.d/
 
 
 /etc/diamond/collectors/NginxCollector.conf:

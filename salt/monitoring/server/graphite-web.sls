@@ -107,4 +107,4 @@ graphite:
     - group: root
     - mode: 644
     - require:
-      - sls: nginx
+      - file: /etc/nginx/sites.d/
