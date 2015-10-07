@@ -23,4 +23,5 @@
       - pkg: diamond
       - group: diamond
       - file: /etc/nginx/sites.d/status.conf
+      - file: /etc/diamond/collectors
 

@@ -13,3 +13,4 @@
     - require:
       - pkg: diamond
       - group: diamond
+      - file: /etc/diamond/collectors

@@ -51,6 +51,14 @@ diamond:
       - group: diamond
 
 
+/etc/diamond/collectors:
+  file.directory:
+    - mode: 750
+    - makedirs: True
+    - require:
+      - pkg: diamond
+
+
 /etc/rsyslog.d/49-diamond.conf:
   file.managed:
     - source: salt://monitoring/client/configs/rsyslog-diamond.conf

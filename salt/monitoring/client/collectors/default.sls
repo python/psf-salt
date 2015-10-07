@@ -20,6 +20,7 @@ monitoring-collectors-default-packages:
     - require:
       - pkg: diamond
       - group: diamond
+      - file: /etc/diamond/collectors
 
 
 {% set collectors = [
@@ -42,6 +43,7 @@ monitoring-collectors-default-packages:
     - require:
       - pkg: diamond
       - group: diamond
+      - file: /etc/diamond/collectors
 {% endfor %}
 
 
@@ -59,6 +61,7 @@ monitoring-collectors-default-packages:
     - require:
       - pkg: diamond
       - group: diamond
+      - file: /etc/diamond/collectors
 
 
 /etc/diamond/collectors/UserScriptsCollector.conf:
@@ -76,3 +79,4 @@ monitoring-collectors-default-packages:
     - require:
       - pkg: diamond
       - group: diamond
+      - file: /etc/diamond/collectors

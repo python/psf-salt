@@ -22,3 +22,4 @@ monitoring-psycopg2:
       - pkg: diamond
       - group: diamond
       - pkg: monitoring-psycopg2
+      - file: /etc/diamond/collectors
