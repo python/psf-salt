@@ -20,7 +20,6 @@ salt-master:
     - order: last
     - watch:
       - file: /etc/salt/master.d/roles.conf
-      - file: /etc/salt/master.d/aggregate.conf
 {% endif %}
 
 
