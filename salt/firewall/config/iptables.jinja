@@ -1,6 +1,21 @@
 # Firewall configuration written by salt
 # Manual customization of this file is not cool.
 
+{% set rules = salt['pillar.get']('fwmangle', {}) %}
+{% if rules %}
+*mangle
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+{% for name, rule in rules.iteritems() -%}
+# {{ name }}
+{{ rule }}
+{% endfor %}
+COMMIT
+{% endif %}
+
 {% set rules = salt['pillar.get']('firewall', {}) %}
 
 *filter
