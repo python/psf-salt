@@ -13,15 +13,6 @@ python-requests:
     - order: last
 
 
-/etc/salt/master.d/aggregate.conf:
-  file.managed:
-    - contents: "state_aggregate: True\n"
-    - user: root
-    - group: root
-    - mode: 644
-    - order: last
-
-
 salt-master:
   service.running:
     - enable: True
