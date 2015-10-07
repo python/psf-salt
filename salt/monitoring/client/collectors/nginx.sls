@@ -5,7 +5,7 @@
     - group: root
     - mode: 644
     - require:
-      - sls: nginx
+      - pkg: nginx
 
 
 /etc/diamond/collectors/NginxCollector.conf:
