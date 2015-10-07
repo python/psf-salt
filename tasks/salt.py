@@ -45,23 +45,9 @@ def bootstrap(host, codename="trusty", pre=[sync_changes]):
         if fabric.contrib.files.exists("/etc/salt/minion.d/local.conf"):
             raise RuntimeError("{} is already bootstrapped.".format(host))
 
-        # Ok, we're going to bootstrap, first we need to add our packages
-        fabric.api.run(
-            ("echo 'deb [arch=amd64] https://s3.amazonaws.com/apt.psf.io/psf/ "
-             "{} main' > /etc/apt/sources.list.d/psf.list").format(codename)
-        )
-        fabric.api.put(
-            os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), "..",
-                "salt", "base", "config", "APT-GPG-KEY-PSF",
-            ),
-            "/tmp/APT-GPG-KEY-PSF",
-        )
-        fabric.api.run("apt-key add - < /tmp/APT-GPG-KEY-PSF")
-
-        # If we're running precise we need to add a PPA
-        if codename == "precise":
-            fabric.api.run("add-apt-repository ppa:chris-lea/zeromq -y")
+        # Ok, we're going to bootstrap, first we need to add the salt repo
+        fabric.api.run("apt-get install -y software-properties-common")
+        fabric.api.run("add-apt-repository ppa:saltstack/salt -y")
 
         # Then we need to update our local apt
         fabric.api.run("apt-get update -qy")
@@ -71,12 +57,15 @@ def bootstrap(host, codename="trusty", pre=[sync_changes]):
         fabric.api.run("apt-get upgrade -qy")
         fabric.api.run("apt-get dist-upgrade -qy")
 
+        # We don't want the nova-agent installed.
+        fabric.api.run("apt-get purge nova-agent -qy")
+
         # Reboot the server to make sure any upgrades have been loaded.
         fabric.api.reboot()
 
         # Install salt-minion and python-apt so we can manage things with
         # salt.
-        fabric.api.run("apt-get install -qy salt")
+        fabric.api.run("apt-get install -qy salt-minion")
 
         # Drop the /etc/salt/minion.d/local.conf onto the server so that it
         # can connect with our salt master.
