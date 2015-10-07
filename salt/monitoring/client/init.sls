@@ -25,12 +25,15 @@ diamond:
       - pkg: diamond
       - user: diamond
       - cmd: consul-template
-      - file: /etc/init/diamond.conf
+      - cmd: /etc/init/diamond.conf
 
 
 /etc/init/diamond.conf:
-  file.symlink:
-    - target: /etc/init/diamond.upstart
+  cmd.run:
+    - name: "ln -s /etc/init/diamond.upstart /etc/init/diamond.conf && initctl reload-configuration"
+    - creates: /etc/init/diamond.conf
+    - requires:
+        - pkg: diamong
 
 
 /etc/diamond/diamond.conf:
