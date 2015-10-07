@@ -50,7 +50,6 @@ tls:
         - loadbalancer
 
     postgresql.psf.io:
-      days: 7
       roles:
         - postgresql
 
