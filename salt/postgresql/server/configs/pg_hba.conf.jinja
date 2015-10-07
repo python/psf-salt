@@ -13,7 +13,7 @@ local   all             postgres                                peer
 host    all             diamond         127.0.0.1/32            md5
 
 # Replication
-host replication       replicator       0.0.0.0/0               md5
+host replication       replicator       {{ psf_internal }}      md5
 
 # Application Databases
 host monitoring        monitoring       0.0.0.0/0               md5
