@@ -52,7 +52,7 @@ users:
   antoine:
     fullname: "Antoine Pitrou"
     ssh_keys:
-      - ssh-dss AAAAB3NzaC1kc3MAAACBAJiwbeZEP4oPxn/mpbcjPIfmyqDRoyut/AAE76coOCKB3BouwYJPns4Osas6NjR3m9TErNrvcFcm2jCXYTxbrIQmnz1oLwxzmjPK36AUpXtqOy5GPdFUJiVe7iqEBslwtaPVGweXrYdv7ZaI7G6m1ZJDh03uqP6HjNIA1y3yeJFDAAAAFQCxc0R9pwTFUnB4HeHJnx0xE1qg3wAAAIAyxftjIkEAghCBeqbc7W5GRHt2AQ6nczrMCn76pc25+2SkbK750Zk5dAZtIiGkvwNBH2sDdKUzccWkKN7LcyW8ChPLLM1VNVHfgwqQEDbopjd7FkLsOwuQGSxpPoZpTPmewmfJxBJN3kNE5MRVYpzihmqCCoNRi4peMBonuevm4QAAAIEAgCRFJydgXmtk3MiGkX2MyU0DAoAmRzUtJtstYLY0ZqdUvd/0fD4JkpIyZu1N7ROYwzsVCAoU/H6gNGuUFY/NcvfKBUBPZ/yYHECTmstJIWY2X1yVSx59s4lJBZzVUgrP++KTLS+F7n6bil5rsmAaUqg/MoxoMJVLhkvdLvyVPZY= antoine.pitrou
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIECocvLw5VQdrDP6WdzVtitcB3qP5vkwVAaUvJWYwRp/ antoine@fsol
     access:
       hg:
         allowed: True
