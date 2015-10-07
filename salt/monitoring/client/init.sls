@@ -64,6 +64,19 @@ diamond:
 
 /etc/diamond/collectors:
   file.directory:
+    - user: root
+    - group: diamond
+    - mode: 750
+    - makedirs: True
+    - require:
+      - pkg: diamond
+      - file: /etc/diamond
+
+
+/etc/diamond/handlers:
+  file.directory:
+    - user: root
+    - group: diamond
     - mode: 750
     - makedirs: True
     - require:
