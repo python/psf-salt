@@ -36,6 +36,16 @@ diamond:
         - pkg: diamong
 
 
+/etc/diamond:
+  file.directory:
+    - user: root
+    - group: diamond
+    - mode: 750
+    - require:
+      - pkg: diamond
+      - group: diamond
+
+
 /etc/diamond/diamond.conf:
   file.managed:
     - source: salt://monitoring/client/configs/diamond.conf.jinja
@@ -49,6 +59,7 @@ diamond:
     - require:
       - pkg: diamond
       - group: diamond
+      - file: /etc/diamond
 
 
 /etc/diamond/collectors:
@@ -57,6 +68,7 @@ diamond:
     - makedirs: True
     - require:
       - pkg: diamond
+      - file: /etc/diamond
 
 
 /etc/rsyslog.d/49-diamond.conf:
