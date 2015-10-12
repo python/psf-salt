@@ -86,7 +86,7 @@ users:
   gbrandl:
     fullname: "Georg Brandl"
     ssh_keys:
-      - ssh-dss AAAAB3NzaC1kc3MAAACBAJYtc6/8pn0/AgND+D/k2o+fzofXjSavnBAcpbPpUk55bLIJ011JlvOu1olHyFcbhHqmZ0ped1no+0Y2yeuu8N8amQ99WBQwX3HXWUYYhqljTP15U3PbEWjcEl01dEhz3k123MTxJW7Vvt3Y6XsD9M7CDxd/PM1YShfklNn0wdohAAAAFQC7V4y9drTeS6Nurm8dWD0adHrnrQAAAIBzxum3FDzNXIZrqwx7OCrbxQuUI6wwvCDEOHBt4B5S+sVFglSweMbhGKFm1g6NjTD06zOx0qPGKC4IWcBP+hoN63ZpJKsdmi5UzVmrbfWvpLOhgV9I+kDuBU1VXvsazudf1HVqkgNPsWPCZcOYYyQs0jYUxRRANwY1kZsK2soi3QAAAIBpkcmrNwUC/gneUF4tfZeNe3J0MBjZ0rPBwAp31uPLLtEnsdCCP/DagdeGov9zpEuI34a54xKhBDLP2kcFvA911jchGPu76qYWG+JpKJlDWK2yRrOG4DfhdVlOWULy125Ykk1EVYCtzyx2AoVIkspRI6R0dKXewAaWkpI+8BYWdQ== gbrandl@cf.sf.net
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmbsFom9RaggUlB3k8JQCEFDS0IfOVEUSc4Rp4hn2IZhmmpVM1kz+PG93LosAu5rqYi/tTtjTfqjT1EAiGDe+ynqEUznA8tuH8i9yUb/nuWn2hVa60od3rCbWzOh98fiREihd/ITM38GpHgUt1tAXC8d3U4Q8YwPbzc2qSDvB8aq2sdWhSToPf5JEYDgjWvCHmRB+GFmWuusb7CekQ7o/3WY8KS86A+iXfdPyXa8bd2LnUxBVEkIggXNgP0+1Dk6oyWQTuyYKt9m498Zzz3cqliY5DdGxxDVhPoFCtFw1hTyb/4bRPOsGJGgJjIFaQkoRuxilhUn1VT1OajmuWjJAN gbr@georg
     access:
       docs:
         sudo: True
