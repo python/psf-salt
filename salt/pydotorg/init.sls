@@ -18,7 +18,6 @@ pydotorg-deps:
       - python-docutils
       - python-virtualenv
       - python3-dev
-      - ruby-sass
       - yui-compressor
 
 pydotorg-user:
