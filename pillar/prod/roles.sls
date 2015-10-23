@@ -15,6 +15,7 @@ roles:
   hg: "hg.iad1.psf.io"
   jython-web: "jython-web.iad1.psf.io"
   loadbalancer: "lb*.iad1.psf.io"
+  mail: "mail0.ams1.psf.io"
   mailman: "mailman.iad1.psf.io"
   monitoring: "monitoring.iad1.psf.io"
   packages: "packages.iad1.psf.io"
