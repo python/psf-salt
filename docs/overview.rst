@@ -70,12 +70,13 @@ Fastly
 Datacenters
 -----------
 
-====== ========= ======
-PSF DC Provider  Region
-====== ========= ======
-iad1   Rackspace IAD
-ord1   Rackspace ORD
-====== ========= ======
+====== ============= ======
+PSF DC Provider      Region
+====== ============= ======
+iad1   Rackspace     IAD
+ord1   Rackspace     ORD
+ams1   Digital Ocean AMS2
+====== ============= ======
 
 
 Details of Various Services
