@@ -74,6 +74,9 @@ users:
       mailman:
         allowed: True
         sudo: True
+      mail:
+        allowed: True
+        sudo: True
   fwierzbicki:
     fullname: "Frank Wierzbicki"
     ssh_keys:
