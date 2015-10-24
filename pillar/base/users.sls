@@ -267,3 +267,12 @@ users:
       mail:
         allowed: True
         sudo: True
+
+  brad:
+    fullname: "Brad Knowles"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAsL3PAE5CoygykVC3LkeyZF1YiKsTLe0aAfZAYVaV/3bi0dGBfMmfjOlHiyZwSv1fHFxsdE0ipamauXU553EOS19FS6riVDm0CS31GIbZ6gzX0fmOHPUT1nnYNSpKhkgRrLvi0QOoeEYJrxWcSKt6wp+iaHL/SMiMRJUbx64T3KM= blk@frobozz.local.
+    access:
+      mail:
+        allowed: True
+        sudo: True
