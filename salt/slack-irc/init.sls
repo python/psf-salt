@@ -21,7 +21,7 @@ slack-irc:
 
   npm.installed:
     - pkgs:
-      - slack-irc
+      - slack-irc@3.6.0
 
   file.managed:
     - name: /etc/slack-irc.json
