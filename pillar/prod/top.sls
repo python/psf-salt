@@ -160,3 +160,7 @@ base:
   'mailman':
     - match: nodegroup
     - firewall.mailman
+
+  'mail':
+    - match: nodegroup
+    - firewall.mail
