@@ -160,7 +160,9 @@ base:
   'mailman':
     - match: nodegroup
     - firewall.mailman
+    - secrets.mail-opt-out
 
   'mail':
     - match: nodegroup
     - firewall.mail
+    - secrets.mail-opt-out
