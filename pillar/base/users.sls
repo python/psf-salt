@@ -278,3 +278,11 @@ users:
       mail:
         allowed: True
         sudo: True
+  p:
+    fullname: "Patrick Ben Koetter"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCuD5H0/c6PTIQ/0wjyIm0o6X+1QHEhbrZOWQsk8HtwEeWgtwtXacvkUpyzPnDqt2uWMUCEFytbMRoCKDFUjx0SKHEqKIYs5dmm4MfL2v64mKApQg2AKc8iu9k3y+HKvHD26u25CUljTbS6BRSA7Rrrq+4tkhIG7KNxgKERxHX+3iFrIJMtZtkkmTOhu0dnAitz4gXvK9/w0p/j2CLEN5H8lMnNbKGcE/7K6ORgkSEmKnEuZdU1Sk0M/GEx+/81ZYgqNx8Bt4hIMm7Fm6sdTZu3VlOj8/hmcIxcrBbl9ZU/TwnqBppacI6YQCFKu/M0oy3T2r+/U1VVITMABPoZqjUx p@sys4.de 2014
+    access:
+      mail:
+        allowed: True
+        sudo: True
