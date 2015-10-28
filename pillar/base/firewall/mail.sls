@@ -19,3 +19,4 @@ firewall:
     port: 587
   mail-ntp:
     port: 123
+    protocol: udp
