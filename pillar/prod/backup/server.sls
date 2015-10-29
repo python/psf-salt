@@ -47,3 +47,8 @@ backup-server:
       user: pycon-staging
       increment_retention: 90D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKv4cBqTB2n/e6hjJrP8cy2OvhRnmDdc1kWuj0x4ML2k6xZvwkx6Nnd9KyF1Z6nu5qNi8nR+LsYlLfZrjK5aa6CxySgrEuyc//BJLFmVKQPt6ZdWo++bTXdliHsZqHmS57TXLB7A2X2sm4syqMBsul2EqFDdcAmPq5LNY07WGuCYKqbTCGtg3no6qsVw+ZN8PnSLAhOCXwFiQBfqf7UDJXw3bjG9j3V/Yfy9rPPVny/qfIayDoOOKUeYkk6/u7/yQAuk6sRshI8waXHulY1mhUYsXW0aI4qI03/kpqhU38awW9mO76p0Mcz764tMuqKi0SS4Y1U5YE22Ff0bVKU8tv
+    mail-python-org:
+      directory: /backup/mail-python-org
+      user: mail-python-org
+      increment_retention: 15D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN9voJiSP7mTsY8so/S8qMizKpJvLxFMWAyrYiTM41APvVpIU62JXfnU4nZxtPaDnqfyuXQzgYh7NgiqU7/OomQ5oyLzoZ6BH8kk4p1RT+tM1s9lR88jxalwSQqt7Av+p7qn4HuJkYAL0k0+AjHI559bFKtyDZYDpZz/JSP++keRqPXMtOk4Nd4z6KR18mzF5NV7rXNjHDExrpVb7kex8UVqXbNj8+dgl37PdXN4cAxlQoOALFbHxGGdxLqvJyalr1GZaxNRul6JUHaRFUkt6rVl90lp6+SO21i6hg5H3fL7eynJto6R0jDFiVNe6JfJs4XdXGYKIZlzhhqMOgbm0t

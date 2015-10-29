@@ -38,7 +38,7 @@ include:
     - template: jinja
     - context:
       pre_script: '{{ config.get('pre_script', ":") }}'
-      remote_command: '/usr/bin/rdiff-backup --no-eas --remote-schema "ssh -i /etc/backup/.ssh/id_rsa_{{ backup }} -C %s rdiff-backup --server" {{ config['source_directory'] }} {{ config['target_user'] }}@{{ config['target_host'] }}::{{ config['target_directory'] }}'
+      remote_command: '/usr/bin/rdiff-backup {%- for exclude in config.get('exclude', []) %} --exclude {{ exclude }} {%- endfor %} --no-eas --remote-schema "ssh -i /etc/backup/.ssh/id_rsa_{{ backup }} -C %s rdiff-backup --server" {{ config['source_directory'] }} {{ config['target_user'] }}@{{ config['target_host'] }}::{{ config['target_directory'] }}'
       post_script: '{{ config.get('post_script', ":") }}'
       cleanup_script: '{{ config.get('cleanup_script', ":") }}'
 
