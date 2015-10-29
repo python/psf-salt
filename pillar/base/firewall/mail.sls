@@ -17,6 +17,9 @@ firewall:
     port: 563
   mail-submission:
     port: 587
-  mail-ntp:
+  mail-ntp-udp:
     port: 123
     protocol: udp
+  mail-ntp-tcp:
+    port: 123
+    protocol: tcp
