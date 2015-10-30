@@ -167,3 +167,4 @@ base:
     - firewall.mail
     - secrets.mail-opt-out
     - secrets.backup.mail
+    - groups.mail
