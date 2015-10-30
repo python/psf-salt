@@ -270,6 +270,8 @@ users:
       mail:
         allowed: True
         sudo: True
+        groups:
+          - mailman
   hildeb:
     fullname: "Ralf Hildebrandt"
     ssh_keys:
