@@ -1,3 +1,6 @@
+git:
+  pkg.installed
+
 https://github.com/dstufft/dotfiles.git:
   git.latest:
     - target: /home/psf-users/dstufft/.dotfiles
@@ -6,6 +9,7 @@ https://github.com/dstufft/dotfiles.git:
     - force_checkout: True
     - require:
       - sls: users
+      - pkg: git
 
 /home/psf-users/dstufft/.zshenv:
   file.symlink:
