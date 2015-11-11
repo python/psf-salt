@@ -1,0 +1,96 @@
+# -*- coding: utf-8 -*-
+
+# Note: This is imported by the main settings file, so only changes to
+# what's there need to be included here.
+
+DEBUG = TEMPLATE_DEBUG = False
+
+{% from "consul/jinja.sls" import simple_service %}
+
+{% call(addr, port) simple_service("primary.postgresql") %}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": "postgresql.psf.io",
+        "PORT": "{{ port }}",
+        "NAME": "speed-web",
+        "USER": "speed-web",
+        "PASSWORD": "{{ pillar["postgresql-users"]["speed-web"] }}",
+        "OPTIONS": {
+            "hostaddr": "{{ addr }}",
+            "sslmode": "verify-full",
+            "sslrootcert": "/etc/ssl/certs/PSF_CA.pem",
+        },
+    }
+}
+{% endcall %}
+
+ALLOWED_HOSTS = [
+     "{{ grains['fqdn'] }}",
+     "{{ server_name }}",
+     "localhost"
+]
+
+SECRET_KEY = '{{ secret_key }}'
+
+
+ADMINS = (
+    ('Python Speed Team', 'speed@python.org'),
+)
+
+SERVER_EMAIL = 'speed@mail.speed.python.org'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = "{#{ smtp_host }#}"
+#EMAIL_HOST_USER = "{#{ smtp_user }#}"
+#EMAIL_HOST_PASSWORD = "{#{ smtp_password }#}"
+#EMAIL_PORT = {#{ smtp_port }#}
+#EMAIL_USE_TLS = {#{ smtp_tls }#}
+DEFAULT_FROM_EMAIL = "noreply@mail.speed.python.org"
+
+MANAGERS = ADMINS
+
+COMPRESS_ENABLED = True
+
+MEDIA_ROOT = "/srv/speed/media/"
+STATIC_ROOT = "/srv/speed/site_media/static"
+
+REPOSITORY_BASE_PATH = "/srv/speed/media/repos/"
+
+from django.utils.log import DEFAULT_LOGGING
+LOGGING = DEFAULT_LOGGING
+
+
+LOGGING['handlers'].update(
+    {
+        'mail_admins': {
+            'level': 'INFO',
+ # XXX Uncomment the next two lines and remove the third when email works
+ #           'class': 'django.utils.log.AdminEmailHandler',
+ #           'include_html': False,
+            'class': 'logging.StreamHandler',
+            'filters': ['require_debug_false'],
+        }
+    }
+)
+LOGGING['loggers'].update(
+    {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+            },
+        'codespeed': {
+            # mail_admins will only accept ERROR and higher
+            'handlers': ['mail_admins'],
+            'level': 'WARNING',
+            }
+    }
+)
+
+LOGGING['handlers']['log_file'] = {
+    'level': 'ERROR',
+    'class': 'logging.handlers.WatchedFileHandler',
+    'filename': '/var/log/speed/speed.error',
+}
+LOGGING['loggers']['django.request']['handlers'].append('log_file')

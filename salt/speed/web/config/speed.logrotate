@@ -1,0 +1,8 @@
+/var/log/speed/*.log {
+    weekly
+    rotate 5
+    missingok
+    notifempty
+    nocompress
+    create 644 speed speed
+}

@@ -5,6 +5,7 @@ postgresql-users:
   pydotorg-staging: insecurepasswordlol
   pycon-prod: insecurepasswordlol
   pycon-staging: insecurepasswordlol
+  speed-web: insecurepasswordlol
   testpypi: insecurepasswordlol
 
 postgresql-superusers:
