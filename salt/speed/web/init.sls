@@ -64,18 +64,6 @@ cpython-source:
       - user: speed-user
       - pkg: mercurial
 
-/srv/speed/:
-  file.directory:
-    - user: speed
-    - group: speed
-    - mode: 755
-    - recurse:
-      - user
-      - group
-      - mode
-    - require:
-      - user: speed-user
-
 /srv/speed/media/:
   file.directory:
     - user: speed
@@ -86,7 +74,12 @@ cpython-source:
 /srv/speed/site_media/:
   file.directory:
     - user: speed
+    - group: speed
     - mode: 755
+    - recurse:
+      - user
+      - group
+      - mode
     - require:
       - user: speed-user
 
