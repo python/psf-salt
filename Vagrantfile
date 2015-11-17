@@ -50,8 +50,10 @@ Vagrant.configure("2") do |config|
       apt-get update
       apt-get install -y salt-master
       ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf
-      service salt-master restart
     HEREDOC
+
+    # Run this always to make sure salt-master is running
+    s_config.vm.provision :shell, inline: "service salt-master restart", run: "always"
 
     # Provision the salt-minion
     s_config.vm.provision :shell, :inline => <<-HEREDOC
