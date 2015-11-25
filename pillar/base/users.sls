@@ -227,6 +227,15 @@ users:
         allowed: True
         sudo: True
 
+  scottlee:
+    fullname: "Scott Lee"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKm8hLNaEIJjTrBgKGfArpvgBWRG40dxFJP8iKULl7jvY1v7bcNztNhrF4h+CvH1CqFCiN62gH3dJM0/10xq0PYDXTPIomar3AqekrkiTDsDyO0vYNySDQPKF1iGhzO2SPe1zwxfDQK5n8actVZGqSkAPpDwmWhwwYN45JNar+H02vGb9H3eeSFza8BD23U0T5sHPNA/QDK12HzrJ1zakRzFHgtZ8sjmp19NVIac3KBFGFQxiIXpzZ1ZJfJdYuluBg/Owc+vVxij9XwFRqB8olOVUi5kz1lS0e45mBTIdNmIIdIbXcsWCn6Ay9MBZ3+ZUaNqtLIg+WFjZR3PVA+x2R scott@Scotts-MacBook-Air.local
+    access:
+      pycon:
+        allowed: True
+        sudo: True
+
   lovewell:
     fullname: "Rebecca Muraya"
     ssh_keys:
