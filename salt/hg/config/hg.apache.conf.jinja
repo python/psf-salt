@@ -51,8 +51,7 @@
     # version
 
     Alias /robots.txt /srv/hg/robots.txt
-    AliasMatch .*/static/([^/]*) \
-        /srv/hg/lib/python/mercurial/templates/static/$1
+    AliasMatch /static/([^/]*) /srv/hg/lib/python/mercurial/templates/static/$1
     <Directory /srv/hg/lib/python/mercurial/templates/static/>
         Allow from all
     </Directory>
