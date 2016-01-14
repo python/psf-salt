@@ -14,6 +14,8 @@ testdata-repo:
     - name: https://hg.python.org/pythontestdotnet
     - target: /srv/python-testdata/
     - user: www-data
+    - onchange:
+      - service: nginx
   require:
     - pkg: mercurial
     - file: /srv/
