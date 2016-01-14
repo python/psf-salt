@@ -20,6 +20,12 @@ testdata-repo:
     - pkg: mercurial
     - file: /srv/
 
+chmod-testdata:
+  cmd.run:
+    - name: chmod -R o+r /srv/python-testdata/
+    - onchanges:
+      - hg: testdata-repo
+
 /etc/nginx/sites.d/pythontest.conf:
   file.managed:
     - source: salt://pythontest/config/nginx.pythontest.conf.jinja
