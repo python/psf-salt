@@ -107,6 +107,14 @@ refresh-pip:
     - onchanges:
       - git: pip-clone
 
+refresh-pip-32:
+  cmd.run:
+    - name: 'curl -X PURGE https://bootstrap.pypa.io/3.2/get-pip.py'
+    - require:
+      - file: /srv/bootstrap/www/3.2/get-pip.py
+    - onchanges:
+      - git: pip-clone
+
 
 refresh-setuptools:
   cmd.run:
