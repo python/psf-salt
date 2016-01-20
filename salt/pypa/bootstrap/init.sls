@@ -30,7 +30,7 @@ bootrap-deps:
 
 pip-clone:
   git.latest:
-    - name: https://github.com/pypa/pip.git
+    - name: https://github.com/pypa/get-pip.git
     - rev: master
     - target: /srv/bootstrap/pip
     - user: nginx
@@ -65,7 +65,22 @@ buildout-clone:
 
 /srv/bootstrap/www/get-pip.py:
   file.symlink:
-    - target: /srv/bootstrap/pip/contrib/get-pip.py
+    - target: /srv/bootstrap/pip/get-pip.py
+    - require:
+      - git: pip-clone
+
+
+/srv/bootstrap/www/3.2/:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 755
+    - makedirs: True
+
+
+/srv/bootstrap/www/3.2/get-pip.py:
+  file.symlink:
+    - target: /srv/bootstrap/pip/3.2/get-pip.py
     - require:
       - git: pip-clone
 
