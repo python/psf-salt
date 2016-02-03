@@ -1,0 +1,14 @@
+description "codespeed gunicorn application server"
+start on runlevel [2345]
+stop on runlevel [06]
+
+console log
+setuid speed
+setgid speed
+
+chdir /srv/speed/codespeed
+env LC_ALL=en_US.UTF-8
+env LANG=en_US.UTF-8
+
+respawn
+exec /srv/speed/env/bin/gunicorn speed_python.wsgi:application -w {{ gunicorn_workers }} --bind 127.0.0.1:8000
