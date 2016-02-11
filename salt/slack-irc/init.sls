@@ -10,7 +10,7 @@ nodesource:
 slack-irc:
   pkg.installed:
     - pkgs:
-      - iojs
+      - nodejs
     - require:
       - pkgrepo: nodesource
 
