@@ -2,7 +2,7 @@
 
 nodesource:
   pkgrepo.managed:
-    - name: "deb [arch=amd64] https://deb.nodesource.com/iojs_3.x {{ grains['oscodename'] }} main"
+    - name: "deb [arch=amd64] https://deb.nodesource.com/node_5.x {{ grains['oscodename'] }} main"
     - file: /etc/apt/sources.list.d/nodesource.list
     - key_url: salt://slack-irc/config/APT-GPG-KEY-NODESOURCE
     - order: 2
