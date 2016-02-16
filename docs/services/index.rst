@@ -8,3 +8,4 @@ Services
     discovery
     cdn
     postgresql
+    kallithea
