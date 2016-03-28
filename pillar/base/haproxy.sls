@@ -88,7 +88,6 @@ haproxy:
     python.org:
       target: www.python.org
       hsts_subdomains: False
-      hpkp_subdomains: False
     pypa.io:
       target: www.pypa.io
 
