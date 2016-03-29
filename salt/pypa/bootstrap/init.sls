@@ -7,7 +7,6 @@ bootrap-deps:
   pkg.installed:
     - pkgs:
       - git
-      - mercurial
       - curl
 
 
@@ -41,12 +40,13 @@ pip-clone:
 
 
 setuptools-clone:
-  hg.latest:
-    - name: https://bitbucket.org/pypa/setuptools
+  git.latest:
+    - name: https://github.com/pypa/setuptools
     - rev: bootstrap
     - target: /srv/bootstrap/setuptools
     - user: nginx
     - force: True
+    - force_checkout: True
     - require:
       - pkg: bootrap-deps
 
@@ -89,7 +89,7 @@ buildout-clone:
   file.symlink:
     - target: /srv/bootstrap/setuptools/ez_setup.py
     - require:
-      - hg: setuptools-clone
+      - git: setuptools-clone
 
 
 /srv/bootstrap/www/bootstrap-buildout.py:
@@ -122,7 +122,7 @@ refresh-setuptools:
     - require:
       - file: /srv/bootstrap/www/ez_setup.py
     - onchanges:
-      - hg: setuptools-clone
+      - git: setuptools-clone
 
 
 refresh-buildout:
