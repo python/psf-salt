@@ -297,3 +297,11 @@ users:
       mail:
         allowed: True
         sudo: True
+  skip:
+    fullname: "Skip Montanaro"
+    ssh_keys:
+      - ssh-dss AAAAB3NzaC1kc3MAAACBAK25bak5nOfWanVU4YzhjHncboYWcpm8kN7O9Nz85/iTAh3/eVp8AvCDhlks8tpSFUQq3L6VRByXKQ1T6eesO4kfJo/Lnu/WHnDdLn2duUDYiAr3k2UjwBx6Ce6+gffAZ2hZLRHO2vnKObll4/Z/pqUYH61o/dDBG6AFpy24uZf5AAAAFQC19YIcply9SgFG1nF07mwLeruRWwAAAIAv3/V3N6X1EGLjlJl2vTx4CrvfQ1zF1u2OBksVqQh3WimS8Zq6z935fiMhCy6bpWJv2QqYcFluuiOJIiJkZIKJ4TFHnmqSbz0hscFveBRs9Y0zsihgTpE6yZc7FBZLzIKb9tnZ+t9TvzfohRKi+/CcGdcPZNc5ptuwLX58pknt7gAAAIEAkvkC+E7rYNOnUbYUs/98PZVuOKwzBKgsuOOtHMeqwxxCciPPd+hisxlvMUVCnJjNiZ0nJsUcuD3uDK2l0oHpWSQacCc5fw6SCSu1wVXlbRFGEFAHNdWFN5BLVxHuM1aJqMS1HB+E6ZfArDVNdOx3OkPyZ70bcmenakvNRH8AjBM= skipm@curie
+    access:
+      mail:
+        allowed: True
+        sudo: True
