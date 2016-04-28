@@ -63,6 +63,8 @@ server {
   }
   rewrite ^/$ /2016/ redirect;
   location /2016/slides {
+    client_max_body_size 50M;
+    rewrite /2016/slides(.*) /$1 break;
     proxy_pass http://pycon-slides;
     proxy_set_header Host $http_host;
     auth_basic "PyCon Speaker Slide Uploads";
