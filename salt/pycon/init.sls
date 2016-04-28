@@ -305,6 +305,7 @@ pycon-slides-requirements:
   file.managed:
     - source: salt://pycon/config/pycon-slides.upstart.conf.jinja
     - context:
+      mail_from_addr: {{ secrets['pycon-slides']['mail_from_addr'] }}
       mail_recipients: {{ secrets['pycon-slides']['mail_recipients'] }}
       dropbox_access_token: {{ secrets['pycon-slides']['dropbox_access_token'] }}
       smtp_host: {{ secrets['smtp']['host'] }}

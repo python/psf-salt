@@ -9,6 +9,7 @@ setgid pycon-slides
 chdir /srv/pycon-slides/pycon-slides
 env LC_ALL=en_US.UTF-8
 env LANG=en_US.UTF-8
+env MAIL_FROM_ADDR={{ mail_from_addr }}
 env MAIL_RECIPIENTS={{ mail_recipients }}
 env DROPBOX_ACCESS_TOKEN={{ dropbox_access_token }}
 env MAILGUN_SMTP_SERVER={{ smtp_host }}
