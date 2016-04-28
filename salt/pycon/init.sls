@@ -177,6 +177,15 @@ pycon-requirements:
     - require:
       - user: pycon-user
 
+/srv/pycon/pycon-slides-htpasswd:
+  file.managed:
+    - source: salt://pycon/config/pycon-slides-htpasswd
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - user: pycon-user
+
 /etc/nginx/sites.d/pycon.conf:
   file.managed:
     - source: salt://pycon/config/pycon.nginx.jinja
@@ -188,6 +197,7 @@ pycon-requirements:
       server_names: {{ config['server_names']|join(' ') }}
       use_basic_auth: {{ config['use_basic_auth'] }}
       auth_file: /srv/pycon/htpasswd
+      pycon_slides_auth_file: /srv/pycon/pycon-slides-htpasswd
       deployment: {{ config["deployment"] }}
     - require:
       - file: /etc/nginx/sites.d/
@@ -257,3 +267,64 @@ pycon_worker:
     - mode: 644
     - require:
       - pkg: consul
+
+pycon-slides-user:
+  user.present:
+    - name: pycon-slides
+    - home: /srv/pycon-slides/
+    - createhome: True
+
+pycon-slides-source:
+  git.latest:
+    - name: https://github.com/bcostlow/pycon-slides
+    - target: /srv/pycon-slides/pycon-slides/
+    - rev: master
+    - user: pycon-slides
+    - require:
+      - user: pycon-slides-user
+      - pkg: git
+
+pycon-slides-environ-placeholder:
+  file.touch:
+    - name: /srv/pycon-slides/pycon-slides/.environ
+
+/srv/pycon-slides/env/:
+  virtualenv.managed:
+    - user: pycon-slides
+    - python: /usr/bin/python
+    - require:
+      - git: pycon-slides-source
+
+pycon-slides-requirements:
+  cmd.run:
+    - user: pycon-slides
+    - cwd: /srv/pycon-slides/pycon-slides
+    - name: /srv/pycon-slides/env/bin/pip install -U -r requirements.txt
+
+/etc/init/pycon-slides.conf:
+  file.managed:
+    - source: salt://pycon/config/pycon-slides.upstart.conf.jinja
+    - context:
+      mail_recipients: {{ secrets['pycon-slides']['mail_recipients'] }}
+      dropbox_access_token: {{ secrets['pycon-slides']['dropbox_access_token'] }}
+      smtp_host: {{ secrets['smtp']['host'] }}
+      smtp_user: {{ secrets['smtp']['user'] }}
+      smtp_password: {{ secrets['smtp']['password'] }}
+      smtp_port: {{ secrets['smtp']['port'] }}
+      smtp_tls: {{ secrets['smtp']['tls'] }}
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 640
+
+pycon-slides:
+  service.running:
+    - reload: True
+    - require:
+      - virtualenv: /srv/pycon-slides/env/
+      - file: /etc/init/pycon-slides.conf
+      - locale: us_locale
+    - watch:
+      - file: /etc/init/pycon-slides.conf
+      - virtualenv: /srv/pycon-slides/env/
+      - git: pycon-slides-source
