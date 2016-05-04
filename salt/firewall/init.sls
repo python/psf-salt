@@ -21,7 +21,12 @@
 
 
 iptables-persistent:
-  pkg.installed: []
+  pkg.installed:
+    {% if grains["oscodename"] == "xenial" %}
+    - name: netfilter-persistent
+    {% else %}
+    - name: iptables-persistent
+    {% endif %}
 
   service.enabled:
     - require:
