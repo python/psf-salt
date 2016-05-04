@@ -29,6 +29,11 @@ iptables-persistent:
     {% endif %}
 
   service.enabled:
+    {% if grains["oscodename"] == "xenial" %}
+    - name: netfilter-persistent
+    {% else %}
+    - name: iptables-persistent
+    {% endif %}
     - require:
       - file: /etc/iptables/rules.v4
       - file: /etc/iptables/rules.v6
