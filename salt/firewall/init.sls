@@ -35,7 +35,11 @@ iptables-persistent:
 
   module.watch:
     - name: service.restart
+    {% if grains["oscodename"] == "xenial" %}
+    - m_name: netfilter-persistent
+    {% else %}
     - m_name: iptables-persistent
+    {% endif %}
     - watch:
       - file: /etc/iptables/rules.v4
       - file: /etc/iptables/rules.v6
