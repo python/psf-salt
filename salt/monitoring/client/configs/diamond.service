@@ -1,0 +1,14 @@
+[Unit]
+Description=Diamond
+After=network.target
+
+[Service]
+type=simple
+ExecStart=/usr/local/bin/diamond --foreground --skip-change-user --skip-fork --skip-pidfile
+KillMode=process
+User=diamond
+Group=diamond
+
+
+[Install]
+WantedBy=multi-user.target
