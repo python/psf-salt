@@ -1,0 +1,13 @@
+[Unit]
+Description=Consul
+After=network.target
+
+[Service]
+type=simple
+ExecStart=/usr/bin/consul agent -config-dir /etc/consul.d -data-dir /var/lib/consul -ui-dir /usr/share/consul/ui
+KillMode=process
+User=consul
+Group=consul
+
+[Install]
+WantedBy=multi-user.target
