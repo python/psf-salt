@@ -128,6 +128,12 @@ consul-template:
       - file: /etc/consul-template.d/*.json
       - file: /usr/share/consul-template/templates/*
 
+  {% if grains["oscodename"] == "xenial" %}
+  file.managed:
+    - name: /lib/systemd/system/consul-template.service
+    - source: salt://consul/init/consul-template.service
+  {% endif %}
+
   service.running:
     - enable: True
     - restart: True
@@ -135,6 +141,9 @@ consul-template:
       - pkg: consul-template
       - service: consul
     - watch:
+      {% if grains["oscodename"] == "xenial" %}
+      - file: consul-template
+      {% endif %}
       - file: /etc/consul-template.d/*.json
       - file: /usr/share/consul-template/templates/*
 

@@ -1,0 +1,11 @@
+[Unit]
+Description=Consul
+After=network.target
+
+[Service]
+type=simple
+ExecStart=/usr/bin/consul-template -config /etc/consul-template.d
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
