@@ -6,6 +6,12 @@
 consul:
   pkg.installed: []
 
+  {% if grains["oscodename"] == "xenial" %}
+  file.managed:
+    - name: /lib/systemd/system/consul.service
+    - source: salt://consul/init/consul.service
+  {% endif %}
+
   service.running:
     - enable: True
     - restart: True
@@ -17,6 +23,9 @@ consul:
     - watch:
       - file: /etc/consul.d/*.json
       - file: /etc/ssl/certs/PSF_CA.pem
+      {% if grains["oscodename"] == "xenial" %}
+      - file: consul
+      {% endif %}
       {% if is_server %}
       - file: /etc/ssl/private/consul.psf.io.pem
       {% endif %}
