@@ -302,3 +302,11 @@ users:
       mail:
         allowed: True
         sudo: True
+  skip:
+    fullname: "Skip Montanaro"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJA80VH5sZrqYnsFzUiUTKT4Wv7NsfOBIjxCyoHM14L1 skip@montanaro.dyndns.org
+    access:
+      mail:
+        allowed: True
+        sudo: True
