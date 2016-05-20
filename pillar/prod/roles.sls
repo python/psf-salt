@@ -36,4 +36,8 @@ roles:
   wiki: "wiki.iad1.psf.io"
   slack: "slack.iad1.psf.io"
 
+  # PyPI/Warehouse
+  linehaul: "linehaul*.iad1.psf.io"
+
+  # Misc PyPA
   web-pypa: "web*.pypa.iad1.psf.io"
