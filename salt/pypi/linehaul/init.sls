@@ -85,10 +85,6 @@ linehaul:
     - require:
       - user: linehaul
 
-/etc/rsyslog.d/49-linehaul.conf:
-  file.managed:
-    - source: salt://pypi/linehaul/rsyslog.conf
-
 
 /etc/logrotate.d/linehaul:
   file.managed:
