@@ -33,6 +33,15 @@ linehaul:
       - user: linehaul
       - pkg: linehaul
 
+  pip.installed:
+    - name: /src/linehaul/src/
+    - user: linehaul
+    - bin_env: /srv/linehaul/env
+    - require:
+      - virtualenv: linehaul
+    - watch:
+      - git: linehaul
+
   service.running:
     - enable: True
     - watch:
@@ -61,12 +70,3 @@ linehaul:
     - show_diff: False
     - require:
       - user: linehaul
-
-/srv/linehaul/env/lib/python3.5/site-packages/linehaul.pth:
-  file.managed:
-    - contents: /srv/linehaul/src
-    - user: linehaul
-    - group: linehaul
-    - mode: 644
-    - require:
-      - virtualenv: linehaul
