@@ -50,16 +50,28 @@ linehaul:
       - file: /etc/systemd/system/linehaul.service
       - file: /etc/ssl/private/linehaul.psf.io.pem
       - file: /srv/linehaul/etc/bigquery.key
+      - file: /srv/linehaul/etc/linehaul.env
+
+
+/srv/linehaul/etc/linehaul.env:
+  file.managed:
+    - source: salt://pypi/linehaul/linehaul.env.jinja
+    - template: jinja
+    - user: linehaul
+    - group: linehaul
+    - mode: 640
+    - makedirs: True
+    - show_diff: False
+    - require:
+      - user: linehaul
 
 
 /etc/systemd/system/linehaul.service:
   file.managed:
-    - source: salt://pypi/linehaul/linehaul.service.jinja
-    - template: jinja
+    - source: salt://pypi/linehaul/linehaul.service
     - user: root
     - group: root
     - mode: 644
-    - show_diff: False
 
 
 /srv/linehaul/etc/bigquery.key:
