@@ -34,6 +34,8 @@ linehaul:
     - enable: True
     - watch:
       - file: /etc/systemd/system/linehaul.service
+      - file: /etc/ssl/private/linehaul.psf.io.pem
+      - file: /srv/linehaul/etc/bigquery.key
 
 
 /etc/systemd/system/linehaul.service:
