@@ -3,6 +3,7 @@ linehaul:
     - pkgs:
       - git
       - virtualenv
+      - gcc
       - python3-dev
       - libffi-dev
       - libssl-dev
