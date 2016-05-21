@@ -59,3 +59,12 @@ linehaul:
     - show_diff: False
     - require:
       - user: linehaul
+
+/srv/linehaul/env/lib/python3.5/site-packages/linehaul.pth:
+  file.managed:
+    - contents: /srv/linehaul/src
+    - user: linehaul
+    - group: linehaul
+    - mode: 644
+    - require:
+      - virtualenv: linehaul
