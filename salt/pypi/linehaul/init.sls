@@ -46,11 +46,14 @@ linehaul:
 
   service.running:
     - enable: True
+    - require:
+      - pip: linehaul
     - watch:
       - file: /etc/systemd/system/linehaul.service
       - file: /etc/ssl/private/linehaul.psf.io.pem
       - file: /srv/linehaul/etc/bigquery.key
       - file: /srv/linehaul/etc/linehaul.env
+      - git: linehaul
 
 
 /srv/linehaul/etc/linehaul.env:
