@@ -39,12 +39,13 @@ linehaul:
 
 
 /etc/systemd/system/linehaul.service:
-  - source: salt://pypi/linehaul/linehaul.service.jinja
-  - template: jinja
-  - user: root
-  - group: root
-  - mode: 640
-  - show_diff: False
+  file.managed:
+    - source: salt://pypi/linehaul/linehaul.service.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 640
+    - show_diff: False
 
 
 /srv/linehaul/etc/bigquery.key:
