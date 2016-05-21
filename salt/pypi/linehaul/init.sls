@@ -57,8 +57,8 @@ linehaul:
   file.managed:
     - source: salt://pypi/linehaul/linehaul.env.jinja
     - template: jinja
-    - user: linehaul
-    - group: linehaul
+    - user: root
+    - group: root
     - mode: 640
     - makedirs: True
     - show_diff: False
