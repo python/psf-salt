@@ -47,7 +47,7 @@ linehaul:
     - template: jinja
     - user: root
     - group: root
-    - mode: 640
+    - mode: 644
     - show_diff: False
 
 
