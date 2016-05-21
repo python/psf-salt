@@ -49,3 +49,7 @@ tls:
     bootstrap.pypa.psf.io:
       roles:
         - web-pypa
+
+    linehaul.psf.io:
+      roles:
+        - linehaul

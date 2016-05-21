@@ -170,3 +170,9 @@ base:
     - secrets.mail-opt-out
     - secrets.backup.mail
     - groups.mail
+
+  'linehaul':
+      - match: nodegroup
+      - firewall.linehaul
+      - secrets.pypi.linehaul
+      - pypi.linehaul
