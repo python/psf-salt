@@ -48,6 +48,7 @@ linehaul:
     - enable: True
     - require:
       - pip: linehaul
+      - file: /var/log/linehaul
     - watch:
       - file: /etc/systemd/system/linehaul.service
       - file: /etc/ssl/private/linehaul.psf.io.pem
@@ -85,6 +86,14 @@ linehaul:
     - mode: 640
     - makedirs: True
     - show_diff: False
+    - require:
+      - user: linehaul
+
+
+/var/log/linehaul:
+  file.directory:
+    - user: linehaul
+    - dir_mode: 755
     - require:
       - user: linehaul
 
