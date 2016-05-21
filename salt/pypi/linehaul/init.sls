@@ -12,6 +12,8 @@ linehaul:
     - name: linehaul
     - home: /srv/linehaul/
     - createhome: True
+    - groups:
+      - ssl-cert
 
   git.latest:
     - name: https://github.com/pypa/linehaul.git
