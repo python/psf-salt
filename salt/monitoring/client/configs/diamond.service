@@ -3,7 +3,7 @@ Description=Diamond
 After=network.target
 
 [Service]
-type=simple
+Type=simple
 ExecStart=/usr/local/bin/diamond --foreground --skip-change-user --skip-fork --skip-pidfile
 KillMode=process
 User=diamond

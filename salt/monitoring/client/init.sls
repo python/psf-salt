@@ -40,6 +40,7 @@ diamond:
   file.managed:
     - name: /lib/systemd/system/diamond.service
     - source: salt://monitoring/client/configs/diamond.service
+    - mode: 644
 
   cmd.wait:
     - name: systemctl daemon-reload

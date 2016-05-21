@@ -10,6 +10,7 @@ consul:
   file.managed:
     - name: /lib/systemd/system/consul.service
     - source: salt://consul/init/consul.service
+    - mode: 644
   {% endif %}
 
   service.running:
@@ -132,6 +133,7 @@ consul-template:
   file.managed:
     - name: /lib/systemd/system/consul-template.service
     - source: salt://consul/init/consul-template.service
+    - mode: 644
   {% endif %}
 
   service.running:
