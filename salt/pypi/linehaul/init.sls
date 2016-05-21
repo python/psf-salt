@@ -36,7 +36,7 @@ linehaul:
       - pkg: linehaul
 
   pip.installed:
-    - name: /src/linehaul/src/
+    - name: /srv/linehaul/src/
     - user: linehaul
     - bin_env: /srv/linehaul/env
     - require:
