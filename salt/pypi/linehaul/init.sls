@@ -5,6 +5,7 @@ linehaul:
       - virtualenv
       - gcc
       - python3-dev
+      - python-pip
       - python3-pip
       - libffi-dev
       - libssl-dev
