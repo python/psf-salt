@@ -47,7 +47,7 @@ base:
     - jython
 
   'linehaul':
-    - match: nodgroup
+    - match: nodegroup
     - pypi.linehaul
 
   'loadbalancer':
