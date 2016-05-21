@@ -72,3 +72,12 @@ linehaul:
     - show_diff: False
     - require:
       - user: linehaul
+
+/etc/rsyslog.d/49-linehaul.conf:
+  file.managed:
+    - source: salt://pypi/linehaul/rsyslog.conf
+
+
+/etc/logrotate.d/linehaul:
+  file.managed:
+    - source: salt://pypi/linehaul/logrotate.conf
