@@ -223,10 +223,10 @@ users:
         allowed: True
         sudo: True
 
-  trevorray:
-    fullname: "Trevor Ray"
+  daaray:
+    fullname: "David Ray"
     ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCm56PvMfyIiOixO6r9+i3F0g10DMNmXZV8BzWQp/cORj24Q41TgWCZwziKqKkOS6OC6cTBkq5NU7qpRE8qZImfXg/sLEbHnVx0QtIM9ikYy+FUoZun85R5YGWwrwd6WgQh0RIaAT2gaJsyYbBJCb01kq3z5b9gqc/qyF/hmEIgpqV/vi/aJPPULOUN3cbkKt3wm25ysQtr3VsWSzQYn+7Ek+45229oeSdre2Vk3mtI6hQeKwA057WqwMcjCUUU0wdwmLtCAUe0pryhi2LE82YLc9o7v4CRWi0nOMcnhR4guqy6n+CvJs/oo4sfvwbh2ZdN3eXJ7kGJYT7YEE4m7OIZ tray@caktusgroup.com
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDAjwyvvD6fojZ47GDqEBR1uN8dEBtGTzyFnQ6rlJT01Lw628PhSY+XwZxG6RfQt2+cFVkYo9cGpHWyGM4hP65Ft1XNkOiXAsa9yoWykOAlqpOEMLEHZ0w5NsDP+uCextuVIEIaBu1pcvKgUlcSJlDhoCUF00DBbkYDpNKRY2f1AN49HdfXB+xGGKnb6xJtb4487fDsE10pGbPRWsvL2w2FzHFwt7a/1rQ03y6sFHZhURSW4jCwBKAvdNazVrL3A/cVXJEBa9Q1LSfvG18ILk8GOVT7gmQLLFOJAeSWK576PjIizBqB1wgIi3sSjCWS22BocONrifqQ9v/URA4E68R dray@caktusgroup.com
     access:
       pycon:
         allowed: True
