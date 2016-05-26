@@ -263,6 +263,7 @@ users:
     fullname: "Brandon Rhodes"
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABeQX1NzdjdXsKne2LL1ygSV2vRkgFPlvkcOcq+9/yH+u+yWoEn3hscLECsKj0YqlpWi7lCF/7/wOhFgCxW0U3nkbNjmZAjfzHmliGP4h+8jPkfpF+cz8ioS3zhBdshwNy/nFOe2fqdllY3KoJhOfc0i75Ls7udZal44f6GzY9UwChCh4AKgt3T8Frx/L9SLu+hcVALKo7t+ydY440BMfylyRNMkNEFi0CjMieSrOk3mT1TZLcYOGpPg0oSdkFeQheDjOqg/5tkYSr6fHtPtdemELWB+Ys1PQWNrbcEdPIp9pXABT6KJ/kON5o6PY6DlTQ7R6PQEQDNOUpNeQrivRBGeoFldm1b3ipL3IbOVgcPyxe2kvUKeVA2Zi+z6otKVyWBrjyt8FPbalt+MVT6KKYZHqxlbQ8yX79I8pvIkHHBKVdIQZ6wKCsc/p8qaVGF36Dxa+altUxEfnsWVBjLTGswBHumyDWx3BIydVRgpOoBiDxSCpfLANpEojV brandon@bernardus
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABNwFxC3bl/tbOnfbuq+MqRS8rn7BJMEh0d+TWI7X+uj9l3OFVEaonHvvWAnYuKaGbRnUJLEPy/Apglrie4yI00ThMVScufPDMGQ9qL+Qgu2y12QBK1odAIs60KNZcodUhCWGgZg0MAg6HkNK1pXSqWd3VYtexcbgm5Y3PT8k/qmvJGJBx/11g5qexnKU4/g/wyhKm3QLceUZ1WJDMSAm6H9oR4xUEQmb7RMl9qhT0ViHdmkaw5letTVvvqa99DO1CI/PymQIy+qaXqe8r5xqTbPzSosQD3Gt0N6rebwKhXPiG8pmO+3nYFY6sO6Peue83iqMwx9blROUt6Z4uYO3INSZh3YfR4S2lboPeHRFky2Fb5j0ePjpBbdfFdRCijdPlTS+AWB+Io3Da5uHKyR05MSuRmlIJo4DZ brandon@oldrasputin
     access:
       pycon:
         allowed: True
