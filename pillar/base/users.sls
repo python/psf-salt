@@ -36,6 +36,7 @@ users:
     admin: True
     ssh_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC5RZqb06JuJrCClQkFvR/6rSvtFs9MSh7qQxe6gzVpz Benjamin Peterson
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCyX+8VwIf7rwkov6pxyNUN/lNhqebu0HAem1/i7ul4NjQzolYr4/ErGDEW+LV3kDkPKw6wLSzELLcrEal4OvknltCxGFvqKEoHU5hYFRzs4CUhsC/5ynRoLQ9osLU1JyCWGDQRlxHpegbymU24ztJ7qXMM3DTqktVt7DGSHcy6655gZbShXY7VqYeqr0GulwcR+3HWnFbfbgbbcBthjSCcoGua2qNdVsoUBqnOYsrbQNxnx59CAiawXjRb7rTRx+2ySkz/G2DiBBFQq7gExMhk+y1X0yXgFrM9kqzMFeDx77X+GYib68FVpGJS+f7f0s6j/2rjju8jj3t5OKX9utRq2R8ARJkBTlTrRbb1yHXCHNGW3EsBr35xXmcGW3KNclGytNVODvu5zdrh0YjMtfTW/dTu6Idy/s6ArwIqGosz0rors1D5udlwsvOsg73TIXpWja1glblllHy3LQ8Is3rYUFaPKI1O8XvblCoZNvXw6PjMt1Ixu4A2UnnPQKHkOaWiF6nBkKEdW063kgodSR952Z5y/HMc/DMXNi5I5inzlm5NJO9LsfpIdnj9CUeJCD5SvV01ocYl9yOWeNBJzb5RGAQuLHBkIL1n/UxY9bnqdnlDTjqno2nZLo8FNWwe+HExuvqw6NthupIJrtr3YGhYRptIBRN8KFgdYbLNVHD3Zw==
     access:
       docs:
         allowed: True
