@@ -9,4 +9,5 @@ Python Infrastructure
    server.rst
    packages.rst
    security
+   list
    services/index.rst
