@@ -46,8 +46,11 @@ def bootstrap(host, codename="trusty", pre=[sync_changes]):
             raise RuntimeError("{} is already bootstrapped.".format(host))
 
         # Ok, we're going to bootstrap, first we need to add the salt repo
-        fabric.api.run("apt-get install -y software-properties-common")
-        fabric.api.run("add-apt-repository ppa:saltstack/salt -y")
+        # TODO: Xenial doesn't have a saltstack PPA yet, turn this back on when
+        #       it does.
+        if codename != "xenial":
+            fabric.api.run("apt-get install -y software-properties-common")
+            fabric.api.run("add-apt-repository ppa:saltstack/salt -y")
 
         # Then we need to update our local apt
         fabric.api.run("apt-get update -qy")
@@ -58,10 +61,9 @@ def bootstrap(host, codename="trusty", pre=[sync_changes]):
         fabric.api.run("apt-get dist-upgrade -qy")
 
         # We don't want the nova-agent installed.
-        fabric.api.run("apt-get purge nova-agent -qy")
-
-        # Reboot the server to make sure any upgrades have been loaded.
-        fabric.api.reboot()
+        # This doesn't appear to be installed on Xenial anymore?
+        if codename != "xenial":
+            fabric.api.run("apt-get purge nova-agent -qy")
 
         # Install salt-minion and python-apt so we can manage things with
         # salt.
@@ -94,6 +96,9 @@ def bootstrap(host, codename="trusty", pre=[sync_changes]):
     # state.highstate for real this time.
     with ssh_host("root@" + host):
         fabric.api.run("salt-call state.highstate")
+
+        # Reboot the server to make sure any upgrades have been loaded.
+        fabric.api.reboot()
 
 
 @invoke.task(default=True, pre=[sync_changes])
