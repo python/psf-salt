@@ -86,7 +86,7 @@ This section enumerates PSF services, generalities about their hosting, and cont
 
 Buildbot
    The `buildbot master <http://buildbot.python.org>`_ is a service run by
-   python-dev@python.org, particularly Antoine Pitrou.
+   python-dev@python.org, particularly Antoine Pitrou and Zach Ware.
 
 bugs.python.org
    bugs.python.org is hosted using a server donated by `Upfront Systems
