@@ -117,8 +117,11 @@ pythontest.net
    maintenance.
 
 speed.python.org
-   speed.python.org is a beefy machine sitting around at OSUOSL doing
-   nothing. It needs love.
+   speed.python.org is a `Codespeed <https://github.com/tobami/codespeed>`_
+   `instance <https://github.com/zware/codespeed>`_ tracking Python performance.
+   The web interface is hosted on a Rackspace VM, benchmarks are run on a beefy
+   machine at OSUOSL and scheduled by the Buildbot master.  Maintained by
+   speed@python.org and Zach Ware.
 
 wiki.python.org
    This is hosted on an OSUOSL VM. Marc-André Lemburg owns it.
