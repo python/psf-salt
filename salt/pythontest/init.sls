@@ -1,7 +1,7 @@
 include:
   - nginx
 
-mercurial:
+git:
   pkg.installed
 
 /srv/:
@@ -10,21 +10,22 @@ mercurial:
     - group: www-data
 
 testdata-repo:
-  hg.latest:
-    - name: https://hg.python.org/pythontestdotnet
+  git.latest:
+    - name: https://github.com/python/pythontestdotnet
     - target: /srv/python-testdata/
     - user: www-data
+    - force_clone: true
     - watch_in:
       - service: nginx
   require:
-    - pkg: mercurial
+    - pkg: git
     - file: /srv/
 
 chmod-testdata:
   cmd.run:
     - name: chmod -R o+r /srv/python-testdata/
     - onchanges:
-      - hg: testdata-repo
+      - git: testdata-repo
 
 /etc/nginx/sites.d/pythontest.conf:
   file.managed:
@@ -35,4 +36,4 @@ chmod-testdata:
     - mode: 644
   require:
     - file: /etc/nginx/sites.d/
-    - hg: testdata-repo
+    - git: testdata-repo
