@@ -22,7 +22,7 @@ testdata-repo:
 
 chmod-testdata:
   cmd.run:
-    - name: chmod -R o+r /srv/python-testdata/
+    - name: chmod -R o+r /srv/python-testdata/ && find /srv/python-testdata/ -type d -exec chmod o+rx {} ';'
     - onchanges:
       - git: testdata-repo
 
