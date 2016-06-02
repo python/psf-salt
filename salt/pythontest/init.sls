@@ -14,7 +14,6 @@ testdata-repo:
     - name: https://github.com/python/pythontestdotnet
     - target: /srv/python-testdata/
     - user: www-data
-    - force_clone: true
     - watch_in:
       - service: nginx
   require:
