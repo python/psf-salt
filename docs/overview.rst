@@ -86,7 +86,7 @@ This section enumerates PSF services, generalities about their hosting, and cont
 
 Buildbot
    The `buildbot master <http://buildbot.python.org>`_ is a service run by
-   python-dev@python.org, particularly Antoine Pitrou.
+   python-dev@python.org, particularly Antoine Pitrou and Zach Ware.
 
 bugs.python.org
    bugs.python.org is hosted using a server donated by `Upfront Systems
@@ -117,8 +117,11 @@ pythontest.net
    maintenance.
 
 speed.python.org
-   speed.python.org is a beefy machine sitting around at OSUOSL doing
-   nothing. It needs love.
+   speed.python.org is a `Codespeed <https://github.com/tobami/codespeed>`_
+   `instance <https://github.com/zware/codespeed>`_ tracking Python performance.
+   The web interface is hosted on a Rackspace VM, benchmarks are run on a beefy
+   machine at OSUOSL and scheduled by the Buildbot master.  Maintained by
+   speed@python.org and Zach Ware.
 
 wiki.python.org
    This is hosted on an OSUOSL VM. Marc-André Lemburg owns it.
