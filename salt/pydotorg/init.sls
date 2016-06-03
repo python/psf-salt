@@ -11,6 +11,7 @@ pydotorg-deps:
   pkg.installed:
     - pkgs:
       - build-essential
+      - git
       - libpq-dev
       - libxml2-dev
       - libxslt-dev
@@ -203,7 +204,7 @@ pydotorg:
 
 check-out-peps:
   cmd.run:
-    - name: hg clone https://hg.python.org/peps /srv/pydotorg/peps
+    - name: git clone https://github.com/python/peps.git /srv/pydotorg/peps
     - user: pydotorg
     - creates: /srv/pydotorg/peps
     - require:
