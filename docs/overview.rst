@@ -22,6 +22,7 @@ global systems such as DNS. The currrent team members are:
 * Benjamin W. Smith
 * Donald Stufft
 * Benjamin Peterson
+* Mark Mangoba (PSF IT Manager)
 * Alex Gaynor (has no responsibilities)
 
 The best way to contact the infrastructure team is mailing
