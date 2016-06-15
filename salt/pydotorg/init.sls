@@ -202,10 +202,13 @@ pydotorg:
       - git: pydotorg-source
 
 check-out-peps:
-  cmd.run:
-    - name: git clone https://github.com/python/peps.git /srv/pydotorg/peps
+  git.latest:
+    - name: https://github.com/python/peps.git
+    - target: /srv/pydotorg/peps
     - user: pydotorg
-    - creates: /srv/pydotorg/peps
+    - force_checkout: True
+    - force_clone: True
+    - force_reset: True
     - require:
       - user: pydotorg-user
       - pkg: pydotorg-deps
