@@ -5,6 +5,7 @@ After=discourse-data.service redis-server.service
 [Service]
 Environment=SUPERVISED=true
 ExecStart=/opt/discourse/launcher start web
+ExecStop=/opt/discourse/launcher stop web
 Restart=always
 
 [Install]
