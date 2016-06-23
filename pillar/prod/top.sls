@@ -22,6 +22,7 @@ base:
     - match: nodegroup
     - discourse
     - secrets.discourse
+    - secrets.postgresql-users.discourse
 
   'docs':
     - match: nodegroup
