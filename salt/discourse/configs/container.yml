@@ -44,12 +44,14 @@ env:
   ## Uncomment if you want the container to be started with the same
   ## hostname (-h option) as specified above (default "$hostname-$config")
   DOCKER_USE_HOSTNAME: true
+
   ##
-  ## TODO: The mailserver this Discourse instance will use
-  DISCOURSE_SMTP_ADDRESS: smtp.example.com         # (mandatory)
-  #DISCOURSE_SMTP_PORT: 587                        # (optional)
-  #DISCOURSE_SMTP_USER_NAME: user@example.com      # (optional)
-  #DISCOURSE_SMTP_PASSWORD: pa$$word               # (optional)
+  ## The mailserver this Discourse instance will use
+  DISCOURSE_SMTP_ADDRESS: {{ pillar["discourse"]["smtp"]["host"] }}
+  DISCOURSE_SMTP_PORT: {{ pillar["discourse"]["smtp"]["port"] }}
+  DISCOURSE_SMTP_USER_NAME: {{ pillar["discourse"]["smtp"]["user"] }}
+  DISCOURSE_SMTP_PASSWORD: {{ pillar["discourse"]["smtp"]["password"] }}
+
   ##
   ## The CDN address for this Discourse instance (configured to pull)
   #DISCOURSE_CDN_URL: //discourse-cdn.example.com
