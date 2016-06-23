@@ -1,5 +1,7 @@
 {% from "consul/jinja.sls" import simple_service %}
 
+{% set psf_internal = salt["pillar.get"]("psf_internal_network") %}
+
 templates:
   - "templates/web.template.yml"
 
@@ -30,7 +32,7 @@ env:
   DISCOURSE_DB_PORT: {{ port }}
   {% endcall %}
 
-  DISCOURSE_REDIS_HOST: data
+  DISCOURSE_REDIS_HOST: '{{ salt["network.ip_addrs"](cidr=psf_internal)|first }}'
 
   ##
   ## List of comma delimited emails that will be made admin and developer
