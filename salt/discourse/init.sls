@@ -1,5 +1,5 @@
 discourse-docker:
-  pkg.install:
+  pkg.installed:
     - pkgs:
       - git
 
