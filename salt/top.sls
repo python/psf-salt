@@ -26,6 +26,10 @@ base:
     - match: nodegroup
     - cdn-logs
 
+  'discourse':
+    - match: nodegroup
+    - discourse
+
   'docs':
     - match: nodegroup
     - docs
