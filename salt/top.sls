@@ -28,7 +28,6 @@ base:
 
   'discourse':
     - match: nodegroup
-    - docker
     - discourse
     - redis
 
