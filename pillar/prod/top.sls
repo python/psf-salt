@@ -20,6 +20,7 @@ base:
 
   'discourse':
     - match: nodegroup
+    - firewall.discourse
     - discourse
     - secrets.discourse
     - secrets.postgresql-users.discourse
