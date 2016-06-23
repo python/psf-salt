@@ -10,6 +10,16 @@ discourse-docker:
       - pkg: discourse-docker
 
 
+/opt/discourse/containers/data.yml:
+  file.managed:
+    - source: salt://discourse/configs/data-container.yml
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - git: discourse-docker
+
+
 /usr/share/consul-template/templates/discourse-web-container.yml:
   file.managed:
     - source: salt://discourse/configs/container.yml
@@ -20,6 +30,7 @@ discourse-docker:
     - show_diff: False
     - require:
       - git: discourse-docker
+
 
 /etc/consul-template.d/discourse.json:
   file.managed:

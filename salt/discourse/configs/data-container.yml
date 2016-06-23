@@ -1,0 +1,11 @@
+env:
+  # ensure locale exists in container, you may need to install it
+  LANG: en_US.UTF-8
+
+volumes:
+  - volume:
+      host: /var/discourse/data/shared/
+      guest: /shared
+  - volume:
+      host: /var/discourse/data/log/
+      guest: /var/log
