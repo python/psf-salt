@@ -56,8 +56,8 @@ env:
 
 volumes:
   - volume:
-      host: /var/discourse/shared/web-only
+      host: /var/discourse/shared/
       guest: /shared
   - volume:
-      host: /var/discourse/shared/web-only/log/var-log
+      host: /var/discourse/log/
       guest: /var/log
