@@ -9,15 +9,6 @@ docker:
     - require_in:
       - pkg: docker
 
-    - humanname: Logstash PPA
-    - name: deb http://ppa.launchpad.net/wolfnet/logstash/ubuntu precise main
-    - dist: precise
-    - file: /etc/apt/sources.list.d/logstash.list
-    - keyid: 28B04E4A
-    - keyserver: keyserver.ubuntu.com
-    - require_in:
-      - pkg: logstash
-
   pkg.latest:
     - pkgs:
       - linux-image-extra-virtual
