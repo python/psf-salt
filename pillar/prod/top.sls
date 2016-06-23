@@ -18,6 +18,11 @@ base:
     - fastly-logging
     - firewall.fastly-logging
 
+  'discourse':
+    - match: nodegroup
+    - discourse
+    - secrets.discourse
+
   'docs':
     - match: nodegroup
     - firewall.rs-lb-backend
