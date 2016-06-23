@@ -22,3 +22,4 @@ postgresql:
     pycon-staging: "pycon-staging"
     speed-web: "speed-web"
     testpypi: testpypi
+    discourse: discourse
