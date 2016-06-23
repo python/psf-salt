@@ -19,6 +19,12 @@ discourse-docker:
     - require:
       - git: discourse-docker
 
+  cmd.run:
+    - name: '/opt/discourse/launcher destroy data & /opt/discourse/launcher bootstrap data'
+    - cwd: /opt/discourse/
+    - onchanges:
+      - file: /opt/discourse/containers/data.yml
+
 
 /usr/share/consul-template/templates/discourse-web-container.yml:
   file.managed:
