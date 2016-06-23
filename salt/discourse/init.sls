@@ -29,8 +29,9 @@ discourse-docker:
       - pkg: discourse-docker
 
 
-/opt/discourse/containers/data.yml:
+discourse-data:
   file.managed:
+    - name: /opt/discourse/containers/data.yml
     - source: salt://discourse/configs/data-container.yml
     - user: root
     - group: root
@@ -42,7 +43,26 @@ discourse-docker:
     - name: '/opt/discourse/launcher destroy data & /opt/discourse/launcher bootstrap data'
     - cwd: /opt/discourse/
     - onchanges:
-      - file: /opt/discourse/containers/data.yml
+      - file: discourse-data
+
+  service.running:
+    - enable: true
+    - name: discourse-data
+    - require:
+      - git: discourse-docker
+      - cmd: discourse-data
+    - watch:
+      - cmd: discourse-data
+
+
+/etc/systemd/system/discourse-data.service:
+  file.managed:
+    - source: salt://discourse/configs/data.service
+
+
+/etc/systemd/system/discourse-web.service:
+  file.managed:
+    - source: salt://discourse/configs/web.service
 
 
 /usr/share/consul-template/templates/discourse-web-container.yml:

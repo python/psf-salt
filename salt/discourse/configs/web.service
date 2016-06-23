@@ -1,0 +1,11 @@
+[Unit]
+Requires=discourse-data.service
+After=discourse-data.service
+
+[Service]
+Environment=SUPERVISED=true
+ExecStart=/opt/discourse/launcher start web
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

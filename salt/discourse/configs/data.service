@@ -1,0 +1,11 @@
+[Unit]
+Requires=docker.service
+After=docker.service
+
+[Service]
+Environment=SUPERVISED=true
+ExecStart=/opt/discourse/launcher start data
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
