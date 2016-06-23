@@ -1,3 +1,22 @@
+discourse:
+  # We don't actually need a copy of the source here, we have it only so that
+  # we can trigger a rebuild whenever this gets updated.
+  git.latest:
+    - name: https://github.com/discourse/discourse.git
+    - branch: stable
+    - target: /opt/discourse/src
+    - require:
+      - pkg: discourse-docker
+
+  cmd.run:
+    - name: '/opt/discourse/launcher destroy web & /opt/discourse/launcher bootstrap web'
+    - cwd: /opt/discourse/
+    - require:
+      - cmd: consul-template
+    - onchanges:
+      - git: discourse
+
+
 discourse-docker:
   pkg.installed:
     - pkgs:
@@ -45,7 +64,7 @@ discourse-docker:
     - context:
         source: /usr/share/consul-template/templates/discourse-web-container.yml
         destination: /opt/discourse/containers/web.yml
-        command: "touch /opt/discourse/containers/web.yml"
+        command: "true"
     - user: root
     - group: root
     - mode: 640
