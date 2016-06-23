@@ -15,6 +15,7 @@ discourse:
       - cmd: consul-template
     - onchanges:
       - git: discourse
+      - file: /usr/share/consul-template/templates/discourse-web-container.yml
 
 
 discourse-docker:
