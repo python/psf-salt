@@ -1,3 +1,5 @@
+run: []
+
 env:
   # ensure locale exists in container, you may need to install it
   LANG: en_US.UTF-8
