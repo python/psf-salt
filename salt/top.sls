@@ -28,6 +28,7 @@ base:
 
   'discourse':
     - match: nodegroup
+    - docker
     - discourse
 
   'docs':
