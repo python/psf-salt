@@ -2,7 +2,6 @@ docker:
   pkgrepo.managed:
     - humanname: Docker
     - name: deb https://apt.dockerproject.org/repo ubuntu-{{ grains["oscodename"] }} main
-    - dist: {{ grains["oscodename"] }}
     - file: /etc/apt/sources.list.d/docker.list
     - keyid: 58118E89F3A912897C070ADBF76221572C52609D
     - keyserver: keyserver.ubuntu.com
