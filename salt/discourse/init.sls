@@ -17,6 +17,12 @@ discourse:
       - git: discourse
       - file: /usr/share/consul-template/templates/discourse-web-container.yml
 
+  service.running:
+    - name: discourse-web
+    - enable: true
+    - watch:
+      - cmd: discourse
+
 
 discourse-docker:
   pkg.installed:
