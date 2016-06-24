@@ -23,6 +23,7 @@ discourse:
     - rev: v1.5.3
     - target: /srv/discourse/app
     - user: discourse
+    - force_checkout: True
     - require:
       - pkg: discourse
       - user: discourse
@@ -34,6 +35,7 @@ discourse:
       - cmd: consul-template
     - watch:
       - file: /etc/systemd/system/discourse.service
+      - file: /srv/discourse/app/config/unicorn.conf.rb
       - cmd: discourse-migrate
       - git: discourse
 
@@ -101,6 +103,12 @@ discourse-migrate:
       - mode
     - require:
       - git: discourse
+
+
+/srv/discourse/app/config/unicorn.conf.rb:
+  file.replace:
+    - pattern: '^listen.+$'
+    - repl: 'listen "/tmp/unicorn.discourse.sock"'
 
 
 /etc/systemd/system/discourse.service:
