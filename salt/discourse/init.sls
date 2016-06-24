@@ -28,7 +28,7 @@ discourse:
       - user: discourse
 
   service.running:
-    - enabled: True
+    - enable: True
     - require:
       - cmd: /etc/systemd/system/discourse.service
       - cmd: consul-template
