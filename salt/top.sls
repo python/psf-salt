@@ -31,6 +31,7 @@ base:
     - discourse
     - redis
     - nodejs
+    - nginx
 
   'docs':
     - match: nodegroup
