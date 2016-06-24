@@ -30,6 +30,7 @@ base:
     - match: nodegroup
     - discourse
     - redis
+    - nodejs
 
   'docs':
     - match: nodegroup

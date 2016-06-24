@@ -14,8 +14,6 @@ discourse:
       - pngcrush
       - pngquant
       - libpq-dev
-      - nodejs
-      - npm
 
   user.present:
     - home: /srv/discourse
@@ -44,6 +42,8 @@ discourse-node-install:
   cmd.run:
     - name: "npm install -g svgo phantomjs-prebuilt"
     - cwd: /srv/discourse/app
+    - require:
+      - pkg: nodejs
     - onchanges:
       - git: discourse
 
