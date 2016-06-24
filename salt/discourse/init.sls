@@ -44,9 +44,6 @@ discourse-node-install:
   cmd.run:
     - name: "npm install -g svgo phantomjs-prebuilt"
     - cwd: /srv/discourse/app
-    - user: discourse
-    - require:
-      - user: discourse
     - onchanges:
       - git: discourse
 
