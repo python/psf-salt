@@ -58,12 +58,34 @@ discourse-migrate:
     - user: discourse
     - env:
       - RAILS_ENV: 'production'
-      - DISCOURSE_DB_SOCKET: ''
-      - DISCOURSE_DB_USERNAME: 'discourse'
-      - DISCOURSE_DB_PASSWORD: '{{ pillar["postgresql-users"]["discourse"] }}'
-      - DISCOURSE_DB_HOST: '{{ salt["mine.get"](pillar["roles"]["postgresql"], "psf_internal").values()|first|first }}'
-      - DISCOURSE_DB_PORT: '{{ pillar["postgresql"]["port"] }}'
     - require:
       - user: discourse
+      - cmd: consul-template
     - onchanges:
       - cmd: discourse-ruby-install
+
+
+/usr/share/consul-template/templates/discourse.conf:
+  file.managed:
+    - source: salt://discourse/config/discourse.conf
+    - template: jinja
+    - user: discourse
+    - show_diff: False
+    - require:
+      - user: discourse
+      - git: discourse
+
+
+/etc/consul-template.d/discourse.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/template.json.jinja
+    - template: jinja
+    - context:
+        source: /usr/share/consul-template/templates/discourse.conf
+        destination: /srv/discourse/app/config/discourse.conf
+        command: "true"
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - pkg: consul-template
