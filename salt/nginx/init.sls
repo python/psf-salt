@@ -14,8 +14,7 @@ nginx:
   user.present:
     - system: True
     - shell: /sbin/nologin
-    - groups:
-      - nginx
+    - gid: nginx
     - require:
       - group: nginx
 

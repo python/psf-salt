@@ -19,7 +19,7 @@ discourse:
     - addusers:
       - nginx
     - require:
-      - pkg: nginx
+      - user: nginx
 
   user.present:
     - home: /srv/discourse
