@@ -15,6 +15,12 @@ discourse:
       - pngquant
       - libpq-dev
 
+  group.present:
+    - addusers:
+      - nginx
+    - require:
+      - pkg: nginx
+
   user.present:
     - home: /srv/discourse
 
