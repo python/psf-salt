@@ -30,6 +30,7 @@ discourse:
     - target: /srv/discourse/app
     - user: discourse
     - force_checkout: True
+    - force_reset: True
     - require:
       - pkg: discourse
       - user: discourse
