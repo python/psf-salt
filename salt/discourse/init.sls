@@ -27,6 +27,16 @@ discourse:
       - pkg: discourse
       - user: discourse
 
+  service.running:
+    - enabled: True
+    - require:
+      - cmd: /etc/systemd/system/discourse.service
+      - cmd: consul-template
+    - watch:
+      - file: /etc/systemd/system/discourse.service
+      - cmd: discourse-migrate
+      - git: discourse
+
 
 discourse-ruby-install:
   cmd.run:
@@ -91,3 +101,13 @@ discourse-migrate:
       - mode
     - require:
       - git: discourse
+
+
+/etc/systemd/system/discourse.service:
+  file.managed:
+    - source: salt://discourse/config/discourse.service
+
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: /etc/systemd/system/discourse.service

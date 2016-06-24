@@ -1,0 +1,16 @@
+Unit]
+Description=Discourse Unicorn Server
+Requires=redis-server.service
+After=redis.service
+
+[Service]
+User=discourse
+WorkingDirectory=/srv/discourse/app
+Environment=RAILS_ENV=production
+SyslogIdentifier=discourse-unicorn
+PIDFile=/srv/discourse/app/tmp/pids/unicorn.pid
+
+ExecStart=/usr/bin/bundle exec config/unicorn_launcher -E production -c /srv/discourse/app/config/unicorn.conf.rb
+
+[Install]
+WantedBy=multi-user.target
