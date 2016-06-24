@@ -53,3 +53,7 @@ tls:
     linehaul.psf.io:
       roles:
         - linehaul
+
+    discourse.psf.io:
+      roles:
+        - discourse

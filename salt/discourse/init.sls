@@ -119,3 +119,14 @@ discourse-migrate:
     - name: systemctl daemon-reload
     - onchanges:
       - file: /etc/systemd/system/discourse.service
+
+
+/etc/nginx/sites.d/discourse.conf:
+  file.managed:
+    - source: salt://discourse/config/discourse.nginx.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/nginx/sites.d/
