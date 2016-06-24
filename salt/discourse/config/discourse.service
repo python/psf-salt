@@ -7,6 +7,7 @@ After=redis.service
 User=discourse
 WorkingDirectory=/srv/discourse/app
 
+Environment=RUBY_GC_MALLOC_LIMIT=90000000
 Environment=RAILS_ENV=production
 Environment=UNICORN_WORKERS=3
 Environment=UNICORN_SIDEKIQS=1
