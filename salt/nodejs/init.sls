@@ -8,5 +8,5 @@ nodejs:
 
   pkg.latest:
     - pkgs:
-      - ndoejs
+      - nodejs
     - refresh: True
