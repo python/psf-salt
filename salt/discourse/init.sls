@@ -40,7 +40,7 @@ discourse-ruby-install:
 
 discourse-migrate:
   cmd.run:
-    - name: "bundle exec rake db:migrate"
+    - name: "bundle exec rake db:migrate assets:precompile"
     - cwd: /srv/discourse/app
     - user: discourse
     - env:
