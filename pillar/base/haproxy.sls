@@ -4,6 +4,7 @@ haproxy:
       domains:
         - discuss.python.org
       verify_host: discourse.psf.io
+      check: HEAD /srv/status
 
     docs:
       domains:
