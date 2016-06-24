@@ -13,6 +13,7 @@ discourse:
       - optipng
       - pngcrush
       - pngquant
+      - libpq-dev
 
   git.latest:
     - name: https://github.com/discourse/discourse.git
