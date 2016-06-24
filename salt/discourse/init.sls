@@ -77,3 +77,17 @@ discourse-migrate:
     - mode: 640
     - require:
       - pkg: consul-template
+
+
+/srv/discourse/app/tmp/pids/:
+  file.directory:
+    - user: discourse
+    - dir_mode: "770"
+    - file_mode: "660"
+    - makedirs: True
+    - recuse:
+      - user
+      - group
+      - mode
+    - require:
+      - git: discourse
