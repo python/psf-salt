@@ -89,7 +89,7 @@ discourse-migrate:
     - context:
         source: /usr/share/consul-template/templates/discourse.conf
         destination: /srv/discourse/app/config/discourse.conf
-        command: "true"
+        command: "systemctl restart discourse"
     - user: root
     - group: root
     - mode: 640
