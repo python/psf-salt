@@ -14,6 +14,8 @@ discourse:
       - pngcrush
       - pngquant
       - libpq-dev
+      - nodejs
+      - npm
 
   git.latest:
     - name: https://github.com/discourse/discourse.git
@@ -22,8 +24,26 @@ discourse:
     - require:
       - pkg: discourse
 
+
+dicourse-ruby-install:
   cmd.run:
-    - name: "bundle install"
+    - name: "bundle install --deployment --without test --without development"
     - cwd: /srv/discourse
     - onchanges:
       - git: discourse
+
+
+discourse-node-install:
+  cmd.run:
+    - name: "npm install -g svgo phantomjs-prebuilt"
+    - cwd: /srv/discourse
+    - onchanges:
+      - git: discourse
+
+
+discourse-migrate:
+  cmd.run:
+    - name: "bundle exec rake db:migrate"
+    - cwd: /srv/discourse
+    - onchanges:
+      - cmd: discourse-ruby-install
