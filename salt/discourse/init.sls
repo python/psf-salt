@@ -61,6 +61,7 @@ discourse-migrate:
     - require:
       - user: discourse
       - cmd: consul-template
+      - pkg: redis
     - onchanges:
       - cmd: discourse-ruby-install
 
