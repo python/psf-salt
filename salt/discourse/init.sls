@@ -29,6 +29,12 @@ discourse-ruby-install:
   cmd.run:
     - name: "bundle install --deployment --without test --without development"
     - cwd: /srv/discourse
+    - env:
+      - DISCOURSE_DB_SOCKET: ''
+      - DISCOURSE_DB_USERNAME: discourse
+      - DISCOURSE_DB_PASSWORD: {{ pillar["postgresql-users"]["discourse"] }}
+      - DISCOURSE_DB_HOST: {{ salt["mine.get"](pillar["roles"]["postgresql"], "psf_internal").values()|first }}
+      - DISCOURSE_DB_PORT: {{ pillar["postgresql"]["port"] }}
     - onchanges:
       - git: discourse
 
