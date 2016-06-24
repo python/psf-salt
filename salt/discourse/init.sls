@@ -57,6 +57,7 @@ discourse-migrate:
     - cwd: /srv/discourse/app
     - user: discourse
     - env:
+      - RAILS_ENV: 'production'
       - DISCOURSE_DB_SOCKET: ''
       - DISCOURSE_DB_USERNAME: 'discourse'
       - DISCOURSE_DB_PASSWORD: '{{ pillar["postgresql-users"]["discourse"] }}'
