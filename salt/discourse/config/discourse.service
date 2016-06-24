@@ -6,7 +6,11 @@ After=redis.service
 [Service]
 User=discourse
 WorkingDirectory=/srv/discourse/app
+
 Environment=RAILS_ENV=production
+Environment=UNICORN_WORKERS=3
+Environment=UNICORN_SIDEKIQS=1
+
 SyslogIdentifier=discourse-unicorn
 PIDFile=/srv/discourse/app/tmp/pids/unicorn.pid
 
