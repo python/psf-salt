@@ -1,5 +1,10 @@
 haproxy:
   services:
+    discourse:
+      domains:
+        - discuss.python.org
+      verify_host: discourse.psf.io
+
     docs:
       domains:
         - docs.python.org

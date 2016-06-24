@@ -136,3 +136,17 @@ discourse-migrate:
     - mode: 644
     - require:
       - file: /etc/nginx/sites.d/
+
+
+/etc/consul.d/service-discourse.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: discourse
+        port: 9000
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul
