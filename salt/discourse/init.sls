@@ -23,7 +23,7 @@ discourse:
   git.latest:
     - name: https://github.com/discourse/discourse.git
     - rev: v1.5.3
-    - target: /srv/discourse
+    - target: /srv/discourse/app
     - user: discourse
     - require:
       - pkg: discourse
@@ -34,7 +34,7 @@ discourse-ruby-install:
   cmd.run:
     - name: "bundle install --deployment --without test --without development"
     - user: discourse
-    - cwd: /srv/discourse
+    - cwd: /srv/discourse/app
     - onchanges:
       - git: discourse
       - user: discourse
@@ -43,7 +43,7 @@ discourse-ruby-install:
 discourse-node-install:
   cmd.run:
     - name: "npm install -g svgo phantomjs-prebuilt"
-    - cwd: /srv/discourse
+    - cwd: /srv/discourse/app
     - user: discourse
     - require:
       - user: discourse
@@ -54,7 +54,7 @@ discourse-node-install:
 discourse-migrate:
   cmd.run:
     - name: "bundle exec rake db:migrate"
-    - cwd: /srv/discourse
+    - cwd: /srv/discourse/app
     - user: discourse
     - env:
       - DISCOURSE_DB_SOCKET: ''
