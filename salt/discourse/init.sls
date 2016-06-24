@@ -25,7 +25,7 @@ discourse:
       - pkg: discourse
 
 
-dicourse-ruby-install:
+discourse-ruby-install:
   cmd.run:
     - name: "bundle install --deployment --without test --without development"
     - cwd: /srv/discourse
