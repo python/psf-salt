@@ -26,7 +26,7 @@ discourse:
 
   git.latest:
     - name: https://github.com/discourse/discourse.git
-    - rev: v1.5.3
+    - rev: latest-release
     - target: /srv/discourse/app
     - user: discourse
     - force_checkout: True
