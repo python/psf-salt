@@ -38,16 +38,6 @@ discourse-ruby-install:
       - user: discourse
 
 
-discourse-node-install:
-  cmd.run:
-    - name: "npm install -g svgo phantomjs-prebuilt"
-    - cwd: /srv/discourse/app
-    - require:
-      - pkg: nodejs
-    - onchanges:
-      - git: discourse
-
-
 discourse-migrate:
   cmd.run:
     - name: "bundle exec rake db:migrate"
