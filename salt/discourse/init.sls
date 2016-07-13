@@ -31,6 +31,7 @@ discourse:
     - user: discourse
     - force_checkout: True
     - force_reset: True
+    - force_fetch: True
     - require:
       - pkg: discourse
       - user: discourse
