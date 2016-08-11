@@ -250,6 +250,9 @@ server {
 
   location /m/ {
     alias /srv/pydotorg/media/;
+    types {
+      text/plain  py;
+    }
     add_header Cache-Control "max-age=604800, public";  # 604800 is 7 days
   }
 
