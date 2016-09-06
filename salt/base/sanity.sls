@@ -1,6 +1,7 @@
 niceties:
   pkg.installed:
     - pkgs:
+      - atop
       - htop
       - traceroute
 
