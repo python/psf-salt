@@ -17,6 +17,10 @@ server {
     return 301 http://barry.warsaw.us/;
   }
 
+  location ~^/~guido/(.*) {
+    return 301 https://gvanrossum.github.io/$1;
+  }
+
   location ~ ^/~(.*)$ {
     resolver 8.8.8.8;
     proxy_set_header X-Real-IP $remote_addr;
