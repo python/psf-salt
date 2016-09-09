@@ -34,7 +34,7 @@
     # NOTE: maximum-requests suspected to corrupt responses, see
     # http://mercurial.selenic.com/bts/issue2595
     WSGIDaemonProcess hgweb user=hg group=hg python-path=/srv/hg/lib/python \
-        threads=4 processes=8 inactivity-timeout=300 \
+        threads=2 processes=4 inactivity-timeout=300 \
         display-name=hgweb
     WSGIProcessGroup hgweb
 
