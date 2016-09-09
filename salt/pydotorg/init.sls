@@ -207,7 +207,6 @@ check-out-peps:
     - target: /srv/pydotorg/peps
     - user: pydotorg
     - force_checkout: True
-    - force_clone: True
     - force_reset: True
     - require:
       - user: pydotorg-user
