@@ -17,7 +17,7 @@ server {
     return 301 http://barry.warsaw.us/;
   }
 
-  location ~^/~guido/(.*) {
+  location ~^/~guido(.*) {
     return 301 https://gvanrossum.github.io/$1;
   }
 
