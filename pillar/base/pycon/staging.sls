@@ -5,7 +5,7 @@ pycon:
     - staging-pycon.python.org
     - pycon-staging.python.org
     - pycon-staging.global.ssl.fastly.net
-  use_basic_auth: True
+  use_basic_auth: False
   gunicorn_workers: 2
 
 harden:

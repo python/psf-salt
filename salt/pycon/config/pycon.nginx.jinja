@@ -64,7 +64,6 @@ server {
     auth_basic_user_file {{ auth_file }};
     {% endif %}
   }
-  rewrite ^/$ /2016/ redirect;
   location /2017/slides {
     client_max_body_size 50M;
     rewrite /2017/slides(.*) /$1 break;
@@ -73,4 +72,5 @@ server {
     auth_basic "PyCon Speaker Slide Uploads";
     auth_basic_user_file {{ pycon_slides_auth_file }};
   }
+  rewrite ^/$ /2017/ redirect;
 }
