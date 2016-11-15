@@ -25,7 +25,7 @@
 +------------------------------+---------------------------------------------+-------------+---------------+-------------------------+
 | pg1.iad1.psf.io              | postgresql cluster                          | dstufft     | Rackspace     | Northern Virginia (IAD) |
 +------------------------------+---------------------------------------------+-------------+---------------+-------------------------+
-| planet.iad1.psf.io           | Planet Python                              | benjamin    | Rackspace     | Northern Virginia (IAD) |
+| planet.iad1.psf.io           | Planet Python.                              | benjamin    | Rackspace     | Northern Virginia (IAD) |
 +------------------------------+---------------------------------------------+-------------+---------------+-------------------------+
 | pydotorg-prod.iad1.psf.io    | Python.org production                       | benjamin    | Rackspace     | Northern Virginia (IAD) |
 +------------------------------+---------------------------------------------+-------------+---------------+-------------------------+
