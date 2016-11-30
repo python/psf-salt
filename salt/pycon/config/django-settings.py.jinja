@@ -34,6 +34,8 @@ ALLOWED_HOSTS = [
 {% endfor %}
 ]
 
+SECURE_SSL_REDIRECT = True
+
 SECRET_KEY = '{{ secret_key }}'
 GRAYLOG_HOST = '{{ graylog_host }}'
 
