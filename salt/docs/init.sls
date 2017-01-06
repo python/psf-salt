@@ -47,7 +47,7 @@ docsbuild-scripts:
 docsbuild-full:
   cron.present:
     - identifier: docsbuild-full
-    - name: python3 /srv/docsbuild/scripts/build_docs.py
+    - name: python3 /srv/docsbuild/scripts/build_docs.py --git
     - user: docsbuild
     - minute: 7
     - hour: 0
@@ -57,7 +57,7 @@ docsbuild-full:
 docsbuild-quick:
   cron.present:
     - identifier: docsbuild-quick
-    - name: python3 /srv/docsbuild/scripts/build_docs.py -q
+    - name: python3 /srv/docsbuild/scripts/build_docs.py -q --git
     - user: docsbuild
     - minute: 7
     - hour: 2-23/3
