@@ -15,7 +15,7 @@ pydotorg-deps:
       - libpq-dev
       - libxml2-dev
       - libxslt-dev
-      - python-docutils
+      - python3-docutils
       - python-virtualenv
       - python3-dev
       - yui-compressor
