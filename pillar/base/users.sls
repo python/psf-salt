@@ -263,7 +263,7 @@ users:
   haypo:
     fullname: "Victor Stinner"
     ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAsVlpdlIgz7wNtO6Je490SU2+RC/gPLJhBxsw4/fzlCycm5KYB5eawOxGNST67Z7SoKjhcS6S1gwnfA/zjfDDNQvmeB6uPpJc9JKefUjxJQj4eCLOGqpPPQXm4T84CZKN8DqpkTIP6GV3u5zRrl1zy9E/7mbfm+KtRc3wjNZVh6ycGlk7fehNs+8ZUJ6zr2F4uwAuaAfBvkhiMcKJ40TBxaKK1r4kcydEKTsFKWJ33TeGvoNE5io00JtlvY9WpUswGxxvBUnQAp3jduPgHUGKFPTFdx446Zd2vpRQ41d8sa/CgpeNrlIml1yZj4LfjXDaSkR78UKvGn1jHaEo3gqUBw==
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIVzct/vFIVEAQ5aG8WJlJJWPNZYbVDyI5jwljst8mk haypo2017
     access:
       speed-web:
         allowed: True
