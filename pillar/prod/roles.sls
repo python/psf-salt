@@ -36,7 +36,6 @@ roles:
   wiki: "wiki.iad1.psf.io"
   slack: "slack.iad1.psf.io"
   discourse: "discourse*.iad1.psf.io"
-  helios: "helios.iad1.psf.io"
 
   # PyPI/Warehouse
   linehaul: "linehaul*.iad1.psf.io"
