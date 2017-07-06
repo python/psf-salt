@@ -31,11 +31,8 @@ server {
   add_header X-Robots-Tag "noindex, nofollow";
   {% endif %}
 
-  location /2017/site_media/static {
-    alias /srv/pycon/site_media/static;
-  }
-  location /2017/site_media/media {
-    alias /srv/pycon/media;
+  location /2017 {
+    alias /srv/pycon-archive/2017;
   }
   location /2016 {
     alias /srv/pycon-archive/2016;
@@ -54,23 +51,6 @@ server {
   }
   location /2011 {
     alias /srv/pycon-archive/2011;
-  }
-  location /2017 {
-    client_max_body_size 20M;
-    proxy_pass http://pycon;
-    proxy_set_header Host $http_host;
-    {% if use_basic_auth %}
-    auth_basic "PyCon 2017 *Staging* site for development only. See https://us.pycon.org/2017/";
-    auth_basic_user_file {{ auth_file }};
-    {% endif %}
-  }
-  location /2017/slides {
-    client_max_body_size 50M;
-    rewrite /2017/slides(.*) /$1 break;
-    proxy_pass http://pycon-slides;
-    proxy_set_header Host $http_host;
-    auth_basic "PyCon Speaker Slide Uploads";
-    auth_basic_user_file {{ pycon_slides_auth_file }};
   }
   rewrite ^/$ /2017/ redirect;
 }
