@@ -15,6 +15,7 @@ doc-pkgs:
       - texlive-latex-extra
       - texlive-latex-recommended
       - texlive-fonts-recommended
+      - texlive-lang-all
       - zip
 
 docsbuild:
