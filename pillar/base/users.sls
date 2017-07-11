@@ -322,3 +322,12 @@ users:
       mail:
         allowed: True
         sudo: True
+  mdk:
+    fullname: "Julien Palard"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJjtCm4U1a2iiFnu/h/UCdFFVRJNig+i6LM4oAW22ebq julien@palard.fr
+    access:
+      docs:
+        allowed: True
+        groups:
+          - docs
