@@ -138,6 +138,7 @@ base:
   'pythontest':
     - match: nodegroup
     - firewall.http
+    - firewall.ftp
 
   'salt-master':
     - match: nodegroup

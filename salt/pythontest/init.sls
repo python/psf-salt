@@ -4,6 +4,18 @@ include:
 git:
   pkg.installed
 
+vsftpd:
+  pkg:
+    - installed
+  service.running:
+    - enable: True
+    - restart: True
+    - watch:
+      - file: /etc/vsftpd.conf
+    - require:
+      - file: /etc/vsftpd.conf
+      - pkg: vsftpd
+
 /srv/:
   file.directory:
     - user: www-data
@@ -26,6 +38,12 @@ chmod-testdata:
     - onchanges:
       - git: testdata-repo
 
+chmod-ftpdata:
+  cmd.run:
+    - name: chmod -R a-w /srv/python-testdata/ftp
+    - onchanges:
+      - git: testdata-repo
+
 /etc/nginx/sites.d/pythontest.conf:
   file.managed:
     - source: salt://pythontest/config/nginx.pythontest.conf.jinja
@@ -36,3 +54,10 @@ chmod-testdata:
   require:
     - file: /etc/nginx/sites.d/
     - git: testdata-repo
+
+/etc/vsftpd.conf:
+  file.managed:
+    - source: salt://pythontest/config/vsftpd.conf
+    - user: root
+    - group: root
+    - mode: 644
