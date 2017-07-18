@@ -29,7 +29,7 @@ roles:
   pycon: "pycon*.iad1.psf.io"
   pycon-prod: "pycon-prod.iad1.psf.io"
   pycon-staging: "pycon-staging.iad1.psf.io"
-  pythontest: "pythontest.*.psf.io"
+  pythontest: "pythontest.nyc1.psf.io"
   salt-master: "salt.iad1.psf.io"
   speed-web: "speed-web.iad1.psf.io"
   tracker: "bugs.iad1.psf.io"
