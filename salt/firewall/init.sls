@@ -1,3 +1,9 @@
+/etc/iptables:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 755
+
 /etc/iptables/rules.v4:
   file.managed:
     - source: salt://firewall/config/iptables.jinja
