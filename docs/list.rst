@@ -36,6 +36,8 @@ Server List
 +------------------------------+----------------------------------------------+-------------+---------------+-------------------------+
 | pythontest.iad1.psf.io       | Test resources for CPython's test suite.     | benjamin    | Rackspace     | Northern Virginia (IAD) |
 +------------------------------+----------------------------------------------+-------------+---------------+-------------------------+
+| pythontest.nyc1.psf.io       | Test resources for CPython's test suite.     | benjamin    | Digital Ocean | New York City (NYC3)    |
++------------------------------+----------------------------------------------+-------------+---------------+-------------------------+
 | slack.iad1.psf.io            | Slack IRC bridge                             | dstufft     | Rackspace     | Northern Virginia (IAD) |
 +------------------------------+----------------------------------------------+-------------+---------------+-------------------------+
 | speed-web.iad1.psf.io        | web interface for speed.python.org           | dstufft     | Rackspace     | Northern Virginia (IAD) |
