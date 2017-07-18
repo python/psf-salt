@@ -1,3 +1,4 @@
+{% if pillar["dc"] in pillar["consul"]["dcs"] %}
 /etc/nginx/sites.d/status.conf:
   file.managed:
     - source: salt://monitoring/client/configs/nginx.conf
@@ -24,4 +25,4 @@
       - group: diamond
       - file: /etc/nginx/sites.d/status.conf
       - file: /etc/diamond/collectors
-
+{% endif %}
