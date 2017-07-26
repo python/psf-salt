@@ -76,6 +76,7 @@ pydotorg-source:
       - git: pydotorg-source
       - pkg: pydotorg-deps
       - pkg: postgresql-client
+    - cwd: /srv/pydotorg/pythondotorg/
 
 
 /usr/share/consul-template/templates/pydotorg_settings.py:
