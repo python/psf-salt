@@ -69,15 +69,23 @@ pydotorg-source:
 
 /srv/pydotorg/env/:
   virtualenv.managed:
+    - cwd: /srv/pydotorg/pythondotorg
     - user: pydotorg
-    - requirements: /srv/pydotorg/pythondotorg/requirements.txt
     - python: /usr/bin/python3
     - require:
       - git: pydotorg-source
       - pkg: pydotorg-deps
       - pkg: postgresql-client
-    - cwd: /srv/pydotorg/pythondotorg/
 
+pydotorg-dependencies:
+  cmd.run:
+    - user: pydotorg
+    - cwd: /srv/pydotorg/pythondotorg
+    - name: /srv/pydotorg/env/bin/pip install -r /srv/pydotorg/pythondotorg/requirements.txt
+    - require:
+      - virtualenv: /srv/pydotorg/env/
+    - onchanges:
+      - git: pydotorg-source
 
 /usr/share/consul-template/templates/pydotorg_settings.py:
   file.managed:
