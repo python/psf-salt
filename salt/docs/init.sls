@@ -10,6 +10,7 @@ doc-pkgs:
       - git
       - mercurial
       - python-dev
+      - python3-dev
       - python-virtualenv
       - texlive
       - texlive-latex-extra
@@ -39,6 +40,17 @@ docsbuild-scripts:
   virtualenv.managed:
     - user: docsbuild
     - no_deps: True
+    - requirements: /srv/docsbuild/scripts/requirements.txt
+    - require:
+      - git: docsbuild-scripts
+      # Theses are needed to build C extensions.
+      - pkg: doc-pkgs
+
+/srv/docsbuild/venv/:
+  virtualenv.managed:
+    - user: docsbuild
+    - no_deps: True
+    - python: python3
     - requirements: /srv/docsbuild/scripts/requirements.txt
     - require:
       - git: docsbuild-scripts
