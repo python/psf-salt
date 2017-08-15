@@ -52,5 +52,16 @@ server {
   location /2011 {
     alias /srv/pycon-archive/2011;
   }
+
+  location /2018 {
+    client_max_body_size 20M;
+    proxy_pass http://pycon;
+    proxy_set_header Host $http_host;
+    {% if use_basic_auth %}
+    auth_basic "PyCon 2018 site coming soon!";
+    auth_basic_user_file {{ auth_file }};
+    {% endif %}
+  }
+
   rewrite ^/$ /2017/ redirect;
 }
