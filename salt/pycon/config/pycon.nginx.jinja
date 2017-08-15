@@ -53,6 +53,13 @@ server {
     alias /srv/pycon-archive/2011;
   }
 
+  location /2018/site_media/static {
+    alias /srv/pycon/site_media/static;
+  }
+  location /2018/site_media/media {
+    alias /srv/pycon/media;
+  }
+
   location /2018 {
     client_max_body_size 20M;
     proxy_pass http://pycon;
