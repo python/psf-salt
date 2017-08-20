@@ -11,6 +11,8 @@ server {
 
   error_log /var/log/nginx/pydotorg.error.log;
   access_log /var/log/nginx/pydotorg.access.log;
+  
+  add_header x-xss-protection "1; mode=block" always;
 
   # Legacy redirects & Rewrites from dinsdale apache
   location ~ ^/~(barry|bwarsaw)$ {
