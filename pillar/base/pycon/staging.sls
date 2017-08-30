@@ -1,6 +1,6 @@
 pycon:
   deployment: staging
-  branch: 2018
+  branch: staging
   server_names:
     - staging-pycon.python.org
     - pycon-staging.python.org
