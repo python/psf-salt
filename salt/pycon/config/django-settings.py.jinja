@@ -45,7 +45,8 @@ ADMINS = (
 
 SERVER_EMAIL = 'pycon-{{ deployment }}@mail.pycon.python.org'
 
-EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+CELERY_EMAIL_BACKEND = 'email_log.backends.EmailBackend'
 EMAIL_LOG_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "{{ smtp_host }}"
 EMAIL_HOST_USER = "{{ smtp_user }}"
