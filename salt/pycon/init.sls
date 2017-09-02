@@ -205,7 +205,7 @@ pycon-requirements:
 
 pre-reload:
   cmd.run:
-    - name: /srv/pycon/env/bin/python manage.py migrate --noinput && /srv/pycon/env/bin/python manage.py compress --force && /srv/pycon/env/bin/python manage.py collectstatic -v0 --noinput
+    - name: /srv/pycon/env/bin/python manage.py migrate --noinput && /srv/pycon/env/bin/python manage.py collectstatic -v0 --noinput && /srv/pycon/env/bin/python manage.py compress --force
     - user: pycon
     - cwd: /srv/pycon/pycon/
     - env:
