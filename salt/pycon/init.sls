@@ -28,6 +28,11 @@ pycon-deps:
       - libjpeg8-dev
       - node-less
       - redis-server
+      - gfortran
+      - cython
+      - liblapack-dev
+      - libblas-dev
+      - libffi-dev
 
 pycon-redis:
   service.running:
@@ -376,6 +381,7 @@ pycon-progcom:
       - virtualenv: /srv/pycon-progcom/env/
       - file: /etc/init/pycon-progcom.conf
       - locale: us_locale
+      - pkg: pycon-deps
     - watch:
       - file: /etc/init/pycon-progcom.conf
       - virtualenv: /srv/pycon-progcom/env/
