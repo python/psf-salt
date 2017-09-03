@@ -28,6 +28,11 @@ pycon-deps:
       - libjpeg8-dev
       - node-less
       - redis-server
+      - gfortran
+      - cython
+      - liblapack-dev
+      - libblas-dev
+      - libffi-dev
 
 pycon-redis:
   service.running:
@@ -329,3 +334,88 @@ pycon-slides:
       - file: /etc/init/pycon-slides.conf
       - virtualenv: /srv/pycon-slides/env/
       - git: pycon-slides-source
+
+pycon-progcom-user:
+  user.present:
+    - name: pycon-progcom
+    - home: /srv/pycon-progcom
+    - createhome: True
+
+pycon-progcom-source:
+  git.latest:
+    - name: https://github.com/PyCon/progcom
+    - target: /srv/pycon-progcom/progcom/
+    - rev: master
+    - user: pycon-progcom
+    - require:
+      - user: pycon-progcom-user
+      - pkg: git
+
+/srv/pycon-progcom/env/:
+  virtualenv.managed:
+    - user: pycon-progcom
+    - python: /usr/bin/python
+    - require:
+      - git: pycon-progcom-source
+
+pycon-progcom-requirements:
+  cmd.run:
+    - user: pycon-progcom
+    - cwd: /srv/pycon-progcom/progcom
+    - name: /srv/pycon-progcom/env/bin/pip install -U -r requirements.pip
+
+/usr/share/consul-template/templates/pycon-progcom.conf:
+  file.managed:
+    - source: salt://pycon/config/pycon-progcom.upstart.conf.jinja
+    - template: jinja
+    - context:
+      admin_emails: {{ secrets['pycon-progcom']['admin_emails'] }}
+      email_from: {{ pillar['pycon']['progcom']['email_from'] }}
+      flask_secret_key: {{ secrets['pycon-progcom']['flask_secret_key'] }}
+      itsd_key: {{ secrets['pycon-progcom']['itsd_key'] }}
+      observer_emails: {{ secrets['pycon-progcom']['observer_emails'] }}
+      pg_user: {{ pillar['pycon']['progcom']['pg_user'] }}
+      pg_db: {{ pillar['pycon']['progcom']['pg_db'] }}
+      pycon_api_host: {{ pillar['pycon']['progcom']['pycon_api_host'] }}
+      pycon_api_key: {{ secrets['pycon-progcom']['pycon_api_key'] }}
+      pycon_api_secret: {{ secrets['pycon-progcom']['pycon_api_secret'] }}
+      rooms: {{ pillar['pycon']['progcom']['rooms'] }}
+      room_schedules: {{ pillar['pycon']['progcom']['room_schedules'] }}
+      sendgrid_api_key: {{ secrets['pycon-progcom']['sendgrid_api_key'] }}
+      slack_token: {{ secrets['pycon-progcom']['slack_token'] }}
+      web_host: {{ pillar['pycon']['progcom']['web_host'] }}
+    - user: root
+    - group: root
+    - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: consul-template
+      - git: pycon-progcom-source
+
+/etc/consul-template.d/pycon-progcom.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/template.json.jinja
+    - template: jinja
+    - context:
+        source: /usr/share/consul-template/templates/pycon-progcom.conf
+        destination: /etc/init/pycon-progcom.conf
+        command: "chown root:root /etc/init/pycon-progcom.conf && chmod 0640 /etc/init/pycon-progcom.conf && initctl reload-configuration && stop pycon-progcom && start pycon-progcom"
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - pkg: consul-template
+      - file: /usr/share/consul-template/templates/pycon-progcom.conf
+
+pycon-progcom:
+  service.running:
+    - reload: True
+    - require:
+      - virtualenv: /srv/pycon-progcom/env/
+      - file: /etc/consul-template.d/pycon-progcom.json
+      - locale: us_locale
+      - pkg: pycon-deps
+    - watch:
+      - file: /etc/consul-template.d/pycon-progcom.json
+      - virtualenv: /srv/pycon-progcom/env/
+      - git: pycon-progcom-source
