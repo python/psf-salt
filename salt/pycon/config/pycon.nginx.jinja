@@ -6,6 +6,10 @@ upstream pycon-slides {
   server localhost:8001;
 }
 
+upstream pycon-progcom {
+  server localhost:8002;
+}
+
 server {
   listen 80;
 
@@ -68,6 +72,44 @@ server {
     auth_basic "PyCon 2018 site coming soon!";
     auth_basic_user_file {{ auth_file }};
     {% endif %}
+  }
+
+  location /slides {
+    client_max_body_size 50M;
+    rewrite /slides(.*) /$1 break;
+    proxy_pass http://pycon-slides;
+    proxy_set_header Host $http_host;
+    auth_basic "PyCon Speaker Slide Uploads";
+    auth_basic_user_file {{ pycon_slides_auth_file }};
+  }
+
+  location /progcom {
+    rewrite /progcom(.*) /$1 break;
+
+    location /progcom/static/ {
+      alias /srv/pycon-progcom/progcom/static/;
+
+      gzip             on;
+      gzip_min_length  1000;
+      gzip_proxied     expired no-cache no-store private auth;
+      gzip_types       text/plain application/json text/css application/x-javascript;
+    }
+
+    location /progcom/ {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+      proxy_pass   http://pycon-progcom;
+
+      gzip             on;
+      gzip_min_length  1000;
+      gzip_proxied     expired no-cache no-store private auth;
+      gzip_types       text/plain application/json;
+    }
+
+    location /robots.txt {
+      alias /srv/pycon-progcom/progcom/static/robots.txt;
+    }
   }
 
   rewrite ^/$ /2017/ redirect;

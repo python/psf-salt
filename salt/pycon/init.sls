@@ -329,3 +329,54 @@ pycon-slides:
       - file: /etc/init/pycon-slides.conf
       - virtualenv: /srv/pycon-slides/env/
       - git: pycon-slides-source
+
+pycon-progcom-user:
+  user.present:
+    - name: pycon-progcom
+    - home: /srv/pycon-progcom
+    - createhome: True
+
+pycon-progcom-source:
+  git.latest:
+    - name: https://github.com/PyCon/progcom
+    - target: /srv/pycon-progcom/progcom/
+    - rev: master
+    - user: pycon-progcom
+    - require:
+      - user: pycon-progcom-user
+      - pkg: git
+
+/srv/pycon-progcom/env/:
+  virtualenv.managed:
+    - user: pycon-progcom
+    - python: /usr/bin/python
+    - require:
+      - git: pycon-progcom-source
+
+pycon-progcom-requirements:
+  cmd.run:
+    - user: pycon-progcom
+    - cwd: /srv/pycon-progcom/progcom
+    - name: /srv/pycon-progcom/env/bin/pip install -U -r requirements.pip
+
+/etc/init/pycon-progcom.conf:
+  file.managed:
+    - source: salt://pycon/config/pycon-progcom.upstart.conf.jinja
+    - context:
+      foo: bar
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 640
+
+pycon-progcom:
+  service.running:
+    - reload: True
+    - require:
+      - virtualenv: /srv/pycon-progcom/env/
+      - file: /etc/init/pycon-progcom.conf
+      - locale: us_locale
+    - watch:
+      - file: /etc/init/pycon-progcom.conf
+      - virtualenv: /srv/pycon-progcom/env/
+      - git: pycon-progcom-source

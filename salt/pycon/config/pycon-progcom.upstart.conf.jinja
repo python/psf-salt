@@ -1,0 +1,15 @@
+description "pycon-progcom gunicorn application server"
+start on runlevel [2345]
+stop on runlevel [06]
+
+console log
+setuid pycon-progcom
+setgid pycon-progcom
+
+chdir /srv/pycon-progcom/progcom
+env LC_ALL=en_US.UTF-8
+env LANG=en_US.UTF-8
+
+
+respawn
+exec /srv/pycon-progcom/env/bin/gunicorn app:app --worker-class gevent -b 127.0.0.1:8002 --log-level=info
