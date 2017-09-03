@@ -84,8 +84,6 @@ server {
   }
 
   location /progcom {
-    rewrite /progcom(.*) /$1 break;
-
     location /progcom/static/ {
       alias /srv/pycon-progcom/progcom/static/;
 
@@ -96,6 +94,8 @@ server {
     }
 
     location /progcom/ {
+      rewrite /progcom(.*) /$1 break;
+
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header Host $http_host;
       proxy_redirect off;
@@ -107,7 +107,7 @@ server {
       gzip_types       text/plain application/json;
     }
 
-    location /robots.txt {
+    location /progcom/robots.txt {
       alias /srv/pycon-progcom/progcom/static/robots.txt;
     }
   }
