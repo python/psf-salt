@@ -9,11 +9,11 @@ setgid pycon-progcom
 chdir /srv/pycon-progcom/progcom
 env LC_ALL=en_US.UTF-8
 env LANG=en_US.UTF-8
-env ADMIN_EMAILS={{ admin_emails|json }}
+env ADMIN_EMAILS='{{ admin_emails|json }}'
 env EMAIL_FROM={{ email_from }}
 env FLASK_SECRET_KEY={{ flask_secret_key }}
 env ITSD_KEY={{ itsd_key }}
-env OBSERVER_EMAILS={{ observer_emails|json }}
+env OBSERVER_EMAILS='{{ observer_emails|json }}'
 {% from "consul/jinja.sls" import simple_service %}
 {% call(addr, port) simple_service("primary.postgresql") %}
 env PSQL_CONNECTION_STRING=postgresql+psycopg2://{{ pg_user }}:{{ pillar["postgresql-users"][pg_user] }}@postgresql.psf.io:{{ port }}/{{ pg_db }}?hostaddr={{ addr }}&sslmode=verify-full&sslrootcert=/etc/ssl/certs/PSF_CA.pem
@@ -21,8 +21,8 @@ env PSQL_CONNECTION_STRING=postgresql+psycopg2://{{ pg_user }}:{{ pillar["postgr
 env PYCON_API_HOST={{ pycon_api_host }}
 env PYCON_API_KEY={{ pycon_api_key }}
 env PYCON_API_SECRET={{ pycon_api_secret }}
-env ROOMS={{ rooms|json }}
-env ROOM_SCHEDULES={{ room_schedules|json }}
+env ROOMS='{{ rooms|json }}'
+env ROOM_SCHEDULES='{{ room_schedules|json }}'
 env SENDGRID_API_KEY={{ sendgrid_api_key }}
 env SLACK_TOKEN={{ slack_token }}
 env WEB_HOST={{ web_host }}
