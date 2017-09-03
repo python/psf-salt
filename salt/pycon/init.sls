@@ -364,9 +364,10 @@ pycon-progcom-requirements:
     - cwd: /srv/pycon-progcom/progcom
     - name: /srv/pycon-progcom/env/bin/pip install -U -r requirements.pip
 
-/etc/init/pycon-progcom.conf:
+/usr/share/consul-template/templates/pycon-progcom.conf:
   file.managed:
     - source: salt://pycon/config/pycon-progcom.upstart.conf.jinja
+    - template: jinja
     - context:
       admin_emails: {{ secrets['pycon-progcom']['admin_emails'] }}
       email_from: {{ pillar['pycon']['progcom']['email_from'] }}
@@ -383,20 +384,37 @@ pycon-progcom-requirements:
       sendgrid_api_key: {{ secrets['pycon-progcom']['sendgrid_api_key'] }}
       slack_token: {{ secrets['pycon-progcom']['slack_token'] }}
       web_host: {{ pillar['pycon']['progcom']['web_host'] }}
-    - template: jinja
     - user: root
     - group: root
     - mode: 640
+    - show_diff: False
+    - require:
+      - pkg: consul-template
+      - git: pycon-progcom-source
+
+/etc/consul-template.d/pycon-progcom.json:
+  file.managed:
+    - source: salt://consul/etc/consul-template/template.json.jinja
+    - template: jinja
+    - context:
+      source: /usr/share/consul-template/templates/pycon-progcom.conf
+      destination: /etc/init/pycon-progcom.conf
+      command: "chown root:root /etc/init/pycon-progcom.conf && chmod 0640 /etc/init/pycon-progcom.conf && initctl reload-configuration && stop pycon-progcom && start pycon-progcom"
+    - user: root
+    - group: root
+    - mode: 640
+    - require:
+      - pkg: consul-template
 
 pycon-progcom:
   service.running:
     - reload: True
     - require:
       - virtualenv: /srv/pycon-progcom/env/
-      - file: /etc/init/pycon-progcom.conf
+      - file: /etc/consul-template.d/pycon-progcom.json
       - locale: us_locale
       - pkg: pycon-deps
     - watch:
-      - file: /etc/init/pycon-progcom.conf
+      - file: /etc/consul-template.d/pycon-progcom.json
       - virtualenv: /srv/pycon-progcom/env/
       - git: pycon-progcom-source
