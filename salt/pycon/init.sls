@@ -368,7 +368,21 @@ pycon-progcom-requirements:
   file.managed:
     - source: salt://pycon/config/pycon-progcom.upstart.conf.jinja
     - context:
-      foo: bar
+      admin_emails: {{ secrets['pycon-progcom']['admin_emails'] }}
+      email_from: {{ pillar['pycon']['progcom']['email_from'] }}
+      flask_secret_key: {{ secrets['pycon-progcom']['flask_secret_key'] }}
+      itsd_key: {{ secrets['pycon-progcom']['itsd_key'] }}
+      observer_emails: {{ secrets['pycon-progcom']['observer_emails'] }}
+      pg_user: {{ pillar['pycon']['progcom']['pg_user'] }}
+      pg_db: {{ pillar['pycon']['progcom']['pg_db'] }}
+      pycon_api_host: {{ pillar['pycon']['progcom']['pycon_api_host'] }}
+      pycon_api_key: {{ secrets['pycon-progcom']['pycon_api_key'] }}
+      pycon_api_secret: {{ secrets['pycon-progcom']['pycon_api_secret'] }}
+      rooms: {{ pillar['pycon']['progcom']['rooms'] }}
+      room_schedules: {{ pillar['pycon']['progcom']['room_schedules'] }}
+      sendgrid_api_key: {{ secrets['pycon-progcom']['sendgrid_api_key'] }}
+      slack_token: {{ secrets['pycon-progcom']['slack_token'] }}
+      web_host: {{ pillar['pycon']['progcom']['web_host'] }}
     - template: jinja
     - user: root
     - group: root
