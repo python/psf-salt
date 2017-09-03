@@ -397,14 +397,15 @@ pycon-progcom-requirements:
     - source: salt://consul/etc/consul-template/template.json.jinja
     - template: jinja
     - context:
-      source: /usr/share/consul-template/templates/pycon-progcom.conf
-      destination: /etc/init/pycon-progcom.conf
-      command: "chown root:root /etc/init/pycon-progcom.conf && chmod 0640 /etc/init/pycon-progcom.conf && initctl reload-configuration && stop pycon-progcom && start pycon-progcom"
+        source: /usr/share/consul-template/templates/pycon-progcom.conf
+        destination: /etc/init/pycon-progcom.conf
+        command: "chown root:root /etc/init/pycon-progcom.conf && chmod 0640 /etc/init/pycon-progcom.conf && initctl reload-configuration && stop pycon-progcom && start pycon-progcom"
     - user: root
     - group: root
     - mode: 640
     - require:
       - pkg: consul-template
+      - file: /usr/share/consul-template/templates/pycon-progcom.conf
 
 pycon-progcom:
   service.running:
