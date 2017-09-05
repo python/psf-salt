@@ -59,4 +59,12 @@ https://github.com/python/planet:
     - user: planet
     - group: planet
     - mode: 755
+/srv/{{site }}/static:
+  file.symlink:
+    - target: /srv/planet/static
+    - user: planet
+    - group: planet
+    - mode: 644
+    - require:
+      file: /srv/{{ site }}/
 {% endfor %}
