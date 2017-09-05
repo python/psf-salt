@@ -66,5 +66,5 @@ https://github.com/python/planet:
     - group: planet
     - mode: 644
     - require:
-      file: /srv/{{ site }}/
+      - file: /srv/{{ site }}/
 {% endfor %}
