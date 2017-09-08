@@ -1,6 +1,6 @@
 pycon:
   deployment: staging
-  branch: staging
+  branch: nl-css
   server_names:
     - staging-pycon.python.org
     - pycon-staging.python.org
