@@ -63,6 +63,7 @@ FASTLY_API_KEY = '{{ pillar["fastly"]["api_key"] }}'
 {% if type == "staging" %}
 
 CSRF_COOKIE_DOMAIN = '{{ name }}.python.org'
+CSRF_TRUSTED_ORIGINS = ['{{ name }}.python.org']
 SESSION_COOKIE_DOMAIN = '{{ name }}.python.org'
 
 {% else %}
