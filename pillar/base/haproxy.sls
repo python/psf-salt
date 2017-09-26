@@ -62,6 +62,7 @@ haproxy:
     hg:
       domains:
         - hg.python.org
+      check: "GET /test/rev/ea32503c754c HTTP/1.1\\r\\nHost:\\ hg.python.org"
 
     pypa-bootstrap:
       domains:
