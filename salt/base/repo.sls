@@ -18,3 +18,10 @@ psf:
     - key_url: salt://base/config/APT-GPG-KEY-PSF
     - require:
       - pkg: apt-transport-https
+
+# Make source list globally readable.
+/etc/apt/sources.list.d/psf.list:
+  file.managed:
+    - mode: 644
+    - require:
+      - pkgrepo: psf
