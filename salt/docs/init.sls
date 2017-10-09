@@ -42,16 +42,6 @@ docsbuild-scripts:
        - user: docsbuild
        - pkg: doc-pkgs
 
-/srv/docsbuild/environment/:
-  virtualenv.managed:
-    - user: docsbuild
-    - no_deps: True
-    - requirements: /srv/docsbuild/scripts/requirements.txt
-    - require:
-      - git: docsbuild-scripts
-      # Theses are needed to build C extensions.
-      - pkg: doc-pkgs
-
 py36-virtualenv:
   cmd.run:
     - user: docsbuild
@@ -94,7 +84,7 @@ docsbuild-full:
     - minute: 7
     - hour: 0
     - require:
-      - virtualenv: /srv/docsbuild/environment/
+      - cmd: py36-virtualenv-dependencies
 
 docsbuild-quick:
   cron.present:
@@ -104,7 +94,7 @@ docsbuild-quick:
     - minute: 7
     - hour: 2-23/3
     - require:
-      - virtualenv: /srv/docsbuild/environment/
+      - cmd: py36-virtualenv-dependencies
 
 /var/log/docsbuild/:
   file.directory:
