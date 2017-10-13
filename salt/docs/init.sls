@@ -21,6 +21,7 @@ doc-pkgs:
       - texlive-latex-recommended
       - texlive-fonts-recommended
       - texlive-lang-all
+      - texlive-xetex
       - zip
     - require:
       - pkgrepo: deadsnakes-ppa
