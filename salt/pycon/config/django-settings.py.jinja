@@ -59,6 +59,12 @@ DEFAULT_FROM_EMAIL = "noreply-staging@mail.pycon.python.org"
 DEFAULT_FROM_EMAIL = "noreply@mail.pycon.python.org"
 {% endif %}
 
+{% if deployment == 'staging' %}
+FINANCIAL_AID_WEEKLY_REPORT_EMAIL = ['ernest@python.org']
+{% else %}
+FINANCIAL_AID_WEEKLY_REPORT_EMAIL = ['pycon-aid@python.org', 'phyllis@python.org']
+{% endif %}
+
 MANAGERS = ADMINS
 
 COMPRESS_ENABLED = True
