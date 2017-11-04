@@ -230,6 +230,7 @@ pycon-crontab:
     - contents: |
         0  0  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py expunge_deleted > /var/log/pycon/cron_expunge_deleted.log 2>&1
         0 20  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py update_tutorial_registrants > /var/log/pycon/cron_update_tutorial_registrants 2>&1
+        0 13  *  *  3	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py weekly_finaid_email_report > /var/log/pycon/weekly_finaid_email_report 2>&1
 
 pycon:
   service.running:
