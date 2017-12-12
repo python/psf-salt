@@ -20,8 +20,6 @@ postgresql:
     pydotorg-staging2: "pydotorg-staging"
     pycon-prod: "pycon-prod"
     pycon-staging: "pycon-staging"
-    progcom-staging: "progcom-staging"
-    progcom-prod: "progcom-prod"
     speed-web: "speed-web"
     testpypi: testpypi
     discourse: discourse
