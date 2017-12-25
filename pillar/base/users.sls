@@ -325,7 +325,7 @@ users:
   mdk:
     fullname: "Julien Palard"
     ssh_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJjtCm4U1a2iiFnu/h/UCdFFVRJNig+i6LM4oAW22ebq julien@palard.fr
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKA7DgTQ0G7+kdsX0lIUOAAOllwGSCu8s8TxPvr/61Y8q+pIO5mrZycI0xYcKP5NZaABqlFyXUUNfLj7RLqteBxqq2QZP4NOJ1MutYRIkzJ9YW0f565jHaOqSguz0MY+1sCHtuEPiUUZoNexkKN7SIx60SfoaMEvGjAj46txA7VFbJUuKcJtA1Yvmn0C0KoXUUQ/G+JqvjQ7QuKLQYdTZ8S9OEvNaqNfwNSwvy1/LCnuajFw0O+H5bz7AcS5Iuj+9k8wgHPK1a1rQEdteOcn2XBCvta/VOVlFLv6/9K3iU3EJ1pyaZ88UkuJef8aWnH/AJGaF2gLqUbBuL+UeXyD41 julien+yubikey@palard.fr
     access:
       docs:
         allowed: True
