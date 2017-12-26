@@ -72,3 +72,22 @@ Server List
 +------------------------------+----------------------------------------------+-------------+---------------+-------------------------+
 | virt-l99amx.psf.osuosl.org   | Monitoring OSUOSL                            | noah        | OSUOSL        | OSUOSL                  |
 +------------------------------+----------------------------------------------+-------------+---------------+-------------------------+
+
+
+SSH Fingerprints
+================
+
+We're generating an :download:`ssh_known_hosts` file of all servers by using::
+
+  curl -s https://raw.githubusercontent.com/python/psf-salt/master/docs/list.rst | grep '|' | cut -d'|' -f2 | sed 1d | xargs -n 1 sh -c 'echo $0,$(dig +short $0)' | ssh-keyscan -f - | sort -u -
+
+You can generate your own and diff both as they are sorted, or simply
+use the provided one. To use the provided file you may use::
+
+  ssh -o UserKnownHostsFile=docs/ssh_known_hosts -o StrictHostKeyChecking=yes docs.iad1.psf.io
+
+Or add it to your ~/.ssh/config::
+
+  Host *.psf.io *.python.org *.pypi.io *.osuosl.org
+    UserKnownHostsFile ~/.ssh/psf_ssh_known_hosts
+    StrictHostKeyChecking yes
