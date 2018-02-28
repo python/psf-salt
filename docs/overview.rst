@@ -17,13 +17,13 @@ infrastructure team can assist in setting up new services and advise maintainers
 of individual services. Its members also generally handle changes to sensitive
 global systems such as DNS. The currrent team members are:
 
-* Noah Kantrowitz (lead)
-* Ernest W. Durbin III
+* Alex Gaynor (has no responsibilities)
+* Benjamin Peterson
 * Benjamin W. Smith
 * Donald Stufft
-* Benjamin Peterson
+* Ernest W. Durbin III (Chair)
 * Mark Mangoba (PSF IT Manager)
-* Alex Gaynor (has no responsibilities)
+* Noah Kantrowitz
 
 The best way to contact the infrastructure team is mailing
 infrastructure-staff@python.org. There's also often people hanging out on the
