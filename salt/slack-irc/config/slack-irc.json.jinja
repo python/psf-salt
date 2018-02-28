@@ -4,7 +4,8 @@
     "server": "irc.freenode.net",
     "token": "{{ slack_token }}",
     "autoSendCommands": [
-      ["PRIVMSG", "NickServ", "IDENTIFY {{ irc_password }}", "AUTH {{ irc_password }}"]
+      ["PRIVMSG", "NickServ", "IDENTIFY {{ irc_password }}"],
+      ["AUTH", "PSFSlack", "{{ irc_password }}"]
     ],
     "channelMapping": {
       "#infrastructure": "#python-infra",
