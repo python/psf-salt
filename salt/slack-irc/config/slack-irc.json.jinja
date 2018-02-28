@@ -3,9 +3,13 @@
     "nickname": "PSFSlack",
     "server": "irc.freenode.net",
     "token": "{{ slack_token }}",
+    "ircOptions": {
+      "userName": "PSFSlack",
+      "password": "{{ irc_password }}",
+      "sasl": true
+    },
     "autoSendCommands": [
-      ["PRIVMSG", "NickServ", "IDENTIFY {{ irc_password }}"],
-      ["AUTH", "PSFSlack", "{{ irc_password }}"]
+      ["PRIVMSG", "NickServ", "IDENTIFY {{ irc_password }}"]
     ],
     "channelMapping": {
       "#infrastructure": "#python-infra",
