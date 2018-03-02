@@ -72,8 +72,12 @@ COMPRESS_ENABLED = True
 MEDIA_ROOT = "/srv/pycon/media/"
 STATIC_ROOT = "/srv/pycon/site_media/static"
 
+from copy import deepcopy
 from django.utils.log import DEFAULT_LOGGING
-LOGGING = DEFAULT_LOGGING
+logging_dict = deepcopy(DEFAULT_LOGGING)
+logging_dict['loggers']['django.request']['handlers'] = ['log_file']
+logging_dict['loggers']['django.security']['handlers'] = ['log_file']
+LOGGING = logging_dict
 
 LOGGING['filters'].update(
     {
