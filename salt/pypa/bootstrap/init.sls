@@ -85,6 +85,21 @@ buildout-clone:
       - git: pip-clone
 
 
+/srv/bootstrap/www/2.6/:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 755
+    - makedirs: True
+
+
+/srv/bootstrap/www/2.6/get-pip.py:
+  file.symlink:
+    - target: /srv/bootstrap/pip/2.6/get-pip.py
+    - require:
+      - git: pip-clone
+
+
 /srv/bootstrap/www/ez_setup.py:
   file.symlink:
     - target: /srv/bootstrap/setuptools/ez_setup.py
