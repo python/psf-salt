@@ -85,6 +85,21 @@ buildout-clone:
       - git: pip-clone
 
 
+/srv/bootstrap/www/3.3/:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 755
+    - makedirs: True
+
+
+/srv/bootstrap/www/3.3/get-pip.py:
+  file.symlink:
+    - target: /srv/bootstrap/pip/3.3/get-pip.py
+    - require:
+      - git: pip-clone
+
+
 /srv/bootstrap/www/2.6/:
   file.directory:
     - user: nginx
@@ -122,6 +137,14 @@ refresh-pip:
     - onchanges:
       - git: pip-clone
 
+refresh-pip-26:
+  cmd.run:
+    - name: 'curl -X PURGE https://bootstrap.pypa.io/3.2/get-pip.py'
+    - require:
+      - file: /srv/bootstrap/www/2.6/get-pip.py
+    - onchanges:
+      - git: pip-clone
+
 refresh-pip-32:
   cmd.run:
     - name: 'curl -X PURGE https://bootstrap.pypa.io/3.2/get-pip.py'
@@ -130,6 +153,13 @@ refresh-pip-32:
     - onchanges:
       - git: pip-clone
 
+refresh-pip-33:
+  cmd.run:
+    - name: 'curl -X PURGE https://bootstrap.pypa.io/3.2/get-pip.py'
+    - require:
+      - file: /srv/bootstrap/www/3.3/get-pip.py
+    - onchanges:
+      - git: pip-clone
 
 refresh-setuptools:
   cmd.run:
