@@ -9,7 +9,7 @@ services, where they run, and who the main contact points are.
 The Infrastructure Team
 -----------------------
 
-The infrastructure team is ultimately responsible maintaining PSF
+The infrastructure team is ultimately responsible for maintaining PSF
 infrastructure. It is not, however, required to be a member of the
 infrastructure to run a PSF service. Indeed, the day to day operations of most
 services are handled by people not on the infrastructure team. The
@@ -148,11 +148,13 @@ PyCon
    pycon-tech@python.org.
 
 PyPI
-   The `Python Package Index <https://pypi.python.org/>`_ sees the most load of
-   any PSF service. All of its infrastructure runs on Rackspace configured by
-   `pypi-salt <https://github.com/python/pypi-salt>`_, and it is served over
-   Fastly. The infrastructure is maintained by Ernest W. Durbin, Donald Stufft,
-   and Richard Jones.
+   The `Python Package Index <https://pypi.org/>`_ sees the most load of
+   any PSF service. Its source code is available `on GitHub
+   <https://github.com/pypa/warehouse>`_. All of its infrastructure runs on
+   AWS configured by `pypi-salt <https://github.com/python/pypi-salt>`_,
+   and it is served over Fastly. The infrastructure is maintained by Ernest
+   W. Durbin III, Donald Stufft, and Dustin Ingram. The contact address is
+   admin@mail.pypi.org.
 
 PyPy properties
    The `PyPy website <http://pypy.org>`_ is hosted on a OSUOSL VM and maintained
