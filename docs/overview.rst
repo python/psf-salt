@@ -22,7 +22,6 @@ global systems such as DNS. The currrent team members are:
 * Benjamin W. Smith
 * Donald Stufft
 * Ernest W. Durbin III (Chair)
-* Mark Mangoba (PSF IT Manager)
 * Noah Kantrowitz
 
 The best way to contact the infrastructure team is mailing
