@@ -339,3 +339,13 @@ users:
       pydotorg:
         allowed: True
         sudo: True
+  maxking:
+    fullname: "Abhilash Raj"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZV9XLHJV0bxVyZ6pbKuDaehAx9c7mlw9RZDCs0zaCBK5asyFGCg6ToDMpuBgUUT+j5AyC9tE73srWZWU5tC2VnwuMquOFzGgwon2Nl08+TsgZ5TzVe2JTJLpyvyO6uCJD2qRJ2Euq47PIknIfnnJtlWw0igO4Y9dYpAs32pxS4jjHWdbqjAEPDbMH3WGWQLMcn8A1JR1wYC11Y15w/RHTZBo9yAbJ7GuYIYcVVolPUdfgpnZehmZUydu8UtAvIRQURpnNiULZfxW5HezeUCwYmM/X1lSNZhwsdinqXsrXc2uDG8DRmLKEh2RHzy/bwUcEdJ2KlE63uoUdwphmTpor maxking@angel
+    access:
+      mail:
+        allowed: True
+        sudo: True
+        groups:
+          - mailman
