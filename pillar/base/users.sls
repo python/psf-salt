@@ -48,11 +48,6 @@ users:
       jython-web:
         groups:
           - jython
-  mmangoba:
-    fullname: "Mark Mangoba"
-    admin: True
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDIyIjqd+6mIvByOemz5H891/RgA92JiFsNS82l5QmRkfX0B8zBwnXFEECi3lIF/wcQD+zUNyZw8YkTzQG4MK5gTPKTkjoUYX1pZC206yzhHnJtD1GXE5tAog8wzYl/jL4s/eeAdYYctPdUTj96zfzhOhVPttx4PfOn6hvruCm247sJ4+BQuXSyWtzCHJSQUw5ZK+6gQHXuhVNhlfdom4WBnB6kU4ajuHr3pc+x9qtFXsPllJylXluK+97CG4MQnJeP+Zzv9bInSP6pOgbmTml2pMtw3K+IQS6FWsWZW2IHDqyBIMRIv99CLaiYJV0H4feqk3z48N20xQwhyIzlDRN mmangoba@python.org
 
   # Other users
   antoine:
