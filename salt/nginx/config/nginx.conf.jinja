@@ -1,5 +1,6 @@
 user nginx;
 worker_processes auto;
+worker_rlimit_nofile 10000;
 
 error_log /var/log/nginx/global-error.log;
 pid /var/run/nginx.pid;

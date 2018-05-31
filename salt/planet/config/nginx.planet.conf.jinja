@@ -2,9 +2,12 @@
 
 server {
     listen 80;
+    listen 443 ssl;
     server_name {{ site }};
     error_log /var/log/nginx/{{ site }}.error.log;
     access_log /var/log/nginx/{{ site }}.access.log;
+    ssl_certificate /etc/letsencrypt/live/{{ site }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ site }}/privkey.pem;
 
     root /srv/{{ site }}/;
 }

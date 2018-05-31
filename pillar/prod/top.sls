@@ -18,6 +18,14 @@ base:
     - fastly-logging
     - firewall.fastly-logging
 
+  'discourse':
+    - match: nodegroup
+    - firewall.discourse
+    - discourse
+    - postgresql.server
+    - secrets.discourse
+    - secrets.postgresql-users.discourse
+
   'docs':
     - match: nodegroup
     - firewall.rs-lb-backend
@@ -130,6 +138,7 @@ base:
   'pythontest':
     - match: nodegroup
     - firewall.http
+    - firewall.ftp
 
   'salt-master':
     - match: nodegroup
@@ -143,6 +152,8 @@ base:
   'speed-web':
     - match: nodegroup
     - firewall.rs-lb-backend
+    - secrets.postgresql-users.speed-web
+    - secrets.speed-web
 
   'tracker':
     - match: nodegroup
@@ -167,3 +178,10 @@ base:
     - firewall.mail
     - secrets.mail-opt-out
     - secrets.backup.mail
+    - groups.mail
+
+  'linehaul':
+      - match: nodegroup
+      - firewall.linehaul
+      - secrets.pypi.linehaul
+      - pypi.linehaul

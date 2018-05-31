@@ -2,7 +2,7 @@ https://github.com/dstufft/dotfiles.git:
   git.latest:
     - target: /home/psf-users/dstufft/.dotfiles
     - user: dstufft
-    - force: True
+    - force_clone: True
     - force_checkout: True
     - require:
       - sls: users

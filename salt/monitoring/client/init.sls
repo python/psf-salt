@@ -25,15 +25,35 @@ diamond:
       - pkg: diamond
       - user: diamond
       - cmd: consul-template
+      {% if grains["oscodename"] == "xenial" %}
+      - file: /lib/systemd/system/diamond.service
+      {% else %}
       - cmd: /etc/init/diamond.conf
+      {% endif %}
 
 
+{% if grains["oscodename"] == "xenial" %}
+/etc/init/diamond.conf:
+  file.absent: []
+
+/lib/systemd/system/diamond.service:
+  file.managed:
+    - name: /lib/systemd/system/diamond.service
+    - source: salt://monitoring/client/configs/diamond.service
+    - mode: 644
+
+  cmd.wait:
+    - name: systemctl daemon-reload
+    - watch:
+      - file: /lib/systemd/system/diamond.service
+{% else %}
 /etc/init/diamond.conf:
   cmd.run:
     - name: "ln -s /etc/init/diamond.upstart /etc/init/diamond.conf && initctl reload-configuration"
     - creates: /etc/init/diamond.conf
     - requires:
         - pkg: diamong
+{% endif %}
 
 
 /etc/diamond:

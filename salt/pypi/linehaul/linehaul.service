@@ -1,0 +1,13 @@
+[Unit]
+Description=Linehaul Stats Collection Daemon
+After=network.target
+
+[Service]
+EnvironmentFile=/srv/linehaul/etc/linehaul.env
+ExecStart=/srv/linehaul/env/bin/linehaul
+Restart=on-failure
+User=linehaul
+Group=linehaul
+
+[Install]
+WantedBy=multi-user.target

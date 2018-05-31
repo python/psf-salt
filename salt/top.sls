@@ -26,6 +26,13 @@ base:
     - match: nodegroup
     - cdn-logs
 
+  'discourse':
+    - match: nodegroup
+    - discourse
+    - redis
+    - nodejs
+    - nginx
+
   'docs':
     - match: nodegroup
     - docs
@@ -45,6 +52,10 @@ base:
   'jython-web':
     - match: nodegroup
     - jython
+
+  'linehaul':
+    - match: nodegroup
+    - pypi.linehaul
 
   'loadbalancer':
     - match: nodegroup

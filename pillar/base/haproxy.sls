@@ -1,5 +1,11 @@
 haproxy:
   services:
+    discourse:
+      domains:
+        - discuss.python.org
+      verify_host: discourse.psf.io
+      check: HEAD /srv/status
+
     docs:
       domains:
         - docs.python.org
@@ -56,6 +62,7 @@ haproxy:
     hg:
       domains:
         - hg.python.org
+      check: "GET /test/rev/ea32503c754c HTTP/1.1\\r\\nHost:\\ hg.python.org"
 
     pypa-bootstrap:
       domains:
@@ -88,7 +95,6 @@ haproxy:
     python.org:
       target: www.python.org
       hsts_subdomains: False
-      hpkp_subdomains: False
     pypa.io:
       target: www.pypa.io
 

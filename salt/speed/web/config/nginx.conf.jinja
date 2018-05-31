@@ -1,13 +1,65 @@
+upstream speed {
+  server localhost:8000;
+}
+
 server {
-    listen 9000 ssl;
+  listen 80;
 
-    ssl_certificate /etc/ssl/private/speed-web.psf.io.pem;
-    ssl_certificate_key /etc/ssl/private/speed-web.psf.io.pem;
+  server_name {{ grains['fqdn'] }} {{ server_names }};
 
-    include fastly_params;
+  if ($scheme = "http") {
+    return 301 https://$http_host$request_uri;
+  }
+}
 
-    error_log /var/log/nginx/speed-web.error.log;
-    access_log /var/log/nginx/speed-web.access.log main;
+server {
+  listen 9000 ssl;
 
-    root /srv/speed.python.org;
+  ssl_certificate /etc/ssl/private/speed-web.psf.io.pem;
+  ssl_certificate_key /etc/ssl/private/speed-web.psf.io.pem;
+
+  include fastly_params;
+
+  error_log /var/log/nginx/speed-web.error.log;
+  access_log /var/log/nginx/speed-web.access.log main;
+
+  # path for static files
+  location ~ ^/static/(.*)$ {
+      alias /srv/speed/site_media/static/$1;
+  }
+
+  location / {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+
+      if (!-f $request_filename) {
+          proxy_pass http://speed;
+          break;
+      }
+  }
+}
+
+# XXX This should be disabled in production...
+server {
+  listen 9001;
+
+  error_log /var/log/nginx/speed-web-test.error.log;
+  access_log /var/log/nginx/speed-web-test.access.log main;
+
+  # path for static files
+  location ~ ^/static/(.*)$ {
+      alias /srv/speed/site_media/static/$1;
+  }
+
+  location / {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+
+      if (!-f $request_filename) {
+          proxy_pass http://speed;
+          break;
+      }
+  }
 }

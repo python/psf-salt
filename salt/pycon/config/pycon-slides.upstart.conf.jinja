@@ -1,0 +1,22 @@
+description "pycon-slides gunicorn application server"
+start on runlevel [2345]
+stop on runlevel [06]
+
+console log
+setuid pycon-slides
+setgid pycon-slides
+
+chdir /srv/pycon-slides/pycon-slides
+env LC_ALL=en_US.UTF-8
+env LANG=en_US.UTF-8
+env MAIL_FROM_ADDR={{ mail_from_addr }}
+env MAIL_RECIPIENTS={{ mail_recipients }}
+env DROPBOX_ACCESS_TOKEN={{ dropbox_access_token }}
+env MAILGUN_SMTP_SERVER={{ smtp_host }}
+env MAILGUN_SMTP_PORT={{ smtp_port }}
+env MAILGUN_SMTP_LOGIN={{ smtp_user }}
+env MAILGUN_SMTP_PASSWORD={{ smtp_password }}
+env MAILGUN_SMTP_TLS={{ smtp_tls }}
+
+respawn
+exec /srv/pycon-slides/env/bin/gunicorn app:app --bind 127.0.0.1:8001 -w 5 --access-logfile=-

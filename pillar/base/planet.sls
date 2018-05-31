@@ -3,5 +3,5 @@ planet_sites:
     config: config.ini
     extra_domains:
       - www.planetpython.org
-  planet.jython.org:
-    config: jython.ini
+#  planet.jython.org:
+#    config: jython.ini

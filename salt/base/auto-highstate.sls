@@ -6,5 +6,9 @@
     - minute: '*/15'
 
 /etc/logrotate.d/salt:
+  {% if grains["oscodename"] == "xenial" %}
+  file.absent: []
+  {% else %}
   file.managed:
     - source: salt://base/config/salt-logrotate.conf
+  {% endif %}

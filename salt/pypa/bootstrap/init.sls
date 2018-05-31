@@ -7,7 +7,6 @@ bootrap-deps:
   pkg.installed:
     - pkgs:
       - git
-      - mercurial
       - curl
 
 
@@ -30,7 +29,7 @@ bootrap-deps:
 
 pip-clone:
   git.latest:
-    - name: https://github.com/pypa/pip.git
+    - name: https://github.com/pypa/get-pip.git
     - rev: master
     - target: /srv/bootstrap/pip
     - user: nginx
@@ -41,12 +40,13 @@ pip-clone:
 
 
 setuptools-clone:
-  hg.latest:
-    - name: https://bitbucket.org/pypa/setuptools
+  git.latest:
+    - name: https://github.com/pypa/setuptools
     - rev: bootstrap
     - target: /srv/bootstrap/setuptools
     - user: nginx
     - force: True
+    - force_checkout: True
     - require:
       - pkg: bootrap-deps
 
@@ -65,7 +65,52 @@ buildout-clone:
 
 /srv/bootstrap/www/get-pip.py:
   file.symlink:
-    - target: /srv/bootstrap/pip/contrib/get-pip.py
+    - target: /srv/bootstrap/pip/get-pip.py
+    - require:
+      - git: pip-clone
+
+
+/srv/bootstrap/www/3.2/:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 755
+    - makedirs: True
+
+
+/srv/bootstrap/www/3.2/get-pip.py:
+  file.symlink:
+    - target: /srv/bootstrap/pip/3.2/get-pip.py
+    - require:
+      - git: pip-clone
+
+
+/srv/bootstrap/www/3.3/:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 755
+    - makedirs: True
+
+
+/srv/bootstrap/www/3.3/get-pip.py:
+  file.symlink:
+    - target: /srv/bootstrap/pip/3.3/get-pip.py
+    - require:
+      - git: pip-clone
+
+
+/srv/bootstrap/www/2.6/:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 755
+    - makedirs: True
+
+
+/srv/bootstrap/www/2.6/get-pip.py:
+  file.symlink:
+    - target: /srv/bootstrap/pip/2.6/get-pip.py
     - require:
       - git: pip-clone
 
@@ -74,7 +119,7 @@ buildout-clone:
   file.symlink:
     - target: /srv/bootstrap/setuptools/ez_setup.py
     - require:
-      - hg: setuptools-clone
+      - git: setuptools-clone
 
 
 /srv/bootstrap/www/bootstrap-buildout.py:
@@ -92,6 +137,29 @@ refresh-pip:
     - onchanges:
       - git: pip-clone
 
+refresh-pip-26:
+  cmd.run:
+    - name: 'curl -X PURGE https://bootstrap.pypa.io/2.6/get-pip.py'
+    - require:
+      - file: /srv/bootstrap/www/2.6/get-pip.py
+    - onchanges:
+      - git: pip-clone
+
+refresh-pip-32:
+  cmd.run:
+    - name: 'curl -X PURGE https://bootstrap.pypa.io/3.2/get-pip.py'
+    - require:
+      - file: /srv/bootstrap/www/3.2/get-pip.py
+    - onchanges:
+      - git: pip-clone
+
+refresh-pip-33:
+  cmd.run:
+    - name: 'curl -X PURGE https://bootstrap.pypa.io/3.3/get-pip.py'
+    - require:
+      - file: /srv/bootstrap/www/3.3/get-pip.py
+    - onchanges:
+      - git: pip-clone
 
 refresh-setuptools:
   cmd.run:
@@ -99,7 +167,7 @@ refresh-setuptools:
     - require:
       - file: /srv/bootstrap/www/ez_setup.py
     - onchanges:
-      - hg: setuptools-clone
+      - git: setuptools-clone
 
 
 refresh-buildout:

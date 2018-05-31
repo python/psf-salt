@@ -11,18 +11,16 @@ server {
 
   error_log /var/log/nginx/pydotorg.error.log;
   access_log /var/log/nginx/pydotorg.access.log;
+  
+  add_header x-xss-protection "1; mode=block" always;
 
   # Legacy redirects & Rewrites from dinsdale apache
   location ~ ^/~(barry|bwarsaw)$ {
     return 301 http://barry.warsaw.us/;
   }
 
-  location ~ ^/~(.*)$ {
-    resolver 8.8.8.8;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_pass http://legacy.python.org/~$1;
+  location ~^/~guido(.*) {
+    return 301 https://gvanrossum.github.io/$1;
   }
 
   location /consortium {
@@ -250,6 +248,10 @@ server {
 
   location /m/ {
     alias /srv/pydotorg/media/;
+    include mime.types;
+    types {
+      text/plain  py;
+    }
     add_header Cache-Control "max-age=604800, public";  # 604800 is 7 days
   }
 

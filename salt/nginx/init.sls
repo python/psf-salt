@@ -14,13 +14,13 @@ nginx:
   user.present:
     - system: True
     - shell: /sbin/nologin
-    - groups:
-      - nginx
-    - require:
-      - group: nginx
 
   group.present:
     - system: True
+    - addusers:
+      - nginx
+    - require:
+      - user: nginx
 
   pkg:
     - installed

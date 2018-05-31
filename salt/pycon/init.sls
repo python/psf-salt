@@ -28,6 +28,11 @@ pycon-deps:
       - libjpeg8-dev
       - node-less
       - redis-server
+      - gfortran
+      - cython
+      - liblapack-dev
+      - libblas-dev
+      - libffi-dev
 
 pycon-redis:
   service.running:
@@ -177,6 +182,15 @@ pycon-requirements:
     - require:
       - user: pycon-user
 
+/srv/pycon/pycon-slides-htpasswd:
+  file.managed:
+    - source: salt://pycon/config/pycon-slides-htpasswd
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - user: pycon-user
+
 /etc/nginx/sites.d/pycon.conf:
   file.managed:
     - source: salt://pycon/config/pycon.nginx.jinja
@@ -188,6 +202,7 @@ pycon-requirements:
       server_names: {{ config['server_names']|join(' ') }}
       use_basic_auth: {{ config['use_basic_auth'] }}
       auth_file: /srv/pycon/htpasswd
+      pycon_slides_auth_file: /srv/pycon/pycon-slides-htpasswd
       deployment: {{ config["deployment"] }}
     - require:
       - file: /etc/nginx/sites.d/
@@ -195,7 +210,7 @@ pycon-requirements:
 
 pre-reload:
   cmd.run:
-    - name: /srv/pycon/env/bin/python manage.py migrate --noinput && /srv/pycon/env/bin/python manage.py compress --force && /srv/pycon/env/bin/python manage.py collectstatic -v0 --noinput
+    - name: /srv/pycon/env/bin/python manage.py migrate --noinput && /srv/pycon/env/bin/python manage.py collectstatic -v0 --noinput && /srv/pycon/env/bin/python manage.py compress --force
     - user: pycon
     - cwd: /srv/pycon/pycon/
     - env:
@@ -215,6 +230,7 @@ pycon-crontab:
     - contents: |
         0  0  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py expunge_deleted > /var/log/pycon/cron_expunge_deleted.log 2>&1
         0 20  *  *  *	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py update_tutorial_registrants > /var/log/pycon/cron_update_tutorial_registrants 2>&1
+        0 13  *  *  3	pycon /srv/pycon/env/bin/python /srv/pycon/pycon/manage.py weekly_finaid_email_report > /var/log/pycon/weekly_finaid_email_report 2>&1
 
 pycon:
   service.running:
@@ -257,3 +273,65 @@ pycon_worker:
     - mode: 644
     - require:
       - pkg: consul
+
+pycon-slides-user:
+  user.present:
+    - name: pycon-slides
+    - home: /srv/pycon-slides/
+    - createhome: True
+
+pycon-slides-source:
+  git.latest:
+    - name: https://github.com/bcostlow/pycon-slides
+    - target: /srv/pycon-slides/pycon-slides/
+    - rev: master
+    - user: pycon-slides
+    - require:
+      - user: pycon-slides-user
+      - pkg: git
+
+pycon-slides-environ-placeholder:
+  file.touch:
+    - name: /srv/pycon-slides/pycon-slides/.environ
+
+/srv/pycon-slides/env/:
+  virtualenv.managed:
+    - user: pycon-slides
+    - python: /usr/bin/python
+    - require:
+      - git: pycon-slides-source
+
+pycon-slides-requirements:
+  cmd.run:
+    - user: pycon-slides
+    - cwd: /srv/pycon-slides/pycon-slides
+    - name: /srv/pycon-slides/env/bin/pip install -U -r requirements.txt
+
+/etc/init/pycon-slides.conf:
+  file.managed:
+    - source: salt://pycon/config/pycon-slides.upstart.conf.jinja
+    - context:
+      mail_from_addr: {{ secrets['pycon-slides']['mail_from_addr'] }}
+      mail_recipients: {{ secrets['pycon-slides']['mail_recipients'] }}
+      dropbox_access_token: {{ secrets['pycon-slides']['dropbox_access_token'] }}
+      smtp_host: {{ secrets['smtp']['host'] }}
+      smtp_user: {{ secrets['smtp']['user'] }}
+      smtp_password: {{ secrets['smtp']['password'] }}
+      smtp_port: {{ secrets['smtp']['port'] }}
+      smtp_tls: {{ secrets['smtp']['tls'] }}
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 640
+
+pycon-slides:
+  service.running:
+    - reload: True
+    - require:
+      - virtualenv: /srv/pycon-slides/env/
+      - file: /etc/init/pycon-slides.conf
+      - locale: us_locale
+    - watch:
+      - file: /etc/init/pycon-slides.conf
+      - virtualenv: /srv/pycon-slides/env/
+      - git: pycon-slides-source

@@ -35,18 +35,19 @@ ALLOWED_HOSTS = [
 ]
 
 SECRET_KEY = '{{ secret_key }}'
-GRAYLOG_HOST = '{{ graylog_host }}'
 
 GOOGLE_OAUTH2_CLIENT_ID = '{{ google_oauth2_client_id }}'
 GOOGLE_OAUTH2_CLIENT_SECRET = '{{ google_oauth2_client_secret }}'
 
 ADMINS = (
-    ('Caktus Pycon Team', 'pycon@caktusgroup.com'),
+    ('Ernest W. Durbin III', 'ernest@python.org'),
 )
 
 SERVER_EMAIL = 'pycon-{{ deployment }}@mail.pycon.python.org'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+CELERY_EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+EMAIL_LOG_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "{{ smtp_host }}"
 EMAIL_HOST_USER = "{{ smtp_user }}"
 EMAIL_HOST_PASSWORD = "{{ smtp_password }}"
@@ -58,6 +59,12 @@ DEFAULT_FROM_EMAIL = "noreply-staging@mail.pycon.python.org"
 DEFAULT_FROM_EMAIL = "noreply@mail.pycon.python.org"
 {% endif %}
 
+{% if deployment == 'staging' %}
+FINANCIAL_AID_WEEKLY_REPORT_EMAIL = ['ernest@python.org']
+{% else %}
+FINANCIAL_AID_WEEKLY_REPORT_EMAIL = ['pycon-aid@python.org', 'phyllis@python.org']
+{% endif %}
+
 MANAGERS = ADMINS
 
 COMPRESS_ENABLED = True
@@ -65,8 +72,12 @@ COMPRESS_ENABLED = True
 MEDIA_ROOT = "/srv/pycon/media/"
 STATIC_ROOT = "/srv/pycon/site_media/static"
 
+from copy import deepcopy
 from django.utils.log import DEFAULT_LOGGING
-LOGGING = DEFAULT_LOGGING
+logging_dict = deepcopy(DEFAULT_LOGGING)
+logging_dict['loggers']['django.request']['handlers'] = ['log_file']
+logging_dict['loggers']['django.security']['handlers'] = ['log_file']
+LOGGING = logging_dict
 
 LOGGING['filters'].update(
     {
@@ -79,42 +90,6 @@ LOGGING['filters'].update(
             },
      }
 )
-LOGGING['handlers'].update(
-    {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': False,
-            'filters': ['require_debug_false'],
-        },
-        'sam_gelf': {
-            'class': 'graypy.GELFHandler',
-            'host': GRAYLOG_HOST,
-            'port': 12201,
-            'filters': ['static_fields', 'django_exc'],
-        }
-    }
-)
-LOGGING['loggers'].update(
-    {
-        'django.request': {
-            'handlers': ['mail_admins', 'sam_gelf'],
-            'level': 'ERROR',
-            'propagate': True,
-            },
-        'pycon': {
-            # mail_admins will only accept ERROR and higher
-            'handlers': ['mail_admins', 'sam_gelf'],
-            'level': 'WARNING',
-            },
-        'symposion': {
-            # mail_admins will only accept ERROR and higher
-            'handlers': ['mail_admins', 'sam_gelf'],
-            'level': 'WARNING',
-            }
-    }
-)
-
 LOGGING['handlers']['log_file'] = {
     'level': 'ERROR',
     'class': 'logging.handlers.WatchedFileHandler',

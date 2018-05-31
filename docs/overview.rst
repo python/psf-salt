@@ -17,12 +17,12 @@ infrastructure team can assist in setting up new services and advise maintainers
 of individual services. Its members also generally handle changes to sensitive
 global systems such as DNS. The currrent team members are:
 
-* Noah Kantrowitz (lead)
-* Ernest W. Durbin III
+* Alex Gaynor (has no responsibilities)
+* Benjamin Peterson
 * Benjamin W. Smith
 * Donald Stufft
-* Benjamin Peterson
-* Alex Gaynor (has no responsibilities)
+* Ernest W. Durbin III (Chair)
+* Noah Kantrowitz
 
 The best way to contact the infrastructure team is mailing
 infrastructure-staff@python.org. There's also often people hanging out on the
@@ -76,6 +76,7 @@ PSF DC Provider      Region
 iad1   Rackspace     IAD
 ord1   Rackspace     ORD
 ams1   Digital Ocean AMS3
+nyc1   Digital Ocean NYC3
 ====== ============= ======
 
 
@@ -86,7 +87,7 @@ This section enumerates PSF services, generalities about their hosting, and cont
 
 Buildbot
    The `buildbot master <http://buildbot.python.org>`_ is a service run by
-   python-dev@python.org, particularly Antoine Pitrou.
+   python-dev@python.org, particularly Antoine Pitrou and Zach Ware.
 
 bugs.python.org
    bugs.python.org is hosted using a server donated by `Upfront Systems
@@ -117,8 +118,11 @@ pythontest.net
    maintenance.
 
 speed.python.org
-   speed.python.org is a beefy machine sitting around at OSUOSL doing
-   nothing. It needs love.
+   speed.python.org is a `Codespeed <https://github.com/tobami/codespeed>`_
+   `instance <https://github.com/zware/codespeed>`_ tracking Python performance.
+   The web interface is hosted on a Rackspace VM, benchmarks are run on a beefy
+   machine at OSUOSL and scheduled by the Buildbot master.  Maintained by
+   speed@python.org and Zach Ware.
 
 wiki.python.org
    This is hosted on an OSUOSL VM. Marc-André Lemburg owns it.

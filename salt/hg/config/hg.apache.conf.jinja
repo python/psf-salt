@@ -34,7 +34,7 @@
     # NOTE: maximum-requests suspected to corrupt responses, see
     # http://mercurial.selenic.com/bts/issue2595
     WSGIDaemonProcess hgweb user=hg group=hg python-path=/srv/hg/lib/python \
-        threads=4 processes=8 inactivity-timeout=300 \
+        threads=2 processes=6 inactivity-timeout=300 \
         display-name=hgweb
     WSGIProcessGroup hgweb
 
@@ -51,8 +51,7 @@
     # version
 
     Alias /robots.txt /srv/hg/robots.txt
-    AliasMatch .*/static/([^/]*) \
-        /srv/hg/lib/python/mercurial/templates/static/$1
+    AliasMatch /static/([^/]*) /srv/hg/lib/python/mercurial/templates/static/$1
     <Directory /srv/hg/lib/python/mercurial/templates/static/>
         Allow from all
     </Directory>

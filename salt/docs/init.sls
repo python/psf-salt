@@ -1,6 +1,10 @@
 include:
   - nginx
 
+deadsnakes-ppa:
+  pkgrepo.managed:
+    - ppa: fkrull/deadsnakes
+
 
 # Various packages required for building documentation.
 doc-pkgs:
@@ -10,12 +14,17 @@ doc-pkgs:
       - git
       - mercurial
       - python-dev
+      - python3.6-dev
       - python-virtualenv
       - texlive
       - texlive-latex-extra
       - texlive-latex-recommended
       - texlive-fonts-recommended
+      - texlive-lang-all
+      - texlive-xetex
       - zip
+    - require:
+      - pkgrepo: deadsnakes-ppa
 
 docsbuild:
   user.present:
@@ -34,15 +43,39 @@ docsbuild-scripts:
        - user: docsbuild
        - pkg: doc-pkgs
 
-/srv/docsbuild/environment/:
-  virtualenv.managed:
+py36-virtualenv:
+  cmd.run:
     - user: docsbuild
-    - no_deps: True
-    - requirements: /srv/docsbuild/scripts/requirements.txt
+    - name: 'python3.6 -m venv --without-pip /srv/docsbuild/venv'
+    - creates: /srv/docsbuild/venv/bin/python
     - require:
-      - git: docsbuild-scripts
-      # Theses are needed to build C extensions.
       - pkg: doc-pkgs
+
+/srv/docsbuild/venv/get-pip.py:
+  file.managed:
+    - user: docsbuild
+    - source: https://bootstrap.pypa.io/get-pip.py
+    - source_hash: sha256=19dae841a150c86e2a09d475b5eb0602861f2a5b7761ec268049a662dbd2bd0c
+    - require:
+      - cmd: py36-virtualenv
+
+py36-virtualenv-pip:
+  cmd.run:
+    - user: docsbuild
+    - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/venv/get-pip.py
+    - creates: /srv/docsbuild/venv/bin/pip
+    - require:
+      - file: /srv/docsbuild/venv/get-pip.py
+
+py36-virtualenv-dependencies:
+  cmd.run:
+    - user: docsbuild
+    - cwd: /srv/docsbuild/scripts
+    - name: /srv/docsbuild/venv/bin/pip install -r /srv/docsbuild/scripts/requirements.txt
+    - require:
+      - cmd: py36-virtualenv-pip
+    - onchanges:
+      - git: docsbuild-scripts
 
 docsbuild-full:
   cron.present:
@@ -52,7 +85,7 @@ docsbuild-full:
     - minute: 7
     - hour: 0
     - require:
-      - virtualenv: /srv/docsbuild/environment/
+      - cmd: py36-virtualenv-dependencies
 
 docsbuild-quick:
   cron.present:
@@ -62,7 +95,7 @@ docsbuild-quick:
     - minute: 7
     - hour: 2-23/3
     - require:
-      - virtualenv: /srv/docsbuild/environment/
+      - cmd: py36-virtualenv-dependencies
 
 /var/log/docsbuild/:
   file.directory:

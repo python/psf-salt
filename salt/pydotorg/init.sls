@@ -11,11 +11,11 @@ pydotorg-deps:
   pkg.installed:
     - pkgs:
       - build-essential
+      - git
       - libpq-dev
       - libxml2-dev
       - libxslt-dev
-      - mercurial
-      - python-docutils
+      - python3-docutils
       - python-virtualenv
       - python3-dev
       - yui-compressor
@@ -69,14 +69,23 @@ pydotorg-source:
 
 /srv/pydotorg/env/:
   virtualenv.managed:
+    - cwd: /srv/pydotorg/pythondotorg
     - user: pydotorg
-    - requirements: /srv/pydotorg/pythondotorg/requirements.txt
     - python: /usr/bin/python3
     - require:
       - git: pydotorg-source
       - pkg: pydotorg-deps
       - pkg: postgresql-client
 
+pydotorg-dependencies:
+  cmd.run:
+    - user: pydotorg
+    - cwd: /srv/pydotorg/pythondotorg
+    - name: /srv/pydotorg/env/bin/pip install -r /srv/pydotorg/pythondotorg/requirements.txt
+    - require:
+      - virtualenv: /srv/pydotorg/env/
+    - onchanges:
+      - git: pydotorg-source
 
 /usr/share/consul-template/templates/pydotorg_settings.py:
   file.managed:
@@ -202,10 +211,12 @@ pydotorg:
       - git: pydotorg-source
 
 check-out-peps:
-  cmd.run:
-    - name: hg clone https://hg.python.org/peps /srv/pydotorg/peps
+  git.latest:
+    - name: https://github.com/python/peps.git
+    - target: /srv/pydotorg/peps
     - user: pydotorg
-    - creates: /srv/pydotorg/peps
+    - force_checkout: True
+    - force_reset: True
     - require:
       - user: pydotorg-user
       - pkg: pydotorg-deps
@@ -244,15 +255,5 @@ update-peps-cron:
     - user: pydotorg
     - name: make -C /srv/pydotorg/peps update all rss && /srv/pydotorg/env/bin/python /srv/pydotorg/pythondotorg/manage.py generate_pep_pages --settings pydotorg.settings.server
     - minute: '*/15'
-    - require:
-      - user: pydotorg-user
-
-update-dev-fixtures-cron:
-  cron.present:
-    - identifier: update-dev-fixtures
-    - name: /srv/pydotorg/env/bin/python /srv/pydotorg/pythondotorg/manage.py generate_dev_fixtures --file=/srv/pydotorg/media/fixtures/dev-fixtures.json.gz --settings=pydotorg.settings.server
-    - user: pydotorg
-    - hour: 1
-    - minute: 0
     - require:
       - user: pydotorg-user
