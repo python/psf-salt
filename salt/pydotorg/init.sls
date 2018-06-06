@@ -14,8 +14,8 @@ pydotorg-deps:
       - git
       - libpq-dev
       - libxml2-dev
-      - libxslt-dev
       - libjpeg-dev
+      - libxslt1-dev
       - python3-docutils
       - python-virtualenv
       - python3-dev
