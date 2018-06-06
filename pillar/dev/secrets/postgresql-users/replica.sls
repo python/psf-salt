@@ -1,2 +1,2 @@
- postgresql-users:
-   replicator: insecurereplicatorpasswordlol
+postgresql-users:
+  replicator: insecurereplicatorpasswordlol

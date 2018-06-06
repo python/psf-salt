@@ -1,10 +1,10 @@
 include:
   - .dotfiles
 
-{% for user_name, user_config in salt["pillar.get"]("users", {}).iteritems() %}
+{% for user_name, user_config in salt["pillar.get"]("users", {}).items() %}
 {% set admin = user_config.get("admin", false) %}
 {% set access = {} %}
-{% for pat, data in user_config.get("access", {}).iteritems() if salt["match.compound"](salt["pillar.get"]("roles:" + pat)) %}  # " Syntax fix
+{% for pat, data in user_config.get("access", {}).items() if salt["match.compound"](salt["pillar.get"]("roles:" + pat)) %}  # " Syntax fix
   {% do access.update(data) %}
 {% endfor %}
 
@@ -19,10 +19,10 @@ include:
   file.directory:
     - mode: 755
 
-{% for user_name, user_config in salt["pillar.get"]("users", {}).iteritems() %}
+{% for user_name, user_config in salt["pillar.get"]("users", {}).items() %}
 {% set admin = user_config.get("admin", false) %}
 {% set access = {} %}
-{% for pat, data in user_config.get("access", {}).iteritems() if salt["match.compound"](salt["pillar.get"]("roles:" + pat)) %}  # " Syntax fix
+{% for pat, data in user_config.get("access", {}).items() if salt["match.compound"](salt["pillar.get"]("roles:" + pat)) %}  # " Syntax fix
   {% do access.update(data) %}
 {% endfor %}
 

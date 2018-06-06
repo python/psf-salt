@@ -9,7 +9,7 @@
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
 :POSTROUTING ACCEPT [0:0]
-{% for name, rule in rules.iteritems() -%}
+{% for name, rule in rules.items() -%}
 # {{ name }}
 {{ rule }}
 {% endfor %}
@@ -31,7 +31,7 @@ COMMIT
 # SSH
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
 
-{% for rule, config in rules.iteritems() -%}
+{% for rule, config in rules.items() -%}
 {% if not config.get("raw") and not config.get("raw_v6") -%}
 {% set port = config.get('port', 22) -%}
 {% set proto = config.get('protocol', 'tcp') -%}
