@@ -7,6 +7,7 @@
 
 roles:
   backup-server: "backup.ord1.psf.io"
+  bugs: "bugs.iad1.psf.io"
   cdn-logs: "cdn-logs.iad1.psf.io"
   consul: "consul*.iad1.psf.io"
   docs: "docs.iad1.psf.io"

@@ -3,6 +3,7 @@
 
 SERVERS = [
   "backup-server",
+  {:name => "bugs", :box => "ubuntu/xenial64", :codename => "xenial"},
   "cdn-logs",
   "consul",
   "docs",
