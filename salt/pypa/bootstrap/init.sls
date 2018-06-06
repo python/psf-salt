@@ -33,7 +33,7 @@ pip-clone:
     - rev: master
     - target: /srv/bootstrap/pip
     - user: nginx
-    - force: True
+    - force_clone: True
     - force_checkout: True
     - require:
       - pkg: bootrap-deps
@@ -45,7 +45,7 @@ setuptools-clone:
     - rev: bootstrap
     - target: /srv/bootstrap/setuptools
     - user: nginx
-    - force: True
+    - force_clone: True
     - force_checkout: True
     - require:
       - pkg: bootrap-deps
@@ -57,7 +57,7 @@ buildout-clone:
     - rev: bootstrap-release
     - target: /srv/bootstrap/buildout
     - user: nginx
-    - force: True
+    - force_clone: True
     - force_checkout: True
     - require:
       - pkg: bootrap-deps
