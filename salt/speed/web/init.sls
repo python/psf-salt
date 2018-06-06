@@ -56,8 +56,8 @@ speed-source:
 
 # Clone/update the repo with Salt to try to avoid occasional slow requests
 cpython-source:
-  hg.latest:
-    - name: https://hg.python.org/cpython
+  git.latest:
+    - name: https://github.com/python/cpython.git
     - target: /srv/speed/media/repos/cpython
     - user: speed
     - require:

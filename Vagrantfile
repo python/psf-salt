@@ -46,7 +46,11 @@ Vagrant.configure("2") do |config|
 
     # Provision the salt-master.
     s_config.vm.provision :shell, :inline => <<-HEREDOC
-      add-apt-repository ppa:saltstack/salt -y
+      wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
+      echo 'deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main' > /etc/apt/sources.list.d/saltstack.list
+    HEREDOC
+
+    s_config.vm.provision :shell, :inline => <<-HEREDOC
       apt-get update
       apt-get install -y salt-master
       ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf
@@ -95,13 +99,21 @@ Vagrant.configure("2") do |config|
         s_config.vm.network "forwarded_port", guest: port, host: port
       end
 
-      if codename == "precise"
-        s_config.vm.provision :shell, inline: "add-apt-repository ppa:chris-lea/zeromq -y"
+      # Provision the salt-minion
+      if codename == "trusty"
+        s_config.vm.provision :shell, :inline => <<-HEREDOC
+          wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
+          echo 'deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main' > /etc/apt/sources.list.d/saltstack.list
+        HEREDOC
+      end
+      if codename == "xenial"
+        s_config.vm.provision :shell, :inline => <<-HEREDOC
+          wget -O - https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
+          echo 'deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main' > /etc/apt/sources.list.d/saltstack.list
+        HEREDOC
       end
 
-      # Provision the salt-minion
       s_config.vm.provision :shell, :inline => <<-HEREDOC
-        add-apt-repository ppa:saltstack/salt -y
         apt-get update
         apt-get install -y salt-minion
         echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf

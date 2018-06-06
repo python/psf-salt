@@ -45,12 +45,13 @@ def bootstrap(host, codename="trusty", pre=[sync_changes]):
         if fabric.contrib.files.exists("/etc/salt/minion.d/local.conf"):
             raise RuntimeError("{} is already bootstrapped.".format(host))
 
-        # Ok, we're going to bootstrap, first we need to add the salt repo
-        # TODO: Xenial doesn't have a saltstack PPA yet, turn this back on when
-        #       it does.
-        if codename != "xenial":
-            fabric.api.run("apt-get install -y software-properties-common")
-            fabric.api.run("add-apt-repository ppa:saltstack/salt -y")
+        fabric.api.run("wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -")
+        if codename == "trusty":
+            fabric.api.run("echo 'deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/2018.3 trusty main' > /etc/apt/sources.list.d/saltstack.list")
+        elif codename == "xenial":
+            fabric.api.run("echo 'deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/2018.3 xenial main' > /etc/apt/sources.list.d/saltstack.list")
+        else:
+            raise RuntimeError("{} is not supported!".format(codename))
 
         # Then we need to update our local apt
         fabric.api.run("apt-get update -qy")
