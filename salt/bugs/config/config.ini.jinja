@@ -1,0 +1,765 @@
+[main]
+
+# Database directory path.
+# The path may be either absolute or relative
+# to the directory containing this config file.
+# Default: db
+database = {{ main__database }}
+
+# Templating engine to use.
+# Possible values are 'zopetal' for the old TAL engine
+# ported from Zope, or 'chameleon' for Chameleon.
+# Default: zopetal
+template_engine = {{ main__template_engine }}
+
+# Path to the HTML templates directory.
+# The path may be either absolute or relative
+# to the directory containing this config file.
+# Default: html
+templates = {{ main__templates }}
+
+# A list of space separated directory paths (or a single
+# directory).  These directories hold additional static
+# files available via Web UI.  These directories may
+# contain sitewide images, CSS stylesheets etc. If a '-'
+# is included, the list processing ends and the TEMPLATES
+# directory is not searched after the specified
+# directories.  If this option is not set, all static
+# files are taken from the TEMPLATES directory.
+# The space separated paths may be either absolute or
+# relative to the directory containing this config file.
+# Default: 
+static_files = {{ main__static_files }}
+
+# Email address that roundup will complain to if it runs
+# into trouble.
+# If no domain is specified then the config item
+# mail -> domain is added.
+# Default: roundup-admin
+admin_email = {{ main__admin_email }}
+
+# The 'dispatcher' is a role that can get notified
+# of new items to the database.
+# It is used by the ERROR_MESSAGES_TO config setting.
+# If no domain is specified then the config item
+# mail -> domain is added.
+# Default: roundup-admin
+dispatcher_email = {{ main__dispatcher_email }}
+
+# Additional text to include in the "name" part
+# of the From: address used in nosy messages.
+# If the sending user is "Foo Bar", the From: line
+# is usually: "Foo Bar" <issue_tracker@tracker.example>
+# the EMAIL_FROM_TAG goes inside the "Foo Bar" quotes like so:
+# "Foo Bar EMAIL_FROM_TAG" <issue_tracker@tracker.example>
+# Default: 
+email_from_tag = {{ main__email_from_tag }}
+
+# Roles that a user gets when they register with Web User Interface.
+# This is a comma-separated string of role names (e.g. 'Admin,User').
+# Default: User
+new_web_user_roles = {{ main__new_web_user_roles }}
+
+# Roles that a user gets when they register with Email Gateway.
+# This is a comma-separated string of role names (e.g. 'Admin,User').
+# Default: User
+new_email_user_roles = {{ main__new_email_user_roles }}
+
+# Send error message emails to the dispatcher, user, or both?
+# The dispatcher is configured using the DISPATCHER_EMAIL setting.
+# Default: user
+error_messages_to = {{ main__error_messages_to }}
+
+# HTML version to generate. The templates are html4 by default.
+# If you wish to make them xhtml, then you'll need to change this
+# var to 'xhtml' too so all auto-generated HTML is compliant.
+# Allowed values: html4, xhtml
+# Default: html4
+html_version = {{ main__html_version }}
+
+# Default timezone offset, applied when user's timezone is not set.
+# If pytz module is installed, value may be any valid
+# timezone specification (e.g. EET or Europe/Warsaw).
+# If pytz is not installed, value must be integer number
+# giving local timezone offset from UTC in hours.
+# Default: UTC
+timezone = {{ main__timezone }}
+
+# Register new users instantly, or require confirmation via
+# email?
+# Allowed values: yes, no
+# Default: no
+instant_registration = {{ main__instant_registration }}
+
+# Offer registration confirmation by email or only through the web?
+# Allowed values: yes, no
+# Default: yes
+email_registration_confirmation = {{ main__email_registration_confirmation }}
+
+# Force Roundup to use a particular text indexer.
+# If no indexer is supplied, the first available indexer
+# will be used in the following order:
+# Possible values: xapian, whoosh, native (internal).
+# Default: 
+indexer = {{ main__indexer }}
+
+# Additional stop-words for the full-text indexer specific to
+# your tracker. See the indexer source for the default list of
+# stop-words (eg. A,AND,ARE,AS,AT,BE,BUT,BY, ...)
+# Allowed values: comma-separated list of words
+# Default: 
+indexer_stopwords = {{ main__indexer_stopwords }}
+
+# Defines the file creation mode mask.
+# Default: 02
+umask = {{ main__umask }}
+
+# Maximum size of a csv-field during import. Roundups export
+# format is a csv (comma separated values) variant. The csv
+# reader has a limit on the size of individual fields
+# starting with python 2.5. Set this to a higher value if you
+# get the error 'Error: field larger than field limit' during
+# import.
+# Default: 131072
+csv_field_size = {{ main__csv_field_size }}
+
+# Sets the default number of rounds used when encoding passwords
+# using the PBKDF2 scheme. Set this to a higher value on faster
+# systems which want more security.
+# PBKDF2 (Password-Based Key Derivation Function) is a
+# password hashing mechanism that derives hash from the
+# password and a random salt. For authentication this process
+# is repeated with the same salt as in the stored hash.
+# If both hashes match, the authentication succeeds.
+# PBKDF2 supports a variable 'rounds' parameter which varies
+# the time-cost of calculating the hash - doubling the number
+# of rounds doubles the cpu time required to calculate it. The
+# purpose of this is to periodically adjust the rounds as CPUs
+# become faster. The currently enforced minimum number of
+# rounds is 1000.
+# See: http://en.wikipedia.org/wiki/PBKDF2 and RFC2898
+# Default: 10000
+password_pbkdf2_default_rounds = {{ main__password_pbkdf2_default_rounds }}
+
+[tracker]
+
+# A descriptive name for your roundup instance.
+# Default: Roundup issue tracker
+name = {{ tracker__name }}
+
+# The web address that the tracker is viewable at.
+# This will be included in information sent to users of the tracker.
+# The URL MUST include the cgi-bin part or anything else
+# that is required to get to the home page of the tracker.
+# You MUST include a trailing '/' in the URL.
+# Default: NO DEFAULT
+#web = NO DEFAULT
+
+# Email address that mail to roundup should go to.
+# If no domain is specified then mail_domain is added.
+# Default: issue_tracker
+email = {{ tracker__email }}
+
+# Controls the reply-to header address used when sending
+# nosy messages.
+# If the value is unset (default) the roundup tracker's
+# email address (above) is used.
+# If set to "AUTHOR" then the primary email address of the
+# author of the change will be used as the reply-to
+# address. This allows email exchanges to occur outside of
+# the view of roundup and exposes the address of the person
+# who updated the issue, but it could be useful in some
+# unusual circumstances.
+# If set to some other value, the value is used as the reply-to
+# address. It must be a valid RFC2822 address or people will not be
+# able to reply.
+# Default: 
+replyto_address = {{ tracker__replyto_address }}
+
+# Default locale name for this tracker.
+# If this option is not set, the language is determined
+# by OS environment variable LANGUAGE, LC_ALL, LC_MESSAGES,
+# or LANG, in that order of preference.
+# Default: 
+language = {{ tracker__language }}
+
+[web]
+
+# Setting this option enables Roundup to serve uploaded HTML
+# file content *as HTML*. This is a potential security risk
+# and is therefore disabled by default. Set to 'yes' if you
+# trust *all* users uploading content to your tracker.
+# Allowed values: yes, no
+# Default: no
+allow_html_file = {{ web__allow_html_file }}
+
+# Whether to use HTTP Basic Authentication, if present.
+# Roundup will use either the REMOTE_USER or HTTP_AUTHORIZATION
+# variables supplied by your web server (in that order).
+# Set this option to 'no' if you do not wish to use HTTP Basic
+# Authentication in your web interface.
+# Allowed values: yes, no
+# Default: yes
+http_auth = {{ web__http_auth }}
+
+# Set the mode of the SameSite cookie option for
+# the session cookie. Choices are 'Lax' or
+# 'Strict'. 'None' can be used to suppress the
+# option. Strict mode provides additional security
+# against CSRF attacks, but may confuse users who
+# are logged into roundup and open a roundup link
+# from a source other than roundup (e.g. link in
+# email).
+# Allowed values: Strict, Lax, None
+# Default: Lax
+samesite_cookie_setting = {{ web__samesite_cookie_setting }}
+
+# How do we deal with @csrf fields in posted forms.
+# Set this to 'required' to block the post and notify
+#     the user if the field is missing or invalid.
+# Set this to 'yes' to block the post and notify the user
+#     if the token is invalid, but accept the form if
+#     the field is missing.
+# Set this to 'logfailure' to log a notice to the roundup
+#     log if the field is invalid or missing, but accept
+#     the post.
+# Set this to 'no' to ignore the field and accept the post.
+#             
+# Allowed values: required, yes, logfailure, no
+# Default: yes
+csrf_enforce_token = {{ web__csrf_enforce_token }}
+
+# csrf_tokens have a limited lifetime. If they are not
+# used they are purged from the database after this
+# number of minutes. Default (20160) is 2 weeks.
+# Default: 20160
+csrf_token_lifetime = {{ web__csrf_token_lifetime }}
+
+# This is only used for xmlrpc requests. This test is
+# done after Origin and Referer headers are checked. It only
+# verifies that the X-Requested-With header exists. The value
+# is ignored.
+# Set this to 'required' to block the post and notify
+#     the user if the header is missing or invalid.
+# Set this to 'yes' is the same as required.
+# Set this to 'logfailure' is the same as 'no'.
+# Set this to 'no' to ignore the header and accept the post.
+# Allowed values: required, yes, logfailure, no
+# Default: yes
+csrf_enforce_header_x-requested-with = {{ web__csrf_enforce_header_x_requested_with }}
+
+# Verify that the Referer http header matches the
+# tracker.web setting in config.ini.
+# Set this to 'required' to block the post and notify
+#     the user if the header is missing or invalid.
+# Set this to 'yes' to block the post and notify the user
+#     if the header is invalid, but accept the form if
+#     the field is missing.
+# Set this to 'logfailure' to log a notice to the roundup
+#     log if the header is invalid or missing, but accept
+#     the post.
+# Set this to 'no' to ignore the header and accept the post.
+# Allowed values: required, yes, logfailure, no
+# Default: yes
+csrf_enforce_header_referer = {{ web__csrf_enforce_header_referer }}
+
+# Verify that the Origin http header matches the
+# tracker.web setting in config.ini.
+# Set this to 'required' to block the post and notify
+#     the user if the header is missing or invalid.
+# Set this to 'yes' to block the post and notify the user
+#     if the header is invalid, but accept the form if
+#     the field is missing.
+# Set this to 'logfailure' to log a notice to the roundup
+#     log if the header is invalid or missing, but accept
+#     the post.
+# Set this to 'no' to ignore the header and accept the post.
+# Allowed values: required, yes, logfailure, no
+# Default: yes
+csrf_enforce_header_origin = {{ web__csrf_enforce_header_origin }}
+
+# Verify that the X-Forwarded-Host http header matches
+# the host part of the tracker.web setting in config.ini.
+# Set this to 'required' to block the post and notify
+#     the user if the header is missing or invalid.
+# Set this to 'yes' to block the post and notify the user
+#     if the header is invalid, but accept the form if
+#     the field is missing.
+# Set this to 'logfailure' to log a notice to the roundup
+#     log if the header is invalid or missing, but accept
+#     the post.
+# Set this to 'no' to ignore the header and accept the post.
+# Allowed values: required, yes, logfailure, no
+# Default: yes
+csrf_enforce_header_x-forwarded-host = {{ web__csrf_enforce_header_x_forwarded_host }}
+
+# "If there is no X-Forward-Host header, verify that
+# the Host http header matches the host part of the
+# tracker.web setting in config.ini.
+# Set this to 'required' to block the post and notify
+#     the user if the header is missing or invalid.
+# Set this to 'yes' to block the post and notify the user
+#     if the header is invalid, but accept the form if
+#     the field is missing.
+# Set this to 'logfailure' to log a notice to the roundup
+#     log if the header is invalid or missing, but accept
+#     the post.
+# Set this to 'no' to ignore the header and accept the post.
+# Allowed values: required, yes, logfailure, no
+# Default: yes
+csrf_enforce_header_host = {{ web__csrf_enforce_header_host }}
+
+# Minimum number of header checks that must pass
+# to accept the request. Set to 0 to accept post
+# even if no header checks pass. Usually the Host header check
+# always passes, so setting it less than 1 is not recommended.
+# Default: 1
+csrf_header_min_count = {{ web__csrf_header_min_count }}
+
+# Whether to use HTTP Accept-Language, if present.
+# Browsers send a language-region preference list.
+# It's usually set in the client's browser or in their
+# Operating System.
+# Set this option to 'no' if you want to ignore it.
+# Allowed values: yes, no
+# Default: yes
+use_browser_language = {{ web__use_browser_language }}
+
+# Setting this option makes Roundup display error tracebacks
+# in the user's browser rather than emailing them to the
+# tracker admin.
+# Allowed values: yes, no
+# Default: no
+debug = {{ web__debug }}
+
+# Setting this option makes Roundup migrate passwords with
+# an insecure password-scheme to a more secure scheme
+# when the user logs in via the web-interface.
+# Allowed values: yes, no
+# Default: yes
+migrate_passwords = {{ web__migrate_passwords }}
+
+# Settings in this section are used by RDBMS backends only
+[rdbms]
+
+# Name of the database to use.
+# Default: roundup
+name = roundup
+
+# Database backend.
+# Default: 
+backend = postgresql
+
+# Database server host.
+# Default: localhost
+host = localhost
+
+# TCP port number of the database server.
+# Postgresql usually resides on port 5432 (if any),
+# for MySQL default port number is 3306.
+# Leave this option empty to use backend default
+# Default: 
+port = 
+
+# Database user name that Roundup should use.
+# Default: roundup
+user = roundup
+
+# Database user password.
+# Default: roundup
+password = roundup
+
+# Name of the MySQL defaults file.
+# Only used in MySQL connections.
+# Default: ~/.my.cnf
+read_default_file = ~/.my.cnf
+
+# Name of the group to use in the MySQL defaults file (.my.cnf).
+# Only used in MySQL connections.
+# Default: roundup
+read_default_group = roundup
+
+# Number of seconds to wait when the SQLite database is locked
+# Default: use a 30 second timeout (extraordinarily generous)
+# Only used in SQLite connections.
+# Default: 30
+sqlite_timeout = 30
+
+# Size of the node cache (in elements)
+# Default: 100
+cache_size = 100
+
+# Setting this option to 'no' protects the database against table creations.
+# Allowed values: yes, no
+# Default: yes
+allow_create = yes
+
+# Setting this option to 'no' protects the database against table alterations.
+# Allowed values: yes, no
+# Default: yes
+allow_alter = yes
+
+# Setting this option to 'no' protects the database against table drops.
+# Allowed values: yes, no
+# Default: yes
+allow_drop = yes
+
+# Name of the PostgreSQL template for database creation.
+# For database creation the template used has to match
+# the character encoding used (UTF8), there are different
+# PostgreSQL installations using different templates with
+# different encodings. If you get an error:
+#   new encoding (UTF8) is incompatible with the encoding of
+#   the template database (SQL_ASCII)
+#   HINT:  Use the same encoding as in the template database,
+#   or use template0 as template.
+# then set this option to the template name given in the
+# error message.
+# Default: 
+template = 
+
+# Database isolation level, currently supported for
+# PostgreSQL and mysql. See, e.g.,
+# http://www.postgresql.org/docs/9.1/static/transaction-iso.html
+# Allowed values: 'read uncommitted', 'read committed', 'repeatable read', 'serializable'
+# Default: read committed
+isolation_level = read committed
+
+[logging]
+
+# Path to configuration file for standard Python logging module.
+# If this option is set, logging configuration is loaded
+# from specified file; options 'filename' and 'level'
+# in this section are ignored.
+# The path may be either absolute or relative
+# to the directory containing this config file.
+# Default: 
+config = 
+
+# Log file name for minimal logging facility built into Roundup.
+# If no file name specified, log messages are written on stderr.
+# If above 'config' option is set, this option has no effect.
+# The path may be either absolute or relative
+# to the directory containing this config file.
+# Default: 
+filename = 
+
+# Minimal severity level of messages written to log file.
+# If above 'config' option is set, this option has no effect.
+# Allowed values: DEBUG, INFO, WARNING, ERROR
+# Default: ERROR
+level = ERROR
+
+# Outgoing email options.
+# Used for nosy messages and approval requests
+[mail]
+
+# The email domain that admin_email, issue_tracker and
+# dispatcher_email belong to.
+# This domain is added to those config items if they don't
+# explicitly include a domain.
+# Do not include the '@' symbol.
+# Default: NO DEFAULT
+#domain = NO DEFAULT
+
+# SMTP mail host that roundup will use to send mail
+# Default: NO DEFAULT
+#host = NO DEFAULT
+
+# SMTP login name.
+# Set this if your mail host requires authenticated access.
+# If username is not empty, password (below) MUST be set!
+# Default: 
+username = 
+
+# SMTP login password.
+# Set this if your mail host requires authenticated access.
+# Default: NO DEFAULT
+#password = NO DEFAULT
+
+# Default port to send SMTP on.
+# Set this if your mail server runs on a different port.
+# Default: 25
+port = 25
+
+# The local hostname to use during SMTP transmission.
+# Set this if your mail server requires something specific.
+# Default: 
+local_hostname = 
+
+# If your SMTP mail host provides or requires TLS
+# (Transport Layer Security) then set this option to 'yes'.
+# Allowed values: yes, no
+# Default: no
+tls = no
+
+# If TLS is used, you may set this option to the name
+# of a PEM formatted file that contains your private key.
+# The path may be either absolute or relative
+# to the directory containing this config file.
+# Default: 
+tls_keyfile = 
+
+# If TLS is used, you may set this option to the name
+# of a PEM formatted certificate chain file.
+# The path may be either absolute or relative
+# to the directory containing this config file.
+# Default: 
+tls_certfile = 
+
+# Character set to encode email headers with.
+# We use utf-8 by default, as it's the most flexible.
+# Some mail readers (eg. Eudora) can't cope with that,
+# so you might need to specify a more limited character set
+# (eg. iso-8859-1).
+# Default: utf-8
+charset = utf-8
+
+# Setting this option makes Roundup write all outgoing email
+# messages to this file *instead* of sending them.
+# This option has the same effect as environment variable SENDMAILDEBUG.
+# Environment variable takes precedence.
+# The path may be either absolute or relative
+# to the directory containing this config file.
+# Default: 
+debug = 
+
+# Add a line with author information at top of all messages
+# sent by roundup
+# Allowed values: yes, no
+# Default: yes
+add_authorinfo = yes
+
+# Add the mail address of the author to the author information at
+# the top of all messages.
+# If this is false but add_authorinfo is true, only the name
+# of the actor is added which protects the mail address of the
+# actor from being exposed at mail archives, etc.
+# Allowed values: yes, no
+# Default: yes
+add_authoremail = yes
+
+# Roundup Mail Gateway options
+[mailgw]
+
+# Keep email citations when accepting messages.
+# Setting this to "no" strips out "quoted" text
+# from the message. Setting this to "new" keeps quoted
+# text only if a new issue is being created.
+# Signatures are also stripped.
+# Allowed values: yes, no, new
+# Default: yes
+keep_quoted_text = yes
+
+# Setting this to "yes" preserves the email body
+# as is - that is, keep the citations _and_ signatures.
+# Setting this to "new" keeps the body only if we are
+# creating a new issue.
+# Allowed values: yes, no, new
+# Default: no
+leave_body_unchanged = no
+
+# Default class to use in the mailgw
+# if one isn't supplied in email subjects.
+# To disable, leave the value blank.
+# Default: issue
+default_class = issue
+
+# Default locale name for the tracker mail gateway.
+# If this option is not set, mail gateway will use
+# the language of the tracker instance.
+# Default: 
+language = 
+
+# Controls the parsing of the [prefix] on subject
+# lines in incoming emails. "strict" will return an
+# error to the sender if the [prefix] is not recognised.
+# "loose" will attempt to parse the [prefix] but just
+# pass it through as part of the issue title if not
+# recognised. "none" will always pass any [prefix]
+# through as part of the issue title.
+# Default: strict
+subject_prefix_parsing = strict
+
+# Controls the parsing of the [suffix] on subject
+# lines in incoming emails. "strict" will return an
+# error to the sender if the [suffix] is not recognised.
+# "loose" will attempt to parse the [suffix] but just
+# pass it through as part of the issue title if not
+# recognised. "none" will always pass any [suffix]
+# through as part of the issue title.
+# Default: strict
+subject_suffix_parsing = strict
+
+# Defines the brackets used for delimiting the prefix and 
+# suffix in a subject line. The presence of "suffix" in
+# the config option name is a historical artifact and may
+# be ignored.
+# Default: []
+subject_suffix_delimiters = []
+
+# Controls matching of the incoming email subject line
+# against issue titles in the case where there is no
+# designator [prefix]. "never" turns off matching.
+# "creation + interval" or "activity + interval"
+# will match an issue for the interval after the issue's
+# creation or last activity. The interval is a standard
+# Roundup interval.
+# Default: always
+subject_content_match = always
+
+# Update issue title if incoming subject of email is different.
+# Setting this to "no" will ignore the title part of the subject
+# of incoming email messages.
+# 
+# Allowed values: yes, no
+# Default: yes
+subject_updates_title = yes
+
+# Regular expression matching a single reply or forward
+# prefix prepended by the mailer. This is explicitly
+# stripped from the subject during parsing.
+# Value is Python Regular Expression (UTF8-encoded).
+# Default: (\s*\W?\s*(fw|fwd|re|aw|sv|ang)\W)+
+refwd_re = (\s*\W?\s*(fw|fwd|re|aw|sv|ang)\W)+
+
+# Regular expression matching start of an original message
+# if quoted the in body.
+# Value is Python Regular Expression (UTF8-encoded).
+# Default: ^[>|\s]*-----\s?Original Message\s?-----$
+origmsg_re = ^[>|\s]*-----\s?Original Message\s?-----$
+
+# Regular expression matching the start of a signature
+# in the message body.
+# Value is Python Regular Expression (UTF8-encoded).
+# Default: ^[>|\s]*-- ?$
+sign_re = ^[>|\s]*-- ?$
+
+# Regular expression matching end of line.
+# Value is Python Regular Expression (UTF8-encoded).
+# Default: [\r\n]+
+eol_re = [\r\n]+
+
+# Regular expression matching a blank line.
+# Value is Python Regular Expression (UTF8-encoded).
+# Default: [\r\n]+\s*[\r\n]+
+blankline_re = [\r\n]+\s*[\r\n]+
+
+# Unpack attached messages (encoded as message/rfc822 in MIME)
+# as multiple parts attached as files to the issue, if not
+# set we handle message/rfc822 attachments as a single file.
+# Allowed values: yes, no
+# Default: no
+unpack_rfc822 = no
+
+# When parsing incoming mails, roundup uses the first
+# text/plain part it finds. If this part is inside a
+# multipart/alternative, and this option is set, all other
+# parts of the multipart/alternative are ignored. The default
+# is to keep all parts and attach them to the issue.
+# Allowed values: yes, no
+# Default: no
+ignore_alternatives = no
+
+# When handling emails ignore the Resent-From:-header
+# and use the original senders From:-header instead.
+# (This might be desirable in some situations where a moderator
+# reads incoming messages first before bouncing them to Roundup)
+# Allowed values: yes, no
+# Default: no
+keep_real_from = no
+
+# OpenPGP mail processing options
+[pgp]
+
+# Enable PGP processing. Requires pyme. If you're planning
+# to send encrypted PGP mail to the tracker, you should also
+# enable the encrypt-option below, otherwise mail received
+# encrypted might be sent unencrypted to another user.
+# Allowed values: yes, no
+# Default: no
+enable = no
+
+# If specified, a comma-separated list of roles to perform
+# PGP processing on. If not specified, it happens for all
+# users. Note that received PGP messages (signed and/or
+# encrypted) will be processed with PGP even if the user
+# doesn't have one of the PGP roles, you can use this to make
+# PGP processing completely optional by defining a role here
+# and not assigning any users to that role.
+# Default: 
+roles = 
+
+# Location of PGP directory. Defaults to $HOME/.gnupg if
+# not specified.
+# Default: 
+homedir = 
+
+# Enable PGP encryption. All outgoing mails are encrypted.
+# This requires that keys for all users (with one of the gpg
+# roles above or all users if empty) are available. Note that
+# it makes sense to educate users to also send mails encrypted
+# to the tracker, to enforce this, set 'require_incoming'
+# option below (but see the note).
+# Allowed values: yes, no
+# Default: no
+encrypt = no
+
+# Require that pgp messages received by roundup are either
+# 'signed', 'encrypted' or 'both'. If encryption is required
+# we do not return the message (in clear) to the user but just
+# send an informational message that the message was rejected.
+# Note that this still presents known-plaintext to an attacker
+# when the users sends the mail a second time with encryption
+# turned on.
+# Default: signed
+require_incoming = signed
+
+# Nosy messages sending
+[nosy]
+
+# Send nosy messages to the author of the message.
+# Allowed values: yes, no, new, nosy -- if yes, messages
+# are sent to the author even if not on the nosy list, same
+# for new (but only for new messages). When set to nosy,
+# the nosy list controls sending messages to the author.
+# Default: no
+messages_to_author = no
+
+# Where to place the email signature.
+# Allowed values: top, bottom, none
+# Default: bottom
+signature_position = bottom
+
+# Does the author of a message get placed on the nosy list
+# automatically?  If 'new' is used, then the author will
+# only be added when a message creates a new issue.
+# If 'yes', then the author will be added on followups too.
+# If 'no', they're never added to the nosy.
+# 
+# Allowed values: yes, no, new
+# Default: new
+add_author = new
+
+# Do the recipients (To:, Cc:) of a message get placed on the
+# nosy list?  If 'new' is used, then the recipients will
+# only be added when a message creates a new issue.
+# If 'yes', then the recipients will be added on followups too.
+# If 'no', they're never added to the nosy.
+# 
+# Allowed values: yes, no, new
+# Default: new
+add_recipients = new
+
+# Controls the email sending from the nosy reactor. If
+# "multiple" then a separate email is sent to each
+# recipient. If "single" then a single email is sent with
+# each recipient as a CC address.
+# Default: single
+email_sending = single
+
+# Attachments larger than the given number of bytes
+# won't be attached to nosy mails. They will be replaced by
+# a link to the tracker's download page for the file.
+# Default: 9223372036854775807
+max_attachment_size = 9223372036854775807
