@@ -7,5 +7,5 @@
 # - Archiving -
 
 archive_mode = on
-archive_command = 'SWIFT_TENANT="{{ swift_tenant }}" envdir /etc/wal-e.d /usr/local/bin/wal-e wal-push %p'
+archive_command = 'SWIFT_TENANT="{{ swift_tenant }}" envdir /etc/wal-e.d /var/lib/postgresql/wal-e/bin/wal-e wal-push %p'
 archive_timeout = 60
