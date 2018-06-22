@@ -8,12 +8,44 @@ wal-e-dependencies:
       - daemontools
       - lzop
       - pv
+      - python3-dev
+      - python-virtualenv
 
 
 python-wal-e:
   pkg.installed:
     - require:
       - pkg: wal-e-dependencies
+
+wal-e-virtualenv:
+  virtualenv.managed:
+    - name: /var/lib/postgresql/wal-e
+    - user: postgres
+    - python: /usr/bin/python3
+    - require:
+      - pkg: wal-e-dependencies
+
+
+wal-e-bootstrap-pip:
+  pip.installed:
+    - name: pip==9.0.3
+    - user: postgres
+    - bin_env: /var/lib/postgresql/wal-e/bin/pip
+
+
+wal-e-bootstrap-setuptools:
+  pip.installed:
+    - name: setuptools
+    - user: postgres
+    - upgrade: True
+    - bin_env: /var/lib/postgresql/wal-e/bin/pip
+
+
+wal-e-install:
+  pip.installed:
+    - name: wal-e[swift]==1.1.0
+    - user: postgres
+    - bin_env: /var/lib/postgresql/wal-e/bin/pip
 
 
 /etc/wal-e.d:
@@ -156,9 +188,19 @@ wal-e-initial-backup:
 weekly-interval-wal-e-backup:
   cron.present:
     - identifier: weekly-interval-wal-e-backup
-    - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d /usr/local/bin/wal-e backup-push {{ postgresql.data_dir }} >> /var/log/postgresql/cron-backup.log 2>&1'
+    - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d /var/lib/postgresql/wal-e/bin/wal-e backup-push {{ postgresql.data_dir }} >> /var/log/postgresql/cron-backup.log 2>&1'
     - user: postgres
     - minute: '0'
     - hour: '0'
+    - dayweek: '0'
+
+
+weekly-interval-wal-e-cleanup:
+  cron.present:
+    - identifier: weekly-interval-wal-e-cleanup
+    - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d /var/lib/postgresql/wal-e/bin/wal-e delete --confirm retain 6 >> /var/log/postgresql/cron-cleanup.log 2>&1'
+    - user: postgres
+    - minute: '0'
+    - hour: '6'
     - dayweek: '0'
 {% endif %}
