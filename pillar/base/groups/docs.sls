@@ -1,2 +1,3 @@
 groups:
   - docs
+  - docsbuild
