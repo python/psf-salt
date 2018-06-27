@@ -80,7 +80,7 @@ pydotorg-source:
 
 pydotorg-dependencies:
   cmd.run:
-    - user: pydotorg
+    - runas: pydotorg
     - cwd: /srv/pydotorg/pythondotorg
     - name: /srv/pydotorg/env/bin/pip install -r /srv/pydotorg/pythondotorg/requirements.txt
     - require:
@@ -179,7 +179,7 @@ pydotorg-dependencies:
 pre-reload:
   cmd.run:
     - name: /srv/pydotorg/env/bin/python3 manage.py migrate --settings pydotorg.settings.server --noinput && /srv/pydotorg/env/bin/python3 manage.py collectstatic --settings pydotorg.settings.server -v0 --noinput
-    - user: pydotorg
+    - runas: pydotorg
     - cwd: /srv/pydotorg/pythondotorg/
     - env:
       - LC_ALL: en_US.UTF8

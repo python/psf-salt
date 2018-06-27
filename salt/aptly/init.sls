@@ -106,7 +106,7 @@ aptly-repository-{{ name }}:
   cmd.run:
     - name: "aptly repo create -component={{ component }} -distribution={{ distribution }} {{ name }}"
     - unless: aptly repo show {{ name }}
-    - user: aptly
+    - runas: aptly
     - require:
       - pkg: aptly
       - file: /etc/aptly.conf
@@ -117,7 +117,7 @@ aptly-publish-{{ name }}:
   cmd.run:
     - name: "aptly publish repo -component={{ component }} -distribution={{ distribution }} {{ name }} {{ endpoint }}"
     - unless: "aptly publish list | grep '* \\+{{ endpoint|default('.', boolean=True) }}/{{ distribution }} \\[.\\+\\] \\+publishes {{ "{" }}{{ component }}: \\[{{ name }}\\]}'"
-    - user: aptly
+    - runas: aptly
     - require:
       - cmd: aptly-repository-{{ name }}
 

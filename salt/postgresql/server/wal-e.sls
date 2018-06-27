@@ -148,7 +148,7 @@ wal-e-gpg-key:
 wal-e-initial-backup:
   cmd.run:
     - name: 'SWIFT_TENANT="{{ salt["pillar.get"]("wal-e:swift-tenant") }}" envdir /etc/wal-e.d wal-e backup-push {{ postgresql.data_dir }} && touch /var/lib/postgresql/wal-e.initial'
-    - user: postgres
+    - runas: postgres
     - unless: ls /var/lib/postgresql/wal-e.initial
     - require:
       - service: postgresql-server

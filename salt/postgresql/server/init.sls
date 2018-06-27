@@ -90,7 +90,7 @@ postgresql-psf-cluster:
       - PGSSLMODE: verify-full
       - PGSSLROOTCERT: /etc/ssl/certs/PSF_CA.pem
       - PGPASSWORD: {{ pillar["postgresql-users"]["replicator"] }}
-    - user: postgres
+    - runas: postgres
     {% endif %}
     - unless: pg_lsclusters | grep '^9\.4\s\+psf\s\+'
     - require:

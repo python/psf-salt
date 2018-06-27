@@ -51,7 +51,7 @@ discourse:
 discourse-ruby-install:
   cmd.run:
     - name: "bundle install --deployment --without test --without development"
-    - user: discourse
+    - runas: discourse
     - cwd: /srv/discourse/app
     - onchanges:
       - git: discourse
@@ -62,7 +62,7 @@ discourse-migrate:
   cmd.run:
     - name: "bundle exec rake db:migrate assets:precompile"
     - cwd: /srv/discourse/app
-    - user: discourse
+    - runas: discourse
     - env:
       - RAILS_ENV: 'production'
     - require:
