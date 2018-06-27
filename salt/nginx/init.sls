@@ -68,6 +68,7 @@ nginx:
     - user: root
     - group: root
     - mode: 644
+    - replace: False
     - require:
       - pkg: nginx
 
@@ -102,4 +103,5 @@ nginx:
 
 
 /etc/ssl/private/PLACEHOLDER.pem:
-  file.managed
+  file.managed:
+    - replace: False

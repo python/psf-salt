@@ -45,7 +45,7 @@ docsbuild-scripts:
 
 py36-virtualenv:
   cmd.run:
-    - user: docsbuild
+    - runas: docsbuild
     - name: 'python3.6 -m venv --without-pip /srv/docsbuild/venv'
     - creates: /srv/docsbuild/venv/bin/python
     - require:
@@ -61,7 +61,7 @@ py36-virtualenv:
 
 py36-virtualenv-pip:
   cmd.run:
-    - user: docsbuild
+    - runas: docsbuild
     - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/venv/get-pip.py
     - creates: /srv/docsbuild/venv/bin/pip
     - require:
@@ -69,7 +69,7 @@ py36-virtualenv-pip:
 
 py36-virtualenv-dependencies:
   cmd.run:
-    - user: docsbuild
+    - runas: docsbuild
     - cwd: /srv/docsbuild/scripts
     - name: /srv/docsbuild/venv/bin/pip install -r /srv/docsbuild/scripts/requirements.txt
     - require:

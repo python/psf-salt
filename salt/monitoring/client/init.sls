@@ -52,7 +52,7 @@ diamond:
     - name: "ln -s /etc/init/diamond.upstart /etc/init/diamond.conf && initctl reload-configuration"
     - creates: /etc/init/diamond.conf
     - requires:
-        - pkg: diamong
+        - pkg: diamond
 {% endif %}
 
 

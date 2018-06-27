@@ -14,6 +14,7 @@
     - user: root
     - group: root
     - mode: 600
+    - replace: False
 
 
 # su must only be accessible to user and group root
@@ -22,3 +23,4 @@
     - user: root
     - group: root
     - mode: 750
+    - replace: False

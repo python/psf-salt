@@ -101,7 +101,7 @@ cpython-source:
 
 speed-requirements:
   cmd.run:
-    - user: speed
+    - runas: speed
     - cwd: /srv/speed/codespeed
     - name: /srv/speed/env/bin/pip install -U -r speed_python/requirements.txt
 
@@ -178,7 +178,7 @@ speed-requirements:
 pre-reload:
   cmd.run:
     - name: /srv/speed/env/bin/python manage.py migrate --noinput && /srv/speed/env/bin/python manage.py collectstatic --noinput
-    - user: speed
+    - runas: speed
     - cwd: /srv/speed/codespeed/
     - env:
       - LC_ALL: en_US.UTF8

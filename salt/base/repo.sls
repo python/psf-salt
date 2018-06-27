@@ -23,5 +23,6 @@ psf:
 /etc/apt/sources.list.d/psf.list:
   file.managed:
     - mode: 644
+    - replace: False
     - require:
       - pkgrepo: psf

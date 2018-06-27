@@ -99,7 +99,7 @@ pycon-source:
 
 pycon-requirements:
   cmd.run:
-    - user: pycon
+    - runas: pycon
     - cwd: /srv/pycon/pycon
     - name: /srv/pycon/env/bin/pip install -U -r requirements/project.txt
 
@@ -211,7 +211,7 @@ pycon-requirements:
 pre-reload:
   cmd.run:
     - name: /srv/pycon/env/bin/python manage.py migrate --noinput && /srv/pycon/env/bin/python manage.py collectstatic -v0 --noinput && /srv/pycon/env/bin/python manage.py compress --force
-    - user: pycon
+    - runas: pycon
     - cwd: /srv/pycon/pycon/
     - env:
       - LC_ALL: en_US.UTF8
@@ -303,7 +303,7 @@ pycon-slides-environ-placeholder:
 
 pycon-slides-requirements:
   cmd.run:
-    - user: pycon-slides
+    - runas: pycon-slides
     - cwd: /srv/pycon-slides/pycon-slides
     - name: /srv/pycon-slides/env/bin/pip install -U -r requirements.txt
 
