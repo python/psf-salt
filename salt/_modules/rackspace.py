@@ -6,7 +6,7 @@ def __virtual__():
     Only work on POSIX-like systems
     '''
     # Disable on Windows, a specific file module exists:
-    if salt.utils.is_windows():
+    if salt.utils.platform.is_windows():
         return False
 
     return True
