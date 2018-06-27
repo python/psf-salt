@@ -11,4 +11,5 @@ rsyslog:
 
 
 /etc/rsyslog.d/PLACEHOLDER.conf:
-  file.managed
+  file.managed:
+    - replace: False
