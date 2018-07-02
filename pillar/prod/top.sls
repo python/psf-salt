@@ -179,6 +179,7 @@ base:
     - secrets.mail-opt-out
     - secrets.backup.mail
     - groups.mail
+    - secrets.monitoring.datadog
 
   'linehaul':
       - match: nodegroup
