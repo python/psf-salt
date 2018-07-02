@@ -1,0 +1,12 @@
+dd_url: https://app.datadoghq.com
+api_key: {{ api_key }}
+
+use_dogstatsd: yes
+dogstatsd_port: 18125
+
+{% if tags is defined %}
+tags:
+{%- for tag in tags %}
+  - {{ tag }}
+{%- endfor -%}
+{% endif %}
