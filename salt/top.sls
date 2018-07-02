@@ -17,6 +17,7 @@ base:
     - unattended-upgrades
     - tls
     - rsyslog
+    - datadog
 
   'backup-server':
     - match: nodegroup
