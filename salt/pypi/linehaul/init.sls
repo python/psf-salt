@@ -10,7 +10,7 @@ linehaul:
       - gcc
       - python3.6-dev
       - python-pip
-      - python3.6-pip
+      - python3-pip
       - libffi-dev
       - libssl-dev
     - require:
