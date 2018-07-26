@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 EnvironmentFile=/srv/linehaul/etc/linehaul.env
-ExecStart=/srv/linehaul/env/bin/linehaul
+ExecStart=/srv/linehaul/env/bin/linehaul server {{ pillar["linehaul"]["bigquery_table"] }}
 Restart=on-failure
 User=linehaul
 Group=linehaul

@@ -20,6 +20,9 @@ linehaul:
   git.latest:
     - name: https://github.com/pypa/linehaul.git
     - target: /srv/linehaul/src
+    - rev: trio
+    - branch: trio
+    - force_reset: True
     - user: linehaul
     - require:
       - pkg: linehaul
@@ -28,7 +31,7 @@ linehaul:
   virtualenv.managed:
     - name: /srv/linehaul/env/
     - user: linehaul
-    - requirements: /srv/linehaul/src/requirements.txt
+    - requirements: /srv/linehaul/src/requirements/main.txt
     - python: /usr/bin/python3
     - require:
       - git: linehaul
@@ -52,7 +55,7 @@ linehaul:
     - watch:
       - file: /etc/systemd/system/linehaul.service
       - file: /etc/ssl/private/linehaul.psf.io.pem
-      - file: /srv/linehaul/etc/bigquery.key
+      - file: /srv/linehaul/etc/bigquery.json
       - file: /srv/linehaul/etc/linehaul.env
       - git: linehaul
 
@@ -72,23 +75,23 @@ linehaul:
 
 /etc/systemd/system/linehaul.service:
   file.managed:
-    - source: salt://pypi/linehaul/linehaul.service
+    - source: salt://pypi/linehaul/linehaul.service.jinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 644
 
 
-/srv/linehaul/etc/bigquery.key:
+/srv/linehaul/etc/bigquery.json:
   file.managed:
-    - contents_pillar: linehaul:key
+    - contents_pillar: linehaul:credentials
     - user: linehaul
     - group: linehaul
     - mode: 640
-    - makedirs: True
+    - makedirS: True
     - show_diff: False
     - require:
       - user: linehaul
-
 
 /var/log/linehaul:
   file.directory:
