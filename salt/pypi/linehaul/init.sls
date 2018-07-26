@@ -1,14 +1,20 @@
+deadsnakes-ppa:
+  pkgrepo.managed:
+    - ppa: fkrull/deadsnakes
+
 linehaul:
   pkg.installed:
     - pkgs:
       - git
       - virtualenv
       - gcc
-      - python3-dev
+      - python3.6-dev
       - python-pip
-      - python3-pip
+      - python3.6-pip
       - libffi-dev
       - libssl-dev
+    - require:
+      - pkgrepo: deadsnakes-ppa
 
   user.present:
     - name: linehaul
@@ -32,7 +38,7 @@ linehaul:
     - name: /srv/linehaul/env/
     - user: linehaul
     - requirements: /srv/linehaul/src/requirements/main.txt
-    - python: /usr/bin/python3
+    - python: /usr/bin/python3.6
     - require:
       - git: linehaul
       - user: linehaul
