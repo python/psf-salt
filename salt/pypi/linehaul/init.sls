@@ -42,6 +42,7 @@ linehaul:
     - rev: master
     - branch: master
     - force_reset: True
+    - force_fetch: True
     - user: linehaul
     - require:
       - pkg: linehaul
