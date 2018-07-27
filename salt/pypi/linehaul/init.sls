@@ -51,7 +51,7 @@ linehaul:
     - name: /srv/linehaul/env/
     - user: linehaul
     - requirements: /srv/linehaul/src/requirements/main.txt
-    - python: /opt/pypy/bin/pypy3
+    - python: /opt/pypy/bin/pypy3.5
     - require:
       - git: linehaul
       - user: linehaul
