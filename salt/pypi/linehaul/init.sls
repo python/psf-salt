@@ -27,6 +27,7 @@ linehaul:
       - libssl-dev
     - require:
       - pkgrepo: deadsnakes-ppa
+      - archive: pypy3
 
   user.present:
     - name: linehaul
@@ -50,7 +51,8 @@ linehaul:
     - name: /srv/linehaul/env/
     - user: linehaul
     - requirements: /srv/linehaul/src/requirements/main.txt
-    - python: /usr/bin/python3.6
+    - python: /opt/pypy/bin/pypy3
+    - venv_bin: /opt/pypy/bin/virtualenv-pypy
     - require:
       - git: linehaul
       - user: linehaul
