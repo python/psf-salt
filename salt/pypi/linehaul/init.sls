@@ -52,7 +52,6 @@ linehaul:
     - user: linehaul
     - requirements: /srv/linehaul/src/requirements/main.txt
     - python: /opt/pypy/bin/pypy3
-    - venv_bin: /opt/pypy/bin/virtualenv-pypy
     - require:
       - git: linehaul
       - user: linehaul
