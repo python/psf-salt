@@ -10,6 +10,7 @@ pypy3:
     - source_hash: sha256=07f16282d126abfa759702baea869b0f661aa97f4c553ebec66c624bda28155f
     - source_hash_update: True
     - options: --strip 1
+    - enforce_toplevel: False
     - trim_output: 5
 
 
