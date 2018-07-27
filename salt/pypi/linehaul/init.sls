@@ -9,6 +9,8 @@ pypy3:
     - source: https://bitbucket.org/squeaky/portable-pypy/downloads/pypy3.5-6.0.0-linux_x86_64-portable.tar.bz2
     - source_hash: sha256=07f16282d126abfa759702baea869b0f661aa97f4c553ebec66c624bda28155f
     - source_hash_update: True
+    - options: --strip 1
+    - trim_output: 5
 
 
 linehaul:
