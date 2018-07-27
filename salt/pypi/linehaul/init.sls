@@ -39,8 +39,8 @@ linehaul:
   git.latest:
     - name: https://github.com/pypa/linehaul.git
     - target: /srv/linehaul/src
-    - rev: trio
-    - branch: trio
+    - rev: master
+    - branch: master
     - force_reset: True
     - user: linehaul
     - require:
