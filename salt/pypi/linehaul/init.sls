@@ -51,9 +51,7 @@ linehaul:
     - name: /srv/linehaul/env/
     - user: linehaul
     - requirements: /srv/linehaul/src/requirements/main.txt
-    - python: pypy3
-    - env_vars:
-      - "PATH=/opt/pypy/bin:$PATH"
+    - python: /opt/pypy/bin/pypy3
     - require:
       - git: linehaul
       - user: linehaul
