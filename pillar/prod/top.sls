@@ -182,7 +182,8 @@ base:
     - secrets.monitoring.datadog
 
   'linehaul':
-      - match: nodegroup
-      - firewall.linehaul
-      - secrets.pypi.linehaul
-      - pypi.linehaul
+    - match: nodegroup
+    - firewall.linehaul
+    - secrets.pypi.linehaul
+    - pypi.linehaul
+    - secrets.monitoring.datadog
