@@ -1,11 +1,5 @@
 haproxy:
   services:
-    discourse:
-      domains:
-        - discuss.python.org
-      verify_host: discourse.psf.io
-      check: HEAD /srv/status
-
     docs:
       domains:
         - docs.python.org
@@ -53,11 +47,6 @@ haproxy:
       extra:
         - http-request replace-header Host ^.*$ www.pythonanywhere.com
         - "http-request deny unless { path_beg -i /static/ } or { path_beg -i /python-dot-org-console/ } or { path_beg -i /python-dot-org-live-consoles-status }"
-
-    evote:
-      domains:
-        - vote.python.org
-      tls: False
 
     hg:
       domains:
