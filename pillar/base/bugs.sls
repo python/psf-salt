@@ -1,29 +1,17 @@
 bugs:
   trackers:
-    python-dev:
+    cpython:
       source: https://hg.python.org/tracker/python-dev
       config:
+          main__database: /srv/roundup/data/cpython
           main__admin_email: roundup-admin
           main__dispatcher_email: roundup-admin
           main__html_version: xhtml
           tracker__name: "Python tracker"
           tracker__web: "https://bugs.python.org/"
-          tracker__email: "report@bugs.python.org"
-          mail__domain: psf.upfronthosting.co.za
-          mailgw__ignore_alternatives: "yes"
-          nosy__messages_to_author: "yes"
-          nosy__add_author: "yes"
-          nosy__email_sending: "multiple"
-    meta:
-      source: https://hg.python.org/tracker/meta
-      config:
-          main__admin_email: roundup-admin
-          main__dispatcher_email: roundup-admin
-          main__html_version: html4
-          tracker__name: "PSF Meta Tracker"
-          tracker__web: "http://psf.upfronthosting.co.za/roundup/meta/"
-          tracker__email: "metatracker"
-          mail__domain: psf.upfronthosting.co.za
+          tracker__email: "cpython@roundup.psfhosted.org"
+          rdbms__name: roundup_cpython
+          mail__domain: roundup.psfhosted.org
           mailgw__ignore_alternatives: "yes"
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
@@ -31,40 +19,30 @@ bugs:
     jython:
       source: https://hg.python.org/tracker/jython
       config:
+          main__database: /srv/roundup/data/jython
           main__admin_email: roundup-jython-admin
           main__dispatcher_email: roundup-admin
           main__html_version: xhtml
           tracker__name: "Jython tracker"
           tracker__web: "http://bugs.jython.org/"
-          tracker__email: "report@bugs.jython.org"
-          mail__domain: psf.upfronthosting.co.za
+          tracker__email: "jython@roundup.psfhosted.org"
+          rdbms__name: roundup_jython
+          mail__domain: roundup.psfhosted.org
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
-    setuptools:
-      source: https://hg.python.org/tracker/setuptools
-      config:
-          main__admin_email: roundup-admin
-          main__dispatcher_email: roundup-admin
-          main__html_version: html4
-          tracker__name: "Setuptools tracker"
-          tracker__web: "https://bugs.python.org/setuptools/"
-          tracker__email: "setuptools@bugs.python.org"
-          web__use_browser_language: "yes"
-          mail__domain: psf.upfronthosting.co.za
-          nosy__messages_to_author: "yes"
-          nosy__add_author: "yes"
-          nosy__email_sending: "single"
     roundup:
       source: https://hg.python.org/tracker/roundup
       config:
+          main__database: /srv/roundup/data/roundup
           main__admin_email: roundup-admin@psf.upfronthosting.co.za
           main__dispatcher_email: admin@issues.roundup-tracker.org
           main__html_version: xhtml
           tracker__name: "Roundup tracker"
           tracker__web: "http://issues.roundup-tracker.org/"
-          tracker__email: "issues@roundup-tracker.org"
-          mail__domain: psf.upfronthosting.co.za
+          tracker__email: "roundup@roundup.psfhosted.org"
+          rdbms__name: roundup_roundup
+          mail__domain: roundup.psfhosted.org
           mail__add_authoremail: "no"
           mailgw__subject_prefix_parsing: "loose"
           mailgw__subject_suffix_parsing: "loose"
@@ -127,7 +105,10 @@ bugs:
       logging__config: ""
       logging__filename: ""
       logging__level: "ERROR"
+      mail__domain: ""
+      mail__host: "localhost"
       mail__username: ""
+      mail__password: ""
       mail__port: "25"
       mail__local_hostname: ""
       mail__tls: "no"
@@ -146,11 +127,6 @@ bugs:
       mailgw__subject_suffix_delimiters: "[]"
       mailgw__subject_content_match: "always"
       mailgw__subject_updates_title: "yes"
-      mailgw__refwd_re: "(\\s*\\W?\\s*(fw|fwd|re|aw|sv|ang)\\W)+"
-      mailgw__origmsg_re: "^[>|\\s]*-----\\s?Original Message\\s?-----$"
-      mailgw__sign_re: "^[>|\\s]*-- ?$"
-      mailgw__eol_re: "[\\r\\n]+"
-      mailgw__blankline_re: "[\\r\\n]+\\s*[\\r\\n]+"
       mailgw__unpack_rfc822: "no"
       mailgw__ignore_alternatives: "no"
       mailgw__keep_real_from: "no"

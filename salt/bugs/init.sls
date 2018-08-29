@@ -1,15 +1,26 @@
+
+include:
+  - bugs.postgresql
+
 roundup-deps:
   pkg.installed:
     - pkgs:
       - mercurial
       - postfix
       - python-virtualenv
+      - python-pip
 
 roundup-user:
   user.present:
     - name: roundup
     - home: /srv/roundup
     - createhome: True
+
+roundup-data:
+  file.directory:
+    - name: /srv/roundup/data
+    - user: roundup
+    - mode: 755
 
 roundup-clone:
   hg.latest:
@@ -25,7 +36,27 @@ roundup-venv:
     - python: /usr/bin/python2.7
     - requirements: salt:///bugs/requirements.txt
 
+roundup-install:
+  pip.installed:
+    - name: /srv/roundup/src/roundup
+    - bin_env: /srv/roundup/env
+    - user: roundup
+    - reload_modules: True
+    - onchanges:
+      - hg: roundup-clone
+
 {% for tracker, config in pillar["bugs"]["trackers"].items() %}
+tracker-{{ tracker }}-database:
+  postgres_database.present:
+    - name: roundup_{{ tracker }}
+    - owner: roundup
+
+tracker-{{ tracker }}-datadir:
+  file.directory:
+    - name: /srv/roundup/data/{{ tracker }}
+    - user: roundup
+    - mode: 755
+
 tracker-{{ tracker }}-clone:
   hg.latest:
     - user: roundup

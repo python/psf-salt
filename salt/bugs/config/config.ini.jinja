@@ -153,7 +153,7 @@ name = {{ tracker__name }}
 # that is required to get to the home page of the tracker.
 # You MUST include a trailing '/' in the URL.
 # Default: NO DEFAULT
-#web = NO DEFAULT
+web = {{ tracker__web }}
 
 # Email address that mail to roundup should go to.
 # If no domain is specified then mail_domain is added.
@@ -344,65 +344,65 @@ migrate_passwords = {{ web__migrate_passwords }}
 
 # Name of the database to use.
 # Default: roundup
-name = roundup
+name = {{ rdbms__name }}
 
 # Database backend.
 # Default: 
-backend = postgresql
+backend = {{ rdbms__backend }}
 
 # Database server host.
 # Default: localhost
-host = localhost
+host = {{ rdbms__host }}
 
 # TCP port number of the database server.
 # Postgresql usually resides on port 5432 (if any),
 # for MySQL default port number is 3306.
 # Leave this option empty to use backend default
 # Default: 
-port = 
+port = {{ rdbms__port }}
 
 # Database user name that Roundup should use.
 # Default: roundup
-user = roundup
+user = {{ rdbms__user }}
 
 # Database user password.
 # Default: roundup
-password = roundup
+password = {{ rdbms__password }}
 
 # Name of the MySQL defaults file.
 # Only used in MySQL connections.
 # Default: ~/.my.cnf
-read_default_file = ~/.my.cnf
+read_default_file = {{ rdbms__read_default_file }}
 
 # Name of the group to use in the MySQL defaults file (.my.cnf).
 # Only used in MySQL connections.
 # Default: roundup
-read_default_group = roundup
+read_default_group = {{ rdbms__read_default_group }}
 
 # Number of seconds to wait when the SQLite database is locked
 # Default: use a 30 second timeout (extraordinarily generous)
 # Only used in SQLite connections.
 # Default: 30
-sqlite_timeout = 30
+sqlite_timeout = {{ rdbms__sqlite_timeout }}
 
 # Size of the node cache (in elements)
 # Default: 100
-cache_size = 100
+cache_size = {{ rdbms__cache_size }}
 
 # Setting this option to 'no' protects the database against table creations.
 # Allowed values: yes, no
 # Default: yes
-allow_create = yes
+allow_create = {{ rdbms__allow_create }}
 
 # Setting this option to 'no' protects the database against table alterations.
 # Allowed values: yes, no
 # Default: yes
-allow_alter = yes
+allow_alter = {{ rdbms__allow_alter }}
 
 # Setting this option to 'no' protects the database against table drops.
 # Allowed values: yes, no
 # Default: yes
-allow_drop = yes
+allow_drop = {{ rdbms__allow_drop }}
 
 # Name of the PostgreSQL template for database creation.
 # For database creation the template used has to match
@@ -416,14 +416,14 @@ allow_drop = yes
 # then set this option to the template name given in the
 # error message.
 # Default: 
-template = 
+template = {{ rdbms__template }}
 
 # Database isolation level, currently supported for
 # PostgreSQL and mysql. See, e.g.,
 # http://www.postgresql.org/docs/9.1/static/transaction-iso.html
 # Allowed values: 'read uncommitted', 'read committed', 'repeatable read', 'serializable'
 # Default: read committed
-isolation_level = read committed
+isolation_level = {{ rdbms__isolation_level }}
 
 [logging]
 
@@ -434,7 +434,7 @@ isolation_level = read committed
 # The path may be either absolute or relative
 # to the directory containing this config file.
 # Default: 
-config = 
+config = {{ logging__config }}
 
 # Log file name for minimal logging facility built into Roundup.
 # If no file name specified, log messages are written on stderr.
@@ -442,13 +442,13 @@ config =
 # The path may be either absolute or relative
 # to the directory containing this config file.
 # Default: 
-filename = 
+filename = {{ logging__filename }}
 
 # Minimal severity level of messages written to log file.
 # If above 'config' option is set, this option has no effect.
 # Allowed values: DEBUG, INFO, WARNING, ERROR
 # Default: ERROR
-level = ERROR
+level = {{ logging__level }}
 
 # Outgoing email options.
 # Used for nosy messages and approval requests
@@ -460,52 +460,52 @@ level = ERROR
 # explicitly include a domain.
 # Do not include the '@' symbol.
 # Default: NO DEFAULT
-#domain = NO DEFAULT
+domain = {{ mail__domain }}
 
 # SMTP mail host that roundup will use to send mail
 # Default: NO DEFAULT
-#host = NO DEFAULT
+host = {{ mail__host }}
 
 # SMTP login name.
 # Set this if your mail host requires authenticated access.
 # If username is not empty, password (below) MUST be set!
 # Default: 
-username = 
+username = {{ mail__username }}
 
 # SMTP login password.
 # Set this if your mail host requires authenticated access.
 # Default: NO DEFAULT
-#password = NO DEFAULT
+password = {{ mail__password }}
 
 # Default port to send SMTP on.
 # Set this if your mail server runs on a different port.
 # Default: 25
-port = 25
+port = {{ mail__port }}
 
 # The local hostname to use during SMTP transmission.
 # Set this if your mail server requires something specific.
 # Default: 
-local_hostname = 
+local_hostname = {{ mail__local_hostname }}
 
 # If your SMTP mail host provides or requires TLS
 # (Transport Layer Security) then set this option to 'yes'.
 # Allowed values: yes, no
 # Default: no
-tls = no
+tls = {{ mail__tls }}
 
 # If TLS is used, you may set this option to the name
 # of a PEM formatted file that contains your private key.
 # The path may be either absolute or relative
 # to the directory containing this config file.
 # Default: 
-tls_keyfile = 
+tls_keyfile = {{ mail__tls_keyfile }}
 
 # If TLS is used, you may set this option to the name
 # of a PEM formatted certificate chain file.
 # The path may be either absolute or relative
 # to the directory containing this config file.
 # Default: 
-tls_certfile = 
+tls_certfile = {{ mail__tls_certfile }}
 
 # Character set to encode email headers with.
 # We use utf-8 by default, as it's the most flexible.
@@ -513,7 +513,7 @@ tls_certfile =
 # so you might need to specify a more limited character set
 # (eg. iso-8859-1).
 # Default: utf-8
-charset = utf-8
+charset = {{ mail__charset }}
 
 # Setting this option makes Roundup write all outgoing email
 # messages to this file *instead* of sending them.
@@ -522,13 +522,14 @@ charset = utf-8
 # The path may be either absolute or relative
 # to the directory containing this config file.
 # Default: 
-debug = 
+#debug = {{ mail__debug }}
+debug = mail.log
 
 # Add a line with author information at top of all messages
 # sent by roundup
 # Allowed values: yes, no
 # Default: yes
-add_authorinfo = yes
+add_authorinfo = {{ mail__add_authorinfo }}
 
 # Add the mail address of the author to the author information at
 # the top of all messages.
@@ -537,7 +538,7 @@ add_authorinfo = yes
 # actor from being exposed at mail archives, etc.
 # Allowed values: yes, no
 # Default: yes
-add_authoremail = yes
+add_authoremail = {{ mail__add_authoremail }}
 
 # Roundup Mail Gateway options
 [mailgw]
@@ -549,7 +550,7 @@ add_authoremail = yes
 # Signatures are also stripped.
 # Allowed values: yes, no, new
 # Default: yes
-keep_quoted_text = yes
+keep_quoted_text = {{ mailgw__keep_quoted_text }}
 
 # Setting this to "yes" preserves the email body
 # as is - that is, keep the citations _and_ signatures.
@@ -557,19 +558,19 @@ keep_quoted_text = yes
 # creating a new issue.
 # Allowed values: yes, no, new
 # Default: no
-leave_body_unchanged = no
+leave_body_unchanged = {{ mailgw__leave_body_unchanged }}
 
 # Default class to use in the mailgw
 # if one isn't supplied in email subjects.
 # To disable, leave the value blank.
 # Default: issue
-default_class = issue
+default_class = {{ mailgw__default_class }}
 
 # Default locale name for the tracker mail gateway.
 # If this option is not set, mail gateway will use
 # the language of the tracker instance.
 # Default: 
-language = 
+language = {{ mailgw__language }}
 
 # Controls the parsing of the [prefix] on subject
 # lines in incoming emails. "strict" will return an
@@ -579,7 +580,7 @@ language =
 # recognised. "none" will always pass any [prefix]
 # through as part of the issue title.
 # Default: strict
-subject_prefix_parsing = strict
+subject_prefix_parsing = {{ mailgw__subject_prefix_parsing }}
 
 # Controls the parsing of the [suffix] on subject
 # lines in incoming emails. "strict" will return an
@@ -589,14 +590,14 @@ subject_prefix_parsing = strict
 # recognised. "none" will always pass any [suffix]
 # through as part of the issue title.
 # Default: strict
-subject_suffix_parsing = strict
+subject_suffix_parsing = {{ mailgw__subject_suffix_parsing }}
 
 # Defines the brackets used for delimiting the prefix and 
 # suffix in a subject line. The presence of "suffix" in
 # the config option name is a historical artifact and may
 # be ignored.
 # Default: []
-subject_suffix_delimiters = []
+subject_suffix_delimiters = {{ mailgw__subject_suffix_delimiters }}
 
 # Controls matching of the incoming email subject line
 # against issue titles in the case where there is no
@@ -606,7 +607,7 @@ subject_suffix_delimiters = []
 # creation or last activity. The interval is a standard
 # Roundup interval.
 # Default: always
-subject_content_match = always
+subject_content_match = {{ mailgw__subject_content_match }}
 
 # Update issue title if incoming subject of email is different.
 # Setting this to "no" will ignore the title part of the subject
@@ -614,7 +615,7 @@ subject_content_match = always
 # 
 # Allowed values: yes, no
 # Default: yes
-subject_updates_title = yes
+subject_updates_title = {{ mailgw__subject_updates_title }}
 
 # Regular expression matching a single reply or forward
 # prefix prepended by the mailer. This is explicitly
@@ -650,7 +651,7 @@ blankline_re = [\r\n]+\s*[\r\n]+
 # set we handle message/rfc822 attachments as a single file.
 # Allowed values: yes, no
 # Default: no
-unpack_rfc822 = no
+unpack_rfc822 = {{ mailgw__unpack_rfc822 }}
 
 # When parsing incoming mails, roundup uses the first
 # text/plain part it finds. If this part is inside a
@@ -659,7 +660,7 @@ unpack_rfc822 = no
 # is to keep all parts and attach them to the issue.
 # Allowed values: yes, no
 # Default: no
-ignore_alternatives = no
+ignore_alternatives = {{ mailgw__ignore_alternatives }}
 
 # When handling emails ignore the Resent-From:-header
 # and use the original senders From:-header instead.
@@ -667,7 +668,7 @@ ignore_alternatives = no
 # reads incoming messages first before bouncing them to Roundup)
 # Allowed values: yes, no
 # Default: no
-keep_real_from = no
+keep_real_from = {{ mailgw__keep_real_from }}
 
 # OpenPGP mail processing options
 [pgp]
@@ -678,7 +679,7 @@ keep_real_from = no
 # encrypted might be sent unencrypted to another user.
 # Allowed values: yes, no
 # Default: no
-enable = no
+enable = {{ pgp__enable }}
 
 # If specified, a comma-separated list of roles to perform
 # PGP processing on. If not specified, it happens for all
@@ -688,12 +689,12 @@ enable = no
 # PGP processing completely optional by defining a role here
 # and not assigning any users to that role.
 # Default: 
-roles = 
+roles = {{ pgp__roles }}
 
 # Location of PGP directory. Defaults to $HOME/.gnupg if
 # not specified.
 # Default: 
-homedir = 
+homedir = {{ pgp__homedir }}
 
 # Enable PGP encryption. All outgoing mails are encrypted.
 # This requires that keys for all users (with one of the gpg
@@ -703,7 +704,7 @@ homedir =
 # option below (but see the note).
 # Allowed values: yes, no
 # Default: no
-encrypt = no
+encrypt = {{ pgp__encrypt }}
 
 # Require that pgp messages received by roundup are either
 # 'signed', 'encrypted' or 'both'. If encryption is required
@@ -713,7 +714,7 @@ encrypt = no
 # when the users sends the mail a second time with encryption
 # turned on.
 # Default: signed
-require_incoming = signed
+require_incoming = {{ pgp__require_incoming }}
 
 # Nosy messages sending
 [nosy]
@@ -724,12 +725,12 @@ require_incoming = signed
 # for new (but only for new messages). When set to nosy,
 # the nosy list controls sending messages to the author.
 # Default: no
-messages_to_author = no
+messages_to_author = {{ nosy__messages_to_author }}
 
 # Where to place the email signature.
 # Allowed values: top, bottom, none
 # Default: bottom
-signature_position = bottom
+signature_position = {{ nosy__signature_position }}
 
 # Does the author of a message get placed on the nosy list
 # automatically?  If 'new' is used, then the author will
@@ -739,7 +740,7 @@ signature_position = bottom
 # 
 # Allowed values: yes, no, new
 # Default: new
-add_author = new
+add_author = {{ nosy__add_author }}
 
 # Do the recipients (To:, Cc:) of a message get placed on the
 # nosy list?  If 'new' is used, then the recipients will
@@ -749,17 +750,17 @@ add_author = new
 # 
 # Allowed values: yes, no, new
 # Default: new
-add_recipients = new
+add_recipients = {{ nosy__add_recipients }}
 
 # Controls the email sending from the nosy reactor. If
 # "multiple" then a separate email is sent to each
 # recipient. If "single" then a single email is sent with
 # each recipient as a CC address.
 # Default: single
-email_sending = single
+email_sending = {{ nosy__email_sending }}
 
 # Attachments larger than the given number of bytes
 # won't be attached to nosy mails. They will be replaced by
 # a link to the tracker's download page for the file.
 # Default: 9223372036854775807
-max_attachment_size = 9223372036854775807
+max_attachment_size = {{ nosy__max_attachment_size }}
