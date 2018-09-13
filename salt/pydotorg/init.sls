@@ -4,6 +4,10 @@ include:
   - nginx
   - postgresql.client
 
+deadsnakes-ppa:
+  pkgrepo.managed:
+    - ppa: fkrull/deadsnakes
+
 git:
   pkg.installed
 
@@ -20,6 +24,7 @@ pydotorg-deps:
       - python-virtualenv
       - python3-dev
       - yui-compressor
+      - python3.6-dev
 
 pydotorg-user:
   user.present:
