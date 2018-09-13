@@ -25,6 +25,7 @@ pydotorg-deps:
       - python3-dev
       - yui-compressor
       - python3.6-dev
+      - python3.6-venv
 
 pydotorg-user:
   user.present:
@@ -88,6 +89,7 @@ pydotorg-source:
     - cwd: /srv/pydotorg/pythondotorg
     - user: pydotorg
     - python: /usr/bin/python3.6
+    - venv_bin: /usr/bin/pyvenv-3.6
     - require:
       - git: pydotorg-source
       - pkg: pydotorg-deps
