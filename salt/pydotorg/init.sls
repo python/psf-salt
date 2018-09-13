@@ -83,6 +83,16 @@ pydotorg-source:
       - pkg: pydotorg-deps
       - pkg: postgresql-client
 
+/srv/pydotorg/env36/:
+  virtualenv.managed:
+    - cwd: /srv/pydotorg/pythondotorg
+    - user: pydotorg
+    - python: /usr/bin/python3.6
+    - require:
+      - git: pydotorg-source
+      - pkg: pydotorg-deps
+      - pkg: postgresql-client
+
 pydotorg-dependencies:
   cmd.run:
     - runas: pydotorg
@@ -90,6 +100,16 @@ pydotorg-dependencies:
     - name: /srv/pydotorg/env/bin/pip install -r /srv/pydotorg/pythondotorg/requirements.txt
     - require:
       - virtualenv: /srv/pydotorg/env/
+    - onchanges:
+      - git: pydotorg-source
+
+pydotorg-dependencies36:
+  cmd.run:
+    - runas: pydotorg
+    - cwd: /srv/pydotorg/pythondotorg
+    - name: /srv/pydotorg/env36/bin/pip install -r /srv/pydotorg/pythondotorg/requirements.txt
+    - require:
+      - virtualenv: /srv/pydotorg/env36/
     - onchanges:
       - git: pydotorg-source
 
