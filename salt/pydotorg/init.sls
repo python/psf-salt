@@ -88,7 +88,6 @@ pydotorg-source:
   virtualenv.managed:
     - cwd: /srv/pydotorg/pythondotorg
     - user: pydotorg
-    - python: /usr/bin/python3.6
     - venv_bin: /usr/bin/pyvenv-3.6
     - require:
       - git: pydotorg-source
