@@ -1,6 +1,7 @@
 
 include:
   - bugs.postgresql
+  - nginx
 
 roundup-deps:
   pkg.installed:
@@ -72,4 +73,15 @@ tracker-{{ tracker }}-config:
     - template: jinja
     - defaults: {{ dict(pillar['bugs']['defaults']) }}
     - context: {{ config.get('config', {}) }}
+
+tracker-{{ tracker }}-nginx-config:
+  file.managed:
+    - name: /etc/nginx/conf.d/tracker-{{ tracker }}.conf
+    - source: salt://bugs/config/nginx.conf.jinja
+    - user: nginx
+    - mode: 600
+    - template: jinja
+    - context:
+      tracker: {{ tracker }}
+      server_name: {{ config.get('server_name') }}
 {% endfor %}

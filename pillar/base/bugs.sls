@@ -1,7 +1,12 @@
 bugs:
+  certificates:
+    - bugs.python.org
+    - bugs.jython.org
+    - issues.roundup-tracker.org
   trackers:
     cpython:
       source: https://hg.python.org/tracker/python-dev
+      server_name: bugs.python.org
       config:
           main__database: /srv/roundup/data/cpython
           main__admin_email: roundup-admin
@@ -18,6 +23,7 @@ bugs:
           nosy__email_sending: "multiple"
     jython:
       source: https://hg.python.org/tracker/jython
+      server_name: bugs.jython.org
       config:
           main__database: /srv/roundup/data/jython
           main__admin_email: roundup-jython-admin
@@ -33,6 +39,7 @@ bugs:
           nosy__email_sending: "multiple"
     roundup:
       source: https://hg.python.org/tracker/roundup
+      server_name: issues.roundup-tracker.org
       config:
           main__database: /srv/roundup/data/roundup
           main__admin_email: roundup-admin@psf.upfronthosting.co.za

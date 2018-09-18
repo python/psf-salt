@@ -1,0 +1,25 @@
+upstream tracker-{{ tracker }} {
+  server 127.0.0.1:8080;
+}
+
+server {
+  listen 80;
+
+  server_name {{ server_name }};
+
+  if ($scheme = "http") {
+    return 301 https://$http_host$request_uri;
+  }
+}
+
+server {
+  listen 443 ssl;
+
+  ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+  ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+
+  error_log /var/log/nginx/roundup-{{ tracker }}.error.log;
+  access_log /var/log/nginx/roundup-{{ tracker }}.access.log;
+
+  server_name {{ server_name }};
+}
