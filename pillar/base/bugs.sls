@@ -1,5 +1,5 @@
 bugs:
-  certificates:
+  subject_alternative_names:
     - bugs.python.org
     - bugs.jython.org
     - issues.roundup-tracker.org

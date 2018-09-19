@@ -7,7 +7,12 @@ server {
 
   server_name {{ server_name }};
 
-  if ($scheme = "http") {
+  location /.well-known/acme-challenge/ {
+      alias /etc/lego/.well-known/acme-challenge/;
+      try_files $uri =404;
+  }
+
+  location / {
     return 301 https://$http_host$request_uri;
   }
 }
@@ -22,4 +27,11 @@ server {
   access_log /var/log/nginx/roundup-{{ tracker }}.access.log;
 
   server_name {{ server_name }};
+
+  location /@@file/ {
+    root /srv/roundup/trackers/{{ tracker }}/;
+    rewrite ^/@@file/(.*) /html/$1 break;
+    expires 1h;
+  }
+
 }

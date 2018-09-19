@@ -17,11 +17,29 @@ roundup-user:
     - home: /srv/roundup
     - createhome: True
 
+roundup-nginx-group-member:
+  group.present:
+    - name: roundup
+    - addusers:
+      - nginx
+
+roundup-home:
+  file.directory:
+    - name: /srv/roundup
+    - user: roundup
+    - mode: 750
+
+roundup-trackers:
+  file.directory:
+    - name: /srv/roundup/trackers
+    - user: roundup
+    - mode: 750
+
 roundup-data:
   file.directory:
     - name: /srv/roundup/data
     - user: roundup
-    - mode: 755
+    - mode: 750
 
 roundup-clone:
   hg.latest:
@@ -56,13 +74,18 @@ tracker-{{ tracker }}-datadir:
   file.directory:
     - name: /srv/roundup/data/{{ tracker }}
     - user: roundup
-    - mode: 755
+    - mode: 750
 
 tracker-{{ tracker }}-clone:
   hg.latest:
     - user: roundup
     - name: {{ config['source'] }}
     - target: /srv/roundup/trackers/{{ tracker }}
+
+tracker-{{ tracker }}-clone-permissions:
+  file.directory:
+    - name: /srv/roundup/trackers/{{ tracker }}
+    - mode: 750
 
 tracker-{{ tracker }}-config:
   file.managed:
