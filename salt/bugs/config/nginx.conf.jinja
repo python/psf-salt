@@ -1,10 +1,9 @@
 upstream tracker-{{ tracker }} {
-  server 127.0.0.1:8080;
+  server 127.0.0.1:8000;
 }
 
 server {
   listen 80;
-
   server_name {{ server_name }};
 
   location /.well-known/acme-challenge/ {
@@ -19,19 +18,32 @@ server {
 
 server {
   listen 443 ssl;
+  server_name {{ server_name }};
+  include mime.types;
 
+  # By default use the snakeoil certificate...
   ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
   ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+
+  # If lego has done it's thing ang pulled a certificate from LetsEncrypt,
+  # we'll use that! This will take precedence over the above ssl_certificate
+  # and ssl_certificate_key directives.
+  include conf.d/lego.conf*;
 
   error_log /var/log/nginx/roundup-{{ tracker }}.error.log;
   access_log /var/log/nginx/roundup-{{ tracker }}.access.log;
 
-  server_name {{ server_name }};
+  root /srv/roundup/trackers/{{ tracker }}/;
 
   location /@@file/ {
-    root /srv/roundup/trackers/{{ tracker }}/;
     rewrite ^/@@file/(.*) /html/$1 break;
     expires 1h;
   }
 
+  location / {
+    proxy_pass http://tracker-{{ tracker }}/{{ tracker }}/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
 }
