@@ -120,3 +120,23 @@ tracker-{{ tracker }}-nginx-config:
       tracker: {{ tracker }}
       server_name: {{ config.get('server_name') }}
 {% endfor %}
+
+/etc/systemd/system/roundup.service:
+  file.managed:
+    - source: salt://bugs/config/roundup.service
+    - template: jinja
+    - context:
+      trackers: {{ pillar["bugs"]["trackers"].keys() }}
+
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: /etc/systemd/system/roundup.service
+
+roundup:
+  service.running:
+    - enable: True
+    - require:
+      - cmd: /etc/systemd/system/roundup.service
+    - watch:
+      - file: /etc/systemd/system/roundup.service
