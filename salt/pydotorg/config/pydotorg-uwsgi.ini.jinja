@@ -17,3 +17,9 @@ chmod-socket = 666
 disable-logging = true
 log-5xx = true
 listen = 1024
+# Avoid errors on aborted client connections. These will hopefully
+# make Sentry reports less noisy. See PYDOTORG-STAGING-Z for an example
+# of such an issue.
+ignore-sigpipe
+ignore-write-errors
+disable-write-exception
