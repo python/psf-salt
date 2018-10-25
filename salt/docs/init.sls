@@ -31,6 +31,7 @@ docsbuild:
     - home: /srv/docsbuild/
     - groups:
       - docs
+      - docsbuild
     - require:
       - group: docs
 
@@ -55,7 +56,7 @@ py36-virtualenv:
   file.managed:
     - user: docsbuild
     - source: https://bootstrap.pypa.io/get-pip.py
-    - source_hash: sha256=19dae841a150c86e2a09d475b5eb0602861f2a5b7761ec268049a662dbd2bd0c
+    - source_hash: sha256=b89554206d31aeadb8bea05afe53552ed1370ff416b7b49d1abccc0d60b3dca8
     - require:
       - cmd: py36-virtualenv
 
@@ -76,6 +77,12 @@ py36-virtualenv-dependencies:
       - cmd: py36-virtualenv-pip
     - onchanges:
       - git: docsbuild-scripts
+
+docsbuild-sentry:
+  cron.env_present:
+    - user: docsbuild
+    - name: SENTRY_DSN
+    - value: {{ pillar.get('docs', {}).get('sentry', {}).get('dsn', '') }}
 
 docsbuild-full:
   cron.present:
