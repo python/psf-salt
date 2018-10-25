@@ -21,6 +21,7 @@ base:
     - match: nodegroup
     - firewall.rs-lb-backend
     - groups.docs
+    - secrets.docs
 
   'downloads':
     - match: nodegroup
