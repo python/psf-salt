@@ -87,7 +87,7 @@ docsbuild-sentry:
 docsbuild-full:
   cron.present:
     - identifier: docsbuild-full
-    - name: python3 /srv/docsbuild/scripts/build_docs.py
+    - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/scripts/build_docs.py
     - user: docsbuild
     - minute: 7
     - hour: 0
@@ -97,7 +97,7 @@ docsbuild-full:
 docsbuild-quick:
   cron.present:
     - identifier: docsbuild-quick
-    - name: python3 /srv/docsbuild/scripts/build_docs.py -q
+    - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/scripts/build_docs.py -q
     - user: docsbuild
     - minute: 7
     - hour: 2-23/3
