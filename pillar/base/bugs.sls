@@ -5,7 +5,7 @@ bugs:
     - issues.roundup-tracker.org
   trackers:
     cpython:
-      source: https://hg.python.org/tracker/python-dev
+      source: https://bitbucket.org/python/tracker-cpython
       server_name: bugs.python.org
       config:
           main__database: /srv/roundup/data/cpython
@@ -22,7 +22,7 @@ bugs:
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
     jython:
-      source: https://hg.python.org/tracker/jython
+      source: https://bitbucket.org/python/tracker-jython
       server_name: bugs.jython.org
       config:
           main__database: /srv/roundup/data/jython
@@ -38,7 +38,7 @@ bugs:
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
     roundup:
-      source: https://hg.python.org/tracker/roundup
+      source: https://bitbucket.org/python/tracker-roundup
       server_name: issues.roundup-tracker.org
       config:
           main__database: /srv/roundup/data/roundup
