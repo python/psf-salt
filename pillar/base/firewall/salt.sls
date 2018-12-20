@@ -17,3 +17,7 @@ firewall:
   salt_master_pythontest_nyc1:
     port: 4505:4506
     source: 104.236.16.9
+
+  salt_master_bugs_ams1:
+    port: 4505:4506
+    source: 188.166.48.69
