@@ -15,6 +15,17 @@ lego_renew:
     - hour: 0
     - minute: random
 
+lego_config:
+  file.managed:
+    - name: /etc/nginx/conf.d/lego.conf
+    - source: salt://tls/config/lego.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - sls: tls.lego
+
 roundup-deps:
   pkg.installed:
     - pkgs:
