@@ -111,7 +111,7 @@ tracker-{{ tracker }}-config:
 
 tracker-{{ tracker }}-nginx-config:
   file.managed:
-    - name: /etc/nginx/conf.d/tracker-{{ tracker }}.conf
+    - name: /etc/nginx/sites.d/tracker-{{ tracker }}.conf
     - source: salt://bugs/config/nginx.conf.jinja
     - user: nginx
     - mode: 600
