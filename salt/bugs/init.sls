@@ -54,19 +54,19 @@ roundup-home:
   file.directory:
     - name: /srv/roundup
     - user: roundup
-    - mode: 750
+    - mode: 755
 
 roundup-trackers:
   file.directory:
     - name: /srv/roundup/trackers
     - user: roundup
-    - mode: 750
+    - mode: 755
 
 roundup-data:
   file.directory:
     - name: /srv/roundup/data
     - user: roundup
-    - mode: 750
+    - mode: 755
 
 roundup-clone:
   hg.latest:
