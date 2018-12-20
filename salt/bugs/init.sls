@@ -30,9 +30,13 @@ roundup-deps:
   pkg.installed:
     - pkgs:
       - mercurial
-      - postfix
+      - irker
       - python-virtualenv
       - python-pip
+
+irkerd:
+  service.running:
+    - enable: True
 
 roundup-user:
   user.present:
