@@ -35,6 +35,8 @@ server {
 
   root /srv/roundup/trackers/{{ tracker }}/;
 
+  include conf.d/tracker-extras/{{ tracker }}*.conf;
+
   location /@@file/ {
     rewrite ^/@@file/(.*) /html/$1 break;
     expires 1h;

@@ -1,0 +1,13 @@
+[Unit]
+Description=Rietveld Server
+
+[Service]
+User=roundup
+WorkingDirectory=/srv/roundup/trackers/cpython
+
+SyslogIdentifier=rietveld-server
+
+ExecStart=/srv/roundup/trackers/cpython/rietveld/env/bin/gunicorn -b 127.0.0.1:9001 -w4 rietveld.wsgi
+
+[Install]
+WantedBy=multi-user.target

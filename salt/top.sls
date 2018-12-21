@@ -26,6 +26,7 @@ base:
   'bugs':
     - match: nodegroup
     - bugs
+    - bugs.cpython
 
   'cdn-logs':
     - match: nodegroup

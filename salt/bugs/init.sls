@@ -91,6 +91,13 @@ roundup-install:
     - onchanges:
       - hg: roundup-clone
 
+tracker-nginx-extras:
+  file.directory:
+    - name: /etc/nginx/conf.d/tracker-extras
+    - user: root
+    - group: root
+    - mode: 755
+
 {% for tracker, config in pillar["bugs"]["trackers"].items() %}
 tracker-{{ tracker }}-database:
   postgres_database.present:
