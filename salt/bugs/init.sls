@@ -124,6 +124,16 @@ tracker-{{ tracker }}-config:
     - defaults: {{ dict(pillar['bugs']['defaults']) }}
     - context: {{ config.get('config', {}) }}
 
+tracker-{{ tracker }}-detector-config:
+  file.managed:
+    - name: /srv/roundup/trackers/{{ tracker }}/detectors/config.ini
+    - source: salt://bugs/config/detector-config.ini.jinja
+    - user: roundup
+    - mode: 600
+    - template: jinja
+    - context:
+      detector_config: {{ config.get('detector_config', {}) }}
+
 tracker-{{ tracker }}-nginx-config:
   file.managed:
     - name: /etc/nginx/sites.d/tracker-{{ tracker }}.conf

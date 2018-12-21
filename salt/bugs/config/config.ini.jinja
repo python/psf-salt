@@ -764,3 +764,10 @@ email_sending = {{ nosy__email_sending }}
 # a link to the tracker's download page for the file.
 # Default: 9223372036854775807
 max_attachment_size = {{ nosy__max_attachment_size }}
+
+{% for key, configs in extra_config.items() %}
+[{{ key }}]
+{% for k, v in configs.items() %}
+{{ k }} = {{ v }}
+{% endfor %}
+{% endfor %}

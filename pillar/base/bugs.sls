@@ -21,6 +21,19 @@ bugs:
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
+          extra_config:
+              django:
+                secret_key: "foobarbaz"
+      detector_config:
+          main:
+            triage_email: "new-bugs-announce@python.org"
+            busybody_email: "python-bugs-list@python.org"
+            spambayes_uri: "http://localhost:8001/sbrpc"
+            spambayes_ham_cutoff: "0.2"
+            spambayes_spam_cutoff: "0.85"
+            ciavc_server: "http://CIA.vc"
+          irker:
+            channels: "irc://chat.freenode.net/python-dev"
     jython:
       source: https://bitbucket.org/python/tracker-jython
       server_name: bugs.jython.org
@@ -37,6 +50,13 @@ bugs:
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
+          extra_config: {}
+      detector_config:
+          main:
+            triage_email: "jython-bugs@lists.sourceforge.net"
+            spambayes_uri: "http://localhost:8001/sbrpc"
+            spambayes_ham_cutoff: "0.2"
+            spambayes_spam_cutoff: "0.85"
     roundup:
       source: https://bitbucket.org/python/tracker-roundup
       server_name: issues.roundup-tracker.org
@@ -56,6 +76,8 @@ bugs:
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
+          extra_config: {}
+      detector_config: {}
   defaults:
       main__database: "db"
       main__template_engine: "zopetal"

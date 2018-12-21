@@ -1,0 +1,6 @@
+{% for key, configs in detector_config.items() %}
+[{{ key }}]
+{% for k, v in configs.items() %}
+{{ k }} = {{ v }}
+{% endfor %}
+{% endfor %}
