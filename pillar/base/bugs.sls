@@ -42,7 +42,7 @@ bugs:
           main__dispatcher_email: roundup-admin@python.org
           main__html_version: xhtml
           tracker__name: "Jython tracker"
-          tracker__web: "http://bugs.jython.org/"
+          tracker__web: "https://bugs.jython.org/"
           tracker__email: "jython@roundup.psfhosted.org"
           rdbms__name: roundup_jython
           nosy__messages_to_author: "yes"
@@ -65,7 +65,7 @@ bugs:
           main__dispatcher_email: roundup-admin@python.org
           main__html_version: xhtml
           tracker__name: "Roundup tracker"
-          tracker__web: "http://issues.roundup-tracker.org/"
+          tracker__web: "https://issues.roundup-tracker.org/"
           tracker__email: "roundup@roundup.psfhosted.org"
           rdbms__name: roundup_roundup
           mail__add_authoremail: "no"
