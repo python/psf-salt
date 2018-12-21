@@ -9,14 +9,13 @@ bugs:
       server_name: bugs.python.org
       config:
           main__database: /srv/roundup/data/cpython
-          main__admin_email: roundup-admin
-          main__dispatcher_email: roundup-admin
+          main__admin_email: roundup-admin@pyton.org
+          main__dispatcher_email: roundup-admin@pyton.org
           main__html_version: xhtml
           tracker__name: "Python tracker"
           tracker__web: "https://bugs.python.org/"
           tracker__email: "cpython@roundup.psfhosted.org"
           rdbms__name: roundup_cpython
-          mail__domain: roundup.psfhosted.org
           mailgw__ignore_alternatives: "yes"
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
@@ -39,14 +38,13 @@ bugs:
       server_name: bugs.jython.org
       config:
           main__database: /srv/roundup/data/jython
-          main__admin_email: roundup-jython-admin
-          main__dispatcher_email: roundup-admin
+          main__admin_email: roundup-admin@pyton.org
+          main__dispatcher_email: roundup-admin@pyton.org
           main__html_version: xhtml
           tracker__name: "Jython tracker"
           tracker__web: "http://bugs.jython.org/"
           tracker__email: "jython@roundup.psfhosted.org"
           rdbms__name: roundup_jython
-          mail__domain: roundup.psfhosted.org
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
@@ -62,14 +60,13 @@ bugs:
       server_name: issues.roundup-tracker.org
       config:
           main__database: /srv/roundup/data/roundup
-          main__admin_email: roundup-admin@psf.upfronthosting.co.za
-          main__dispatcher_email: admin@issues.roundup-tracker.org
+          main__admin_email: roundup-admin@pyton.org
+          main__dispatcher_email: roundup-admin@pyton.org
           main__html_version: xhtml
           tracker__name: "Roundup tracker"
           tracker__web: "http://issues.roundup-tracker.org/"
           tracker__email: "roundup@roundup.psfhosted.org"
           rdbms__name: roundup_roundup
-          mail__domain: roundup.psfhosted.org
           mail__add_authoremail: "no"
           mailgw__subject_prefix_parsing: "loose"
           mailgw__subject_suffix_parsing: "loose"
@@ -92,7 +89,7 @@ bugs:
       main__html_version: "html4"
       main__timezone: "UTC"
       main__instant_registration: "no"
-      main__email_registration_confirmation: "yes"
+      main__email_registration_confirmation: "no"
       main__indexer: ""
       main__indexer_stopwords: ""
       main__umask: "02"

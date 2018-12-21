@@ -460,27 +460,27 @@ level = {{ logging__level }}
 # explicitly include a domain.
 # Do not include the '@' symbol.
 # Default: NO DEFAULT
-domain = {{ mail__domain }}
+domain = {{ pillar.get('roundup_secrets', {}).get('mail__domain', 'roundup.psfhosted.org') }}
 
 # SMTP mail host that roundup will use to send mail
 # Default: NO DEFAULT
-host = {{ mail__host }}
+host = {{ pillar.get('roundup_secrets', {}).get('mail__host', 'localhost') }}
 
 # SMTP login name.
 # Set this if your mail host requires authenticated access.
 # If username is not empty, password (below) MUST be set!
 # Default: 
-username = {{ mail__username }}
+username = {{ pillar.get('roundup_secrets', {}).get('mail__username', '') }}
 
 # SMTP login password.
 # Set this if your mail host requires authenticated access.
 # Default: NO DEFAULT
-password = {{ mail__password }}
+password = {{ pillar.get('roundup_secrets', {}).get('mail__password', '') }}
 
 # Default port to send SMTP on.
 # Set this if your mail server runs on a different port.
 # Default: 25
-port = {{ mail__port }}
+port = {{ pillar.get('roundup_secrets', {}).get('mail__port', '25') }}
 
 # The local hostname to use during SMTP transmission.
 # Set this if your mail server requires something specific.
@@ -491,7 +491,7 @@ local_hostname = {{ mail__local_hostname }}
 # (Transport Layer Security) then set this option to 'yes'.
 # Allowed values: yes, no
 # Default: no
-tls = {{ mail__tls }}
+tls = {{ pillar.get('roundup_secrets', {}).get('mail__tls', 'no') }}
 
 # If TLS is used, you may set this option to the name
 # of a PEM formatted file that contains your private key.
@@ -522,8 +522,7 @@ charset = {{ mail__charset }}
 # The path may be either absolute or relative
 # to the directory containing this config file.
 # Default: 
-#debug = {{ mail__debug }}
-debug = mail.log
+debug = {{ mail__debug }}
 
 # Add a line with author information at top of all messages
 # sent by roundup
