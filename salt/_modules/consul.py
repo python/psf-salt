@@ -88,7 +88,8 @@ def register_external_service(node, address, datacenter, service, port, token):
 
     resp = requests.put(
         "http://127.0.0.1:8500/v1/catalog/register",
-        json=data,
+        headers={'content-type': 'application/json'},
+        data=json.dumps(data),
         params={"token": token},
     )
     resp.raise_for_status()
@@ -111,7 +112,8 @@ def create_acl(token, name, rules):
 
     resp = requests.put(
         "http://127.0.0.1:8500/v1/acl/create",
-        json=data,
+        headers={'content-type': 'application/json'},
+        data=json.dumps(data),
         params={"token": token},
     )
     resp.raise_for_status()
@@ -124,7 +126,8 @@ def update_acl(token, id, name, rules):
 
     resp = requests.put(
         "http://127.0.0.1:8500/v1/acl/update",
-        json=data,
+        headers={'content-type': 'application/json'},
+        data=json.dumps(data),
         params={"token": token},
     )
     resp.raise_for_status()

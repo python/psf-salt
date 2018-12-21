@@ -1,0 +1,13 @@
+[Unit]
+Description=bugs.python.org suggestion server
+
+[Service]
+User=roundup
+WorkingDirectory=/srv/roundup/trackers/cpython/scripts
+
+SyslogIdentifier=bpo-suggest-server
+
+ExecStart=/srv/roundup/trackers/cpython/rietveld/env/bin/gunicorn -b 127.0.0.1:9002 -w 4 suggest
+
+[Install]
+WantedBy=multi-user.target

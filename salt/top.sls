@@ -23,6 +23,11 @@ base:
     - match: nodegroup
     - backup.server
 
+  'bugs':
+    - match: nodegroup
+    - bugs
+    - bugs.cpython
+
   'cdn-logs':
     - match: nodegroup
     - cdn-logs

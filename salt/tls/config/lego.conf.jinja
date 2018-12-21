@@ -1,0 +1,17 @@
+ssl_certificate     /etc/lego/certificates/{{ grains['fqdn'] }}.crt;
+ssl_certificate_key /etc/lego/certificates/{{ grains['fqdn'] }}.key;
+
+
+ssl_protocols TLSv1.2;
+ssl_dhparam /etc/ssl/private/dhparams.pem;
+ssl_ciphers EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA512:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:ECDH+AESG;
+ssl_prefer_server_ciphers   on;
+
+ssl_session_timeout  60m;
+ssl_session_cache shared:SSL:32m;
+ssl_buffer_size 8k;
+
+ssl_stapling on;
+ssl_stapling_verify on;
+resolver 8.8.8.8 8.8.4.4 valid=300s;
+resolver_timeout 1s;

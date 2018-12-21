@@ -14,7 +14,7 @@ include:
     - group: root
     - mode: 755
 
-{% for backup, config in salt['pillar.get']('backup:directories', {}).iteritems() %}
+{% for backup, config in salt['pillar.get']('backup:directories', {}).items() %}
 
 {{ backup }}-ssh-key:
   file.managed:

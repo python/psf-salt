@@ -12,6 +12,10 @@ base:
     - match: nodegroup
     - backup.server
 
+  'bugs':
+    - match: nodegroup
+    - bugs
+
   'cdn-logs':
     - match: nodegroup
     - fastly-logging

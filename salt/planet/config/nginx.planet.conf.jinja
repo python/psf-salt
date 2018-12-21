@@ -1,4 +1,4 @@
-{% for site, info in salt["pillar.get"]("planet_sites").iteritems() %}
+{% for site, info in salt["pillar.get"]("planet_sites").items() %}
 
 server {
     listen 80;

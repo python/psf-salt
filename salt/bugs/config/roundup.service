@@ -1,0 +1,14 @@
+[Unit]
+Description=Roundup Server
+
+[Service]
+User=roundup
+WorkingDirectory=/srv/roundup
+
+SyslogIdentifier=roundup-server
+PIDFile=/srv/roundup/pidfile
+
+ExecStart=/srv/roundup/env/bin/roundup-server -p 8000 -n 127.0.0.1 {%- for tracker in trackers %} {{ tracker }}=/srv/roundup/trackers/{{ tracker }} {%- endfor %}
+
+[Install]
+WantedBy=multi-user.target

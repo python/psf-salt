@@ -13,6 +13,12 @@ base:
     - match: nodegroup
     - backup.server
 
+  'bugs':
+    - match: nodegroup
+    - secrets.bugs
+    - bugs
+    - secrets.monitoring.datadog
+
   'cdn-logs':
     - match: nodegroup
     - fastly-logging

@@ -7,6 +7,7 @@ postgresql-users:
   pycon-staging: insecurepasswordlol
   speed-web: insecurepasswordlol
   testpypi: insecurepasswordlol
+  discourse-user: insecurepasswordlol
 
 postgresql-superusers:
   diamond: insecurepasswordlol

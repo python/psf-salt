@@ -7,6 +7,7 @@
 
 roles:
   backup-server: "backup.ord1.psf.io"
+  bugs: "bugs.ams1.psf.io"
   cdn-logs: "cdn-logs.iad1.psf.io"
   consul: "consul*.iad1.psf.io"
   docs: "docs.iad1.psf.io"
@@ -32,7 +33,6 @@ roles:
   pythontest: "pythontest.nyc1.psf.io"
   salt-master: "salt.iad1.psf.io"
   speed-web: "speed-web.iad1.psf.io"
-  tracker: "bugs.iad1.psf.io"
   wiki: "wiki.iad1.psf.io"
   slack: "slack.iad1.psf.io"
   discourse: "discourse*.iad1.psf.io"

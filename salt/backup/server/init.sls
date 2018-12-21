@@ -2,7 +2,7 @@
 include:
   - backup.base
 
-{% for volume, mount in salt['pillar.get']('backup-server:volumes', {}).iteritems() %}
+{% for volume, mount in salt['pillar.get']('backup-server:volumes', {}).items() %}
 {{ volume }}-mkfs:
   cmd.run:
     - name: 'yes y | mkfs.ext4 {{ volume }}'
@@ -17,7 +17,7 @@ include:
       - defaults
 {% endfor %}
 
-{% for backup, config in salt['pillar.get']('backup-server:backups', {}).iteritems() %}
+{% for backup, config in salt['pillar.get']('backup-server:backups', {}).items() %}
 
 {{ backup }}-user:
   user.present:
