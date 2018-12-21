@@ -170,5 +170,10 @@ roundup:
     - enable: True
     - require:
       - cmd: /etc/systemd/system/roundup.service
-    - watch:
+    - watch_any:
       - file: /etc/systemd/system/roundup.service
+      {% for tracker in pillar["bugs"]["trackers"].keys() %}
+      - hg: tracker-{{ tracker }}-clone
+      - file: tracker-{{ tracker }}-config
+      - file: tracker-{{ tracker }}-detector-config
+      {% endfor %}
