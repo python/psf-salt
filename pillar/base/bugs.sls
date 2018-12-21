@@ -10,8 +10,8 @@ bugs:
       config:
           tracker: cpython
           main__database: /srv/roundup/data/cpython
-          main__admin_email: roundup-admin@pyton.org
-          main__dispatcher_email: roundup-admin@pyton.org
+          main__admin_email: roundup-admin@python.org
+          main__dispatcher_email: roundup-admin@python.org
           main__html_version: xhtml
           tracker__name: "Python tracker"
           tracker__web: "https://bugs.python.org/"
@@ -38,8 +38,8 @@ bugs:
       config:
           tracker: jython
           main__database: /srv/roundup/data/jython
-          main__admin_email: roundup-admin@pyton.org
-          main__dispatcher_email: roundup-admin@pyton.org
+          main__admin_email: roundup-admin@python.org
+          main__dispatcher_email: roundup-admin@python.org
           main__html_version: xhtml
           tracker__name: "Jython tracker"
           tracker__web: "http://bugs.jython.org/"
@@ -61,8 +61,8 @@ bugs:
       config:
           tracker: roundup
           main__database: /srv/roundup/data/roundup
-          main__admin_email: roundup-admin@pyton.org
-          main__dispatcher_email: roundup-admin@pyton.org
+          main__admin_email: roundup-admin@python.org
+          main__dispatcher_email: roundup-admin@python.org
           main__html_version: xhtml
           tracker__name: "Roundup tracker"
           tracker__web: "http://issues.roundup-tracker.org/"
