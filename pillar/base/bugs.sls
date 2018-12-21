@@ -8,6 +8,7 @@ bugs:
       source: https://bitbucket.org/python/tracker-cpython
       server_name: bugs.python.org
       config:
+          tracker: cpython
           main__database: /srv/roundup/data/cpython
           main__admin_email: roundup-admin@pyton.org
           main__dispatcher_email: roundup-admin@pyton.org
@@ -20,9 +21,7 @@ bugs:
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
-          extra_config:
-              django:
-                secret_key: "foobarbaz"
+          extra_config: {}
       detector_config:
           main:
             triage_email: "new-bugs-announce@python.org"
@@ -37,6 +36,7 @@ bugs:
       source: https://bitbucket.org/python/tracker-jython
       server_name: bugs.jython.org
       config:
+          tracker: jython
           main__database: /srv/roundup/data/jython
           main__admin_email: roundup-admin@pyton.org
           main__dispatcher_email: roundup-admin@pyton.org
@@ -59,6 +59,7 @@ bugs:
       source: https://bitbucket.org/python/tracker-roundup
       server_name: issues.roundup-tracker.org
       config:
+          tracker: roundup
           main__database: /srv/roundup/data/roundup
           main__admin_email: roundup-admin@pyton.org
           main__dispatcher_email: roundup-admin@pyton.org

@@ -770,3 +770,11 @@ max_attachment_size = {{ nosy__max_attachment_size }}
 {{ k }} = {{ v }}
 {% endfor %}
 {% endfor %}
+
+{% set secret_config = pillar.get('roundup_secrets', {}).get('trackers', {}).get(tracker, {}) %}
+{% for key, configs in secret_config.items() %}
+[{{ key }}]
+{% for k, v in configs.items() %}
+{{ k }} = {{ v }}
+{% endfor %}
+{% endfor %}
