@@ -35,6 +35,7 @@ server {
   add_header X-Xss-Protection "1; mode=block";
   add_header X-Content-Type-Options "nosniff";
   add_header X-Permitted-Cross-Domain-Policies "none";
+  add_header Content-Security-Policy: "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'";
 
   error_log /var/log/nginx/roundup-{{ tracker }}.error.log;
   access_log /var/log/nginx/roundup-{{ tracker }}.access.log;
