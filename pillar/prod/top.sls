@@ -16,6 +16,7 @@ base:
   'bugs':
     - match: nodegroup
     - bugs
+    - secrets.monitoring.datadog
 
   'cdn-logs':
     - match: nodegroup
