@@ -79,3 +79,11 @@ tracker-cpython-nginx-extras:
     - source: salt://bugs/config/cpython/tracker-extras.conf
     - user: root
     - group: root
+
+tracker-cpython-summary:
+  cron.present:
+    - name: /srv/roundup/env/bin/python2.7 /srv/roundup/trackers/cpython/scripts/roundup-summary /srv/roundup/trackers/cpython --mail python-dev@python.org --update-stats-file=issue.stats.json
+    - user: roundup
+    - dayweek: 5
+    - hour: 18
+    - minute: 5
