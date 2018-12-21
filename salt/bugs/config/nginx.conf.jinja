@@ -30,6 +30,12 @@ server {
   # and ssl_certificate_key directives.
   include conf.d/lego.conf*;
 
+  add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+  add_header X-Frame-Options "deny";
+  add_header X-Xss-Protection "1; mode=block";
+  add_header X-Content-Type-Options "nosniff";
+  add_header X-Permitted-Cross-Domain-Policies "none";
+
   error_log /var/log/nginx/roundup-{{ tracker }}.error.log;
   access_log /var/log/nginx/roundup-{{ tracker }}.access.log;
 
