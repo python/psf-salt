@@ -15,7 +15,7 @@ bugs:
           main__html_version: xhtml
           tracker__name: "Python tracker"
           tracker__web: "https://bugs.python.org/"
-          tracker__email: "cpython@roundup.psfhosted.org"
+          tracker__email: "report@bugs.python.org"
           rdbms__name: roundup_cpython
           mailgw__ignore_alternatives: "yes"
           nosy__messages_to_author: "yes"
@@ -43,7 +43,7 @@ bugs:
           main__html_version: xhtml
           tracker__name: "Jython tracker"
           tracker__web: "https://bugs.jython.org/"
-          tracker__email: "jython@roundup.psfhosted.org"
+          tracker__email: "report@bugs.jython.org"
           rdbms__name: roundup_jython
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
@@ -66,7 +66,7 @@ bugs:
           main__html_version: xhtml
           tracker__name: "Roundup tracker"
           tracker__web: "https://issues.roundup-tracker.org/"
-          tracker__email: "roundup@roundup.psfhosted.org"
+          tracker__email: "issues@roundup-tracker.org"
           rdbms__name: roundup_roundup
           mail__add_authoremail: "no"
           mailgw__subject_prefix_parsing: "loose"

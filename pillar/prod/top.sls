@@ -15,6 +15,7 @@ base:
 
   'bugs':
     - match: nodegroup
+    - secrets.mail-opt-out
     - secrets.bugs
     - bugs
     - secrets.monitoring.datadog

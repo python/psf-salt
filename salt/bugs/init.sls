@@ -31,6 +31,7 @@ roundup-deps:
     - pkgs:
       - mercurial
       - irker
+      - postfix
       - python-virtualenv
       - python-pip
 
