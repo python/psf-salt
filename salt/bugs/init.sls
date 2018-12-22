@@ -57,6 +57,12 @@ roundup-home:
     - user: roundup
     - mode: 755
 
+roundup-logs:
+  file.directory:
+    - name: /var/log/roundup
+    - user: roundup
+    - mode: 755
+
 roundup-trackers:
   file.directory:
     - name: /srv/roundup/trackers

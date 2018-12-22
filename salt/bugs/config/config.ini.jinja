@@ -442,7 +442,7 @@ config = {{ logging__config }}
 # The path may be either absolute or relative
 # to the directory containing this config file.
 # Default: 
-filename = {{ logging__filename }}
+filename = /var/log/roundup/tracker_{{ tracker }}.log
 
 # Minimal severity level of messages written to log file.
 # If above 'config' option is set, this option has no effect.
