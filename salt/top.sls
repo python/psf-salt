@@ -28,6 +28,7 @@ base:
     - bugs
     - bugs.cpython
     - bugs.jython
+    - bugs.roundup
 
   'cdn-logs':
     - match: nodegroup

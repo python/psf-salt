@@ -3,6 +3,7 @@ bugs:
     - bugs.python.org
     - bugs.jython.org
     - issues.roundup-tracker.org
+    - mail.roundup-tracker.org
   trackers:
     cpython:
       source: https://bitbucket.org/python/tracker-cpython

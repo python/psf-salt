@@ -14,8 +14,8 @@ lego_extract:
   archive.extracted:
     - name: /usr/local/bin/
     - if_missing: /usr/local/bin/lego
-    - source: https://github.com/xenolf/lego/releases/download/v1.0.1/lego_v1.0.1_linux_amd64.tar.gz
-    - source_hash: sha256=3995c89e47caaccf1a589f01923cc0d4124861433d0a1ca9534a06bb4557a80e
+    - source: https://github.com/xenolf/lego/releases/download/v1.2.1/lego_v1.2.1_linux_amd64.tar.gz
+    - source_hash: sha256=ee8252c442e13cac40a2dcdeead9cc5812c44c393e72b39695d428b9275a0509
     - archive_format: tar
     - tar_options: -J --strip-components=1 lego
     - enforce_toplevel: False
