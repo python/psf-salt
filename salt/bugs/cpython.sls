@@ -16,6 +16,11 @@ django-gae2django-clone:
     - require:
       - hg: tracker-cpython-clone
 
+/var/run/cpython-extras:
+  file.directory:
+    - user: roundup
+    - mode: 755
+
 /srv/roundup/trackers/cpython/rietveld/rietveld_helper:
   file.symlink:
     - target: /srv/roundup/trackers/cpython/django-gae2django/examples/rietveld/rietveld_helper
@@ -72,6 +77,13 @@ bpo-suggest:
     - watch_any:
       - file: /etc/systemd/system/bpo-suggest.service
       - hg: tracker-cpython-clone
+
+tracker-cpython-nginx-extras-upstreams:
+  file.managed:
+    - name: /etc/nginx/conf.d/tracker-extras/upstreams-cpython.conf
+    - source: salt://bugs/config/cpython/tracker-upstreams.conf
+    - user: root
+    - group: root
 
 tracker-cpython-nginx-extras:
   file.managed:

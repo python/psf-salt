@@ -7,7 +7,7 @@ WorkingDirectory=/srv/roundup/trackers/cpython
 
 SyslogIdentifier=rietveld-server
 
-ExecStart=/srv/roundup/trackers/cpython/rietveld/env/bin/gunicorn -b 127.0.0.1:9001 -w4 rietveld.wsgi
+ExecStart=/srv/roundup/trackers/cpython/rietveld/env/bin/gunicorn -b unix:///var/run/cpython-extras/rietveld.sock -w4 rietveld.wsgi
 
 [Install]
 WantedBy=multi-user.target

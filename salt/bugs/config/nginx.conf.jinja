@@ -1,6 +1,8 @@
 upstream tracker-{{ tracker }} {
-  server 127.0.0.1:8000;
+  server unix:/var/run/roundup/{{ tracker }}.sock fail_timeout=0;
 }
+
+include conf.d/tracker-extras/upstreams-{{ tracker }}*.conf;
 
 server {
   listen 80;
@@ -49,7 +51,7 @@ server {
   }
 
   location / {
-    proxy_pass http://tracker-{{ tracker }}/{{ tracker }}/;
+    proxy_pass http://tracker-{{ tracker }}/;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

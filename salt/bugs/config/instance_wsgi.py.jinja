@@ -1,0 +1,4 @@
+from roundup.cgi.wsgi_handler import RequestDispatcher
+
+TRACKER_HOME = '/srv/roundup/trackers/{{ tracker }}'
+application = RequestDispatcher(TRACKER_HOME)

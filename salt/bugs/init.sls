@@ -75,6 +75,12 @@ roundup-data:
     - user: roundup
     - mode: 755
 
+roundup-run:
+  file.directory:
+    - name: /var/run/roundup
+    - user: roundup
+    - mode: 755
+
 roundup-clone:
   hg.latest:
     - user: roundup
@@ -148,6 +154,41 @@ tracker-{{ tracker }}-detector-config:
     - context:
       detector_config: {{ config.get('detector_config', {}) }}
 
+tracker-{{ tracker }}-wsgi:
+  file.managed:
+    - name: /srv/roundup/trackers/{{ tracker }}/wsgi.py
+    - source: salt://bugs/config/instance_wsgi.py.jinja
+    - user: roundup
+    - mode: 644
+    - template: jinja
+    - context:
+      tracker: {{ tracker }}
+
+/etc/systemd/system/roundup-{{ tracker }}.service:
+  file.managed:
+    - source: salt://bugs/config/instance.service.jinja
+    - template: jinja
+    - context:
+      tracker: {{ tracker }}
+
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: /etc/systemd/system/roundup-{{ tracker }}.service
+
+roundup-{{ tracker }}:
+  service.running:
+    - enable: True
+    - reload: True
+    - require:
+      - cmd: /etc/systemd/system/roundup-{{ tracker }}.service
+    - watch_any:
+      - file: /etc/systemd/system/roundup-{{ tracker }}.service
+      - hg: roundup-clone
+      - hg: tracker-{{ tracker }}-clone
+      - file: tracker-{{ tracker }}-config
+      - file: tracker-{{ tracker }}-detector-config
+
 tracker-{{ tracker }}-nginx-config:
   file.managed:
     - name: /etc/nginx/sites.d/tracker-{{ tracker }}.conf
@@ -159,28 +200,3 @@ tracker-{{ tracker }}-nginx-config:
       tracker: {{ tracker }}
       server_name: {{ config.get('server_name') }}
 {% endfor %}
-
-/etc/systemd/system/roundup.service:
-  file.managed:
-    - source: salt://bugs/config/roundup.service
-    - template: jinja
-    - context:
-      trackers: {{ pillar["bugs"]["trackers"].keys() }}
-
-  cmd.run:
-    - name: systemctl daemon-reload
-    - onchanges:
-      - file: /etc/systemd/system/roundup.service
-
-roundup:
-  service.running:
-    - enable: True
-    - require:
-      - cmd: /etc/systemd/system/roundup.service
-    - watch_any:
-      - file: /etc/systemd/system/roundup.service
-      {% for tracker in pillar["bugs"]["trackers"].keys() %}
-      - hg: tracker-{{ tracker }}-clone
-      - file: tracker-{{ tracker }}-config
-      - file: tracker-{{ tracker }}-detector-config
-      {% endfor %}

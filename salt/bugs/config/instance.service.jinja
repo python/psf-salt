@@ -1,0 +1,16 @@
+[Unit]
+Description=Roundup Server - {{ tracker }}
+
+[Service]
+User=roundup
+WorkingDirectory=/srv/roundup/trackers/{{ tracker }}
+SyslogIdentifier=roundup-server-{{ tracker }}
+ExecStart=/srv/roundup/env/bin/gunicorn -b unix:///var/run/roundup/{{ tracker }}.sock wsgi -w 4
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop = /bin/kill -s TERM $MAINPID
+KillMode=mixed
+Restart=on-failure
+RestartSec=15s
+
+[Install]
+WantedBy=multi-user.target

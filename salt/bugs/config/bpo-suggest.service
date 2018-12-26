@@ -7,7 +7,7 @@ WorkingDirectory=/srv/roundup/trackers/cpython/scripts
 
 SyslogIdentifier=bpo-suggest-server
 
-ExecStart=/srv/roundup/trackers/cpython/rietveld/env/bin/gunicorn -b 127.0.0.1:9002 -w 4 suggest
+ExecStart=/srv/roundup/env/bin/gunicorn -b unix:///var/run/cpython-extras/suggest.sock -w 4 suggest
 
 [Install]
 WantedBy=multi-user.target
