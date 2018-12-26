@@ -161,6 +161,17 @@ tracker-{{ tracker }}-detector-config:
     - context:
       detector_config: {{ config.get('detector_config', {}) }}
 
+tracker-{{ tracker }}-mailgw-forward:
+  file.managed:
+    - name: /srv/roundup/.forward+{{ tracker }}
+    - source: salt://bugs/config/instance-forward.jinja
+    - user: roundup
+    - group: roundup
+    - mode: 640
+    - template: jinja
+    - context:
+      tracker: {{ tracker }}
+
 tracker-{{ tracker }}-wsgi:
   file.managed:
     - name: /srv/roundup/trackers/{{ tracker }}/wsgi.py
