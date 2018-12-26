@@ -57,6 +57,13 @@ roundup-home:
     - user: roundup
     - mode: 755
 
+roundup-backup:
+  file.directory:
+    - name: /backup/roundup
+    - user: roundup
+    - group: root
+    - mode: 750
+
 roundup-logs:
   file.directory:
     - name: /var/log/roundup
@@ -199,4 +206,17 @@ tracker-{{ tracker }}-nginx-config:
     - context:
       tracker: {{ tracker }}
       server_name: {{ config.get('server_name') }}
+
+roundup-{{ tracker }}-backup:
+  file.directory:
+    - name: /backup/roundup/{{ tracker }}
+    - user: roundup
+    - group: root
+    - mode: 750
+
+tracker-{{ tracker }}-backup:
+  cron.present:
+    - name: /usr/bin/rsync -av /srv/roundup/data/{{ tracker }}/ /backup/roundup/{{ tracker }}/data/
+    - user: root
+    - minute: random
 {% endfor %}
