@@ -11,7 +11,7 @@ lego_bootstrap:
 
 lego_renew:
   cron.present:
-    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && /sbin/service nginx reload
+    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && /usr/sbin/service nginx reload
     - hour: 0
     - minute: random
 
