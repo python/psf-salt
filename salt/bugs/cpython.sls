@@ -94,7 +94,7 @@ tracker-cpython-nginx-extras:
 
 tracker-cpython-summary:
   cron.present:
-    - name: /srv/roundup/env/bin/python2.7 /srv/roundup/trackers/cpython/scripts/roundup-summary /srv/roundup/trackers/cpython --mail python-dev@python.org --update-stats-file=issue.stats.json
+    - name: /srv/roundup/env/bin/python2.7 /srv/roundup/trackers/cpython/scripts/roundup-summary /srv/roundup/trackers/cpython --mail python-dev@python.org --update-stats-file=issue.stats.json && cp /srv/roundup/trackers/cpython/issue.stats.json /srv/roundup/data/cpython/issue.
     - user: roundup
     - dayweek: 5
     - hour: 18
