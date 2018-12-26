@@ -78,7 +78,7 @@ roundup-data:
 roundup-clone:
   hg.latest:
     - user: roundup
-    - name: https://hg.python.org/tracker/roundup
+    - name: https://bitbucket.org/python/roundup
     - rev: bugs.python.org
     - target: /srv/roundup/src/roundup
 
