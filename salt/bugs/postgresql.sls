@@ -20,6 +20,20 @@ clear_default_cluster:
     - require:
       - pkg: postgresql-server
 
+roundup_postgres_backup_dir:
+  file.directory:
+    - name: /backup/postgresql/base_backups
+    - user: postgres
+    - group: postgres
+    - mode: 750
+
+roundup_postgres_wal_archives:
+  file.directory:
+    - name: /backup/postgresql/wal_logs
+    - user: postgres
+    - group: postgres
+    - mode: 750
+
 roundup_cluster:
   postgres_cluster.present:
     - name: 'roundup'
@@ -30,6 +44,13 @@ roundup_cluster:
     - require:
       - pkg: postgresql-server
 
+roundup_postgres_config:
+  file.managed:
+    - name: /etc/postgresql/10/roundup/conf.d/roundup.conf
+    - source: salt://bugs/config/postgresql.conf
+    - user: postgres
+    - group: postgres
+
 postgresql@10-roundup:
   service.running:
     - restart: True
@@ -37,9 +58,26 @@ postgresql@10-roundup:
     - require:
       - postgres_cluster: clear_default_cluster
       - postgres_cluster: roundup_cluster
+    - watch:
+      - file: roundup_postgres_config
 
 roundup_user:
   postgres_user.present:
     - name: roundup
     - password: roundup
     - createdb: True
+
+roundup_postgres_backup_script:
+  file.managed:
+    - name: /var/lib/postgresql/backup.bash
+    - source: salt:///bugs/files/postgres-backup.bash
+    - user: postgres
+    - group: postgres
+    - mode: 750
+
+roundup_postgres_nightly_backup:
+  cron.present:
+    - name: /var/lib/postgresql/backup.bash
+    - user: postgres
+    - hour: 23
+    - minute: 30
