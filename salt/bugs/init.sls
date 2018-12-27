@@ -12,6 +12,7 @@ lego_bootstrap:
 lego_renew:
   cron.present:
     - name: /usr/bin/sudo -u nginx /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && /usr/sbin/service nginx reload && /usr/sbin/service postfix reload
+    - identifier: roundup_lego_renew
     - hour: 0
     - minute: random
 
@@ -227,7 +228,8 @@ roundup-{{ tracker }}-backup:
 
 tracker-{{ tracker }}-backup:
   cron.present:
-    - name: /usr/bin/rsync -av /srv/roundup/data/{{ tracker }}/ /backup/roundup/{{ tracker }}/data/
+    - name: /usr/bin/rsync --quiet -av /srv/roundup/data/{{ tracker }}/ /backup/roundup/{{ tracker }}/data/
+    - identifier: roundup_tracker_{{ tracker }}_data_backup
     - user: root
     - minute: random
 {% endfor %}

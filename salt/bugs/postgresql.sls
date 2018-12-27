@@ -78,6 +78,7 @@ roundup_postgres_backup_script:
 roundup_postgres_nightly_backup:
   cron.present:
     - name: /var/lib/postgresql/backup.bash
+    - identifier: roundup_postgres_nightly_backup
     - user: postgres
     - hour: 23
     - minute: 30
