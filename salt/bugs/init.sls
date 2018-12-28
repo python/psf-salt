@@ -189,6 +189,7 @@ tracker-{{ tracker }}-wsgi:
     - template: jinja
     - context:
       tracker: {{ tracker }}
+      workers: {{ config.get('workers', '4') }}
 
   cmd.run:
     - name: systemctl daemon-reload

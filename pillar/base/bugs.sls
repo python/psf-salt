@@ -8,6 +8,7 @@ bugs:
     cpython:
       source: https://bitbucket.org/python/tracker-cpython
       server_name: bugs.python.org
+      workers: 16
       config:
           tracker: cpython
           main__database: /srv/roundup/data/cpython
