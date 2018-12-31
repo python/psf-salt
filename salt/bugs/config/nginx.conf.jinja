@@ -1,3 +1,8 @@
+log_format timed_combined_{{ tracker }} '$remote_addr - $remote_user [$time_local] '
+    '"$request" $status $body_bytes_sent '
+    '"$http_referer" "$http_user_agent" '
+    '$request_time $upstream_response_time $pipe';
+
 upstream tracker-{{ tracker }} {
   server unix:/var/run/roundup/{{ tracker }}.sock fail_timeout=0;
 }
@@ -39,7 +44,7 @@ server {
   add_header X-Permitted-Cross-Domain-Policies "none";
 
   error_log /var/log/nginx/roundup-{{ tracker }}.error.log;
-  access_log /var/log/nginx/roundup-{{ tracker }}.access.log;
+  access_log /var/log/nginx/roundup-{{ tracker }}.access.log timed_combined_{{ tracker }};
 
   root /srv/roundup/trackers/{{ tracker }}/;
 
