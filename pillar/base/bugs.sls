@@ -23,6 +23,7 @@ bugs:
           nosy__messages_to_author: "yes"
           nosy__add_author: "yes"
           nosy__email_sending: "multiple"
+          web__csrf_enforce_header_x_requested_with: "no"
           extra_config: {}
       detector_config:
           main:
