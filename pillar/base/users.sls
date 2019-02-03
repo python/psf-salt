@@ -350,3 +350,19 @@ users:
         sudo: True
         groups:
           - mailman
+  ambv:
+    fullname: "Łukasz Langa"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMGC2VGofArUyzGR25TbLFtk16bYT+6TuCHui7qgSxvp lukasz.langa
+    access:
+      downloads:
+        sudo: True
+        allowed: True
+        groups:
+          - downloads
+      docs:
+        sudo: True
+        allowed: True
+        groups:
+          - docs
+          - docsbuild
