@@ -28,29 +28,17 @@
 
 iptables-persistent:
   pkg.installed:
-    {% if grains["oscodename"] == "xenial" %}
     - name: netfilter-persistent
-    {% else %}
-    - name: iptables-persistent
-    {% endif %}
 
   service.enabled:
-    {% if grains["oscodename"] == "xenial" %}
     - name: netfilter-persistent
-    {% else %}
-    - name: iptables-persistent
-    {% endif %}
     - require:
       - file: /etc/iptables/rules.v4
       - file: /etc/iptables/rules.v6
 
   module.watch:
     - name: service.restart
-    {% if grains["oscodename"] == "xenial" %}
     - m_name: netfilter-persistent
-    {% else %}
-    - m_name: iptables-persistent
-    {% endif %}
     - watch:
       - file: /etc/iptables/rules.v4
       - file: /etc/iptables/rules.v6

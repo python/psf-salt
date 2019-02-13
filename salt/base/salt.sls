@@ -4,13 +4,16 @@ python-requests:
 python-msgpack:
   pkg.latest
 
+python3-pip:
+  pkg.latest
+
 {% if grains["os"] == "Ubuntu" %}
 salt-2018.3:
   pkgrepo.managed:
     - humanname: repo.saltstack.org
-    - name: deb http://repo.saltstack.com/apt/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
+    - name: deb http://repo.saltstack.com/py3/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
     - file: /etc/apt/sources.list.d/saltstack.list
-    - key_url: https://repo.saltstack.com/apt/ubuntu/14.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub
+    - key_url: https://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub
 {% endif %}
 
 

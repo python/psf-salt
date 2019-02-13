@@ -40,7 +40,7 @@ include:
 
   user.present:
     - name: {{ user_name }}
-    - fullname: {{ user_config["fullname"].decode('utf-8') }}
+    - fullname: {{ user_config["fullname"] }}
     - home: /home/psf-users/{{ user_name }}
     - createhome: True
     - shell: {{ user_config.get("shell", "/bin/bash") }}

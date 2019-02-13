@@ -123,18 +123,18 @@ def create_ca(cacert_path, ca_name,
     ca.set_pubkey(key)
 
     ca.add_extensions([
-        OpenSSL.crypto.X509Extension('basicConstraints', True,
-                                     'CA:TRUE, pathlen:0'),
-        OpenSSL.crypto.X509Extension('keyUsage', True,
-                                     'keyCertSign, cRLSign'),
-        OpenSSL.crypto.X509Extension('subjectKeyIdentifier', False, 'hash',
+        OpenSSL.crypto.X509Extension(b'basicConstraints', True,
+                                     b'CA:TRUE, pathlen:0'),
+        OpenSSL.crypto.X509Extension(b'keyUsage', True,
+                                     b'keyCertSign, cRLSign'),
+        OpenSSL.crypto.X509Extension(b'subjectKeyIdentifier', False, b'hash',
                                      subject=ca)])
 
     ca.add_extensions([
         OpenSSL.crypto.X509Extension(
-            'authorityKeyIdentifier',
+            b'authorityKeyIdentifier',
             False,
-            'issuer:always,keyid:always',
+            b'issuer:always,keyid:always',
             issuer=ca)])
     ca.sign(key, digest)
 
@@ -192,7 +192,7 @@ def create_ca_signed_cert(cacert_path, ca_name,
                 fp.read(),
             )
         not_after = datetime.datetime.strptime(
-            cert.get_notAfter(),
+            cert.get_notAfter().decode(),
             "%Y%m%d%H%M%SZ",
         )
         ttl = (not_after - datetime.datetime.utcnow()).total_seconds()
@@ -252,10 +252,10 @@ def create_ca_signed_cert(cacert_path, ca_name,
 
     cert.add_extensions([
         OpenSSL.crypto.X509Extension(
-            "keyUsage", True, "digitalSignature, keyEncipherment",
+            b"keyUsage", True, b"digitalSignature, keyEncipherment",
         ),
         OpenSSL.crypto.X509Extension(
-            "extendedKeyUsage", False, ", ".join(usage),
+            b"extendedKeyUsage", False, ", ".join(usage).encode(),
         ),
     ])
 
