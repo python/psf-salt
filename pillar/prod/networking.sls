@@ -1,4 +1,4 @@
-psf_internal_network: &psf_internal_network 10.132.0.1/16
+psf_internal_network: &psf_internal_network 10.132.0.0/16
 
 
 mine_functions:
