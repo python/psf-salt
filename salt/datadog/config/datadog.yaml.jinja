@@ -4,6 +4,8 @@ api_key: {{ api_key }}
 use_dogstatsd: yes
 dogstatsd_port: 8125
 
+hostname_fqdn: yes
+
 {% if tags is defined %}
 tags:
 {%- for tag in tags %}
