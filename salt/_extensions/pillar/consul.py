@@ -72,7 +72,7 @@ def _gen_master_acl(name, acl_path):
     acl_path = os.path.join(acl_path, name)
 
     if not os.path.exists(acl_path):
-        data = str(uuid.uuid4())
+        data = str(uuid.uuid4()).encode()
 
         if not os.path.exists(os.path.dirname(acl_path)):
             os.makedirs(os.path.dirname(acl_path))
