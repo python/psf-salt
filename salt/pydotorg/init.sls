@@ -200,7 +200,7 @@ pydotorg-dependencies36:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 pre-reload:
   cmd.run:

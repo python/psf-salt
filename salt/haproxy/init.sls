@@ -48,7 +48,7 @@ haproxy:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul-template
+      - pkg: consul-pkgs
 
 
 /etc/consul-template.d/haproxy.json:
@@ -63,7 +63,7 @@ haproxy:
     - group: root
     - mode: 640
     - require:
-      - pkg: consul-template
+      - pkg: consul-pkgs
 
 
 /usr/local/bin/haproxy-ocsp:

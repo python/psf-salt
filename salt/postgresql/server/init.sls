@@ -266,7 +266,7 @@ replicator:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}

@@ -49,13 +49,13 @@ This is best demonstrated by an example, say haproxy:
             templates:
               - "/etc/haproxy/haproxy.cfg.tmpl:/etc/haproxy/haproxy.cfg:chmod 644 /etc/haproxy/haproxy.cfg && service haproxy reload"
         - require:
-          - pkg: consul
+          - pkg: consul-pkgs
 
       service.running:
         - enable: True
         - restart: True
         - require:
-          - pkg: consul
+          - pkg: consul-pkgs
         - watch:
           - file: haproxy-consul
           - file: /etc/consul-template.conf
@@ -109,7 +109,7 @@ block to the state files:
         - group: root
         - mode: 644
         - require:
-          - pkg: consul
+          - pkg: consul-pkgs
 
 
 Where the ``name``, ``port``, and ``tags`` context variables control the values

@@ -165,7 +165,7 @@ HttpdCollector-Override:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 
 /etc/consul.d/service-hg-ssh.json:
@@ -179,4 +179,4 @@ HttpdCollector-Override:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
