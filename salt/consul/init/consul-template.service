@@ -7,7 +7,7 @@ After=network-online.target consul.service
 KillSignal=SIGINT
 EnvironmentFile=-/etc/sysconfig/consul-template
 Restart=on-failure
-ExecStart=/usr/local/sbin/consul-template $OPTIONS -config=/etc/consul-template.d
+ExecStart=/usr/bin/consul-template $OPTIONS -config=/etc/consul-template.d
 
 [Install]
 WantedBy=multi-user.target
