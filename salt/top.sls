@@ -60,21 +60,9 @@ base:
     - match: nodegroup
     - jython
 
-  'linehaul':
-    - match: nodegroup
-    - pypi.linehaul
-
   'loadbalancer':
     - match: nodegroup
     - haproxy
-
-  'monitoring':
-    - match: nodegroup
-    - monitoring.server
-
-  'packages':
-    - match: nodegroup
-    - aptly
 
   'planet':
     - match: nodegroup
@@ -108,14 +96,6 @@ base:
     - match: nodegroup
     - speed.web
 
-  'tracker':
-    - match: nodegroup
-    - postgresql.client
-
   'web-pypa':
     - match: nodegroup
     - pypa.bootstrap
-
-  'wiki':
-    - match: nodegroup
-    - moin
