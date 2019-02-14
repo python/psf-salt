@@ -8,6 +8,7 @@ base:
     - sudoers
     - tls
     - users
+    - secrets.monitoring.datadog
 
   'backup-server':
     - match: nodegroup
