@@ -10,6 +10,12 @@ CONSUL_ACL = {
         # consul node being able to write to the services.
         "": {"policy": "write"},
     },
+    "node": {
+        "": {"policy": "write" },
+    },
+    "agent": {
+        "": {"policy": "write" },
+    },
 }
 
 
