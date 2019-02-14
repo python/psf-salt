@@ -28,7 +28,9 @@
 
 iptables-persistent:
   pkg.installed:
-    - name: netfilter-persistent
+    - pkgs:
+      - iptables-persistent
+      - netfilter-persistent
 
   service.enabled:
     - name: netfilter-persistent
