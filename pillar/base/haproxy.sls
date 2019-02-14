@@ -27,3 +27,5 @@ haproxy:
       hsts_subdomains: False
     pypa.io:
       target: www.pypa.io
+
+  listens: {}
