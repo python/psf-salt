@@ -11,7 +11,7 @@ roles:
   cdn-logs: "cdn-logs.nyc1.psf.io"
   consul: "consul*.nyc1.psf.io"
   docs: "docs.nyc1.psf.io"
-  downloads: "dl-files.nyc1.psf.io"
+  downloads: "downloads.nyc1.psf.io"
   elasticsearch: "elasticsearch.nyc1.psf.io"
   hg: "hg.nyc1.psf.io"
   jython-web: "jython-web.nyc1.psf.io"
