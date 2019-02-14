@@ -6,7 +6,7 @@
 #   http://docs.saltstack.com/en/latest/topics/targeting/compound.html
 
 roles:
-  backup-server: "backup.ord1.psf.io"
+  backup-server: "backup.sfo1.psf.io"
   bugs: "bugs.ams1.psf.io"
   cdn-logs: "cdn-logs.nyc1.psf.io"
   consul: "consul*.nyc1.psf.io"
