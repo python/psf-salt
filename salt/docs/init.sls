@@ -10,6 +10,7 @@ doc-pkgs:
       - mercurial
       - python-dev
       - python-virtualenv
+      - latexmk
       - texlive
       - texlive-latex-extra
       - texlive-latex-recommended
