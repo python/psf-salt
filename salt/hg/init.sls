@@ -1,16 +1,7 @@
-exclude:
-  - id: /etc/diamond/collectors/HttpdCollector.conf
-
-
 hg-deps:
   pkg.installed:
     - pkgs:
-      - build-essential
-      - python-dev
-      - python-pygments
-      - gettext
-      - python-docutils
-      - buildbot
+      - mercurial
 
 hg-user:
   user.present:
@@ -37,6 +28,26 @@ hgaccounts-user:
     - dir_mode: 700
     - require:
       - user: hgaccounts-user
+
+/etc/default/irker:
+  file.managed:
+    - user: root
+    - group: root
+    - mode: 644
+    - content: 'IRKER_OPTIONS="-n deadparrot%03d -H localhost"'
+
+irker:
+  pkg.installed:
+    - pkgs:
+      - irker
+  service.running:
+    - enable: True
+    - reload: True
+    - require:
+      - pkg: irker
+      - file: /etc/default/irker
+    - watch:
+      - file: /etc/default/irker
 
 apache2:
   pkg.installed:
@@ -102,13 +113,6 @@ apache2:
     - group: root
     - mode: 644
 
-/etc/init/irker.conf:
-  file.managed:
-    - source: salt://hg/config/irker.upstart.conf
-    - user: root
-    - group: root
-    - mode: 644
-
 /etc/logrotate.d/apache2:
   file.managed:
     - source: salt://hg/config/apache.logrotate
@@ -117,42 +121,6 @@ apache2:
     - mode: 644
     - require:
       - pkg: apache2
-
-reload-upstart:
-  module.run:
-    - name: cmd.run
-    - cmd: initctl reload-configuration
-    - onchanges:
-      - file: /etc/init/irker.conf
-
-irker:
-  user.present:
-    - home: /srv/irker
-  service.running:
-    - enable: True
-    - watch:
-      - file: /etc/init/irker.conf
-    - require:
-      - user: irker
-
-
-HttpdCollector-Override:
-  file.managed:
-    - name: /etc/diamond/collectors/HttpdCollector.conf
-    - source: salt://monitoring/client/configs/Collector.conf.jinja
-    - template: jinja
-    - context:
-        collector:
-          enabled: True
-          urls: "http://localhost:9000/_server-status?auto"
-    - use:
-      - file: /etc/diamond/diamond.conf
-    - watch_in:
-      - service: diamond
-    - require:
-      - pkg: diamond
-      - group: diamond
-
 
 /etc/consul.d/service-hg.json:
   file.managed:

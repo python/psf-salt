@@ -32,6 +32,12 @@ base:
     - groups.downloads
     - secrets.backup.downloads
 
+  'hg':
+    - match: nodegroup
+    - firewall.rs-lb-backend
+    - secrets.backup.hg
+    - secrets.ssh.hg
+
   'loadbalancer':
     - match: nodegroup
     - haproxy

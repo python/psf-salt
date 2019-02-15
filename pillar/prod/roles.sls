@@ -11,5 +11,6 @@ roles:
   consul: "consul*.nyc1.psf.io"
   docs: "docs.nyc1.psf.io"
   downloads: "downloads.nyc1.psf.io"
+  hg: "hg.nyc1.psf.io"
   loadbalancer: "lb*.nyc1.psf.io"
   salt-master: "salt.nyc1.psf.io"

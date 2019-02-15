@@ -11,6 +11,11 @@ haproxy:
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
 
+    hg:
+      domains:
+        - hg.python.org
+      check: "GET /test/rev/ea32503c754c HTTP/1.1\\r\\nHost:\\ hg.python.org"
+
   redirects:
     cheeseshop.python.org:
       target: pypi.python.org
@@ -28,4 +33,7 @@ haproxy:
     pypa.io:
       target: www.pypa.io
 
-  listens: {}
+  listens:
+    hg_ssh:
+      bind: :20100
+      service: hg-ssh
