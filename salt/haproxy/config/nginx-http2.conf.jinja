@@ -3,7 +3,7 @@ upstream backend {
 }
 
 server {
-    listen 127.0.0.1:19000 spdy;
+    listen 127.0.0.1:19000 http2;
 
     port_in_redirect off;
     server_name_in_redirect off;

@@ -109,9 +109,9 @@ haproxy-ocsp:
 {% endif %}
 
 
-/etc/nginx/sites.d/spdy.conf:
+/etc/nginx/sites.d/http2.conf:
   file.managed:
-    - source: salt://haproxy/config/nginx-spdy.conf.jinja
+    - source: salt://haproxy/config/nginx-http2.conf.jinja
     - template: jinja
     - user: root
     - group: root
