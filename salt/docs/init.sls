@@ -17,6 +17,7 @@ doc-pkgs:
       - texlive-fonts-recommended
       - texlive-lang-all
       - texlive-xetex
+      - xindy
       - zip
 
 docsbuild:
