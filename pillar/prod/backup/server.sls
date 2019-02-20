@@ -22,3 +22,8 @@ backup-server:
       user: python-bugs
       increment_retention: 30D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsMBXD2hOm536YI0GMSratv8cM1CZ1M3J1bsvj2NqD9PEp10o3FD5ofr81kB+BTyFKMnpwxuP/dcoCfiY4dCF1COIa82nUtvuklFYTVybW8dL7DevWxoX0F6PeK8Ox+kcuASjmgx2UJ/pisKEIhFQYTF4bmevSRXbLv94461dxOO6j2MOgtJRGDmr/2OhA30VAnjMw1U+4flZd6FLodfq1udX8NVTBg05BIAwLNYLFrvLO8yMlqZzb4TbA53w29yyNIoSlXBLtG+K19mAA3ki+rqZdhdS+k6u1/u0AVUcDvmX1MrOtcvucy74SIesBDJfdyR7OFpHmAx4/aDPVdmGV
+    hg:
+      directory: /backup/python-hg
+      user: hg
+      increment_retention: 90D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS0sTCNKlCfJd/TyiKW3HRwTUouo3+PvPOK3ddyfpY17bJ4KdpaMZgc7fNg5VKzFvvuHBqjvVJsdewP3LesLOuaQCQoSu1DniLoodZGRdJ9gqgtbRZf4ekzsn7E7WZUnVI0fbofvFWjbPt3PSxVtm8hCqwmwia53Ehh9G3xRurDhNUqIjrGcTStM3kloQHjKing+EGdCqPvikuwN1eMZXyNnt4zuoU4e39JGCBqRBfXumvrYvYzuNbAN8OZtNAfByzLFJ6DIWq0ihK6WS/KRYKGKivaaK26whafutfv44bP0w3LvZZyTMGGqiS/zLNPx0tkYK3JEt4bpLlyHZHbIBh
