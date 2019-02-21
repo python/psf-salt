@@ -14,3 +14,6 @@ roles:
   hg: "hg.nyc1.psf.io"
   loadbalancer: "lb*.nyc1.psf.io"
   salt-master: "salt.nyc1.psf.io"
+
+  # Misc PyPA
+  web-pypa: "web*.pypa.nyc1.psf.io"

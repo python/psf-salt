@@ -16,6 +16,12 @@ haproxy:
         - hg.python.org
       check: "GET /test/rev/ea32503c754c HTTP/1.1\\r\\nHost:\\ hg.python.org"
 
+    pypa-bootstrap:
+      domains:
+        - bootstrap.pypa.io
+      verify_host: bootstrap.pypa.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ bootstrap.pypa.io"
+
   redirects:
     cheeseshop.python.org:
       target: pypi.python.org
