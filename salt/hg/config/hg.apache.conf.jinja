@@ -11,7 +11,6 @@
     LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %{ms}T" combined
 
     CustomLog /var/log/apache2/hg.access.log combined
-    TransferLog /var/log/apache2/hg.access.log
     ErrorLog /var/log/apache2/hg.error.log
 
     # Mercurial can send long headers for repositories with many heads. See
