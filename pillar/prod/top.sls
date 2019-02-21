@@ -46,6 +46,10 @@ base:
     - secrets.fastly
     - secrets.tls.certs.loadbalancer
 
+  'web-pypa':
+    - match: nodegroup
+    - firewall.rs-lb-backend
+
   'salt-master':
     - match: nodegroup
     - firewall.salt
