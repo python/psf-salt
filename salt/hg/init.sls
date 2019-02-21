@@ -13,10 +13,99 @@ hg-user:
     - require:
       - user: hgaccounts-user
 
+/srv/hg/bin:
+  file.recurse:
+    - source: salt://hg/files/hg/bin
+    - include_empty: True
+    - user: hg
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hg-user
+
+/srv/hg/wsgi:
+  file.recurse:
+    - source: salt://hg/files/hg/wsgi
+    - include_empty: True
+    - user: hg
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hg-user
+
+/srv/hg/src:
+  file.recurse:
+    - source: salt://hg/files/hg/src
+    - include_empty: True
+    - user: hg
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hg-user
+
+/srv/hg/repos.conf:
+  file.managed:
+    - source: salt://hg/config/repos.conf
+    - user: hg
+    - group: hg
+    - require:
+      - user: hg-user
+
+/srv/hg/web:
+  file.directory:
+    - user: hg
+    - group: hg
+    - mode: 755
+
 hgaccounts-user:
   user.present:
     - name: hgaccounts
     - home: /srv/hgaccounts
+
+/srv/hgaccounts/bin:
+  file.recurse:
+    - source: salt://hg/files/hgaccounts/bin
+    - include_empty: True
+    - user: hgaccounts
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hgaccounts-user
+
+/srv/hgaccounts/src:
+  file.recurse:
+    - source: salt://hg/files/hgaccounts/src
+    - include_empty: True
+    - user: hgaccounts
+    - dir_mode: 755
+    - file_mode: 644
+    - require:
+      - user: hgaccounts-user
+
+compile-genauth-wrapper:
+  cmd.run:
+    - name: "gcc /srv/hgaccounts/src/genauth-wrapper.c -o /srv/hgaccounts/bin/genauth-wrapper"
+    - creates: /srv/hgaccounts/bin/genauth-wrapper
+    - watch:
+      - file: /srv/hgaccounts/src
+
+genauth-wrapper-owner:
+  file.managed:
+    - name: /srv/hgaccounts/bin/genauth-wrapper
+    - user: hg
+    - group: hg
+    - require:
+      - user: hg-user
+      - user: hgaccounts-user
+      - file: /srv/hgaccounts/src
+      - cmd: compile-genauth-wrapper
+
+genauth-wrapper-setuid-setgid-workaround:
+  file.managed:
+    - name: /srv/hgaccounts/bin/genauth-wrapper
+    - mode: 6755
+    - require:
+      - file: genauth-wrapper-owner
 
 /srv/hgaccounts/.ssh/authorized_keys:
   file.managed:
@@ -34,7 +123,16 @@ hgaccounts-user:
     - user: root
     - group: root
     - mode: 644
-    - content: 'IRKER_OPTIONS="-n deadparrot%03d -H localhost"'
+    - contents: 'IRKER_OPTIONS="-n deadparrot%03d -H localhost"'
+
+/usr/share/mercurial/templates/hgpythonorg:
+  file.recurse:
+    - source: salt://hg/files/hg/templates/hgpythonorg
+    - include_empty: True
+    - dir_mode: 755
+    - file_mode: 644
+    - require:
+      - pkg: hg-deps
 
 irker:
   pkg.installed:

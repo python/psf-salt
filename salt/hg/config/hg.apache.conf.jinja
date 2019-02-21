@@ -53,8 +53,8 @@
     # version
 
     Alias /robots.txt /srv/hg/robots.txt
-    AliasMatch /static/([^/]*) /srv/hg/lib/python/mercurial/templates/static/$1
-    <Directory /srv/hg/lib/python/mercurial/templates/static/>
+    AliasMatch /static/([^/]*) /usr/share/mercurial/templates/static/$1
+    <Directory /usr/share/mercurial/templates/static/>
       Require all granted
     </Directory>
 
