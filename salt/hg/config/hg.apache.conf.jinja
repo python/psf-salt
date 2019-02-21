@@ -19,6 +19,7 @@
 
     Alias /committers.txt /srv/hg/web/committers
     Alias /robots.txt /srv/hg/web/robots.txt
+    Alias /410.html /srv/hg/web/410.html
     <Directory /srv/hg/web/>
         Require all granted
     </Directory>
@@ -45,6 +46,10 @@
     WSGIProcessGroup hgweb
 
     WSGIScriptAlias / /srv/hg/wsgi/python.wsgi
+
+    ErrorDocument 410 /410.html
+    RedirectMatch gone "/cpython/annotate/.*/NEWS$"
+    RedirectMatch gone "/cpython-fullhistory/annotate/.*/NEWS$"
 
     <Directory /srv/hg/wsgi>
       Require all granted
