@@ -18,6 +18,10 @@
     LimitRequestFieldSize 16384
 
     Alias /committers.txt /srv/hg/web/committers
+    Alias /robots.txt /srv/hg/web/robots.txt
+    <Directory /srv/hg/web/>
+        Require all granted
+    </Directory>
 
     # The lookup app is better run with few processes, since it uses a cache.
     WSGIDaemonProcess hglookup user=hg group=hg \
@@ -51,7 +55,6 @@
     # NOTE: needs to be changed if hg gets wired to another dir or python
     # version
 
-    Alias /robots.txt /srv/hg/robots.txt
     AliasMatch /static/([^/]*) /usr/share/mercurial/templates/static/$1
     <Directory /usr/share/mercurial/templates/static/>
       Require all granted

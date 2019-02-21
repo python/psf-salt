@@ -1,0 +1,3 @@
+# File referred to in the Apache conf, don't remove
+User-agent: *
+Disallow: /

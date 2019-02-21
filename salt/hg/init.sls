@@ -43,6 +43,16 @@ hg-user:
     - require:
       - user: hg-user
 
+/srv/hg/web:
+  file.recurse:
+    - source: salt://hg/files/hg/web
+    - include_empty: True
+    - user: hg
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hg-user
+
 /srv/hg/repos.conf:
   file.managed:
     - source: salt://hg/config/repos.conf
@@ -50,12 +60,6 @@ hg-user:
     - group: hg
     - require:
       - user: hg-user
-
-/srv/hg/web:
-  file.directory:
-    - user: hg
-    - group: hg
-    - mode: 755
 
 hgaccounts-user:
   user.present:
