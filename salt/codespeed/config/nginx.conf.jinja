@@ -1,0 +1,41 @@
+upstream codespeed-{{ instance }} {
+  server unix:/var/run/codespeed/{{ instance }}.sock;
+}
+
+server {
+  listen 80;
+
+  server_name {{ server_names }};
+
+  if ($scheme = "http") {
+    return 301 https://$http_host$request_uri;
+  }
+}
+
+server {
+  listen {{ port }} ssl;
+
+  ssl_certificate /etc/ssl/private/codespeed.psf.io.pem;
+  ssl_certificate_key /etc/ssl/private/codespeed.psf.io.pem;
+
+  include fastly_params;
+
+  error_log /var/log/nginx/codespeed-{{ instance }}.error.log;
+  access_log /var/log/nginx/codespeed-{{ instance }}.access.log main;
+
+  # path for static files
+  location ~ ^/static/(.*)$ {
+      alias /srv/codespeed/{{ instance }}/data/site_media/static/$1;
+  }
+
+  location / {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+
+      if (!-f $request_filename) {
+          proxy_pass http://codespeed-{{ instance }};
+          break;
+      }
+  }
+}

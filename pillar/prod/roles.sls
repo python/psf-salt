@@ -8,6 +8,7 @@
 roles:
   backup-server: "backup.sfo1.psf.io"
   cdn-logs: "cdn-logs.nyc1.psf.io"
+  codespeed: "codespeed*.nyc1.psf.io"
   consul: "consul*.nyc1.psf.io"
   docs: "docs.nyc1.psf.io"
   downloads: "downloads.nyc1.psf.io"

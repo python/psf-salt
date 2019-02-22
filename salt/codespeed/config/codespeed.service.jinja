@@ -1,0 +1,17 @@
+[Unit]
+Description=codespeed instance {{ instance }}
+After=network.target
+
+[Service]
+Environment=LC_ALL=en_US.UTF-8
+Environment=LANG=en_US.UTF-8
+WorkingDirectory=/srv/codespeed/{{ instance }}/src
+ExecStart=/srv/codespeed/{{ instance }}/env/bin/gunicorn {{ wsgi_app }} -w 4 --bind unix:///var/run/codespeed/{{ instance }}.sock
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop = /bin/kill -s TERM $MAINPID
+Restart=on-failure
+User=codespeed
+Group=codespeed
+
+[Install]
+WantedBy=multi-user.target

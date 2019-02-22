@@ -11,6 +11,18 @@ haproxy:
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
 
+    codespeed-cpython:
+      domains:
+        - speed.python.org
+      verify_host: codespeed.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ speed.python.org"
+
+    codespeed-pypy:
+      domains:
+        - speed.pypy.org
+      verify_host: codespeed.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ speed.pypy.org"
+
     hg:
       domains:
         - hg.python.org

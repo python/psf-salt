@@ -33,6 +33,10 @@ base:
     - match: nodegroup
     - cdn-logs
 
+  'codespeed':
+    - match: nodegroup
+    - codespeed
+
   'discourse':
     - match: nodegroup
     - discourse
@@ -91,10 +95,6 @@ base:
   'slack':
     - match: nodegroup
     - slack-irc
-
-  'speed-web':
-    - match: nodegroup
-    - speed.web
 
   'web-pypa':
     - match: nodegroup

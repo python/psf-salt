@@ -1,0 +1,97 @@
+# -*- coding: utf-8 -*-
+
+# Note: This is imported by the main settings file, so only changes to
+# what's there need to be included here.
+
+DEBUG = TEMPLATE_DEBUG = False
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": "{{ db_host }}",
+        "PORT": "{{ db_port }}",
+        "NAME": "{{ db_name }}",
+        "USER": "{{ db_user}}",
+        "PASSWORD": "{{ db_pass }}",
+        "OPTIONS": {
+            "sslmode": "verify-full",
+            "sslrootcert": "{{ db_cert }}",
+        },
+    }
+}
+
+ALLOWED_HOSTS = [
+     "{{ grains['fqdn'] }}",
+     "{{ server_name }}",
+     "localhost"
+]
+
+SECRET_KEY = '{{ secret_key }}'
+
+
+ADMINS = (
+    ('{{ admin_team_name }}', '{{ admin_team_email }}'),
+)
+
+SERVER_EMAIL = '{{ server_email }}'
+
+DEFAULT_FROM_EMAIL = "{{ default_from_email }}"
+
+MANAGERS = ADMINS
+
+COMPRESS_ENABLED = True
+
+MEDIA_ROOT = "/srv/codespeed/{{ instance }}/data/media/"
+STATIC_ROOT = "/srv/codespeed/{{ instance }}/data/site_media/static"
+REPOSITORY_BASE_PATH = "/srv/codespeed/{{ instance }}/data/repos/"
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'filters': {
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': [],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'log_file': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': '/var/log/codespeed/{{ instance }}.error.log',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': []
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins', 'log_file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'myproject.custom': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+            'filters': []
+        }
+    }
+}

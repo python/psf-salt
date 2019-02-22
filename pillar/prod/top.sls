@@ -8,6 +8,7 @@ base:
     - sudoers
     - tls
     - users
+    - postgres.clusters
     - secrets.monitoring.datadog
 
   'backup-server':
@@ -18,6 +19,13 @@ base:
     - match: nodegroup
     - fastly-logging
     - firewall.fastly-logging
+
+  'codespeed':
+    - match: nodegroup
+    - firewall.codespeed
+    - secrets.codespeed
+    - secrets.postgresql-users.codespeed
+    - codespeed
 
   'docs':
     - match: nodegroup
@@ -54,3 +62,6 @@ base:
     - match: nodegroup
     - firewall.salt
     - secrets.dyn
+    - secrets.postgres-admin
+    - postgresql.server
+    - secrets.postgresql-users.all
