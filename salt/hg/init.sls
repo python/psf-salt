@@ -144,7 +144,6 @@ irker:
       - irker
   service.running:
     - enable: True
-    - reload: True
     - require:
       - pkg: irker
       - file: /etc/default/irker
