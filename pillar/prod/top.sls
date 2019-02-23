@@ -54,6 +54,11 @@ base:
     - secrets.fastly
     - secrets.tls.certs.loadbalancer
 
+  'planet':
+    - match: nodegroup
+    - planet
+    - firewall.http
+
   'web-pypa':
     - match: nodegroup
     - firewall.rs-lb-backend
