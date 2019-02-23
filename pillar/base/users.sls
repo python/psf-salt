@@ -5,6 +5,7 @@ users:
     admin: True
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZOuPNmBeKubAvLrnZlVGzp49Duw/qn8cq4IsOmxKsiVtiTDdLLKr6YBA67CPu/QrVEZYMU/N7RpNOKRfqueYdw8aNB+KgGOy8B/OIiX2obi854q0B81NaYTxdjUmuo67q9gNcdrEv6GmJJzBFqx//d4Nl4F4pcQLFTmxfZg3MDB1zyo2qP8ZpW5jttNty7LpvFlReSHEB/87o7wlNrhnrwSg68NykC2x/DzPv5ZOY5ccW4YiatjS5R2P7MDWv+aabbzZD4G0r3ElaXyW4fRV4KWuyh0ow/5djG0ZIWQSSuqqsnxcmRiV67IV28X6c2uw2zoFO5LLYly8UKMC6OLuFJlrmUPuzXvEeB/AcudgPPFxaip0aSzhowih7Ij0i+rVgma535q6pPqSkPCAcOLpmSi0yk23V9Mr38zg2d33poqV+bFbtSOE3a2gA52rDj4+YMcHQZqxZrgUv0KrSuKwcEm5WyBSOYI1VUoGCxiF27HY+9NaTqfMSHF0AJIVGHsv31uAWa4wqynQVrbZfH4wxlC6yC447HKjizp2LIoZx16LqSHMFfCGQBI4trZPGwZb+OBq2rhFY0GxgQaowrIK0E+VgTiDjcq6VtraglEHJsysK7jj4NiEWiIFVEv0WNW5e2DKVQKZ9BrN7sILcVp+g9VUSRirAZTXzheHLb6+8Hw== ewd3yubikey2018
+
   dstufft:
     fullname: "Donald Stufft"
     admin: True
@@ -20,17 +21,20 @@ users:
       packages:
         groups:
           - aptly-uploaders
+
   benjaminws:
     fullname: "Benjamin W. Smith"
     admin: True
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1BJUpRtzq1fCntjuNm4YeIDcefBFbkjzFCvN7Zot4UVWpExWqOLJynRYmaAUAFnJNQd5QuXsBIEmC9ySPV0gs+ueX9yg+RLieXcPoym2fMQ7UgmkaJloYgLnWJM3apG0UnGEDRO6Bz4cm+PC5NPfuZlOdYeOmNVKZoOe3via2RABec+hsWRdr2mD7OVL4PUR3AL3IPa9r8WlLhIBG53MkiVU2su8RVnEEyHmc61YQL8sFnI2zt6aSNiFuHvo6sHL3cMsP9XNArOtONZCc3NPvzN9Lh9jCk+JEe47ox/17CxMCOVhn3B9nRh2oGXydYf6LWH2wkhQ5y07dIjULKi9T benjaminws@macbuntu
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDcY/+b32IynLZhF/fjBfGjUjGlS1XCaMYKNxPZNekBv0hWteBh185k3A1yAZWRWAgLsvpHpe5Srs3Wxoz+NF51UWHMYVtpPzXEmpcjsqOe96rKrixFSlrYt89iHklW4FdAV3oJbbQpvXb8c6eFD6dantzmHj8FFRg+f5Bb+lsGhLIzxDcjcKJbySGLHHS+SgQvaXMFd1XE+Gs/SXgQxpbWV347BdOETJplA96jVB74bxoIP+GuCImO34VCu4eG+klnhMeY2MscYgmBa3ePjD86qef0StBu9zzruR5s+y4cYQK8h5Xm2+sC6RdZbZaSeQL+yfYXhPhfvEv4v5WT/QDb bsmith@bsmith-laptop
+
   coderanger:
     fullname: "Noah Kantrowitz"
     admin: True
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAvV0vQo3OpzqDFDBHW5o5abdbNJNNg9YkiawTpSnOusB+E9Hp2Pae1jT3r+7ZUqIIutXuNOPOefIy6oR0YuZhL6d9uhRIl9LMTB0XXzj5aW5ZbbGO6nsaERQUU3ALYzrwxgX8kLvCcAQmrVhhRH88Zqo4lkRkxXpN1LdPANh9qa0= coderanger@alfred
+
   benjamin:
     fullname: "Benjamin Peterson"
     admin: True
@@ -58,6 +62,7 @@ users:
       hg:
         allowed: True
         sudo: True
+
   barry:
     fullname: "Barry Warsaw"
     ssh_keys:
@@ -78,6 +83,7 @@ users:
       mail:
         allowed: True
         sudo: True
+
   fwierzbicki:
     fullname: "Frank Wierzbicki"
     ssh_keys:
@@ -87,6 +93,7 @@ users:
         allowed: True
         groups:
           - jython
+
   gbrandl:
     fullname: "Georg Brandl"
     ssh_keys:
@@ -105,6 +112,7 @@ users:
       hg:
         allowed: True
         sudo: True
+
   gronholm:
     fullname: "Alex Gronholmn"
     ssh_keys:
@@ -114,6 +122,7 @@ users:
         allowed: True
         groups:
           - jython
+
   larry:
     fullname: "Larry Hastings"
     ssh_keys:
@@ -131,6 +140,7 @@ users:
       hg:
         allowed: True
         sudo: True
+
   loewis:
     fullname: "Martin von Loewis"
     ssh_keys:
@@ -143,6 +153,7 @@ users:
         allowed: True
         groups:
           - downloads
+
   nad:
     fullname: "Ned Deily"
     ssh_keys:
@@ -159,6 +170,7 @@ users:
         groups:
           - docs
           - docsbuild
+
   pjenvey:
     fullname: "Philip Jenvey"
     ssh_keys:
@@ -168,6 +180,7 @@ users:
         allowed: True
         groups:
           - jython
+
   sdower:
     fullname: "Steve Dower"
     ssh_keys:
@@ -178,6 +191,7 @@ users:
         allowed: True
         groups:
           - downloads
+
   frank:
     fullname: "Frank Wiles"
     ssh_keys:
@@ -186,6 +200,7 @@ users:
       pydotorg:
         allowed: True
         sudo: True
+
   brian:
     fullname: "Brian Curtin"
     ssh_keys:
@@ -199,7 +214,7 @@ users:
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5vqLruv6gzJgZ7zaKJnaWzzWAW7azAtetqMPVN+67cGMcQtnRmG2ih6UOXc1fA0fuZudKBgqlRw3Yg2UcT8ehP505PoHVuq+j0uZ4ogzQ8BJbZIaMEfbPXdzwUfqU3Ju3sur0XQYu0HHexKUU6ZZjjwl5LOmw9dTtY0cb7N7emePy//c7IaDuNsWg+4zaTDUwEhyWLVw6Ev4e0b1ufDxTvHqRXMVCfq0IYMsRXcg8+88GGF8kIS4QMbX/GcsFfOLHj35aJbAk6dqcCZWXWX/bRL937KYl9zENOkvlRbodEZqufDBsa+7Dm29LeV9JPfKJU3+5qM/LkfYPBiw1rH0L zach@screamer
     access:
-      speed-web:
+      codespeed:
         allowed: True
         sudo: True
 
@@ -208,7 +223,7 @@ users:
     ssh_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIVzct/vFIVEAQ5aG8WJlJJWPNZYbVDyI5jwljst8mk haypo2017
     access:
-      speed-web:
+      codespeed:
         allowed: True
         sudo: True
 
@@ -232,6 +247,7 @@ users:
         sudo: True
         groups:
           - mailman
+
   hildeb:
     fullname: "Ralf Hildebrandt"
     ssh_keys:
@@ -240,6 +256,7 @@ users:
       mail:
         allowed: True
         sudo: True
+
   p:
     fullname: "Patrick Ben Koetter"
     ssh_keys:
@@ -248,6 +265,7 @@ users:
       mail:
         allowed: True
         sudo: True
+
   skip:
     fullname: "Skip Montanaro"
     ssh_keys:
@@ -256,6 +274,7 @@ users:
       mail:
         allowed: True
         sudo: True
+
   mdk:
     fullname: "Julien Palard"
     ssh_keys:
@@ -267,6 +286,7 @@ users:
         groups:
           - docs
           - docsbuild
+
   berker:
     fullname: "Berker Peksag"
     ssh_keys:
@@ -275,6 +295,7 @@ users:
       pydotorg:
         allowed: True
         sudo: True
+
   maxking:
     fullname: "Abhilash Raj"
     ssh_keys:
@@ -285,6 +306,7 @@ users:
         sudo: True
         groups:
           - mailman
+
   ambv:
     fullname: "Łukasz Langa"
     ssh_keys:
@@ -301,3 +323,26 @@ users:
         groups:
           - docs
           - docsbuild
+
+  mattip:
+    fullname: "Matti Picus",
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4NVQIJX7GvaoNUFEGo+dQvpIGx9aCbuVqT4O3T3GQ/cxrikfIDX9VqGm2w5B/1+EvMf43kfBFzD8nuoByCvN+axmHkW4V54pq9jDEAL1SwheOiQLygj3XbcDgsY4TET3hGIbfEQgtRbLyHFrVG97IrkwJ4i/4fr+vnvzR7Us2teX1IWJwsKuNGzW69hJHGMNuXPawU+JC9dP42EfjrQrkiIuvMWrXQer1uVGx7gPwd3AxtTu3fx1QfiaJ5J74jALsgaOGep1I3Ap+KFLPZDf0PAM56aHbOxnsM1R76JRsCZVgXDwShVi9J2yQogcONXEP8O+BAFv0lP03qjiNs2oz matti@asus
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDzePfoLowdG+U7211Xmi1XJJ9acxLzLSYueJDOpnfx/XciyiFbHaJfU1LDTJwkxDAedZn48w7OmHbMsVhGiHun5uJu4EU3QJN3rMxqDDNqWMwo2f09kMhdSjbCR7BVdBUzLQteUDtcXJ7QdH+6sSFRrECyUkehcp49cwVJ0S0w7GWb31enpfUWEoTNgHsnXpabF7EepiK5iWe0j1cHd0GM3rDpVNc8asjRGESb3L0gG6RU+t9ptEvDqnPuPq3vWf+Fb724F+3uSB2ehjPDZwcWZGli/FSjmjft3+7JhAeSTPAptSg6n0ienqLlE0/pom+6BHtMDurmYIFhCDpvq+rv mattip@tannit
+    access:
+      codespeed:
+        sudo: True
+        allowed: True
+        groups:
+          - codespeed
+
+  fijal:
+    fullname: "Maciej Fijalkowski",
+    ssh_keys:
+      - ssh-dss AAAAB3NzaC1kc3MAAACBAJbByTtD76TRTTxJBFRkfMgHKjhQky/9wq0GZoYvUCWpzL/59H1y7V8SWRmEmHRQBuO+Z5/UBz3poUwHyftYSMA1zUiD5ZlWDoFNeiCb/lmO779IBVb98Pg5zZiN4be1niZozmmoL4IdpwHfIZZMA2Ycdlqww8zE90PEgyPZezPbAAAAFQDdlsczacwXg2HidIa7Tu5nVIzxhQAAAIAdoFDvTP3xfJvv9BbRCG65mn80lRwUjTuXGuPMdR4e/N4zEb96OnZuqJEtzfFF6UWDqNHXcN6k07fo0bqLFg706io+5kTQamnUG7+QQRT4df1Dg6qmMpzh3LHyAZe81DZmdSAJMSbwTqT46G3r2VmOXwo/GJYMf7O/m61bPrXcqAAAAIABmglK3TZCOOzFv6P9H/efeb7EmgVy/NMyjvCYHl6Eb6aB8oOn7YQA6cfh1DE++ax746d5fke5LiCcWtjh4TNf6mDaFORXEtqUK7e6A8r2W/fJ1YgEAdY9Qy81ilJEhVTmYDvAIA4fvpmBdXti2Xq28sAEFJU8DPrFBjGx3VDkTg== fijal@zygmunt
+    access:
+      codespeed:
+        sudo: True
+        allowed: True
+        groups:
+          - codespeed
