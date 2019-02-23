@@ -194,60 +194,6 @@ users:
       cdn-logs:
         allowed: True
 
-  dpoirier:
-    fullname: "Dan Poirier"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAmFIbg8mdvn7MQajwpBWXdK+utvP7+d0f391Z+v2r79Pam3/9j8VFBH8mioAmp9b2iFL6DZeDOYWOIM5R3U/bIVvJ8/2kZpE+rItJRyuqYQp3ZbOkBTxmv1avRfX4LSaM4uvurtSHK+VFbRXRlSKr7gURM7d7pUXTsuqAuGiJeBRc492RhKsaRf21/7+X8LyUuIWmaGn/CRgn6SBtq1xTilCAlkiRFBbUR++qkHWonfImAeHN6EiIx9fwtvfjtJA8kW49t75io9HoIovA24psyfZZuMFYkiPzDtPDXSm0fhwx0IbAZc2W1iWqYLbrBZM7A3QGyF61JeafxuC+Jzm3Ow== dpoirier@caktusgroup.com
-    access:
-      pycon:
-        allowed: True
-        sudo: True
-
-  dchukhin:
-    fullname: "Dmitriy Chukhin"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCyaAGW8HiLvLP9whINKHck0faKwryO++lqA+GYD9G2XZkbsxcBKqU1b3STGn8jXrDjtr4FcKXFGLq8uOS4/FOiCs45TwLOcA4enyTbaPxrZA05Zw5J5hYZ1y4bBvc+GxytAoyySN3MTG7Q2Mb3TgTTl5G/J+d+zGljHBbrjn1Y3xCRPi9ed82bzqdI+6S8kk7kzub++EScjegTfbPhtsyrY4WbZ0Z/hW0Odtt4rXhsktdfLpYTZ3jJs9YapOBFHblRRlZxtc45o5Q2+4B8z8dr1t3jiFqJJdTL5Cnn+DzD/CHiJE/hT8hc4XcHJPjfymMlX2c6AhxN87RcOWHplTGirkNwSnsyquM4fzZPlXpR7aPbTXQNjGrryk95EEkes+/RmdES6QCptGCqGtcmCRFvIYh4v50r7OvyU12GJUmN3HWyDcLMY6JmDvfYzz2ETBeMPWVP++N4IVDzG08WenjA4vTkw2Yvwaodbhe8m0vodqfkNX/ll13wMKf6TAKLFOLc8NfRh4xP936d4xL7pcsGS6LC6pVd6JjJ3CKKHqGcxRuw/00IzFoRRgs+fzIhmXUKbrFtAJbkXaYpV/rfzRc+no3ddWwZ4hK0FaQ5YBU1rfkCBoJzzIWFdJc8dqfbSMwMohHtFZGDhX9seJoo5KZFUbzl0qSD2hJrehGB3k3fQ== dchukhin@gmail.com
-    access:
-      pycon:
-        allowed: True
-        sudo: True
-
-  ncnwoko:
-    fullname: "NC Nwoko"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDPauOc4l4koOoiwAH+4eDP1r3fAMAA7p45fYdzJX2Rzs2rn3bMA1pJFEOIr9aAhAY8EY+dmpoga0P/nnT1WWfkp5lRjEDHxCz332o81BAqBS9occ0b6l48iHh5itFSw6sBG0iidbMBh8Mf+vfOnwRvCdFfANa+LTDuuQJfiDdq4brrfnUgeyutAzylhSUrizWs6sQQr10uz2L5RjnmL+kc20v9ciFgXVHuSSX3aNj4ViXQVvuHEfUyOwJQwIzqJHbho/0Xh/6/aHcDo8NQ2ygAzf2RCiF3Z147xaFPQq9kF9BF3n1THLvKovP1/qMnOGLaucGsAGQ4vCezAfbgM+/BOIzdIL8jpkEKVmWIR0sR/MjZZT1zIWmnFSnTrb+2farStZo6LtiyuMH0GA4TSrin8Ss91TknjxovGqmpVi2VSO4I6CFy2Nh6dkSlGPtg6wlpi6Hx/qtdkIk2f/Ss8E6cL4FsqEvHXzCqPSaQM7gR+zAx+uLp5H/EQ68TCW+Nzgo/AMXkeUWG9xIt5LcyyInApUFnPbP3AuffdpgI/jyA1sNpZhjR4Ui3aKsBwuEM+CVl14XytjHqQUqBbDZ/Q+Aq7jVYy4wlb0FykeMJShZlP9pM2GlJPBV+jIB5bwLuQYmtiRNOYmMtDIQqsZbkMLtuHEMdKNy46G8V3xfCtLMZqw== nwoko.nc@gmail.com
-    access:
-      pycon:
-        allowed: True
-        sudo: True
-
-  daaray:
-    fullname: "David Ray"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDAjwyvvD6fojZ47GDqEBR1uN8dEBtGTzyFnQ6rlJT01Lw628PhSY+XwZxG6RfQt2+cFVkYo9cGpHWyGM4hP65Ft1XNkOiXAsa9yoWykOAlqpOEMLEHZ0w5NsDP+uCextuVIEIaBu1pcvKgUlcSJlDhoCUF00DBbkYDpNKRY2f1AN49HdfXB+xGGKnb6xJtb4487fDsE10pGbPRWsvL2w2FzHFwt7a/1rQ03y6sFHZhURSW4jCwBKAvdNazVrL3A/cVXJEBa9Q1LSfvG18ILk8GOVT7gmQLLFOJAeSWK576PjIizBqB1wgIi3sSjCWS22BocONrifqQ9v/URA4E68R dray@caktusgroup.com
-    access:
-      pycon:
-        allowed: True
-        sudo: True
-
-  scottlee:
-    fullname: "Scott Lee"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKm8hLNaEIJjTrBgKGfArpvgBWRG40dxFJP8iKULl7jvY1v7bcNztNhrF4h+CvH1CqFCiN62gH3dJM0/10xq0PYDXTPIomar3AqekrkiTDsDyO0vYNySDQPKF1iGhzO2SPe1zwxfDQK5n8actVZGqSkAPpDwmWhwwYN45JNar+H02vGb9H3eeSFza8BD23U0T5sHPNA/QDK12HzrJ1zakRzFHgtZ8sjmp19NVIac3KBFGFQxiIXpzZ1ZJfJdYuluBg/Owc+vVxij9XwFRqB8olOVUi5kz1lS0e45mBTIdNmIIdIbXcsWCn6Ay9MBZ3+ZUaNqtLIg+WFjZR3PVA+x2R scott@Scotts-MacBook-Air.local
-    access:
-      pycon:
-        allowed: True
-        sudo: True
-
-  lovewell:
-    fullname: "Rebecca Muraya"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB+wCuGhMEXvS1ys+Oox2BvQR+VhyaCr2/KgHTCg7txHTmEYcltyuwVKC0/uTKNFa/VBkgXMWa+6vVQUtDu9O4Yh+rZ0CCEulTwRx6w01oDipvg3SN4i4qbjHYvvA7D4WuXJ1KtKdqYqjxlOBqCbX9yqgvQm/Jntmr1ihKdWp5kKT7YliE47y0ab0kzJoPH4jTrXqKRVldpiJlUhHQbXj1uhSeN1uWYFblj2BivEfO78yR6n9mQRW/EN7CDcDRQJ99sgynEnOxHtpkpAyJZsHjSRgIrB8JUXKhSfSDINttdTNN5Th3vWq+2JdhOwpbgNfd3cJ9csvdTRjg7TfGifLBKmoEHVRg0WF0JR0YiF3YK5yayoJEJ3VeH9AAaXObUprjyiSPQqcF4zg5EY1ojgdPXNWw6gWs8aVjIrqmStQKYDy+G2s6l816hAsfg1Gf6P4ZoEdIelXgpLlzLbphocfmHujkonfN7QCgGWU8k1ABaf8MBzA1Xd5Dnbp/aQ1VCEmVRhY3T3dQp8S/SmFbn6zl27h3THCNFXkzOwpCA6+u2dhhWVgibO4xTU6DA1OCbQpZwcZvVNGGD5nBTHQRABgyU64C7ZtvKg1CHcXqM7ZCWpFZmuw3SVQdl8MK1RuhtjrB25LV5GcB9eY85hiElFlh+utKzJxLkyaU0rJDIw== lovewell@caktus007
-    access:
-      pycon:
-        allowed: True
-        sudo: True
-
   zware:
     fullname: "Zachary Ware"
     ssh_keys:
@@ -263,17 +209,6 @@ users:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIVzct/vFIVEAQ5aG8WJlJJWPNZYbVDyI5jwljst8mk haypo2017
     access:
       speed-web:
-        allowed: True
-        sudo: True
-
-  brhodes:
-    fullname: "Brandon Rhodes"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABeQX1NzdjdXsKne2LL1ygSV2vRkgFPlvkcOcq+9/yH+u+yWoEn3hscLECsKj0YqlpWi7lCF/7/wOhFgCxW0U3nkbNjmZAjfzHmliGP4h+8jPkfpF+cz8ioS3zhBdshwNy/nFOe2fqdllY3KoJhOfc0i75Ls7udZal44f6GzY9UwChCh4AKgt3T8Frx/L9SLu+hcVALKo7t+ydY440BMfylyRNMkNEFi0CjMieSrOk3mT1TZLcYOGpPg0oSdkFeQheDjOqg/5tkYSr6fHtPtdemELWB+Ys1PQWNrbcEdPIp9pXABT6KJ/kON5o6PY6DlTQ7R6PQEQDNOUpNeQrivRBGeoFldm1b3ipL3IbOVgcPyxe2kvUKeVA2Zi+z6otKVyWBrjyt8FPbalt+MVT6KKYZHqxlbQ8yX79I8pvIkHHBKVdIQZ6wKCsc/p8qaVGF36Dxa+altUxEfnsWVBjLTGswBHumyDWx3BIydVRgpOoBiDxSCpfLANpEojV brandon@bernardus
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABNwFxC3bl/tbOnfbuq+MqRS8rn7BJMEh0d+TWI7X+uj9l3OFVEaonHvvWAnYuKaGbRnUJLEPy/Apglrie4yI00ThMVScufPDMGQ9qL+Qgu2y12QBK1odAIs60KNZcodUhCWGgZg0MAg6HkNK1pXSqWd3VYtexcbgm5Y3PT8k/qmvJGJBx/11g5qexnKU4/g/wyhKm3QLceUZ1WJDMSAm6H9oR4xUEQmb7RMl9qhT0ViHdmkaw5letTVvvqa99DO1CI/PymQIy+qaXqe8r5xqTbPzSosQD3Gt0N6rebwKhXPiG8pmO+3nYFY6sO6Peue83iqMwx9blROUt6Z4uYO3INSZh3YfR4S2lboPeHRFky2Fb5j0ePjpBbdfFdRCijdPlTS+AWB+Io3Da5uHKyR05MSuRmlIJo4DZ brandon@oldrasputin
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABl1chNZ5tPYSLN52zph0seCos5XleYnSXQGezZ7sk0VNwIN7viVDsHdYFTQ67BEeqjkNmnUY0XLgYskttip8wzvEsAsXVjxhgMYY8aVWMkGzTPC0m5o1awohkH8Kihd3P7MYbybZcCl7KY5rDHZjNbfIFJPetdsGwUITvUBwcGudag0Oj5dpoaloUmQcPO3kr9kl6jVYHay/dYQxwIHxLOsHgqpnH7SqBomZMqAO5d9mfaJG8L8qf702rzNlDOW8B5nRJQ1rKR5omFo4xXalOXdQriKPbNz1RCEwrfZRv1rhFXMgpk/eVUWV3FotDlRR93AheRMpcISjVMe2d1aDUTBNWunSkkVTJbTDTmDvK1WYe0ufVJMNEFmP3l3foZf9eywqXVm1pYPzGfNag4I2/2pcxrDzFobRW7bvXLfkAUE+L1IJ0r9bTSU01EyEPCMeUvn9wNY6wc+r1gUjg42py1OPLuOzskduAR6QdlGgt1vdUhQ4sp1xKbhruYj6810kTm58n9COUFxoax1pWbY4cSZIBMX2oIacv brandon@old38
-    access:
-      pycon:
         allowed: True
         sudo: True
 
