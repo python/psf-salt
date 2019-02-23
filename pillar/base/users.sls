@@ -325,7 +325,7 @@ users:
           - docsbuild
 
   mattip:
-    fullname: "Matti Picus",
+    fullname: "Matti Picus"
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4NVQIJX7GvaoNUFEGo+dQvpIGx9aCbuVqT4O3T3GQ/cxrikfIDX9VqGm2w5B/1+EvMf43kfBFzD8nuoByCvN+axmHkW4V54pq9jDEAL1SwheOiQLygj3XbcDgsY4TET3hGIbfEQgtRbLyHFrVG97IrkwJ4i/4fr+vnvzR7Us2teX1IWJwsKuNGzW69hJHGMNuXPawU+JC9dP42EfjrQrkiIuvMWrXQer1uVGx7gPwd3AxtTu3fx1QfiaJ5J74jALsgaOGep1I3Ap+KFLPZDf0PAM56aHbOxnsM1R76JRsCZVgXDwShVi9J2yQogcONXEP8O+BAFv0lP03qjiNs2oz matti@asus
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDzePfoLowdG+U7211Xmi1XJJ9acxLzLSYueJDOpnfx/XciyiFbHaJfU1LDTJwkxDAedZn48w7OmHbMsVhGiHun5uJu4EU3QJN3rMxqDDNqWMwo2f09kMhdSjbCR7BVdBUzLQteUDtcXJ7QdH+6sSFRrECyUkehcp49cwVJ0S0w7GWb31enpfUWEoTNgHsnXpabF7EepiK5iWe0j1cHd0GM3rDpVNc8asjRGESb3L0gG6RU+t9ptEvDqnPuPq3vWf+Fb724F+3uSB2ehjPDZwcWZGli/FSjmjft3+7JhAeSTPAptSg6n0ienqLlE0/pom+6BHtMDurmYIFhCDpvq+rv mattip@tannit
@@ -337,7 +337,7 @@ users:
           - codespeed
 
   fijal:
-    fullname: "Maciej Fijalkowski",
+    fullname: "Maciej Fijalkowski"
     ssh_keys:
       - ssh-dss AAAAB3NzaC1kc3MAAACBAJbByTtD76TRTTxJBFRkfMgHKjhQky/9wq0GZoYvUCWpzL/59H1y7V8SWRmEmHRQBuO+Z5/UBz3poUwHyftYSMA1zUiD5ZlWDoFNeiCb/lmO779IBVb98Pg5zZiN4be1niZozmmoL4IdpwHfIZZMA2Ycdlqww8zE90PEgyPZezPbAAAAFQDdlsczacwXg2HidIa7Tu5nVIzxhQAAAIAdoFDvTP3xfJvv9BbRCG65mn80lRwUjTuXGuPMdR4e/N4zEb96OnZuqJEtzfFF6UWDqNHXcN6k07fo0bqLFg706io+5kTQamnUG7+QQRT4df1Dg6qmMpzh3LHyAZe81DZmdSAJMSbwTqT46G3r2VmOXwo/GJYMf7O/m61bPrXcqAAAAIABmglK3TZCOOzFv6P9H/efeb7EmgVy/NMyjvCYHl6Eb6aB8oOn7YQA6cfh1DE++ax746d5fke5LiCcWtjh4TNf6mDaFORXEtqUK7e6A8r2W/fJ1YgEAdY9Qy81ilJEhVTmYDvAIA4fvpmBdXti2Xq28sAEFJU8DPrFBjGx3VDkTg== fijal@zygmunt
     access:
