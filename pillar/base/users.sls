@@ -333,8 +333,6 @@ users:
       codespeed:
         sudo: True
         allowed: True
-        groups:
-          - codespeed
 
   fijal:
     fullname: "Maciej Fijalkowski"
@@ -344,5 +342,3 @@ users:
       codespeed:
         sudo: True
         allowed: True
-        groups:
-          - codespeed
