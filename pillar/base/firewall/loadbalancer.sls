@@ -1,4 +1,10 @@
 firewall:
+  http:
+    port: 80
+
+  https:
+    port: 443
+
   http_0:
     port: 20000
 
@@ -19,6 +25,9 @@ firewall:
 
   http_6:
     port: 20006
+
+  http_map:
+    port: 20010
 
   "hg.python.org:ssh":
     port: 20100

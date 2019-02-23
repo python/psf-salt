@@ -12,6 +12,9 @@ include:
          #!/bin/bash
          exit 101
 
+/etc/nginx/conf.d/default.conf:
+  file.absent
+
 haproxy:
   pkg:
     - installed

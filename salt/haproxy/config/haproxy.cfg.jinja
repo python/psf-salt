@@ -79,10 +79,13 @@ defaults
 listen tls:
     # Advertise http/1.1 over NPN to enable TLS False Start
     bind :20001 ssl npn h2,http/1.1 crt ev.python.org.pem
-    bind :20002 ssl npn h2,http/1.1 crt hg.python.org.pem
+    bind :20002 ssl npn h2,http/1.1 crt ev.python.org.pem
     bind :20003 ssl npn h2,http/1.1 crt star.python.org.pem
     bind :20005 ssl npn h2,http/1.1 crt star.pypa.io.pem
     bind :20006 ssl npn h2,http/1.1 crt speed.pypy.org.pem
+    bind 0.0.0.0:443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem
+    bind :::443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem
+    bind :20010 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem
 
     mode tcp
 
@@ -96,6 +99,8 @@ listen tls:
 
 frontend main
     bind :20000
+    bind 0.0.0.0:80
+    bind :::80
     bind 127.0.0.1:19001  # This is our TLS socket.
 
     # Custom logging format, this is the same as the normal "httplog" in
