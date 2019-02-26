@@ -15,6 +15,7 @@ roles:
   hg: "hg.nyc1.psf.io"
   loadbalancer: "lb*.nyc1.psf.io"
   planet: "planet.nyc1.psf.io"
+  pythontest: "pythontest.nyc3.psf.io"
   salt-master: "salt.nyc1.psf.io"
 
   # Misc PyPA

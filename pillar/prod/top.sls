@@ -59,6 +59,11 @@ base:
     - planet
     - firewall.http
 
+  'pythontest':
+    - match: nodegroup
+    - firewall.http
+    - firewall.ftp
+
   'web-pypa':
     - match: nodegroup
     - firewall.rs-lb-backend
