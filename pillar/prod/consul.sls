@@ -15,4 +15,9 @@ consul:
   # external services without setting the default acl to allow. So if you add
   # something here you need to set the default acl to allow, and uncomment the
   # code at the bottom of salt/consul/init.sls.
-  external: []
+  external:
+    - datacenter: nyc1
+      node: pythonanywhere
+      address: www.pythonanywhere.com
+      service: console
+      port: 443
