@@ -22,6 +22,10 @@ tls:
       roles:
         - hg
 
+    linehaul.psf.io:
+      roles:
+        - linehaul
+
     lb.psf.io:
       roles:
         - loadbalancer
