@@ -18,6 +18,7 @@ roles:
   planet: "planet.nyc1.psf.io"
   pythontest: "pythontest.nyc3.psf.io"
   salt-master: "salt.nyc1.psf.io"
+  slack: "slack.nyc1.psf.io"
 
   # Misc PyPA
   web-pypa: "web*.pypa.nyc1.psf.io"

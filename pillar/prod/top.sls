@@ -70,6 +70,10 @@ base:
     - firewall.http
     - firewall.ftp
 
+  'slack':
+    - match: nodegroup
+    - secrets.slack
+
   'web-pypa':
     - match: nodegroup
     - firewall.rs-lb-backend
