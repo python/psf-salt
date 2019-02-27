@@ -1,0 +1,12 @@
+[Unit]
+Description=Slack-IRC Bridge
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/slack-irc --config /etc/slack-irc.json
+Restart=on-failure
+User=slack-irc
+Group=slack-irc
+
+[Install]
+WantedBy=multi-user.target

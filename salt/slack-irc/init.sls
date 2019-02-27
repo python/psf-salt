@@ -4,6 +4,7 @@ slack-irc:
   pkg.installed:
     - pkgs:
       - nodejs
+      - npm
 
   user.present:
     - name: slack-irc
@@ -30,16 +31,15 @@ slack-irc:
   service.running:
     - reload: True
     - require:
-      - file: /etc/init/slack-irc.conf
+      - file: /etc/systemd/system/slack-irc.service
       - file: slack-irc
     - watch:
-      - file: /etc/init/slack-irc.conf
+      - file: /etc/systemd/system/slack-irc.service
       - file: slack-irc
 
-
-/etc/init/slack-irc.conf:
+/etc/systemd/system/slack-irc.service:
   file.managed:
-    - source: salt://slack-irc/config/slack-irc.upstart.conf.jinja
+    - source: salt://slack-irc/config/slack-irc.service.jinja
     - template: jinja
     - user: root
     - group: root
