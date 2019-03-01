@@ -56,6 +56,7 @@ roundup-home:
   file.directory:
     - name: /srv/roundup
     - user: roundup
+    - group: roundup
     - mode: 755
 
 roundup-backup:
@@ -69,12 +70,19 @@ roundup-logs:
   file.directory:
     - name: /var/log/roundup
     - user: roundup
-    - mode: 755
+    - group: roundup
+    - dir_mode: 770
+    - file_mode: 660
+    - recurse:
+      - user
+      - group
+      - mode
 
 roundup-trackers:
   file.directory:
     - name: /srv/roundup/trackers
     - user: roundup
+    - group: roundup
     - mode: 755
 
 roundup-data:
