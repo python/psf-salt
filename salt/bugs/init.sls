@@ -147,7 +147,8 @@ tracker-{{ tracker }}-config:
     - name: /srv/roundup/trackers/{{ tracker }}/config.ini
     - source: salt://bugs/config/config.ini.jinja
     - user: roundup
-    - mode: 600
+    - group: roundup
+    - mode: 640
     - template: jinja
     - defaults: {{ dict(pillar['bugs']['defaults']) }}
     - context: {{ config.get('config', {}) }}
@@ -157,7 +158,8 @@ tracker-{{ tracker }}-detector-config:
     - name: /srv/roundup/trackers/{{ tracker }}/detectors/config.ini
     - source: salt://bugs/config/detector-config.ini.jinja
     - user: roundup
-    - mode: 600
+    - group: roundup
+    - mode: 640
     - template: jinja
     - context:
       detector_config: {{ config.get('detector_config', {}) }}
