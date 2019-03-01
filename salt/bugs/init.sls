@@ -104,6 +104,16 @@ roundup-clone:
     - rev: bugs.python.org
     - target: /srv/roundup/src/roundup
 
+/srv/roundup/src/roundup/.hg/hgrc:
+  ini.options_present:
+    - separator: '='
+    - strict: True
+    - sections:
+        trusted:
+          groups: roundup
+    - require:
+      - hg: roundup-clone
+
 roundup-venv:
   virtualenv.managed:
     - name: /srv/roundup/env/
@@ -144,6 +154,16 @@ tracker-{{ tracker }}-clone:
     - user: roundup
     - name: {{ config['source'] }}
     - target: /srv/roundup/trackers/{{ tracker }}
+
+/srv/roundup/trackers/{{ tracker }}/.hg/hgrc:
+  ini.options_present:
+    - separator: '='
+    - strict: True
+    - sections:
+        trusted:
+          groups: roundup
+    - require:
+      - hg: tracker-{{ tracker }}-clone
 
 tracker-{{ tracker }}-clone-permissions:
   file.directory:
