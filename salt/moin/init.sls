@@ -152,4 +152,4 @@ gunicorn:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs

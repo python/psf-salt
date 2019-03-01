@@ -11,32 +11,17 @@ haproxy:
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
 
-    pydotorg-prod:
+    codespeed-cpython:
       domains:
-        - www.python.org
-      verify_host: pydotorg.psf.io
+        - speed.python.org
+      verify_host: codespeed.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ speed.python.org"
 
-    pydotorg-staging:
+    codespeed-pypy:
       domains:
-        - staging.python.org
-      verify_host: pydotorg.psf.io
-
-    pydotorg-staging2:
-      domains:
-        - staging2.python.org
-      verify_host: pydotorg.psf.io
-
-    pycon-slides:
-      domains:
-        - pycon-slides.python.org
-      tls: False
-      check: False
-
-    pycon-staging:
-      domains:
-        - pycon-staging.python.org
-        - staging-pycon.python.org
-      verify_host: pycon.psf.io
+        - speed.pypy.org
+      verify_host: codespeed.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ speed.pypy.org"
 
     console:
       domains:
@@ -58,17 +43,6 @@ haproxy:
         - bootstrap.pypa.io
       verify_host: bootstrap.pypa.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ bootstrap.pypa.io"
-
-    speed-web:
-      domains:
-        - speed.python.org
-      check: "HEAD / HTTP/1.1\\r\\nHost:\\ speed.python.org"
-
-    wiki:
-      domains:
-        - wiki.python.org
-        - wiki-test.python.org
-      check: "HEAD /moin/ HTTP/1.1\\r\\nHost:\\ wiki.python.org"
 
   redirects:
     cheeseshop.python.org:

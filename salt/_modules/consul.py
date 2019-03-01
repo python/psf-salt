@@ -15,15 +15,9 @@ def __virtual__():
 def cluster_ready():
     # Determine if we have at least one server
     try:
-        resp = requests.get("http://127.0.0.1:8500/v1/agent/members")
+        resp = requests.get("http://127.0.0.1:8500/v1/status/peers")
         resp.raise_for_status()
     except (requests.HTTPError, requests.ConnectionError):
-        return False
-
-    for node in json.loads(resp.content):
-        if node["Tags"]["role"] == "consul":
-            break
-    else:
         return False
 
     # We have a server, determine if we have a leader

@@ -13,7 +13,6 @@ base:
     - firewall
     - sudoers
     - backup.client
-    - monitoring.client
     - unattended-upgrades
     - tls
     - rsyslog
@@ -33,6 +32,10 @@ base:
   'cdn-logs':
     - match: nodegroup
     - cdn-logs
+
+  'codespeed':
+    - match: nodegroup
+    - codespeed
 
   'discourse':
     - match: nodegroup
@@ -69,14 +72,6 @@ base:
     - match: nodegroup
     - haproxy
 
-  'monitoring':
-    - match: nodegroup
-    - monitoring.server
-
-  'packages':
-    - match: nodegroup
-    - aptly
-
   'planet':
     - match: nodegroup
     - planet
@@ -105,18 +100,6 @@ base:
     - match: nodegroup
     - slack-irc
 
-  'speed-web':
-    - match: nodegroup
-    - speed.web
-
-  'tracker':
-    - match: nodegroup
-    - postgresql.client
-
   'web-pypa':
     - match: nodegroup
     - pypa.bootstrap
-
-  'wiki':
-    - match: nodegroup
-    - moin

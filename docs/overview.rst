@@ -21,7 +21,7 @@ global systems such as DNS. The currrent team members are:
 * Benjamin Peterson
 * Benjamin W. Smith
 * Donald Stufft
-* Ernest W. Durbin III (Chair)
+* Ernest W. Durbin III (PSF Director of Infrastructure)
 * Noah Kantrowitz
 
 The best way to contact the infrastructure team is mailing
@@ -48,10 +48,9 @@ OSUOSL
    <https://github.com/python/psf-chef>`_.
 
 Rackspace
-   `Rackspace <http://www.rackspace.com>`_ is the newest cloud provider utilized
-   by the PSF. It hosts PyPI and an increasing number of python.org-related
-   services (Python downloads, docs.python.org). `Salt
-   <http://www.saltstack.com>`_ is used for configuration management.
+   `Rackspace <http://www.rackspace.com>`_ was the primary cloud provider
+   utilized by the PSF until March 2019.  `Salt <http://www.saltstack.com>`_
+   is used for configuration management.
 
 Dyn & Gandi
    `Gandi <http://www.gandi.net>`_ is our domain registar, and we use `Dyn
@@ -66,6 +65,16 @@ Fastly
    network (CDN) to the PSF. Our highest traffic services (i.e. PyPI,
    www.python.org, docs.python.org) use this CDN to improve end-user latency.
 
+Heroku
+   `Heroku <https://heroku.com>`_ hosts many of the CPython core workflow bots,
+   ephemeral or proof of concept apps, as well as other web apps that are well
+   suited to it's platform.
+
+DigitalOcean
+   `DigitalOcean <https://digitalocean.com>`_ is the current target for most of
+   the infrastructure we currently host in Rackspace, services deployed here
+   are managed by `Salt <http://www.saltstack.com>`_.
+
 
 Datacenters
 -----------
@@ -77,6 +86,7 @@ iad1   Rackspace     IAD
 ord1   Rackspace     ORD
 ams1   Digital Ocean AMS3
 nyc1   Digital Ocean NYC3
+sfo1   Digital Ocean SFO2
 ====== ============= ======
 
 
@@ -90,13 +100,12 @@ Buildbot
    python-dev@python.org, particularly Antoine Pitrou and Zach Ware.
 
 bugs.python.org
-   bugs.python.org is hosted using a server donated by `Upfront Systems
-   <http://www.upfrontsystems.co.za>`_. The tracker-discuss@python.org list is
-   used for discussion of the tracker.
+   bugs.python.org is hosted by the PSF on DigitalOcean, powered by Roundup.
+   It also hosts bugs.jython.org and issues.roundup-tracker.org. 
 
 docs.python.org
-   The Python documentation is hosted on a Rackspace VM, served through Fastly,
-   and owned by Benjamin Peterson and Georg Brandl.
+   The Python documentation is hosted on DigitalOcean, served through Fastly,
+   and owned by Julien Palard.
 
 hg.python.org
    The CPython Mercurial repositories are hosted on a Rackspace VM. The service
@@ -143,7 +152,7 @@ www.python.org
    the old website hosted on dinsdale.
 
 PyCon
-   The PyCon website is hosted on Rackspace VMs. The contact address is
+   The PyCon website is hosted on Heroku. The contact address is
    pycon-tech@python.org.
 
 PyPI

@@ -18,42 +18,22 @@ tls:
       roles:
         - downloads
 
-    pydotorg.psf.io:
-      roles:
-        - pydotorg
-
-    pycon.psf.io:
-      roles:
-        - pycon
-
     hg.psf.io:
       roles:
         - hg
-
-    lb.psf.io:
-      roles:
-        - loadbalancer
-
-    postgresql.psf.io:
-      roles:
-        - postgresql
-
-    speed-web.psf.io:
-      roles:
-        - speed-web
-
-    wiki.psf.io:
-      roles:
-        - wiki
-
-    bootstrap.pypa.psf.io:
-      roles:
-        - web-pypa
 
     linehaul.psf.io:
       roles:
         - linehaul
 
-    discourse.psf.io:
+    lb.psf.io:
       roles:
-        - discourse
+        - loadbalancer
+
+    codespeed.psf.io:
+      roles:
+        - codespeed
+
+    bootstrap.pypa.psf.io:
+      roles:
+        - web-pypa

@@ -272,7 +272,7 @@ pycon_worker:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 pycon-slides-user:
   user.present:

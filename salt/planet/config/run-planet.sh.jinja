@@ -1,5 +1,5 @@
 cd /srv/planet/
 git pull
-{% for site in salt["pillar.get"]("planet_sites").itervalues() %}
-/usr/local/bin/python2.7 /srv/planet/code/planet.py /srv/planet/config/{{ site["config"] }}
+{% for site in salt["pillar.get"]("planet_sites").values() %}
+$(which python2.7) /srv/planet/code/planet.py /srv/planet/config/{{ site["config"] }}
 {% endfor %}

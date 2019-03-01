@@ -1,21 +1,25 @@
 {% set ocsp =  salt["pillar.get"]("tls:ocsp") %} # "
 
 include:
-  - monitoring.client.collectors.haproxy
   - nginx
 
+/usr/sbin/policy-rc.d:
+  file.managed:
+    - user: root
+    - group: root
+    - mode: 755
+    - contents: |
+         #!/bin/bash
+         exit 101
+
+/etc/nginx/conf.d/default.conf:
+  file.absent
 
 haproxy:
-  pkgrepo.managed:
-    - name: "deb http://ppa.launchpad.net/vbernat/haproxy-1.5/ubuntu {{ grains.oscodename }} main"
-    - file: /etc/apt/sources.list.d/haproxy.list
-    - key_url: salt://haproxy/config/APT-GPG-KEY-HAPROXY
-    - order: 2
-    - require_in:
-      - pkg: haproxy
-
   pkg:
     - installed
+    - require:
+      - file: /usr/sbin/policy-rc.d
 
   service.running:
     - enable: True
@@ -47,7 +51,7 @@ haproxy:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul-template
+      - pkg: consul-pkgs
 
 
 /etc/consul-template.d/haproxy.json:
@@ -62,7 +66,7 @@ haproxy:
     - group: root
     - mode: 640
     - require:
-      - pkg: consul-template
+      - pkg: consul-pkgs
 
 
 /usr/local/bin/haproxy-ocsp:
@@ -108,9 +112,9 @@ haproxy-ocsp:
 {% endif %}
 
 
-/etc/nginx/sites.d/spdy.conf:
+/etc/nginx/sites.d/http2.conf:
   file.managed:
-    - source: salt://haproxy/config/nginx-spdy.conf.jinja
+    - source: salt://haproxy/config/nginx-http2.conf.jinja
     - template: jinja
     - user: root
     - group: root

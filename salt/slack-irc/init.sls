@@ -1,18 +1,10 @@
 {% set secrets = pillar["slack-secrets"] %}
 
-nodesource:
-  pkgrepo.managed:
-    - name: "deb [arch=amd64] https://deb.nodesource.com/node_5.x {{ grains['oscodename'] }} main"
-    - file: /etc/apt/sources.list.d/nodesource.list
-    - key_url: salt://slack-irc/config/APT-GPG-KEY-NODESOURCE
-    - order: 2
-
 slack-irc:
   pkg.installed:
     - pkgs:
       - nodejs
-    - require:
-      - pkgrepo: nodesource
+      - npm
 
   user.present:
     - name: slack-irc
@@ -21,7 +13,7 @@ slack-irc:
 
   npm.installed:
     - pkgs:
-      - slack-irc@3.7.5
+      - slack-irc@3.11.1
 
   file.managed:
     - name: /etc/slack-irc.json
@@ -39,16 +31,15 @@ slack-irc:
   service.running:
     - reload: True
     - require:
-      - file: /etc/init/slack-irc.conf
+      - file: /etc/systemd/system/slack-irc.service
       - file: slack-irc
     - watch:
-      - file: /etc/init/slack-irc.conf
+      - file: /etc/systemd/system/slack-irc.service
       - file: slack-irc
 
-
-/etc/init/slack-irc.conf:
+/etc/systemd/system/slack-irc.service:
   file.managed:
-    - source: salt://slack-irc/config/slack-irc.upstart.conf.jinja
+    - source: salt://slack-irc/config/slack-irc.service.jinja
     - template: jinja
     - user: root
     - group: root

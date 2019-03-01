@@ -1,5 +1,5 @@
-python-dyn:
-  pkg.installed
+dyn:
+  pip.installed
 
 
 {% set ipv4_addrs = salt["mine.get"]("*", "ipv4_addrs") %}

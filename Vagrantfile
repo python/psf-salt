@@ -11,15 +11,11 @@ SERVERS = [
   "hg",
   "jython-web",
   {:name => "loadbalancer", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20100]},
-  "monitoring",
-  "packages",
   "planet",
   {:name => "postgresql-primary", :roles => ["postgresql", "postgresql-primary"]},
   {:name => "postgresql-replica", :roles => ["postgresql", "postgresql-replica"]},
   "speed-web",
-  "tracker",
   "pypa-web",
-  "wiki",
 ]
 
 SUBNET1 = "192.168.50"
@@ -30,7 +26,7 @@ MASTER2 = "#{SUBNET2}.2"
 
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.define "salt-master" do |s_config|
     s_config.vm.hostname = "salt-master.vagrant.psf.io"
@@ -47,8 +43,8 @@ Vagrant.configure("2") do |config|
 
     # Provision the salt-master.
     s_config.vm.provision :shell, :inline => <<-HEREDOC
-      wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
-      echo 'deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main' > /etc/apt/sources.list.d/saltstack.list
+      wget -O - https://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -
+      echo 'deb http://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3 bionic main' > /etc/apt/sources.list.d/saltstack.list
     HEREDOC
 
     s_config.vm.provision :shell, :inline => <<-HEREDOC
@@ -77,13 +73,13 @@ Vagrant.configure("2") do |config|
       server = server_c[:name]
       roles = server_c.fetch :roles, [server]
       box = server_c.fetch :box, nil
-      codename = server_c.fetch :codename, "trusty"
+      codename = server_c.fetch :codename, "bionic"
       ports = server_c.fetch :ports, []
     else
       server = server_c
       roles = [server_c]
       box = nil
-      codename = "trusty"
+      codename = "bionic"
       ports = []
     end
 
@@ -101,16 +97,10 @@ Vagrant.configure("2") do |config|
       end
 
       # Provision the salt-minion
-      if codename == "trusty"
+      if codename == "bionic"
         s_config.vm.provision :shell, :inline => <<-HEREDOC
-          wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
-          echo 'deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main' > /etc/apt/sources.list.d/saltstack.list
-        HEREDOC
-      end
-      if codename == "xenial"
-        s_config.vm.provision :shell, :inline => <<-HEREDOC
-          wget -O - https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
-          echo 'deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main' > /etc/apt/sources.list.d/saltstack.list
+          wget -O - https://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -
+          echo 'deb http://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3 bionic main' > /etc/apt/sources.list.d/saltstack.list
         HEREDOC
       end
 

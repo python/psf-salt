@@ -42,4 +42,4 @@ elasticsearch:
     - mode: 644
     - require:
       - service: elasticsearch
-      - pkg: consul
+      - pkg: consul-pkgs

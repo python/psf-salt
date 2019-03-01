@@ -1,7 +1,3 @@
-include:
-  - monitoring.client.collectors.nginx
-
-
 nginx:
   pkgrepo.managed:
     - name: deb http://nginx.org/packages/ubuntu/ {{ grains.oscodename }} nginx

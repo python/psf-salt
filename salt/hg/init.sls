@@ -1,16 +1,7 @@
-exclude:
-  - id: /etc/diamond/collectors/HttpdCollector.conf
-
-
 hg-deps:
   pkg.installed:
     - pkgs:
-      - build-essential
-      - python-dev
-      - python-pygments
-      - gettext
-      - python-docutils
-      - buildbot
+      - mercurial
 
 hg-user:
   user.present:
@@ -22,10 +13,103 @@ hg-user:
     - require:
       - user: hgaccounts-user
 
+/srv/hg/bin:
+  file.recurse:
+    - source: salt://hg/files/hg/bin
+    - include_empty: True
+    - user: hg
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hg-user
+
+/srv/hg/wsgi:
+  file.recurse:
+    - source: salt://hg/files/hg/wsgi
+    - include_empty: True
+    - user: hg
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hg-user
+
+/srv/hg/src:
+  file.recurse:
+    - source: salt://hg/files/hg/src
+    - include_empty: True
+    - user: hg
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hg-user
+
+/srv/hg/web:
+  file.recurse:
+    - source: salt://hg/files/hg/web
+    - include_empty: True
+    - user: hg
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hg-user
+
+/srv/hg/repos.conf:
+  file.managed:
+    - source: salt://hg/config/repos.conf
+    - user: hg
+    - group: hg
+    - require:
+      - user: hg-user
+
 hgaccounts-user:
   user.present:
     - name: hgaccounts
     - home: /srv/hgaccounts
+
+/srv/hgaccounts/bin:
+  file.recurse:
+    - source: salt://hg/files/hgaccounts/bin
+    - include_empty: True
+    - user: hgaccounts
+    - dir_mode: 755
+    - file_mode: 755
+    - require:
+      - user: hgaccounts-user
+
+/srv/hgaccounts/src:
+  file.recurse:
+    - source: salt://hg/files/hgaccounts/src
+    - include_empty: True
+    - user: hgaccounts
+    - dir_mode: 755
+    - file_mode: 644
+    - require:
+      - user: hgaccounts-user
+
+compile-genauth-wrapper:
+  cmd.run:
+    - name: "gcc /srv/hgaccounts/src/genauth-wrapper.c -o /srv/hgaccounts/bin/genauth-wrapper"
+    - creates: /srv/hgaccounts/bin/genauth-wrapper
+    - watch:
+      - file: /srv/hgaccounts/src
+
+genauth-wrapper-owner:
+  file.managed:
+    - name: /srv/hgaccounts/bin/genauth-wrapper
+    - user: hg
+    - group: hg
+    - require:
+      - user: hg-user
+      - user: hgaccounts-user
+      - file: /srv/hgaccounts/src
+      - cmd: compile-genauth-wrapper
+
+genauth-wrapper-setuid-setgid-workaround:
+  file.managed:
+    - name: /srv/hgaccounts/bin/genauth-wrapper
+    - mode: 6755
+    - require:
+      - file: genauth-wrapper-owner
 
 /srv/hgaccounts/.ssh/authorized_keys:
   file.managed:
@@ -37,6 +121,34 @@ hgaccounts-user:
     - dir_mode: 700
     - require:
       - user: hgaccounts-user
+
+/etc/default/irker:
+  file.managed:
+    - user: root
+    - group: root
+    - mode: 644
+    - contents: 'IRKER_OPTIONS="-n deadparrot%03d -H localhost"'
+
+/usr/share/mercurial/templates/hgpythonorg:
+  file.recurse:
+    - source: salt://hg/files/hg/templates/hgpythonorg
+    - include_empty: True
+    - dir_mode: 755
+    - file_mode: 644
+    - require:
+      - pkg: hg-deps
+
+irker:
+  pkg.installed:
+    - pkgs:
+      - irker
+  service.running:
+    - enable: True
+    - require:
+      - pkg: irker
+      - file: /etc/default/irker
+    - watch:
+      - file: /etc/default/irker
 
 apache2:
   pkg.installed:
@@ -102,13 +214,6 @@ apache2:
     - group: root
     - mode: 644
 
-/etc/init/irker.conf:
-  file.managed:
-    - source: salt://hg/config/irker.upstart.conf
-    - user: root
-    - group: root
-    - mode: 644
-
 /etc/logrotate.d/apache2:
   file.managed:
     - source: salt://hg/config/apache.logrotate
@@ -117,42 +222,6 @@ apache2:
     - mode: 644
     - require:
       - pkg: apache2
-
-reload-upstart:
-  module.run:
-    - name: cmd.run
-    - cmd: initctl reload-configuration
-    - onchanges:
-      - file: /etc/init/irker.conf
-
-irker:
-  user.present:
-    - home: /srv/irker
-  service.running:
-    - enable: True
-    - watch:
-      - file: /etc/init/irker.conf
-    - require:
-      - user: irker
-
-
-HttpdCollector-Override:
-  file.managed:
-    - name: /etc/diamond/collectors/HttpdCollector.conf
-    - source: salt://monitoring/client/configs/Collector.conf.jinja
-    - template: jinja
-    - context:
-        collector:
-          enabled: True
-          urls: "http://localhost:9000/_server-status?auto"
-    - use:
-      - file: /etc/diamond/diamond.conf
-    - watch_in:
-      - service: diamond
-    - require:
-      - pkg: diamond
-      - group: diamond
-
 
 /etc/consul.d/service-hg.json:
   file.managed:
@@ -165,7 +234,7 @@ HttpdCollector-Override:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 
 /etc/consul.d/service-hg-ssh.json:
@@ -179,4 +248,4 @@ HttpdCollector-Override:
     - group: root
     - mode: 644
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs

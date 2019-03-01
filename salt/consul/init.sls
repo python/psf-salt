@@ -3,30 +3,30 @@
 {% set is_server = salt["match.compound"](pillar["roles"]["consul"]) %}
 
 
-consul:
-  pkg.installed: []
+consul-pkgs:
+  pkg.installed:
+    - pkgs:
+      - consul
+      - consul-template
 
-  {% if grains["oscodename"] == "xenial" %}
+consul:
   file.managed:
     - name: /lib/systemd/system/consul.service
     - source: salt://consul/init/consul.service
     - mode: 644
-  {% endif %}
 
   service.running:
     - enable: True
     - restart: True
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
       {% if is_server %}
       - user: consul
       {% endif %}
     - watch:
       - file: /etc/consul.d/*.json
       - file: /etc/ssl/certs/PSF_CA.pem
-      {% if grains["oscodename"] == "xenial" %}
       - file: consul
-      {% endif %}
       {% if is_server %}
       - file: /etc/ssl/private/consul.psf.io.pem
       {% endif %}
@@ -36,7 +36,7 @@ consul:
     - groups:
       - ssl-cert
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
       - pkg: ssl-cert
   {% endif %}
 
@@ -48,7 +48,7 @@ consul:
     - user: root
     - group: consul
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 
 {% if is_server %}
@@ -59,7 +59,7 @@ consul:
     - user: root
     - group: consul
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 {% else %}
 /etc/consul.d/server.json:
   file.absent
@@ -76,7 +76,7 @@ consul:
     - mode: 640
     - show_diff: False
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 {% else %}
 /etc/consul.d/acl-master.json:
   file.absent
@@ -92,7 +92,7 @@ consul:
     - mode: 640
     - show_diff: False
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 
 /etc/consul.d/encrypt.json:
@@ -104,7 +104,7 @@ consul:
     - mode: 640
     - show_diff: False
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 
 /etc/consul.d/join.json:
@@ -114,7 +114,7 @@ consul:
     - user: root
     - group: consul
     - require:
-      - pkg: consul
+      - pkg: consul-pkgs
 
 
 consul-template:
@@ -123,29 +123,25 @@ consul-template:
   cmd.wait:
     - name: consul-template -config /etc/consul-template.d -once
     - require:
-      - pkg: consul-template
+      - pkg: consul-pkgs
       - service: consul
     - watch:
       - file: /etc/consul-template.d/*.json
       - file: /usr/share/consul-template/templates/*
 
-  {% if grains["oscodename"] == "xenial" %}
   file.managed:
     - name: /lib/systemd/system/consul-template.service
     - source: salt://consul/init/consul-template.service
     - mode: 644
-  {% endif %}
 
   service.running:
     - enable: True
     - restart: True
     - require:
-      - pkg: consul-template
+      - pkg: consul-pkgs
       - service: consul
     - watch:
-      {% if grains["oscodename"] == "xenial" %}
       - file: consul-template
-      {% endif %}
       - file: /etc/consul-template.d/*.json
       - file: /usr/share/consul-template/templates/*
 
@@ -157,17 +153,23 @@ consul-template:
     - group: root
     - mode: 644
 
+
+/usr/share/consul-template/templates/:
+  file.directory:
+    - user: root
+    - group: consul
+
 {% endif %}
 
 
-# {% for service in pillar["consul"].get("external", []) %}
-# consul-external-{{ service.service }}:
-#   consul.external_service:
-#     - name: {{ service.service }}
-#     - datacenter: {{ service.datacenter }}
-#     - node: {{ service.node }}
-#     - address: {{ service.address }}
-#     - port: {{ service.port }}
-#     - require:
-#       - pkg: python-requests
-# {% endfor %}
+{% for service in pillar["consul"].get("external", []) %}
+consul-external-{{ service.service }}:
+  consul.external_service:
+    - name: {{ service.service }}
+    - datacenter: {{ service.datacenter }}
+    - node: {{ service.node }}
+    - address: {{ service.address }}
+    - port: {{ service.port }}
+    - require:
+      - pkg: python-requests
+{% endfor %}

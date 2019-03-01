@@ -1,8 +1,3 @@
-deadsnakes-ppa:
-  pkgrepo.managed:
-    - ppa: fkrull/deadsnakes
-
-
 pypy3:
   archive.extracted:
     - name: /opt/pypy
@@ -26,7 +21,6 @@ linehaul:
       - libffi-dev
       - libssl-dev
     - require:
-      - pkgrepo: deadsnakes-ppa
       - archive: pypy3
 
   user.present:
@@ -78,6 +72,13 @@ linehaul:
       - file: /srv/linehaul/etc/bigquery.json
       - file: /srv/linehaul/etc/linehaul.env
       - git: linehaul
+
+
+/srv/linehaul/etc:
+  file.directory:
+    - user: linehaul
+    - group: linehaul
+    - mode: 750
 
 
 /srv/linehaul/etc/linehaul.env:

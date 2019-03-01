@@ -1,0 +1,76 @@
+#!/usr/bin/env python
+
+# enable importing on demand to reduce startup time
+from mercurial import demandimport; demandimport.enable()
+from mercurial import ui as uimod
+from mercurial import hg, discovery
+from mercurial.node import nullid, nullrev, hex
+from mercurial.error import RepoError
+
+from optparse import OptionParser
+import os
+import sys
+import time
+import collections
+
+# Minimum age of stale repos
+STALE_DAYS = 3
+
+
+def is_stale_repo(options, ui, path):
+    """
+    Return True if the repository didn't get any changeset from its creation.
+    """
+    repo = hg.repository(ui, path)
+    ui = repo.ui
+    tip = repo.changelog.tip()
+    origtip = ui.config('gcrepos', 'initialtip', hex(nullid))
+    return hex(tip) == origtip
+    #for name, path in ui.configitems("paths"):
+        #if name == 'default':
+            #if not hg.islocal(path):
+                #return False
+            #try:
+                #orig_repo = hg.repository(ui, path)
+            #except RepoError, e:
+                ## Repo not found?
+                #if options.verbose:
+                    #print "-- error:", e
+                #return tip == nullid
+            #return len(discovery.findoutgoing(repo, orig_repo)) == 0
+    #else:
+        ## No parent
+        #return tip == nullid
+
+
+if __name__ == "__main__":
+    usage = "usage: %prog [options] arg"
+    parser = OptionParser(usage)
+    parser.add_option("-v", "--verbose", default=False,
+                      action="store_true", dest="verbose")
+    (options, args) = parser.parse_args()
+    if len(args) != 1:
+        parser.error("please specify base path for search")
+
+    ui = uimod.ui()
+    ui.setconfig('ui', 'quiet', True)
+    stale_repos = {}
+
+    for dirpath, dirnames, _ in os.walk(args[0]):
+        if '.hg' not in dirnames:
+            # Let os.walk recurse
+            continue
+        # We're in a repo, ignore subdirs (should we recurse for subrepos?)
+        dirnames[:] = []
+        if options.verbose:
+            print "examining %s ... " % dirpath
+        if os.path.getmtime(dirpath) > time.time() - 24 * 3600 * STALE_DAYS:
+            continue
+        stale = is_stale_repo(options, ui, dirpath)
+        if options.verbose:
+            if stale:
+                print "%s is stale!" % dirpath
+        else:
+            if stale:
+                sys.stdout.write(dirpath + "\0")
+

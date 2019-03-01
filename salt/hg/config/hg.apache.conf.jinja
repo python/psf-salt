@@ -8,7 +8,9 @@
     SSLHonorCipherOrder on
     SSLProtocol TLSv1.2
 
-    TransferLog /var/log/apache2/hg.access.log
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %{ms}T" combined
+
+    CustomLog /var/log/apache2/hg.access.log combined
     ErrorLog /var/log/apache2/hg.error.log
 
     # Mercurial can send long headers for repositories with many heads. See
@@ -16,9 +18,14 @@
     LimitRequestFieldSize 16384
 
     Alias /committers.txt /srv/hg/web/committers
+    Alias /robots.txt /srv/hg/web/robots.txt
+    Alias /410.html /srv/hg/web/410.html
+    <Directory /srv/hg/web/>
+        Require all granted
+    </Directory>
 
     # The lookup app is better run with few processes, since it uses a cache.
-    WSGIDaemonProcess hglookup user=hg group=hg python-path=/srv/hg/lib/python \
+    WSGIDaemonProcess hglookup user=hg group=hg \
         threads=2 processes=1 maximum-requests=1000 \
         display-name=hglookup
     # The Location hack ensures the lookup app is run within
@@ -33,16 +40,19 @@
     # parallel (e.g. for buildbots)
     # NOTE: maximum-requests suspected to corrupt responses, see
     # http://mercurial.selenic.com/bts/issue2595
-    WSGIDaemonProcess hgweb user=hg group=hg python-path=/srv/hg/lib/python \
-        threads=2 processes=6 inactivity-timeout=300 \
+    WSGIDaemonProcess hgweb user=hg group=hg \
+        threads=2 processes=6 maximum-requests=1024 inactivity-timeout=300 \
         display-name=hgweb
     WSGIProcessGroup hgweb
 
     WSGIScriptAlias / /srv/hg/wsgi/python.wsgi
 
+    ErrorDocument 410 /410.html
+    RedirectMatch gone "/cpython/annotate/.*/NEWS$"
+    RedirectMatch gone "/cpython-fullhistory/annotate/.*/NEWS$"
+
     <Directory /srv/hg/wsgi>
-        Order deny,allow
-        Allow from all
+      Require all granted
     </Directory>
 
     # Static files: logo, CSS, favicon... (wired to .../static/)
@@ -50,17 +60,14 @@
     # NOTE: needs to be changed if hg gets wired to another dir or python
     # version
 
-    Alias /robots.txt /srv/hg/robots.txt
-    AliasMatch /static/([^/]*) /srv/hg/lib/python/mercurial/templates/static/$1
-    <Directory /srv/hg/lib/python/mercurial/templates/static/>
-        Allow from all
+    AliasMatch /static/([^/]*) /usr/share/mercurial/templates/static/$1
+    <Directory /usr/share/mercurial/templates/static/>
+      Require all granted
     </Directory>
 
     <Location /_server-status>
         SetHandler server-status
 
-        Order deny,allow
-        Allow from 127.0.0.1
-        Deny from all
+        Require ip 127.0.0.1
     </Location>
 </VirtualHost>
