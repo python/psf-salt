@@ -15,6 +15,13 @@ base:
     - match: nodegroup
     - backup.server
 
+  'bugs':
+    - match: nodegroup
+    - secrets.mail-opt-out
+    - secrets.bugs
+    - secrets.backup.bugs
+    - bugs
+
   'cdn-logs':
     - match: nodegroup
     - fastly-logging
@@ -59,6 +66,13 @@ base:
     - firewall.linehaul
     - secrets.pypi.linehaul
     - pypi.linehaul
+
+  'mail':
+    - match: nodegroup
+    - firewall.mail
+    - secrets.mail-opt-out
+    - secrets.backup.mail
+    - groups.mail
 
   'planet':
     - match: nodegroup

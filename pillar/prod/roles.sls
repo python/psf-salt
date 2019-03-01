@@ -7,6 +7,7 @@
 
 roles:
   backup-server: "backup.sfo1.psf.io"
+  bugs: "bugs.ams1.psf.io"
   cdn-logs: "cdn-logs.nyc1.psf.io"
   codespeed: "codespeed*.nyc1.psf.io"
   consul: "consul*.nyc1.psf.io"
@@ -15,6 +16,7 @@ roles:
   hg: "hg.nyc1.psf.io"
   linehaul: "linehaul.nyc1.psf.io"
   loadbalancer: "lb*.nyc1.psf.io"
+  mail: "mail.ams1.psf.io"
   planet: "planet.nyc1.psf.io"
   pythontest: "pythontest.nyc3.psf.io"
   salt-master: "salt.nyc1.psf.io"
