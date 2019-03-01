@@ -17,6 +17,7 @@ base:
 
   'bugs':
     - match: nodegroup
+    - firewall.bugs
     - secrets.mail-opt-out
     - secrets.bugs
     - secrets.backup.bugs
