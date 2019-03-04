@@ -2,6 +2,10 @@
 
 firewall:
 
+  salt_master_letsencrypt:
+    port: 9000
+    source: *psf_internal_network
+
   salt_master_bugs_ams1:
     port: 4505:4506
     source: 188.166.48.69

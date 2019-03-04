@@ -44,6 +44,11 @@ haproxy:
       verify_host: bootstrap.pypa.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ bootstrap.pypa.io"
 
+    letsencrypt-well-known:
+      domains: []
+      verify_host: salt.psf.io
+      check: "GET /.well-known/acme-challenge/sentinel HTTP/1.1\\r\\nHost:\\ salt.psf.io"
+
   redirects:
     cheeseshop.python.org:
       target: pypi.python.org

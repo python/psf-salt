@@ -37,3 +37,7 @@ tls:
     bootstrap.pypa.psf.io:
       roles:
         - web-pypa
+
+    salt.psf.io:
+      roles:
+        - salt-master

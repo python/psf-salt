@@ -1,3 +1,7 @@
+include:
+  - tls.lego
+  - nginx
+
 python-requests:
   pkg.latest
 
@@ -89,4 +93,26 @@ salt-minion:
     - require:
       - postgres_user: {{ settings['owner'] }}-user
 {% endfor %}
+
+/etc/nginx/sites.d/letsencrypt-well-known.conf:
+  file.managed:
+    - source: salt://base/config/letsencrypt-well-known-nginx.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - sls: tls.lego
+
+/etc/consul.d/service-letsencrypt-well-known.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: letsencrypt-well-known
+        port: 9000
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul-pkgs
 {% endif %}
