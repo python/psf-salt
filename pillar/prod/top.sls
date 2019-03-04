@@ -20,8 +20,10 @@ base:
     - firewall.bugs
     - secrets.mail-opt-out
     - secrets.bugs
-    - secrets.backup.bugs
     - bugs
+
+  'bugs.ams1.psf.io':
+    - secrets.backup.bugs
 
   'cdn-logs':
     - match: nodegroup
