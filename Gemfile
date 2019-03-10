@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'test-kitchen', :git => 'https://github.com/gtmanfred/test-kitchen.git'
+gem 'test-kitchen', :git => 'https://github.com/test-kitchen/test-kitchen'
 gem 'kitchen-salt', :git => 'https://github.com/saltstack/kitchen-salt.git'
 gem 'kitchen-sync', :git => 'https://github.com/coderanger/kitchen-sync.git'
 
