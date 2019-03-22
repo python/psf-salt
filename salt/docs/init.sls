@@ -6,6 +6,7 @@ doc-pkgs:
   pkg.installed:
     - pkgs:
       - build-essential
+      - fonts-freefont-otf
       - git
       - mercurial
       - python-dev
