@@ -21,9 +21,9 @@ codespeed-instances:
     port: 9001
     source: https://github.com/python/codespeed.git
     source_ref: speed.pypy.org
-    python_version: python2
-    module: example
-    wsgi_app: example.wsgi:application
+    python_version: python3
+    module: speed_pypy
+    wsgi_app: speed_pypy.wsgi:application
     clones:
       git: {}
       hg:
