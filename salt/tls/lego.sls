@@ -1,3 +1,6 @@
+include:
+  - nginx
+
 crypto_packages:
   pkg.installed:
     - pkgs:

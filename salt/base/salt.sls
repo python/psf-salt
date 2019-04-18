@@ -24,7 +24,6 @@ salt-2018.3:
 {% if salt["match.compound"](pillar["roles"]["salt-master"]) %}
 include:
   - tls.lego
-  - nginx
 
 salt-master-pkg:
   pkg.latest:
@@ -39,7 +38,6 @@ salt-master-pkg:
     - mode: 644
     - order: last
 
-
 salt-master:
   service.running:
     - enable: True
@@ -47,6 +45,29 @@ salt-master:
     - order: last
     - watch:
       - file: /etc/salt/master.d/roles.conf
+
+/etc/nginx/sites.d/letsencrypt-well-known.conf:
+  file.managed:
+    - source: salt://base/config/letsencrypt-well-known-nginx.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/nginx/sites.d/
+      - sls: tls.lego
+
+/etc/consul.d/service-letsencrypt-well-known.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: letsencrypt-well-known
+        port: 9000
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul-pkgs
 {% endif %}
 
 salt-minion-pkg:
@@ -93,26 +114,4 @@ salt-minion:
     - require:
       - postgres_user: {{ settings['owner'] }}-user
 {% endfor %}
-
-/etc/nginx/sites.d/letsencrypt-well-known.conf:
-  file.managed:
-    - source: salt://base/config/letsencrypt-well-known-nginx.conf
-    - user: root
-    - group: root
-    - mode: 644
-    - require:
-      - sls: tls.lego
-
-/etc/consul.d/service-letsencrypt-well-known.json:
-  file.managed:
-    - source: salt://consul/etc/service.jinja
-    - template: jinja
-    - context:
-        name: letsencrypt-well-known
-        port: 9000
-    - user: root
-    - group: root
-    - mode: 644
-    - require:
-      - pkg: consul-pkgs
 {% endif %}
