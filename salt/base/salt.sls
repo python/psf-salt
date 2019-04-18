@@ -1,7 +1,3 @@
-include:
-  - tls.lego
-  - nginx
-
 python-requests:
   pkg.latest
 
@@ -26,6 +22,10 @@ salt-2018.3:
 
 
 {% if salt["match.compound"](pillar["roles"]["salt-master"]) %}
+include:
+  - tls.lego
+  - nginx
+
 salt-master-pkg:
   pkg.latest:
     - name: salt-master
