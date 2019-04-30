@@ -1,12 +1,8 @@
 language: python
 
-sudo: false
+cache: pip
 
-cache:
-  - pip
-
-env:
-  - TOXENV=docs
+env: TOXENV=docs
 
 install: pip install tox
 
