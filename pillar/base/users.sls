@@ -227,7 +227,7 @@ users:
         allowed: True
         sudo: True
 
-    pablogsal:
+  pablogsal:
     fullname: "Pablo Galindo"
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCRdlgbkLHE0xBQ1Lu+fyj5aK0ftjUCn8EMJ0FoAmRg7s6i5fNN9zEBYJhNEqgz0MnIzx42QtOQkr1SH2vsOkiWOUvVA+eCjvEIuPAthxR+InxkqOatDb+gKzCquxXXFobg7YPxWIodYFJ2LiCThol3TVCsUkEMftCSTAfrzUWIFsO+kCYLvmw4yD9buuE2LJjcdk59WpeF688chhhI6EE0DIRmERjVPWVxQpCoTHsab0wz50BjjBPucP6ydrH1+CmrHWENy+MtU5GYaIKrwRWVinmaIDR2pkTc15xLx+HiXqvFpNugHY25Mqtrn1OqEOncEC3VjDNLz9l+37ecUxkfVj1KoaChqbzbFkKzbGKZMvXkh5VXDXTGZbvcQojl/nBr9/wcB5Ar8hHVIoor0smldSP19G47+kwsWFC38UwVlnAlYkGmnTO7/++H7bDc6viztDf/1CH0y5+ek/mf2serTBYytYnfMUvRhPkteJQTV22cLHjVsIYcCaNFWc4DtmqZI6xAz9Lo1VkNr4H5SHfPbaQ895NNOmt6Ngt8YK/Ko19DDxqOCqsV24yik917y2YdMNsd6W2aF82nRNuDcRtrDs+FQFSSpxPsUtshxJpTnekQv0AVJM/r+mvbTFotAguaC/yid5IsWjAs+IZ0a6TH30M1hxFw/NtuDlxsLivZqw==
