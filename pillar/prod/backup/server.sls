@@ -27,3 +27,8 @@ backup-server:
       user: hg
       increment_retention: 90D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS0sTCNKlCfJd/TyiKW3HRwTUouo3+PvPOK3ddyfpY17bJ4KdpaMZgc7fNg5VKzFvvuHBqjvVJsdewP3LesLOuaQCQoSu1DniLoodZGRdJ9gqgtbRZf4ekzsn7E7WZUnVI0fbofvFWjbPt3PSxVtm8hCqwmwia53Ehh9G3xRurDhNUqIjrGcTStM3kloQHjKing+EGdCqPvikuwN1eMZXyNnt4zuoU4e39JGCBqRBfXumvrYvYzuNbAN8OZtNAfByzLFJ6DIWq0ihK6WS/KRYKGKivaaK26whafutfv44bP0w3LvZZyTMGGqiS/zLNPx0tkYK3JEt4bpLlyHZHbIBh
+    dinsdale:
+      directory: /backup/dinsdale
+      user: dinsdale
+      increment_retention: 90D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCy9W2fUjT5GkgB0lFgqLKM0cfs0tvL11Z8/YhaNgyLbY4oHKr6LHS2rePfqkN+JhpslokcnrW5JBWZeiPqYWpTZabQJBL2ylSBKeU7UpoSpiJOm8tM1f30w4BPX7b+XSoiLKcBJTtOVu99fjW3/j8N1jpwcmb3UuHv2h+MKBwjQOZqArkHdXhzyJjmududEZAgdpBUEDN4a1jHrcZhwsci9zLIqTH0SsVKIQe99E2WcXUpdH9UoeJMXpmLBsSnoWbMnKnVruA8fjgOwKMaHEse19rgQ+2SRHmZu1zCltuyWETSSpu4Gfgo4tyxzr9oZLy1ykT0ACTeXyUN/oSZ55nF
