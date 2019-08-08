@@ -83,9 +83,10 @@ listen tls:
     bind :20003 ssl npn h2,http/1.1 crt star.python.org.pem
     bind :20005 ssl npn h2,http/1.1 crt star.pypa.io.pem
     bind :20006 ssl npn h2,http/1.1 crt speed.pypy.org.pem
-    bind 0.0.0.0:443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem
-    bind :::443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem
-    bind :20010 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem
+    bind :20007 ssl npn h2,http/1.1 crt www.pycon.org.pem
+    bind 0.0.0.0:443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem
+    bind :::443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem
+    bind :20010 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem
 
     mode tcp
 

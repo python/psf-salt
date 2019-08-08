@@ -65,6 +65,8 @@ haproxy:
       hsts_subdomains: False
     pypa.io:
       target: www.pypa.io
+    www.pycon.org:
+      target: pycon.org
 
   listens:
     hg_ssh:
