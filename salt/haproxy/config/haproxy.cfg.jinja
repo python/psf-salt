@@ -117,6 +117,15 @@ frontend main
     # Determine if this request has TLS on the client side or not.
     acl is_tls dst_port 19001
 
+    # Create a list of all relevant domains
+    {%- set our_domains = [] -%}
+    {% for service, config in haproxy.services.items() -%}{% for domain in config.domains -%}{% do our_domains.append(domain) %}{% endfor -%}{% endfor -%}
+    {% for domain in haproxy.redirects -%}{% do our_domains.append(domain) -%}{% endfor %}
+    acl our_domains {% for domain in our_domains -%}hdr(host) -i {{ domain }}{{ "" if loop.last else " || " }}{% endfor %}
+
+    # Deny requests that are not served from this host
+    http-request deny if !our_domains !letsencrypt-well-known-acl
+
     # Remove any of the X-Forwarded-* headers from this request, Fastly gives
     # us these headers in a different way and we have nothing else that would
     # give us these headers.
