@@ -1,0 +1,6 @@
+{%- set haproxy = salt["pillar.get"]("haproxy", {}) -%}
+{%- set our_domains = [] -%}
+{%- for service, config in haproxy.services.items() -%}{% for domain in config.domains -%}{% do our_domains.append(domain) %}{% endfor -%}{% endfor -%}
+{%- for domain in haproxy.redirects -%}{% do our_domains.append(domain) -%}{% endfor -%}
+{%- for domain in our_domains %}
+{{ domain }}{% endfor %}

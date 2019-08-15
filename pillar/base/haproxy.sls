@@ -67,6 +67,16 @@ haproxy:
       target: www.pypa.io
     www.pycon.org:
       target: pycon.org
+    jython.org:
+      target: www.jython.org
+    jython.com:
+      target: www.jython.org
+    www.jython.com:
+      target: www.jython.org
+    jython.net:
+      target: www.jython.org
+    www.jython.net:
+      target: www.jython.org
 
   listens:
     hg_ssh:

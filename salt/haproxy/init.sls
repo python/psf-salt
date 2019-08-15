@@ -30,6 +30,7 @@ haproxy:
     - watch:
       - file: /etc/ssl/private/*.pem
       - file: /etc/haproxy/fastly_token
+      - file: /etc/haproxy/our_domains
 
 
 /etc/haproxy/fastly_token:
@@ -39,6 +40,16 @@ haproxy:
     - group: root
     - mode: 640
     - show_diff: False
+    - require:
+      - pkg: haproxy
+
+/etc/haproxy/our_domains:
+  file.managed:
+    - source: salt://haproxy/config/our_domains.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
     - require:
       - pkg: haproxy
 

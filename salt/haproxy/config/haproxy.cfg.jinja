@@ -84,9 +84,10 @@ listen tls:
     bind :20005 ssl npn h2,http/1.1 crt star.pypa.io.pem
     bind :20006 ssl npn h2,http/1.1 crt speed.pypy.org.pem
     bind :20007 ssl npn h2,http/1.1 crt www.pycon.org.pem
-    bind 0.0.0.0:443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem
-    bind :::443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem
-    bind :20010 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem
+    bind :20008 ssl npn h2,http/1.1 crt jython.org.pem
+    bind 0.0.0.0:443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem
+    bind :::443 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem
+    bind :20010 ssl npn h2,http/1.1 crt ev.python.org.pem crt star.python.org.pem crt star.pypa.io.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem
 
     mode tcp
 
@@ -117,11 +118,7 @@ frontend main
     # Determine if this request has TLS on the client side or not.
     acl is_tls dst_port 19001
 
-    # Create a list of all relevant domains
-    {%- set our_domains = [] -%}
-    {% for service, config in haproxy.services.items() -%}{% for domain in config.domains -%}{% do our_domains.append(domain) %}{% endfor -%}{% endfor -%}
-    {% for domain in haproxy.redirects -%}{% do our_domains.append(domain) -%}{% endfor %}
-    acl our_domains {% for domain in our_domains -%}hdr(host) -i {{ domain }}{{ "" if loop.last else " || " }}{% endfor %}
+    acl our_domains hdr(host) -i -f /etc/haproxy/our_domains
 
     # Deny requests that are not served from this host
     http-request deny if !our_domains !letsencrypt-well-known-acl
