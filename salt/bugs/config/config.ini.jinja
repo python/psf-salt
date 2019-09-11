@@ -65,6 +65,16 @@ new_web_user_roles = {{ main__new_web_user_roles }}
 # Default: User
 new_email_user_roles = {{ main__new_email_user_roles }}
 
+# On schema changes, properties or classes in the history may
+# become obsolete.  Since normal access permissions do not apply
+# (we don't know if a user should see such a property or class)
+# a list of roles is specified here that are allowed to see
+# these obsolete properties in the history. By default only the
+# admin role may see these history entries, you can make them
+# visible to all users by adding, e.g., the 'User' role here.
+# Default: Admin
+obsolete_history_roles = {{ main__obsolete_history_roles }}
+
 # Send error message emails to the dispatcher, user, or both?
 # The dispatcher is configured using the DISPATCHER_EMAIL setting.
 # Default: user
@@ -660,6 +670,17 @@ unpack_rfc822 = {{ mailgw__unpack_rfc822 }}
 # Allowed values: yes, no
 # Default: no
 ignore_alternatives = {{ mailgw__ignore_alternatives }}
+
+# If an email has only text/html parts, use this module
+# to convert the html to text. Choose from beautifulsoup 4,
+# dehtml - (internal code), or none to disable conversion.
+# If 'none' is selected, email without a text/plain part
+# will be returned to the user with a message. If
+# beautifulsoup is selected but not installed dehtml will
+# be used instead.
+# Allowed values: beautifulsoup, dehtml, none
+# Default: none
+convert_htmltotext = {{ mailgw__convert_htmltotext }}
 
 # When handling emails ignore the Resent-From:-header
 # and use the original senders From:-header instead.
