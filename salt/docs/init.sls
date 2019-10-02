@@ -12,6 +12,7 @@ doc-pkgs:
       - python-dev
       - python-virtualenv
       - latexmk
+      - texinfo
       - texlive
       - texlive-latex-extra
       - texlive-latex-recommended
