@@ -1,5 +1,5 @@
 {% set postgresql = salt["pillar.get"]("postgresql", {}) %}
-{% set data_partitions = salt["rackspace.data_partitions"]() %}
+{% set data_partitions = [] %}
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
 {% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"], "psf_internal").items())|sort(attribute='0')|first)[1]|sort()|first %}
