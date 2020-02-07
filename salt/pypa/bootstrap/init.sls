@@ -34,6 +34,7 @@ pip-clone:
     - target: /srv/bootstrap/pip
     - user: nginx
     - force_clone: True
+    - force_reset: True
     - force_checkout: True
     - require:
       - pkg: bootrap-deps
@@ -46,6 +47,7 @@ setuptools-clone:
     - target: /srv/bootstrap/setuptools
     - user: nginx
     - force_clone: True
+    - force_reset: True
     - force_checkout: True
     - require:
       - pkg: bootrap-deps
@@ -58,10 +60,22 @@ buildout-clone:
     - target: /srv/bootstrap/buildout
     - user: nginx
     - force_clone: True
+    - force_reset: True
     - force_checkout: True
     - require:
       - pkg: bootrap-deps
 
+virtualenv-clone:
+  git.latest:
+    - name: https://github.com/pypa/get-virtualenv.git
+    - rev: master
+    - target: /srv/bootstrap/virtualenv
+    - user: nginx
+    - force_clone: True
+    - force_reset: True
+    - force_checkout: True
+    - require:
+      - pkg: bootrap-deps
 
 /srv/bootstrap/www/get-pip.py:
   file.symlink:
@@ -143,10 +157,21 @@ buildout-clone:
     - require:
       - git: buildout-clone
 
+/srv/bootstrap/www/virtualenv:
+  file.symlink:
+    - target: /srv/bootstrap/virtualenv/public
+    - require:
+      - git: virtualenv-clone
+
+/srv/bootstrap/www/virtualenv.pyz:
+  file.symlink:
+    - target: /srv/bootstrap/virtualenv/public/virtualenv.pyz
+    - require:
+      - git: virtualenv-clone
 
 refresh-pip:
   cmd.run:
-    - name: 'curl -X PURGE https://bootstrap.pypa.io/get-pip.py'
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/get-pip.py'
     - require:
       - file: /srv/bootstrap/www/get-pip.py
     - onchanges:
@@ -154,7 +179,7 @@ refresh-pip:
 
 refresh-pip-26:
   cmd.run:
-    - name: 'curl -X PURGE https://bootstrap.pypa.io/2.6/get-pip.py'
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/2.6/get-pip.py'
     - require:
       - file: /srv/bootstrap/www/2.6/get-pip.py
     - onchanges:
@@ -162,7 +187,7 @@ refresh-pip-26:
 
 refresh-pip-32:
   cmd.run:
-    - name: 'curl -X PURGE https://bootstrap.pypa.io/3.2/get-pip.py'
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/3.2/get-pip.py'
     - require:
       - file: /srv/bootstrap/www/3.2/get-pip.py
     - onchanges:
@@ -170,7 +195,7 @@ refresh-pip-32:
 
 refresh-pip-33:
   cmd.run:
-    - name: 'curl -X PURGE https://bootstrap.pypa.io/3.3/get-pip.py'
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/3.3/get-pip.py'
     - require:
       - file: /srv/bootstrap/www/3.3/get-pip.py
     - onchanges:
@@ -178,7 +203,7 @@ refresh-pip-33:
 
 refresh-pip-34:
   cmd.run:
-    - name: 'curl -X PURGE https://bootstrap.pypa.io/3.4/get-pip.py'
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/3.4/get-pip.py'
     - require:
       - file: /srv/bootstrap/www/3.4/get-pip.py
     - onchanges:
@@ -186,21 +211,44 @@ refresh-pip-34:
 
 refresh-setuptools:
   cmd.run:
-    - name: 'curl -X PURGE https://bootstrap.pypa.io/ez_setup.py'
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/ez_setup.py'
     - require:
       - file: /srv/bootstrap/www/ez_setup.py
     - onchanges:
       - git: setuptools-clone
 
-
 refresh-buildout:
   cmd.run:
-    - name: 'curl -X PURGE https://bootstrap.pypa.io/bootstrap-buildout.py'
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/bootstrap-buildout.py'
     - require:
       - file: /srv/bootstrap/www/bootstrap-buildout.py
     - onchanges:
       - git: buildout-clone
 
+refresh-virtualenv:
+  cmd.run:
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/virtualenv.pyz'
+    - require:
+      - file: /srv/bootstrap/www/virtualenv.pyz
+    - onchanges:
+      - git: virtualenv-clone
+
+refresh-virtualenv-files:
+  cmd.run:
+    - name: "find /srv/bootstrap/virtualenv/public -type l,f -printf '%P\n' | xargs -I{} curl -s -X PURGE https://bootstrap.pypa.io/virtualenv/{}"
+    - require:
+      - file: /srv/bootstrap/www/virtualenv.pyz
+    - onchanges:
+      - git: virtualenv-clone
+
+purge-index:
+  cmd.run:
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/'
+    - onchanges:
+      - git: pip-clone
+      - git: setuptools-clone
+      - git: buildout-clone
+      - git: virtualenv-clone
 
 /etc/consul.d/service-pypa-bootstrap.json:
   file.managed:
