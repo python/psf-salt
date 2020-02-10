@@ -77,6 +77,10 @@ haproxy:
       target: www.jython.org
     www.jython.net:
       target: www.jython.org
+    pypy.org:
+      target: www.pypy.org
+      hsts_subdomains: False
+      tls: False
 
   listens:
     hg_ssh:
