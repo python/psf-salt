@@ -43,6 +43,8 @@ irkerd:
 roundup-user:
   user.present:
     - name: roundup
+    - groups:
+      - roundup
     - home: /srv/roundup
     - createhome: True
 
