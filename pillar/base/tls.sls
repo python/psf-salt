@@ -41,3 +41,7 @@ tls:
     salt.psf.io:
       roles:
         - salt-master
+
+    pypy-web.psf.io:
+      roles:
+        - pypy-web

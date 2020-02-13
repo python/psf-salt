@@ -81,6 +81,10 @@ base:
     - planet
     - firewall.http
 
+  'pypy-web':
+    - match: nodegroup
+    - firewall.rs-lb-backend
+
   'pythontest':
     - match: nodegroup
     - firewall.http

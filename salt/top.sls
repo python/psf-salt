@@ -88,6 +88,10 @@ base:
     - match: nodegroup
     - pycon
 
+  'pypy-web':
+    - match: nodegroup
+    - pypy-web
+
   'pythontest':
     - match: nodegroup
     - pythontest
