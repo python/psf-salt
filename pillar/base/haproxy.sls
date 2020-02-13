@@ -44,6 +44,14 @@ haproxy:
       verify_host: bootstrap.pypa.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ bootstrap.pypa.io"
 
+    pypy-web:
+      domains:
+        - www.pypy.org
+      hsts_subdomains: False
+      hsts_preload: False
+      verify_host: pypy-web.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ pypy-web.psf.io"
+
     letsencrypt-well-known:
       domains: []
       verify_host: salt.psf.io
@@ -80,6 +88,7 @@ haproxy:
     pypy.org:
       target: www.pypy.org
       hsts_subdomains: False
+      hsts_preload: False
       tls: False
 
   listens:

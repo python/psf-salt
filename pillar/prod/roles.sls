@@ -18,6 +18,7 @@ roles:
   loadbalancer: "lb*.nyc1.psf.io"
   mail: "mail.ams1.psf.io"
   planet: "planet.nyc1.psf.io"
+  pypy-web: "pypy-web.nyc1.psf.io"
   pythontest: "pythontest.nyc3.psf.io"
   salt-master: "salt.nyc1.psf.io"
   slack: "slack.nyc1.psf.io"
