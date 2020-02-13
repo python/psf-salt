@@ -75,16 +75,28 @@ haproxy:
       target: www.pypa.io
     www.pycon.org:
       target: pycon.org
+      hsts_subdomains: False
+      hsts_preload: False
     jython.org:
       target: www.jython.org
+      hsts_subdomains: False
+      hsts_preload: False
     jython.com:
       target: www.jython.org
+      hsts_subdomains: False
+      hsts_preload: False
     www.jython.com:
       target: www.jython.org
+      hsts_subdomains: False
+      hsts_preload: False
     jython.net:
       target: www.jython.org
+      hsts_subdomains: False
+      hsts_preload: False
     www.jython.net:
       target: www.jython.org
+      hsts_subdomains: False
+      hsts_preload: False
     pypy.org:
       target: www.pypy.org
       hsts_subdomains: False
