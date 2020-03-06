@@ -102,6 +102,7 @@ base:
     - match: nodegroup
     - firewall.salt
     - secrets.dyn
+    - secrets.aws
     - secrets.postgres-admin
     - postgresql.server
     - secrets.postgresql-users.all

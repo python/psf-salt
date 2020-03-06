@@ -11,3 +11,7 @@ mine_functions:
 
   ipv6_addrs:
     mine_function: network.ip_addrs6
+
+  public_ipv4:
+    mine_function: network.ip_addrs
+    type: 'public'
