@@ -20,7 +20,7 @@ boto3:
 {{ server }}-route53:
   boto3_route53.rr_present:
     - DomainName: psf.io.
-    - Name: {{ server }}
+    - Name: {{ server }}.
     - TTL: 3600
     - Type: A
     - ResourceRecords: {{ public_ipv4.get(server, []) }}
