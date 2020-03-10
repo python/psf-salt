@@ -91,7 +91,7 @@ docsbuild-full:
       - cmd: virtualenv-dependencies
 
 docsbuild-quick:
-  cron.present:
+  cron.absent:
     - identifier: docsbuild-quick
     - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/scripts/build_docs.py -q
     - user: docsbuild
