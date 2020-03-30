@@ -7,6 +7,8 @@
 # Written by Georg Brandl, 2010.
 # Updated by Brett Cannon, 2017.
 
+from __future__ import print_function
+
 import io
 import json
 import os
@@ -56,7 +58,7 @@ class hglookup(object):
 
 if __name__ == '__main__':
     HG_COMMITS = 'hg_commits.json'
-    print "Loading hg commits from the JSON file ..."
+    print("Loading hg commits from the JSON file ...")
     # Use `hg log --template "\"{node}\",\n` to help generate the JSON file.
     with io.open(HG_COMMITS, 'r', encoding="utf-8") as file:
         hg_commits = json.load(file)
@@ -64,5 +66,5 @@ if __name__ == '__main__':
 
     httpd = make_server('', 8123, application)
     sa = httpd.socket.getsockname()
-    print "Serving HTTP on", sa[0], "port", sa[1], "..."
+    print("Serving HTTP on", sa[0], "port", sa[1], "...")
     httpd.serve_forever()
