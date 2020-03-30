@@ -1,4 +1,3 @@
-from __future__ import print_function
 # hglookup.py
 #
 # Lookup a revision hash in a bunch of different hgwebdir repos.
@@ -7,6 +6,8 @@ from __future__ import print_function
 #
 # Written by Georg Brandl, 2010.
 # Updated by Brett Cannon, 2017.
+
+from __future__ import print_function
 
 import io
 import json
