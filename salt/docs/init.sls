@@ -11,6 +11,7 @@ doc-pkgs:
       - mercurial
       - python-dev
       - python-virtualenv
+      - python3-venv
       - latexmk
       - texinfo
       - texlive
