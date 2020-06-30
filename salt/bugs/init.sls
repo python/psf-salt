@@ -100,21 +100,11 @@ roundup-run:
     - mode: 755
 
 roundup-clone:
-  hg.latest:
+  git.latest:
     - user: roundup
-    - name: https://bitbucket.org/python/roundup
+    - name: https://github.com/psf/bpo-roundup.git
     - rev: bugs.python.org
     - target: /srv/roundup/src/roundup
-
-/srv/roundup/src/roundup/.hg/hgrc:
-  ini.options_present:
-    - separator: '='
-    - strict: True
-    - sections:
-        trusted:
-          groups: roundup
-    - require:
-      - hg: roundup-clone
 
 roundup-venv:
   virtualenv.managed:
@@ -130,7 +120,7 @@ roundup-install:
     - user: roundup
     - reload_modules: True
     - onchanges:
-      - hg: roundup-clone
+      - git: roundup-clone
 
 tracker-nginx-extras:
   file.directory:
@@ -152,20 +142,10 @@ tracker-{{ tracker }}-datadir:
     - mode: 750
 
 tracker-{{ tracker }}-clone:
-  hg.latest:
+  git.latest:
     - user: roundup
     - name: {{ config['source'] }}
     - target: /srv/roundup/trackers/{{ tracker }}
-
-/srv/roundup/trackers/{{ tracker }}/.hg/hgrc:
-  ini.options_present:
-    - separator: '='
-    - strict: True
-    - sections:
-        trusted:
-          groups: roundup
-    - require:
-      - hg: tracker-{{ tracker }}-clone
 
 tracker-{{ tracker }}-clone-permissions:
   file.directory:
@@ -236,8 +216,8 @@ roundup-{{ tracker }}:
       - cmd: /etc/systemd/system/roundup-{{ tracker }}.service
     - watch_any:
       - file: /etc/systemd/system/roundup-{{ tracker }}.service
-      - hg: roundup-clone
-      - hg: tracker-{{ tracker }}-clone
+      - git: roundup-clone
+      - git: tracker-{{ tracker }}-clone
       - file: tracker-{{ tracker }}-config
       - file: tracker-{{ tracker }}-detector-config
 

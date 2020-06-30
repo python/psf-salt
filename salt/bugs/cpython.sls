@@ -1,20 +1,20 @@
 rietveld-clone:
-  hg.latest:
+  git.latest:
     - user: roundup
-    - name: https://bitbucket.org/python/rietveld
+    - name: https://github.com/psf/bpo-rietveld.git
     - target: /srv/roundup/trackers/cpython/rietveld
     - rev: bugs.python.org
     - require:
-      - hg: tracker-cpython-clone
+      - git: tracker-cpython-clone
 
 django-gae2django-clone:
-  hg.latest:
+  git.latest:
     - user: roundup
-    - name: https://bitbucket.org/python/django-gae2django
+    - name: https://github.com/psf/bpo-django-gae2django.git
     - target: /srv/roundup/trackers/cpython/django-gae2django
     - rev: bugs.python.org
     - require:
-      - hg: tracker-cpython-clone
+      - git: tracker-cpython-clone
 
 /var/run/cpython-extras:
   file.directory:

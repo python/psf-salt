@@ -28,4 +28,4 @@ codespeed-instances:
       git: {}
       hg:
         pypy:
-          source: http://bitbucket.org/pypy/pypy
+          source: https://foss.heptapod.net/pypy/pypy

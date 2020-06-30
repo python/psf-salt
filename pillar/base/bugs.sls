@@ -6,7 +6,7 @@ bugs:
     - mail.roundup-tracker.org
   trackers:
     cpython:
-      source: https://bitbucket.org/python/tracker-cpython
+      source: https://github.com/psf/bpo-tracker-cpython.git
       server_name: bugs.python.org
       workers: 16
       config:
@@ -36,7 +36,7 @@ bugs:
           irker:
             channels: "irc://chat.freenode.net/python-dev"
     jython:
-      source: https://bitbucket.org/python/tracker-jython
+      source: https://github.com/psf/bpo-tracker-jython.git
       server_name: bugs.jython.org
       config:
           tracker: jython
@@ -59,7 +59,7 @@ bugs:
             spambayes_ham_cutoff: "0.2"
             spambayes_spam_cutoff: "0.85"
     roundup:
-      source: https://bitbucket.org/python/tracker-roundup
+      source: https://github.com/psf/bpo-tracker-roundup.git
       server_name: issues.roundup-tracker.org
       config:
           tracker: roundup
