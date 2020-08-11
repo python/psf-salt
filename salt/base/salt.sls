@@ -12,12 +12,12 @@ salt-2018.3:
   pkgrepo.managed:
     - humanname: repo.saltstack.org
     {% if grains["oscodename"] == "trusty" %}
-    - name: deb http://repo.saltstack.com/apt/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
+    - name: deb http://archive.repo.saltstack.com/apt/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
     {% else %}
-    - name: deb http://repo.saltstack.com/py3/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
+    - name: deb http://archive.repo.saltstack.com/py3/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
     {% endif %}
     - file: /etc/apt/sources.list.d/saltstack.list
-    - key_url: https://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub
+    - key_url: https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub
 {% endif %}
 
 
