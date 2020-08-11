@@ -103,6 +103,6 @@ base:
     - firewall.salt
     - secrets.dyn
     - secrets.aws
-    - secrets.postgres-admin
+    - secrets.postgresql-admin
     - postgresql.server
     - secrets.postgresql-users.all

@@ -1,0 +1,3 @@
+{%- for user, config in pillar.get('postgresql-users', {}).items() -%}
+"{{ user }}" ""
+{% endfor -%}

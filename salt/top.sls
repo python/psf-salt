@@ -35,6 +35,7 @@ base:
 
   'codespeed':
     - match: nodegroup
+    - pgbouncer
     - codespeed
 
   'discourse':

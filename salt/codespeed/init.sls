@@ -120,7 +120,7 @@ codespeed-{{ instance }}-env:
       - git: codespeed-{{ instance }}-source
 
 {% set db_user_config = pillar['postgresql-users'][config['db_user']] %}
-{% set db_cluster_config = pillar['postgres-clusters'][db_user_config['cluster']] %}
+{% set db_cluster_config = pillar['postgresql-clusters'][db_user_config['cluster']] %}
 
 codespeed-{{ instance }}-local_settings:
   file.managed:

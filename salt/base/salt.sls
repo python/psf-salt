@@ -88,7 +88,7 @@ salt-minion:
     - watch:
       - file: /etc/salt/minion.d/mine.conf
 
-{% if 'postgres-admin' in pillar %}
+{% if 'postgresql-admin' in pillar %}
 {% set postgresql = salt["pillar.get"]("postgresql", {}) %}
 {% for user, settings in salt["pillar.get"]("postgresql-users", {}).items() %}
 {{ user }}-user:
@@ -96,10 +96,10 @@ salt-minion:
     - name: {{ user }}
     - password: {{ settings['password'] }}
     - refresh_password: True
-    - db_host: {{ pillar['postgres-clusters'][settings['cluster']]['host'] }}
-    - db_port: {{ pillar['postgres-clusters'][settings['cluster']]['port'] }}
-    - db_user: {{ pillar['postgres-admin'][settings['cluster']]['user'] }}
-    - db_password: {{ pillar['postgres-admin'][settings['cluster']]['password'] }}
+    - db_host: {{ pillar['postgresql-clusters'][settings['cluster']]['host'] }}
+    - db_port: {{ pillar['postgresql-clusters'][settings['cluster']]['port'] }}
+    - db_user: {{ pillar['postgresql-admin'][settings['cluster']]['user'] }}
+    - db_password: {{ pillar['postgresql-admin'][settings['cluster']]['password'] }}
 {% endfor %}
 
 {% for database, settings in postgresql.get("databases", {}).items() %}
@@ -107,10 +107,10 @@ salt-minion:
   postgres_database.present:
     - name: {{ database }}
     - owner: {{ settings['owner'] }}
-    - db_host: {{ pillar['postgres-clusters'][settings['cluster']]['host'] }}
-    - db_port: {{ pillar['postgres-clusters'][settings['cluster']]['port'] }}
-    - db_user: {{ pillar['postgres-admin'][settings['cluster']]['user'] }}
-    - db_password: {{ pillar['postgres-admin'][settings['cluster']]['password'] }}
+    - db_host: {{ pillar['postgresql-clusters'][settings['cluster']]['host'] }}
+    - db_port: {{ pillar['postgresql-clusters'][settings['cluster']]['port'] }}
+    - db_user: {{ pillar['postgresql-admin'][settings['cluster']]['user'] }}
+    - db_password: {{ pillar['postgresql-admin'][settings['cluster']]['password'] }}
     - require:
       - postgres_user: {{ settings['owner'] }}-user
 {% endfor %}

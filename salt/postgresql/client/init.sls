@@ -24,3 +24,11 @@ postgresql-client:
     - mode: 644
 {% endif %}
 {% endfor %}
+
+/etc/ssl/postgres/root-certs.crt:
+  file.managed:
+    - source: salt://postgresql/client/root-certs.crt.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644

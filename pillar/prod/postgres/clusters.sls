@@ -1,4 +1,4 @@
-postgres-clusters:
+postgresql-clusters:
   pg-nyc1-psf-io:
     host: pg-nyc1-psf-io-do-user-1452557-0.db.ondigitalocean.com
     port: 25060

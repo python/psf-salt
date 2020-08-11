@@ -1,0 +1,3 @@
+{%- for postgresql_cluster, config in pillar.get('postgresql-clusters', {}).items() %}{% if 'ca_cert' in config -%}
+{{ config['ca_cert'] }}
+{%- endif %}{% endfor -%}
