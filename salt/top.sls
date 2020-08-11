@@ -29,6 +29,11 @@ base:
     - bugs.jython
     - bugs.roundup
 
+  'buildbot':
+    - match: nodegroup
+    - pgbouncer
+    - buildbot
+
   'cdn-logs':
     - match: nodegroup
     - cdn-logs

@@ -38,6 +38,10 @@ tls:
       roles:
         - web-pypa
 
+    buildbot.psf.io:
+      roles:
+        - buildbot
+
     salt.psf.io:
       roles:
         - salt-master

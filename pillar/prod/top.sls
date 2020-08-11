@@ -23,6 +23,9 @@ base:
     - secrets.backup.bugs
     - bugs
 
+  'buildbot':
+    - match: nodegroup
+    - secrets.postgresql-users.buildbot
 
   'cdn-logs':
     - match: nodegroup
