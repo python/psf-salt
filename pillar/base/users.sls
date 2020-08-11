@@ -219,6 +219,9 @@ users:
       codespeed:
         allowed: True
         sudo: True
+      buildbot:
+        allowed: True
+        sudo : True
 
   haypo:
     fullname: "Victor Stinner"
@@ -228,6 +231,9 @@ users:
       codespeed:
         allowed: True
         sudo: True
+      buildbot:
+        allowed: True
+        sudo : True
 
   pablogsal:
     fullname: "Pablo Galindo"
@@ -239,6 +245,9 @@ users:
       codespeed:
         allowed: True
         sudo: True
+      buildbot:
+        allowed: True
+        sudo : True
 
   jafo:
     fullname: "Sean Reifschneider"
