@@ -25,6 +25,7 @@ base:
 
   'buildbot':
     - match: nodegroup
+    - firewall.rs-lb-backend
     - secrets.postgresql-users.buildbot
 
   'cdn-logs':

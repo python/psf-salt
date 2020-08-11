@@ -1,5 +1,10 @@
 haproxy:
   services:
+    buildbot-master:
+      domains:
+        - buildbot.python.org
+      check: "GET /all/#/about HTTP/1.1\\r\\nHost:\\ buildbot.python.org"
+
     docs:
       domains:
         - docs.python.org

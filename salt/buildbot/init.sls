@@ -48,3 +48,30 @@ buildbot-user:
     - require:
       - user: buildbot-user
       - file: /srv
+
+/etc/nginx/sites.d/buildbot-master.conf:
+  file.managed:
+    - source: salt://buildbot/config/nginx.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - context:
+      instance: master
+      port: 9000
+    - require:
+      - file: /etc/nginx/sites.d/
+      - file: /etc/nginx/fastly_params
+
+/etc/consul.d/service-buildbot-master.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: buildbot-master
+        port: 9000
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul-pkgs

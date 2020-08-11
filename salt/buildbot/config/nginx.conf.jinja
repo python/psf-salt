@@ -1,0 +1,88 @@
+server {
+  listen 80;
+
+  server_name buildbot.python.org, buildbot-master.psf.io, buildbot.nyc1.psf.io;
+
+  if ($scheme = "http") {
+    return 301 https://$http_host$request_uri;
+  }
+}
+
+server {
+  listen {{ port }} ssl;
+
+  server_name buildbot.python.org, buildbot-master.psf.io, buildbot.nyc1.psf.io;
+
+  ssl_certificate /etc/ssl/private/buildbot-master.psf.io.pem;
+  ssl_certificate_key /etc/ssl/private/buildbot-master.psf.io.pem;
+
+  include fastly_params;
+
+  error_log /var/log/nginx/buildbot-master.error.log;
+  access_log /var/log/nginx/buildbot-master.access.log main;
+
+  location /all {
+      alias /data/www/buildbot;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+
+      if (!-f $request_filename) {
+          proxy_pass http://localhost:9010;
+          break;
+      }
+  }
+
+  location /ws {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "Upgrade";
+      proxy_pass http://localhost:9010/ws;
+  }
+}
+
+
+#<Directory /data/www>
+#    Options Indexes
+#    Require all granted
+#</Directory>
+#
+#<VirtualHost *:80>
+#    ServerName buildbot.python.org
+#    ServerAlias virt-et2yi0.psf.osuosl.org
+#
+#    # Python buildbot
+#    ProxyIOBufferSize 512
+#
+#    RedirectMatch ^/$ https://www.python.org/dev/buildbot/
+#
+#    ProxyPass /all/ws ws://localhost:9010/ws
+#    ProxyPassReverse /all/ws ws://localhost:9010/ws
+#    ProxyPass /all/ http://localhost:9010/
+#    ProxyPassReverse /all/ http://localhost:9010/
+#
+#    RedirectTemp /3.6/ /all/#/grid?branch=3.6
+#    RedirectTemp /3.7/ /all/#/grid?branch=3.7
+#    RedirectTemp /3.8/ /all/#/grid?branch=3.8
+#    RedirectTemp /3.9/ /all/#/grid?branch=3.9
+#    RedirectTemp /3.x/ /all/#/grid?branch=master
+#    RedirectTemp /3.6.stable/ /all/#/grid?branch=3.6&tag=stable
+#    RedirectTemp /3.7.stable/ /all/#/grid?branch=3.7&tag=stable
+#    RedirectTemp /3.8.stable/ /all/#/grid?branch=3.8&tag=stable
+#    RedirectTemp /3.9.stable/ /all/#/grid?branch=3.9&tag=stable
+#    RedirectTemp /3.x.stable/ /all/#/grid?branch=master&tag=stable
+#    RedirectTemp /stable/ /all/#/grid?tag=stable
+#
+#    # test instance
+#    ProxyPass /test/ws ws://localhost:9011/ws
+#    ProxyPassReverse /test/ws ws://localhost:9011/ws
+#    ProxyPass /test/ http://localhost:9011/
+#    ProxyPassReverse /test/ http://localhost:9011/
+#
+#RewriteEngine on
+#RewriteCond %{SERVER_NAME} =buildbot.python.org
+#RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+#</VirtualHost>

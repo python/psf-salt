@@ -38,7 +38,7 @@ tls:
       roles:
         - web-pypa
 
-    buildbot.psf.io:
+    buildbot-master.psf.io:
       roles:
         - buildbot
 
