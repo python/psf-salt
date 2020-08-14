@@ -75,3 +75,16 @@ buildbot-user:
     - mode: 644
     - require:
       - pkg: consul-pkgs
+
+/etc/consul.d/service-buildbot-master-worker.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: buildbot-master-worker
+        port: 9020
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul-pkgs

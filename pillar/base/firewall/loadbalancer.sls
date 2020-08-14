@@ -31,3 +31,6 @@ firewall:
 
   "hg.python.org:ssh":
     port: 20100
+
+  "buildbot.python.org:worker":
+    port: 20101
