@@ -32,3 +32,8 @@ backup-server:
       user: dinsdale
       increment_retention: 90D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCy9W2fUjT5GkgB0lFgqLKM0cfs0tvL11Z8/YhaNgyLbY4oHKr6LHS2rePfqkN+JhpslokcnrW5JBWZeiPqYWpTZabQJBL2ylSBKeU7UpoSpiJOm8tM1f30w4BPX7b+XSoiLKcBJTtOVu99fjW3/j8N1jpwcmb3UuHv2h+MKBwjQOZqArkHdXhzyJjmududEZAgdpBUEDN4a1jHrcZhwsci9zLIqTH0SsVKIQe99E2WcXUpdH9UoeJMXpmLBsSnoWbMnKnVruA8fjgOwKMaHEse19rgQ+2SRHmZu1zCltuyWETSSpu4Gfgo4tyxzr9oZLy1ykT0ACTeXyUN/oSZ55nF
+    buildbot:
+      directory: /backup/buildbot
+      user: buildbot
+      increment_retention: 90D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6ViDGniFFi9MeshjdKfh/qw3oXsYCLryh3t/wY9V43l209khYhXAh5k14QcbTu8b6H1MGNhq2jjMKLv2C2xzXubSZfUKFEhJp9MRG0xg3mxR9kGRu5wEmNbRavFKA2d0oiQFfMTRNUGCzPL5mn98EuFUuOtM+dMiXJ5eJdcFb5i0R8o31JzeaA37ogyYbmFYd20dsMlHEV7WdTILp0GeHxyq4t9NXMBu7cBvsLr4dSUQxlehTbHy5q0ZKWML0q1GVo65bAsTmh9byrEN5iUhWRRTTj/Pp9V15cYRtMc8qMTBNnDCKXtctfj3SuEUp47TCRbkyg2dFb/mUWCbVrgT9

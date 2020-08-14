@@ -27,6 +27,7 @@ base:
     - match: nodegroup
     - firewall.buildbot
     - secrets.postgresql-users.buildbot
+    - secrets.backup.buildbot
 
   'cdn-logs':
     - match: nodegroup
