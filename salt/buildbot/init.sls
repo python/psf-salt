@@ -49,6 +49,34 @@ buildbot-user:
       - user: buildbot-user
       - file: /srv
 
+update-master:
+  cmd.run:
+    - runas: buildbot
+    - cwd: /srv/buildbot
+    - name: make update-master
+    - require:
+      - git: /srv/buildbot
+    - onchanges:
+      - git: /srv/buildbot
+
+/srv/buildbot/buildbot.sh start -q /srv/buildbot/master:
+  cron.present:
+    - identifier: START_BUILDBOT
+    - user: buildbot
+    - special: '@reboot'
+
+find /data/www/buildbot/daily-dmg -type f -mtime +14 -exec rm {} \;:
+  cron.present:
+    - identifier: DAILY_CLEAN_BUILDBOT_DMG
+    - user: buildbot
+    - special: '@daily'
+
+find /data/www/buildbot/test-results -type f -mtime +7 -exec rm {} \;:
+  cron.present:
+    - identifier: DAILY_CLEAN_BUILDBOT_TEST_RESULTS
+    - user: buildbot
+    - special: '@daily'
+
 /etc/nginx/sites.d/buildbot-master.conf:
   file.managed:
     - source: salt://buildbot/config/nginx.conf.jinja

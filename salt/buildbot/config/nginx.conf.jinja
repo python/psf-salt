@@ -41,8 +41,13 @@ server {
       proxy_pass http://localhost:9010;
   }
 
-  location / {
+  location ^/$ {
       return 302 https://www.python.org/dev/buildbot/;
+  }
+
+  location / {
+      autoindex on;
+      root /data/www/buildbot/;
   }
 
   location /all/ {
