@@ -40,7 +40,7 @@ buildbot-user:
 /srv/buildbot:
   git.latest:
     - name: https://github.com/python/buildmaster-config.git
-    - rev: new_host_2020-08-11
+    - rev: master
     - target: /srv/buildbot
     - user: buildbot
     - force_reset: True
