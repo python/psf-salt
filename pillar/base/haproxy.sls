@@ -4,6 +4,11 @@ haproxy:
       domains:
         - buildbot.python.org
       check: "GET /all/#/about HTTP/1.1\\r\\nHost:\\ buildbot.python.org"
+      extra:
+        - timeout client 30s
+        - timeout connect 5s
+        - timeout server 25s
+        - timeout tunnel 3600s
 
     docs:
       domains:
@@ -116,3 +121,13 @@ haproxy:
     buildbot_worker:
       bind: :20101
       service: buildbot-master-worker
+      extra:
+        - timeout client 86400
+        - timeout server 86400
+
+    buildbot_worker_direct:
+      bind: :9020
+      service: buildbot-master-worker
+      extra:
+        - timeout client 86400
+        - timeout server 86400

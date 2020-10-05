@@ -33,4 +33,4 @@ firewall:
     port: 20100
 
   "buildbot.python.org:worker":
-    port: 20101
+    port: 9020

@@ -6,4 +6,3 @@ firewall:
     source: *psf_internal_network
   buildbot-worker:
     port: 9020
-    source: *psf_internal_network

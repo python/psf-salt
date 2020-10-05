@@ -21,6 +21,7 @@ server {
   error_log /var/log/nginx/buildbot-master.error.log;
   access_log /var/log/nginx/buildbot-master.access.log main;
 
+  rewrite ^/$ https://www.python.org/dev/buildbot/ redirect;
   rewrite ^/3.6(/?)$ /all/#/grid?branch=3.6 redirect;
   rewrite ^/3.7(/?)$ /all/#/grid?branch=3.7 redirect;
   rewrite ^/3.8(/?)$ /all/#/grid?branch=3.8 redirect;
@@ -39,10 +40,6 @@ server {
       proxy_redirect off;
       rewrite /all/(.*) /$1 break;
       proxy_pass http://localhost:9010;
-  }
-
-  location ^/$ {
-      return 302 https://www.python.org/dev/buildbot/;
   }
 
   location / {
