@@ -248,6 +248,17 @@ users:
       buildbot:
         allowed: True
         sudo : True
+      downloads:
+        sudo: True
+        allowed: True
+        groups:
+          - downloads
+      docs:
+        sudo: True
+        allowed: True
+        groups:
+          - docs
+          - docsbuild
 
   jafo:
     fullname: "Sean Reifschneider"
