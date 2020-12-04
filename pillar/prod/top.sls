@@ -43,6 +43,7 @@ base:
 
   'docs':
     - match: nodegroup
+    - firewall.http
     - firewall.rs-lb-backend
     - groups.docs
     - secrets.docs
