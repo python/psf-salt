@@ -1,4 +1,4 @@
-oic==0.14.0
+oic==1.2.1
 psycopg2<2.8
 gunicorn<20.0.0
 pytz
