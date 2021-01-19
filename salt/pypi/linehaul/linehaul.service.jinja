@@ -8,6 +8,7 @@ ExecStart=/srv/linehaul/env/bin/linehaul server {{ pillar["linehaul"]["bigquery_
 Restart=on-failure
 User=linehaul
 Group=linehaul
+LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
