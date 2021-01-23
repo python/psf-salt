@@ -143,6 +143,20 @@ virtualenv-clone:
     - require:
       - git: pip-clone
 
+/srv/bootstrap/www/2.7/:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 755
+    - makedirs: True
+
+
+/srv/bootstrap/www/2.7/get-pip.py:
+  file.symlink:
+    - target: /srv/bootstrap/pip/2.7/get-pip.py
+    - require:
+      - git: pip-clone
+
 
 /srv/bootstrap/www/ez_setup.py:
   file.symlink:
