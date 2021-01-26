@@ -11,8 +11,8 @@ buildbot-deps:
   pkg.installed:
     - pkgs:
       - git
-      - python3.8-dev
-      - python3.8-venv
+      - python3.9-dev
+      - python3.9-venv
       - build-essential
       - libpq-dev
     - require:
