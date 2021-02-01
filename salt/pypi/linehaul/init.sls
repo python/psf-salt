@@ -33,8 +33,8 @@ linehaul:
   git.latest:
     - name: https://github.com/pypa/linehaul.git
     - target: /srv/linehaul/src
-    - rev: master
-    - branch: master
+    - rev: main
+    - branch: main
     - force_reset: True
     - force_fetch: True
     - user: linehaul
