@@ -30,7 +30,6 @@ bootrap-deps:
 pip-clone:
   git.latest:
     - name: https://github.com/pypa/get-pip.git
-    - rev: master
     - target: /srv/bootstrap/pip
     - user: nginx
     - force_clone: True
@@ -68,7 +67,6 @@ buildout-clone:
 virtualenv-clone:
   git.latest:
     - name: https://github.com/pypa/get-virtualenv.git
-    - rev: master
     - target: /srv/bootstrap/virtualenv
     - user: nginx
     - force_clone: True
