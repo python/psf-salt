@@ -87,7 +87,7 @@ virtualenv-clone:
 
 /srv/bootstrap/www/get-pip.py:
   file.symlink:
-    - target: /srv/bootstrap/pip/get-pip.py
+    - target: /srv/bootstrap/pip/public/get-pip.py
     - require:
       - git: pip-clone
 
