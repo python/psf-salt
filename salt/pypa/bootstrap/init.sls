@@ -77,6 +77,14 @@ virtualenv-clone:
     - require:
       - pkg: bootrap-deps
 
+
+/srv/bootstrap/www/pip:
+  file.symlink:
+    - target: /srv/bootstrap/pip/public
+    - require:
+      - git: pip-clone
+
+
 /srv/bootstrap/www/get-pip.py:
   file.symlink:
     - target: /srv/bootstrap/pip/get-pip.py
