@@ -212,6 +212,12 @@ refresh-pip:
     - onchanges:
       - git: pip-clone
 
+purge-pip-index:
+  cmd.run:
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/pip/'
+    - onchanges:
+      - git: pip-clone
+
 refresh-pip-26:
   cmd.run:
     - name: 'curl -s -X PURGE https://bootstrap.pypa.io/2.6/get-pip.py'
@@ -273,6 +279,12 @@ refresh-virtualenv-files:
     - name: "find /srv/bootstrap/virtualenv/public -type l,f -printf '%P\n' | xargs -I{} curl -s -X PURGE https://bootstrap.pypa.io/virtualenv/{}"
     - require:
       - file: /srv/bootstrap/www/virtualenv.pyz
+    - onchanges:
+      - git: virtualenv-clone
+
+purge-virutualenv-index:
+  cmd.run:
+    - name: 'curl -s -X PURGE https://bootstrap.pypa.io/virtualenv/'
     - onchanges:
       - git: virtualenv-clone
 
