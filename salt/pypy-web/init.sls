@@ -5,7 +5,7 @@ include:
 pypy-web-deps:
   pkg.installed:
     - pkgs:
-      - mercurial
+      - git
 
 /srv/pypy:
   file.directory:
@@ -23,9 +23,9 @@ pypy-web-deps:
       - file: /srv/pypy
 
 pypy-web-clone:
-  hg.latest:
-    - name: https://foss.heptapod.net/pypy/pypy.org
-    - rev: default
+  git.latest:
+    - name: https://github.com/pypy/pypy.org
+    - rev: gh-pages
     - target: /srv/pypy/pypy.org
     - user: nginx
     - clean: True
