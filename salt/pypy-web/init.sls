@@ -28,8 +28,6 @@ pypy-web-clone:
     - rev: gh-pages
     - target: /srv/pypy/pypy.org
     - user: nginx
-    - clean: True
-    - force: True
     - require:
       - pkg: pypy-web-deps
 
