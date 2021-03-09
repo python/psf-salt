@@ -26,8 +26,11 @@ pypy-web-clone:
   git.latest:
     - name: https://github.com/pypy/pypy.org
     - rev: gh-pages
+    - branch: gh-pages
     - target: /srv/pypy/pypy.org
     - user: nginx
+    - force_checkout: True
+    - force_fetch: True
     - require:
       - pkg: pypy-web-deps
 
