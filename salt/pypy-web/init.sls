@@ -30,6 +30,7 @@ pypy-web-clone:
     - target: /srv/pypy/pypy.org
     - user: nginx
     - force_checkout: True
+    - force_reset: True
     - force_fetch: True
     - require:
       - pkg: pypy-web-deps
