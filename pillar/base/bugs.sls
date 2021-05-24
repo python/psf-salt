@@ -34,7 +34,7 @@ bugs:
             spambayes_spam_cutoff: "0.85"
             ciavc_server: "http://CIA.vc"
           irker:
-            channels: "irc://chat.freenode.net/python-dev"
+            channels: "irc://chat.freenode.net/python-dev-notifs"
     jython:
       source: https://github.com/psf/bpo-tracker-jython.git
       server_name: bugs.jython.org
