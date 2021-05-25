@@ -40,7 +40,7 @@ buildbot-user:
 /srv/buildbot:
   git.latest:
     - name: https://github.com/python/buildmaster-config.git
-    - rev: master
+    - rev: main
     - target: /srv/buildbot
     - user: buildbot
     - force_reset: True
