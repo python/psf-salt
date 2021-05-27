@@ -22,16 +22,16 @@ server {
   access_log /var/log/nginx/buildbot-master.access.log main;
 
   rewrite ^/$ https://www.python.org/dev/buildbot/ redirect;
-  rewrite ^/3.6(/?)$ /all/#/grid?branch=3.6 redirect;
   rewrite ^/3.7(/?)$ /all/#/grid?branch=3.7 redirect;
   rewrite ^/3.8(/?)$ /all/#/grid?branch=3.8 redirect;
   rewrite ^/3.9(/?)$ /all/#/grid?branch=3.9 redirect;
-  rewrite ^/3.x(/?)$ /all/#/grid?branch=master redirect;
-  rewrite ^/3.6.stable(/?)$ /all/#/grid?branch=3.6&tag=stable redirect;
+  rewrite ^/3.10(/?)$ /all/#/grid?branch=3.10 redirect;
+  rewrite ^/3.x(/?)$ /all/#/grid?branch=main redirect;
   rewrite ^/3.7.stable(/?)$ /all/#/grid?branch=3.7&tag=stable redirect;
   rewrite ^/3.8.stable(/?)$ /all/#/grid?branch=3.8&tag=stable redirect;
   rewrite ^/3.9.stable(/?)$ /all/#/grid?branch=3.9&tag=stable redirect;
-  rewrite ^/3.x.stable(/?)$ /all/#/grid?branch=master&tag=stable redirect;
+  rewrite ^/3.10.stable(/?)$ /all/#/grid?branch=3.10&tag=stable redirect;
+  rewrite ^/3.x.stable(/?)$ /all/#/grid?branch=main&tag=stable redirect;
   rewrite ^/stable(/?)$ /all/#/grid?tag=stable redirect;
 
   location @backend {
