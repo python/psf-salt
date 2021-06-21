@@ -9,20 +9,6 @@ upstream tracker-{{ tracker }} {
 
 include conf.d/tracker-extras/upstreams-{{ tracker }}*.conf;
 
-gzip_http_version 1.1;
-gzip_proxied      any;
-gzip_min_length   500;
-# default comp_level is 1
-gzip_comp_level   6;
-gzip_disable      msie6
-gzip_types        text/plain text/css
-                  text/xml application/xml
-                  text/javascript application/javascript
-                  text/json application/json;
-# upstream proxies need to match Accept-Encoding as
-# part of their cache check
-gzip_vary         on
-
 server {
   listen 80;
   server_name {{ server_name }};
@@ -63,6 +49,17 @@ server {
   root /srv/roundup/trackers/{{ tracker }}/;
 
   include conf.d/tracker-extras/{{ tracker }}*.conf;
+
+  gzip              on;
+  gzip_http_version 1.1;
+  gzip_proxied      any;
+  gzip_min_length   500;
+  gzip_comp_level   6;  # default comp_level is 1
+  gzip_disable      msie6;
+  gzip_types        text/plain text/css
+                    text/xml application/xml
+                    text/javascript application/javascript
+                    text/json application/json;
 
   location /@@file/ {
     rewrite ^/@@file/(.*) /html/$1 break;
