@@ -70,10 +70,6 @@ base:
     - match: nodegroup
     - jython
 
-  'linehaul':
-    - match: nodegroup
-    - pypi.linehaul
-
   'loadbalancer':
     - match: nodegroup
     - haproxy

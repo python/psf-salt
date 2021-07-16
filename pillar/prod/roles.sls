@@ -15,7 +15,6 @@ roles:
   docs: "docs.nyc1.psf.io"
   downloads: "downloads.nyc1.psf.io"
   hg: "hg.nyc1.psf.io"
-  linehaul: "linehaul.nyc1.psf.io"
   loadbalancer: "lb*.nyc1.psf.io"
   mail: "mail.ams1.psf.io"
   planet: "planet.nyc1.psf.io"

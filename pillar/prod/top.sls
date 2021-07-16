@@ -69,12 +69,6 @@ base:
     - secrets.fastly
     - secrets.tls.certs.loadbalancer
 
-  'linehaul':
-    - match: nodegroup
-    - firewall.linehaul
-    - secrets.pypi.linehaul
-    - pypi.linehaul
-
   'mail':
     - match: nodegroup
     - firewall.mail
