@@ -49,3 +49,7 @@ tls:
     pypy-web.psf.io:
       roles:
         - pypy-web
+
+    moin.psf.io:
+      roles:
+        - moin

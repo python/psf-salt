@@ -76,6 +76,9 @@ base:
     - secrets.backup.mail
     - groups.mail
 
+  'moin':
+    - match: nodegroup
+
   'planet':
     - match: nodegroup
     - planet
