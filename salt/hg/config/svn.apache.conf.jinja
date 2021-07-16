@@ -1,0 +1,55 @@
+<VirtualHost _default_:9001>
+    ServerName svn.python.org
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/private/svn.psf.io.pem
+    SSLCertificateKeyFile /etc/ssl/private/svn.psf.io.pem
+    SSLCipherSuite ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:!AES256:!aNULL:!eNULL:!MD5:!DSS:!PSK:!SRP
+    SSLHonorCipherOrder on
+    SSLProtocol TLSv1.2
+
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %{ms}T" combined
+
+    CustomLog /var/log/apache2/svn.access.log combined
+    ErrorLog /var/log/apache2/svn.error.log
+
+    DocumentRoot /srv/svnweb
+
+    # Redirection of source code links in already-generated
+    # documentation
+    RewriteEngine on
+    RewriteRule ^/view/python/branches/py3k/(.*)$ \
+       https://hg.python.org/cpython/file/default/$1? [R=301]
+
+    <Location />
+        DAV svn
+        SVNParentPath /srv/svn/repos/
+        SVNListParentPath On
+
+        <LimitExcept GET PROPFIND OPTIONS REPORT>
+            deny from all
+        </LimitExcept>
+
+        # our access control policy
+        AuthzSVNAccessFile svn_config/svn.access
+
+        # how to authenticate a user
+        AuthType Basic
+        AuthName "Subversion repository"
+        AuthUserFile svn_config/svn.users
+
+        # try anonymous access first, resort to real
+        # authentication if necessary.
+        Satisfy Any
+        Require valid-user
+    </Location>
+
+    Alias /robots.txt /srv/svnweb/robots.txt
+    <Directory /srv/svnweb/>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+</VirtualHost>

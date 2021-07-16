@@ -62,6 +62,11 @@ haproxy:
       verify_host: pypy-web.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ pypy-web.psf.io"
 
+    svn:
+      domains:
+        - svn.python.org
+      check: "GET / HTTP/1.1\\r\\nHost:\\ svn.python.org"
+
     letsencrypt-well-known:
       domains: []
       verify_host: salt.psf.io

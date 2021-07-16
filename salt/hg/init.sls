@@ -3,6 +3,11 @@ hg-deps:
     - pkgs:
       - mercurial
 
+svn-deps:
+  pkg.installed:
+    - pkgs:
+      - libapache2-mod-svn
+
 hg-user:
   user.present:
     - name: hg
@@ -187,6 +192,16 @@ apache2:
     - target: /etc/apache2/mods-available/socache_shmcb.load
 
 
+/etc/apache2/mods-enabled/dav_svn.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/dav_svn.load
+
+
+/etc/apache2/mods-enabled/dav_svn.conf:
+  file.symlink:
+    - target: /etc/apache2/mods-available/dav_svn.conf
+
+
 /etc/apache2/ports.conf:
   file.managed:
     - source: salt://hg/config/ports.apache.conf.jinja
@@ -214,6 +229,23 @@ apache2:
     - group: root
     - mode: 644
 
+/etc/apache2/sites-available/svn.conf:
+  file.managed:
+    - source: salt://hg/config/svn.apache.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: apache2
+
+/etc/apache2/sites-enabled/svn.conf:
+  file.symlink:
+    - target: ../sites-available/svn.conf
+    - user: root
+    - group: root
+    - mode: 644
+
 /etc/logrotate.d/apache2:
   file.managed:
     - source: salt://hg/config/apache.logrotate
@@ -230,6 +262,19 @@ apache2:
     - context:
         name: hg
         port: 9000
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul-pkgs
+
+/etc/consul.d/service-svn.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: svn
+        port: 9001
     - user: root
     - group: root
     - mode: 644

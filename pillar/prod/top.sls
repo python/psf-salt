@@ -57,6 +57,7 @@ base:
   'hg':
     - match: nodegroup
     - firewall.rs-lb-backend
+    - firewall.hg
     - secrets.backup.hg
     - secrets.ssh.hg
 
