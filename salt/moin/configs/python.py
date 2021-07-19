@@ -1,5 +1,30 @@
-#!python2
 # -*- coding: utf-8 -*-
+# IMPORTANT! This encoding (charset) setting MUST be correct! If you live in a
+# western country and you don't know that you use utf-8, you probably want to
+# use iso-8859-1 (or some other iso charset). If you use utf-8 (a Unicode
+# encoding) you MUST use: coding: utf-8
+# That setting must match the encoding your editor uses when you modify the
+# settings below. If it does not, special non-ASCII chars will be wrong.
+
+"""
+    MoinMoin - Configuration for a single wiki
+
+    If you run a single wiki only, you can omit the farmconfig.py config
+    file and just use wikiconfig.py - it will be used for every request
+    we get in that case.
+
+    Note that there are more config options than you'll find in
+    the version of this file that is installed by default; see
+    the module MoinMoin.multiconfig for a full list of names and their
+    default values.
+
+    Also, the URL http://moinmoin.wikiwikiweb.de/HelpOnConfiguration has
+    a list of config options.
+
+    @copyright: 2000-2004 by Juergen Hermann <jh@web.de>
+    @license: GNU GPL, see COPYING for details.
+"""
+
 from farmconfig import FarmConfig
 from MoinMoin.auth import MoinAuth
 from MoinMoin.auth.openidrp import OpenIDAuth
@@ -10,19 +35,19 @@ class Config(FarmConfig):
     # Wiki identity ----------------------------------------------------
 
     # Site name, used by default for wiki name-logo [Unicode]
-    sitename = u"{{ config.name }}"
-
+    sitename = u'Python Wiki'
     # Wiki logo. You can use an image, text or both. [Unicode]
     # Example: u'<img src="/wiki/mywiki.png" alt="My Wiki">My Wiki'
     # For no logo or text, use ''
-    logo_string = """{{ config.get('logo', config.name) }}"""
+    #logo_string = sitename
+    logo_string = '</a><a href="http://www.python.org"><img src="/wiki/europython/img/python-logo.gif" alt="Python" ></a><a name="logo">'
 
-    {% if 'theme' in config %}
-    theme_default = "{{ config.theme }}"
-    {% endif %}
+    theme_default = 'europython'
+
 
     # The interwiki name used in interwiki links
-    interwikiname = {% if 'interwiki' in config %}"{{ config.interwiki }}"{% else %}None{% endif %}
+    interwikiname = None
+
 
     # Critical setup  ---------------------------------------------------
 
@@ -34,50 +59,52 @@ class Config(FarmConfig):
 
     # Where your mutable wiki pages are. You want to make regular
     # backups of this directory.
-    data_dir = "{{ data_dir }}"
+    data_dir = '/data/moin/instances/python/data/'
 
     # Security ----------------------------------------------------------
 
     # mvl 110304 add openid. requires anonymous sessions
-    auth = [MoinAuth(), OpenIDAuth()]
-    cookie_lifetime = (1, 12)
+    auth = [MoinAuth(),OpenIDAuth()]
+    cookie_lifetime=(1,12)
 
     # Security critical actions (disabled by default)
     # Uncomment to enable options you like.
 
-    acl_rights_before = "{{ config.get('acls', {}).get('before', 'BlockedUsersGroup: AdminGroup:read,write,delete,revert,admin') }}"
-    acl_rights_default = "{{ config.get('acls', {}).get('default', 'EditorsGroup:read,write,delete,revert All:read') }}"
-    acl_rights_after = "{{ config.get('acls', {}).get('after', '') }}"
+    # IMPORTANT: grant yourself admin rights! replace YourName with
+    # your user name. See HelpOnAccessControlLists for more help.
+    acl_rights_before = u"BlockedUsersGroup: AdminGroup:read,write,delete,revert,admin"
 
-    {% if config.get('linkspam', True) %}
-    # Link spam protection for public wikis
+    # Only users in the NewUsersGroup may edit pages, since we're simply
+    # getting too much spam and vandalism. MAL 2014-05-31
+    acl_rights_default = u"EditorsGroup:read,write,delete,revert All:read"
+    
+    # Link spam protection for public wikis (Uncomment to enable)
     # Needs a reliable internet connection.
     from MoinMoin.security.antispam import SecurityPolicy
-    {% endif %}
 
     # Enable textchas.
     textchas_disabled_group = u"TrustedEditorsGroup"
     textchas = {
         'en': {
-            # u"How many words are in this question?": ur" *(7|(?i)seven) *",
-            # u"What is Abraham Lincoln's first name?": ur" *(?i)abraham *",
-            # u"What does Python's interactive prompt look like?": ur" *>>> *",
+            #u"How many words are in this question?": ur" *(7|(?i)seven) *",
+            #u"What is Abraham Lincoln's first name?": ur" *(?i)abraham *",
+            #u"What does Python's interactive prompt look like?": ur" *>>> *",
             u"What is van Rossum's first name?": ur" *(?i)guido *",
             u"Which foundation protects the Python IP?": ur" *(?i)(psf|python +software +foundation|python +software|python +foundation) *",
             u"x = 1; x += 1; x ==": ur" *(?i)(2|two) *",
             u"x = 2; x /= 2; x ==": ur" *(?i)(1|1.0|one) *",
             u"l = [1,2,3]; l.remove(1); l[0] ==": ur" *(?i)(2|two) *",
             u"l = [1,2,3]; del l[1]; l[0] ==": ur" *(?i)(1|one) *",
-            u"s = 'guido'; s[3:5] ==": ur" *(?i)do *",
+            u"s = 'guido'; s[3:5] ==": ur" *['\"]?(?i)do['\"]? *",
             u"PyPI is also called": ur" *(?i)(cheese *shop) *",
             u"The cheeseshop is also called": ur" *(?i)(py *pi) *",
         },
     }
 
     # Mail --------------------------------------------------------------
-
+    
     # User interface ----------------------------------------------------
-
+    
     # Add your wikis important pages at the end. It is not recommended to
     # remove the default links.  Leave room for user links - don't use
     # more than 6 short items.
@@ -92,20 +119,25 @@ class Config(FarmConfig):
         u'HelpContents',
     ]
 
+    page_footer2 = '<p style="text-align: center; font-size: 85%"><a href="/moin/FrontPage#use">Unable to edit the page? See the FrontPage for instructions.</a></p>'
+
     # Language options --------------------------------------------------
 
+    # See http://moinmoin.wikiwikiweb.de/ConfigMarket for configuration in 
+    # YOUR language that other people contributed.
+
     # The main wiki language, set the direction of the wiki pages
-    default_lang = "en"
+    default_lang = 'en'
 
     # Content options ---------------------------------------------------
 
     # Show users hostnames in RecentChanges
-    show_hosts = True
+    show_hosts = 1                  
 
     # Enumerate headlines?
-    show_section_numbers = False
+    show_section_numbers = 0
 
     # Charts size, require gdchart (Set to None to disable).
-    chart_options = {"width": 600, "height": 300}
+    chart_options = {'width': 600, 'height': 300}   
 
-    # show_timings = True
+    #show_timings = True

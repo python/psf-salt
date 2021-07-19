@@ -47,6 +47,7 @@ haproxy:
       domains:
         - hg.python.org
       check: "GET /test/rev/ea32503c754c HTTP/1.1\\r\\nHost:\\ hg.python.org"
+      verify_host: hg.psf.io
 
     pypa-bootstrap:
       domains:
@@ -62,10 +63,17 @@ haproxy:
       verify_host: pypy-web.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ pypy-web.psf.io"
 
+    moin:
+      domains:
+        - wiki.python.org
+        - wiki.jython.org
+      verify_host: moin.psf.io
+
     svn:
       domains:
         - svn.python.org
       check: "GET / HTTP/1.1\\r\\nHost:\\ svn.python.org"
+      verify_host: hg.psf.io
 
     letsencrypt-well-known:
       domains: []

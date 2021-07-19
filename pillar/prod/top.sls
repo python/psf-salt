@@ -78,6 +78,8 @@ base:
 
   'moin':
     - match: nodegroup
+    - secrets.mail-opt-out
+    - firewall.rs-lb-backend
 
   'planet':
     - match: nodegroup

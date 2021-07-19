@@ -74,6 +74,10 @@ base:
     - match: nodegroup
     - haproxy
 
+  'moin':
+    - match: nodegroup
+    - moin
+
   'planet':
     - match: nodegroup
     - planet
