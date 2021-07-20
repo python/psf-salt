@@ -5,6 +5,7 @@ SERVERS = [
   "backup-server",
   {:name => "bugs", :box => "ubuntu/xenial64", :codename => "xenial", :ports => [8080]},
   "cdn-logs",
+  "codespeed",
   "consul",
   "docs",
   "downloads",
@@ -14,7 +15,6 @@ SERVERS = [
   "planet",
   {:name => "postgresql-primary", :roles => ["postgresql", "postgresql-primary"]},
   {:name => "postgresql-replica", :roles => ["postgresql", "postgresql-replica"]},
-  "speed-web",
   "pypa-web",
 ]
 
