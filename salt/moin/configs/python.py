@@ -66,6 +66,7 @@ class Config(FarmConfig):
     # mvl 110304 add openid. requires anonymous sessions
     auth = [MoinAuth(),OpenIDAuth()]
     cookie_lifetime=(1,12)
+    superuser = ['EWDurbin']
 
     # Security critical actions (disabled by default)
     # Uncomment to enable options you like.

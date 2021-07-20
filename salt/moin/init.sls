@@ -119,6 +119,10 @@ apache2:
       - file: /etc/apache2/mods-enabled/*
       - file: /etc/ssl/private/moin.psf.io.pem
 
+/etc/apache2/mods-enabled/remoteip.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/remoteip.load
+
 /etc/apache2/mods-enabled/headers.load:
   file.symlink:
     - target: /etc/apache2/mods-available/headers.load
@@ -159,6 +163,7 @@ apache2:
 
 /etc/apache2/sites-available/wiki.python.org.conf:
   file.managed:
+    - template: jinja
     - source: salt://moin/configs/wiki.python.org.conf
     - user: root
     - group: root
@@ -256,3 +261,10 @@ apache2:
     - minute: 0
     - require:
       - file: /srv/moin/bin/moin_maint_index_rebuild.sh
+
+/etc/logrotate.d/moin:
+  file.managed:
+    - source: salt://moin/configs/logrotate.conf
+    - user: root
+    - group: root
+    - mode: 644

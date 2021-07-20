@@ -37,3 +37,8 @@ backup-server:
       user: buildbot
       increment_retention: 90D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6ViDGniFFi9MeshjdKfh/qw3oXsYCLryh3t/wY9V43l209khYhXAh5k14QcbTu8b6H1MGNhq2jjMKLv2C2xzXubSZfUKFEhJp9MRG0xg3mxR9kGRu5wEmNbRavFKA2d0oiQFfMTRNUGCzPL5mn98EuFUuOtM+dMiXJ5eJdcFb5i0R8o31JzeaA37ogyYbmFYd20dsMlHEV7WdTILp0GeHxyq4t9NXMBu7cBvsLr4dSUQxlehTbHy5q0ZKWML0q1GVo65bAsTmh9byrEN5iUhWRRTTj/Pp9V15cYRtMc8qMTBNnDCKXtctfj3SuEUp47TCRbkyg2dFb/mUWCbVrgT9
+    moin:
+      directory: /backup/moin
+      user: moin
+      increment_retention: 90D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDCr9RaD7FYNH4LSiC1d7UEwLo4o78+d8VZebRqsXfHH/J6xH6iBj8bEhzv08tVIVUb//T8fBM/N9bf9FYxiQPo/TouSkolaSNNkpPveXP3CtOUaR8f+W6C5Q4UfV0JRw0VRv7qfo5jjDpL7wMlq2wvI8ZS/0lODhUQg7TFUHSbaRM4j9CjokhQZLXoMa/V7M6S1OWjt9y3VrGNlT1EBAO/aQPmCNU8jStkJXvW/L9/jRU2RzTCGeuOBveKBe3HoXTaQbgqngilqZN+xfHNHtTMlF/KfgtZgl5l3C/nzlzkvBMSWOMiBLVtapUMdB6nNBAxY6Gb2OC5OjnMIoZ3X7efzKpasCJZ1mRwvaFU8XC2166+PVdWpj+UJ1Nv18Nl7Qzf3a04LOiV3s+0hxfYxDg1rsT+XyW/r65Tupp7u4MGgw1U/AtiH/Rsjl6IcGGsguMqQO6QlFcVPTTaEZvxAV54yMRlvzmc1hBDVbzKuUeE/yShpf1b9OsZODvyEjRFtDc=

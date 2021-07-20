@@ -80,6 +80,7 @@ base:
     - match: nodegroup
     - secrets.mail-opt-out
     - firewall.rs-lb-backend
+    - secrets.backup.moin
 
   'planet':
     - match: nodegroup

@@ -63,6 +63,7 @@ class Config(FarmConfig):
 
     # Security critical actions (disabled by default)
     # Uncomment to enable options you like.
+    superuser = ['EWDurbin']
 
     # IMPORTANT: grant yourself admin rights! replace YourName with
     # your user name. See HelpOnAccessControlLists for more help.
