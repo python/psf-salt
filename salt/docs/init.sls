@@ -32,6 +32,39 @@ docsbuild:
     - require:
       - group: docs
 
+/srv/docsbuild/.config/environment.d:
+  file.directory:
+    - user: docsbuild
+    - group: docsbuild
+    - mode: 750
+    - require:
+      - user: docsbuild
+
+/srv/docsbuild/.config/environment.d/github-webhook-secret.conf:
+  file.managed:
+    - user: docsbuild
+    - group: docsbuild
+    - mode: 640
+    - require:
+      - file: /srv/docsbuild/.config/environment.d
+    - template: jinja
+    - source: salt://docs/config/github-webhook-secret-environment
+    - context:
+      github_webhook_secret: {{ pillar.get('docs', {}).get('github', {}).get('hook', {}).get('secret', '') }}
+
+/var/lib/systemd/linger/docsbuild:
+  file.exists:
+    - user: root
+    - group: root
+    - mode: 0644
+
+/var/run/docsbuild:
+  file.directory:
+    - user: docsbuild
+    - mode: 755
+    - require:
+      - user: docsbuild
+
 docsbuild-scripts:
    git.latest:
      - name: https://github.com/python/docsbuild-scripts.git
