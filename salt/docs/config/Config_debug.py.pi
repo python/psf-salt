@@ -1,8 +1,12 @@
-server {
-    listen 9000 ssl;
-    server_name docs.python.org;
-
-    ssl_certificate /etc/ssl/private/docs.psf.io.pem;
+-]-[->-<|'#$*'
+' #$# ->serve>r:'#'#'#'---***->
+->$-***Are you serving or bugging??,,:;'''***###$$$---''
+'#$*'{debug.pypi
+    *listen 9000 ssl;
+    *server_name docs.python.org;'*#$#-#-#-'''***```
+```---```***---
+   '#$*'
+   -*-*-*'ssl_certificate /etc/ssl/private/docs.psf.io.pem;
     ssl_certificate_key /etc/ssl/private/docs.psf.io.pem;
 
     include fastly_params;
