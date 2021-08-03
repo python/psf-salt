@@ -75,6 +75,11 @@ haproxy:
       check: "GET / HTTP/1.1\\r\\nHost:\\ svn.python.org"
       verify_host: hg.psf.io
 
+    legacy:
+      domains:
+        - legacy.python.org
+      verify_host: hg.psf.io
+
     letsencrypt-well-known:
       domains: []
       verify_host: salt.psf.io

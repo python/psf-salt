@@ -1,0 +1,116 @@
+<Directory /srv/legacy>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+</Directory>
+
+<VirtualHost _default_:9002>
+    ServerName legacy.python.org
+    ServerAdmin webmaster@python.org
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/private/hg.psf.io.pem
+    SSLCertificateKeyFile /etc/ssl/private/hg.psf.io.pem
+    SSLCipherSuite ECDH+AESGCM:ECDH+CHACHA20:ECDH+AES256:ECDH+AES128:!aNULL:!SHA1:!AESCCM
+    SSLHonorCipherOrder on
+    SSLProtocol TLSv1.2
+
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %{ms}T" combined
+
+    CustomLog /var/log/apache2/legacy.access.log combined
+    ErrorLog /var/log/apache2/legacy.error.log
+
+    DocumentRoot /srv/legacy
+
+    Alias /community/pycon/dc2003 /data/ftp.python.org/pub/www.python.org/pycon/dc2003/
+    Alias /community/pycon/dc2004 /data/ftp.python.org/pub/www.python.org/pycon/dc2004/
+    Alias /community/pycon/dc2005 /data/ftp.python.org/pub/www.python.org/pycon/2005/
+
+    #Alias /~jeremy  "/data/home/jeremy/public_html"
+    #Alias /~guido   "/usr/local/home/guido/public_html"
+    #Alias /~anthony   "/home/anthony/public_html"
+    #Alias /pyvault "/data/ftp.python.org/pub/pyvault/" 
+    #Alias /psf/weblog /data/weblog/output/
+
+    Include legacy-redirects.conf
+
+    AddType text/html .htp
+    AddType text/plain py pyw
+    AddType application/rss+xml .rdf
+    ErrorDocument 404 /404/
+
+    RewriteEngine on
+
+    RewriteRule (.*)/users/(.*) $1/~$2 [P]
+    RewriteRule (.*)/people/(.*) $1/~$2 [P]
+    RewriteRule /packages/(.*) http://pypi.python.org/packages/$1 [R]
+    RewriteRule /cgi-bin/faqw-mm.py.* http://wiki.list.org/display/DOC/Frequently+Asked+Questions
+
+    #RewriteRule ^/([0-9]+\.[0-9]+.*)$   http://www.python.org/download/releases/$1  [L]
+    #RewriteRule ^/topics(.*)        http://www.python.org/doc/topics$1      [L]
+    #RewriteRule ^/psf(.*)           http://www.python.org/community/psf$1      [L]
+
+    RedirectMatch permanent ^/dev/committers/?$ http://hg.python.org/committers.txt
+
+    # Map old docs under www.python.org/doc/<version>
+    RedirectMatch permanent ^/doc/current(.*)$ http://docs.python.org$1
+    RedirectMatch permanent ^/doc/([0-9]+\.[0-9]+.*)$ http://docs.python.org/release/$1
+
+    # Map old, 2.5-and-earlier directory names to 2.6-and-later names.
+    RedirectMatch permanent ^/doc/lib/?$ http://www.python.org/doc/current/library/
+    RedirectMatch permanent ^/doc/tut/?$ http://www.python.org/doc/current/tutorial/
+    RedirectMatch permanent ^/doc/api/?$ http://www.python.org/doc/current/c-api/
+    RedirectMatch permanent ^/doc/ext/?$ http://www.python.org/doc/current/extending/
+    RedirectMatch permanent ^/doc/dist/?$ http://www.python.org/doc/current/distutils/
+    RedirectMatch permanent ^/doc/inst/?$ http://www.python.org/doc/current/install/
+    RedirectMatch permanent ^/doc/doc/?$ http://www.python.org/doc/current/documenting/
+    RedirectMatch permanent ^/doc/ref/?$ http://www.python.org/doc/current/reference/
+
+    RedirectMatch permanent ^/ftp/+(.*)$ https://www.python.org/ftp/$1
+
+    RedirectMatch permanent ^/download/?$ https://www.python.org/downloads/
+    RedirectMatch permanent ^/download/releases/?$ https://www.python.org/downloads/
+
+    # site.py directs people to www.python.org/X.Y/license.html; starting with 3.3
+    # that does not work anymore
+    RedirectMatch permanent ^/3.3/(.*) http://www.python.org/3.3.0/$1
+
+    # Map old FAQ URLs to new ones 
+    RedirectMatch permanent ^/doc/faq/(.+)$ http://docs.python.org/faq/$1
+
+    # Python buildbot
+    RewriteCond ${REQUEST_FILENAME} !-f
+    RewriteRule ^/dev/buildbot/(..*)$ http://buildbot.python.org/$1 [R]
+
+    # Transitional redirections
+    RewriteRule ^/moin(.*) http://wiki.python.org/moin$1 [R,L]
+
+    # Temporary doc redirection for Mailman
+    RewriteRule ^/doc/current/lib/(.*) http://docs.python.org/lib/$1 [R,L]
+
+    
+    # This is now a redirect + mod_redirect-proxy for POST
+    #ProxyPass /pypi http://pypi.python.org/pypi
+    #ProxyPassReverse /pypi http://pypi.python.org/pypi
+
+    # Block misbehaved crawlers
+    <Directory /data/ftp.python.org/pub/www.python.org/>
+       Allow from env=good_bots
+       Deny from env=bad_bots    
+    </Directory>
+
+    <Directory /data/cgi-bin/>
+       deny from 213.42.21.77
+    </Directory>
+
+    <Location /secret>
+        AuthType Basic
+        AuthName "python.org very secret membership area"
+        AuthUserFile /dev/null
+        Require user psu
+    </Location>
+
+    <Location /dev/peps>
+        Header set X-Robots-Tag "noindex, nofollow"
+    </Location>
+</VirtualHost>

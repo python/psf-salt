@@ -1,5 +1,7 @@
 {% set internal = salt["pillar.get"]("psf_internal_network") %}
 Listen {{ salt["network.ip_addrs"](cidr=internal)[0] }}:9000
 Listen {{ salt["network.ip_addrs"](cidr=internal)[0] }}:9001
+Listen {{ salt["network.ip_addrs"](cidr=internal)[0] }}:9002
 Listen localhost:9000
 Listen localhost:9001
+Listen localhost:9002

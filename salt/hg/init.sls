@@ -246,6 +246,59 @@ apache2:
     - group: root
     - mode: 644
 
+/etc/apache2/REDIRECTS:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 755
+    - require:
+      - pkg: apache2
+
+/etc/apache2/REDIRECTS/sigs.conf:
+  file.managed:
+    - source: salt://hg/config/legacy/REDIRECTS/sigs.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/apache2/REDIRECTS
+
+/etc/apache2/REDIRECTS/releases.conf:
+  file.managed:
+    - source: salt://hg/config/legacy/REDIRECTS/releases.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/apache2/REDIRECTS
+
+/etc/apache2/legacy-redirects.conf:
+  file.managed:
+    - source: salt://hg/config/legacy/legacy-redirects.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/apache2/REDIRECTS/sigs.conf
+      - file: /etc/apache2/REDIRECTS/releases.conf
+
+/etc/apache2/sites-available/legacy.conf:
+  file.managed:
+    - source: salt://hg/config/legacy.apache.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: /etc/apache2/legacy-redirects.conf
+
+/etc/apache2/sites-enabled/legacy.conf:
+  file.symlink:
+    - target: ../sites-available/legacy.conf
+    - user: root
+    - group: root
+    - mode: 644
+
 /etc/logrotate.d/apache2:
   file.managed:
     - source: salt://hg/config/apache.logrotate
@@ -281,6 +334,18 @@ apache2:
     - require:
       - pkg: consul-pkgs
 
+/etc/consul.d/service-legacy.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: legacy
+        port: 9002
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: consul-pkgs
 
 /etc/consul.d/service-hg-ssh.json:
   file.managed:
