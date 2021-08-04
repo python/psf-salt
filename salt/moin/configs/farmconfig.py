@@ -109,6 +109,10 @@ class FarmConfig(multiconfig.DefaultConfig):
     # Charting needs "gdchart" installed! (None to disable charting)
     chart_options = {'width': 600, 'height': 300}
 
+    # Allow new user creation
+    actions_superuser = multiconfig.DefaultConfig.actions_superuser[:]
+    actions_superuser.remove('newaccount')
+
     # Disable certain actions that aren't very useful for us.
     actions_excluded = multiconfig.DefaultConfig.actions_excluded[:]
     # on default this is "xmlrpc", "CopyPages", "MyPages"
