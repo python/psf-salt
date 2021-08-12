@@ -1,4 +1,4 @@
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # IMPORTANT! This encoding (charset) setting MUST be correct! If you live in a
 # western country and you don't know that you use utf-8, you probably want to
 # use iso-8859-1 (or some other iso charset). If you use utf-8 (a Unicode
