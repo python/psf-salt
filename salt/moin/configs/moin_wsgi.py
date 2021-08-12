@@ -1,9 +1,11 @@
+import os
 import sys
 import urlparse
 
 from MoinMoin.web.serving import make_application
 
 sys.path.insert(0, "/etc/moin")
+os.environ['PYTHONIOENCODING'] = 'utf-8'
 
 
 class ScriptFixerMiddleware(object):
