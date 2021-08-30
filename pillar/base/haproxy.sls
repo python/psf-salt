@@ -87,7 +87,7 @@ haproxy:
 
   redirects:
     cheeseshop.python.org:
-      target: pypi.python.org
+      target: pypi.org
     jobs.python.org:
       target: www.python.org/jobs/
       request_uri: False
