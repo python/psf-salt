@@ -359,6 +359,9 @@ users:
     ssh_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMGC2VGofArUyzGR25TbLFtk16bYT+6TuCHui7qgSxvp lukasz.langa
     access:
+      codespeed:
+        sudo: True
+        allowed: True
       downloads:
         sudo: True
         allowed: True
