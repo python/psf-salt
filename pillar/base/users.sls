@@ -1,7 +1,7 @@
 users:
   # Admins
-  ernestd:
-    fullname: "Ernest W. Durbin III"
+  ee:
+    fullname: "Ee Durbin"
     admin: True
     ssh_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZOuPNmBeKubAvLrnZlVGzp49Duw/qn8cq4IsOmxKsiVtiTDdLLKr6YBA67CPu/QrVEZYMU/N7RpNOKRfqueYdw8aNB+KgGOy8B/OIiX2obi854q0B81NaYTxdjUmuo67q9gNcdrEv6GmJJzBFqx//d4Nl4F4pcQLFTmxfZg3MDB1zyo2qP8ZpW5jttNty7LpvFlReSHEB/87o7wlNrhnrwSg68NykC2x/DzPv5ZOY5ccW4YiatjS5R2P7MDWv+aabbzZD4G0r3ElaXyW4fRV4KWuyh0ow/5djG0ZIWQSSuqqsnxcmRiV67IV28X6c2uw2zoFO5LLYly8UKMC6OLuFJlrmUPuzXvEeB/AcudgPPFxaip0aSzhowih7Ij0i+rVgma535q6pPqSkPCAcOLpmSi0yk23V9Mr38zg2d33poqV+bFbtSOE3a2gA52rDj4+YMcHQZqxZrgUv0KrSuKwcEm5WyBSOYI1VUoGCxiF27HY+9NaTqfMSHF0AJIVGHsv31uAWa4wqynQVrbZfH4wxlC6yC447HKjizp2LIoZx16LqSHMFfCGQBI4trZPGwZb+OBq2rhFY0GxgQaowrIK0E+VgTiDjcq6VtraglEHJsysK7jj4NiEWiIFVEv0WNW5e2DKVQKZ9BrN7sILcVp+g9VUSRirAZTXzheHLb6+8Hw== ewd3yubikey2018
