@@ -299,16 +299,6 @@ users:
         allowed: True
         sudo: True
 
-  p:
-    fullname: "Patrick Ben Koetter"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDALJMxwUG/o1h4G7K2R2r41SgeTcq22bZGpFBulGmk+p1AIMt3SYN9RD/BV1QQqSweVzenZWVamdmUsrFIRknCpyQUBCkbapcHvzObGs03QgOlU8kEGlIH4So1lb0Os5r0qRnlZH5/7vFfsJ2MUI8XTjlpgP8WPK68eZ4NdKx/lo/QudOMVEbnU43jZKy6zug/SVVqU4ueT2qDPDngAsGaO8EK1fnm/jFuuHI5qOckpQbsdSXkARDDIvEa1Q7qS4IlGdo1qosJpaKPZj5xSe/kWTws8sDKyFTPpKxqcbfA8xK4NabJ39s8nHhmq0p/Ce1gzjTw5JloG9I3MT1gA3o1a/8tDu5+/HCEl3BKGp1pFW6p+H/bFdEunR0UJ/8HBUd2FZBxoJvhEcL6fHWolPERiPP4toNXt1LzgIv2AtF9Tn+NnIYXlsrMlg5vRyzGRo0dssY/M6+m4KLesUohUTYuBIuzhuDBZex3GektRXS5SiuHBGEZad79y5TbAOYKfDSfHUWjk3ZPu2mRqCfZmWeG9raI8rS3Scz9U+MVrqwGXqgqOf44T3kos8gDRqKTI37C8BSvoEDe3c8RGjIx69KSxACVGVhRH8UPVuCDR6504bgxOo/Coat/kGbuIJSRXUJS3CXgP2UEX8iTHvqItOTZ65qAk5/Vk1feKcguuf3rGw== Patrick Ben Koetter 2016-10-06
-      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJbiv7GbiVyOfMZEjbOWd/46xOVCNWQmfUXu5N8G8Uc1s/Ns7W4QyUmrKRzygOTCTlDbf9Lpj7BU9Kv1qqM+fmE= p@x1.sys4.de
-    access:
-      mail:
-        allowed: True
-        sudo: True
-
   skip:
     fullname: "Skip Montanaro"
     ssh_keys:
