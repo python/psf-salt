@@ -363,6 +363,11 @@ users:
         groups:
           - docs
           - docsbuild
+      bugs:
+        sudo: True
+        allowed: True
+        groups:
+          - roundup
 
   mattip:
     fullname: "Matti Picus"
