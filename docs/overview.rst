@@ -26,7 +26,7 @@ global systems such as DNS. The currrent team members are:
 
 The best way to contact the infrastructure team is mailing
 infrastructure-staff@python.org. There's also often people hanging out on the
-#python-infra channel of `Freenode <http://freenode.net>`_.
+#python-infra channel of `Libera <https://libera.chat/>`_.
 
 Infrastructure Providers
 ------------------------
@@ -101,7 +101,7 @@ Buildbot
 
 bugs.python.org
    bugs.python.org is hosted by the PSF on DigitalOcean, powered by Roundup.
-   It also hosts bugs.jython.org and issues.roundup-tracker.org. 
+   It also hosts bugs.jython.org and issues.roundup-tracker.org.
 
 docs.python.org
    The Python documentation is hosted on DigitalOcean, served through Fastly,
