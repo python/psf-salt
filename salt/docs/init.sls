@@ -50,7 +50,7 @@ docsbuild-scripts:
 virtualenv:
   cmd.run:
     - runas: docsbuild
-    - name: 'python3.6 -m venv --without-pip /srv/docsbuild/venv'
+    - name: 'python3.10 -m venv --without-pip /srv/docsbuild/venv'
     - creates: /srv/docsbuild/venv/bin/python
     - require:
       - pkg: doc-pkgs
