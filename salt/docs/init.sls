@@ -1,6 +1,10 @@
 include:
   - nginx
 
+deadsnakes-ppa:
+  pkgrepo.managed:
+    - ppa: deadsnakes/ppa
+
 # Various packages required for building documentation.
 doc-pkgs:
   pkg.installed:
@@ -12,6 +16,8 @@ doc-pkgs:
       - python-dev
       - python-virtualenv
       - python3-venv
+      - python3.10-dev
+      - python3.10-venv
       - latexmk
       - texinfo
       - texlive
