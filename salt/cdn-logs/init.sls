@@ -13,3 +13,7 @@
 /etc/logrotate.d/fastly-logs:
   file.managed:
     - source: salt://cdn-logs/config/fastly.logrotate.conf
+
+/etc/cron.hourly/logrotate:
+  file.symlink:
+    - target: /etc/cron.daily/logrotate
