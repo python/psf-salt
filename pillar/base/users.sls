@@ -9,6 +9,49 @@ users:
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM2rMn4DfxYVfJRdELytrMcNhUqDB7196YDrZsNoC+HxE62yiaS/fE9pn781L1KqcEUgpHjucFuP7ccox3qbc2E= ewdurbin@ewd3mbp
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBnWofdFIY68N19Q04fiWKPYx+dcpc7nmU10IyOyon2KJa5blCDoxFOemOeWl8doAfFO2qhprQ2YhNABes3pZOc= ee@chungus
 
+  chloe:
+    fullname: "Chloe Gerhardson"
+    # admin: True
+    ssh_keys:
+      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCGR9HmTHRbpGL3fSGG8f9XvAvmymfb5WZTgiIskvmpc054SHV/9sbq13toPcJOFtxQ1Gk33xAPcMohbI6rJ0Vw= Chloes-MacBook-Pro@secretive.Chloe’s-MacBook-Pro.local
+    access:
+      backup-server:
+        allowed: True
+      bugs:
+        allowed: True
+      buildbot:
+        allowed: True
+      cdn-logs:
+        allowed: True
+      codespeed:
+        allowed: True
+      consul:
+        allowed: True
+      docs:
+        allowed: True
+      downloads:
+        allowed: True
+      hg:
+        allowed: True
+      loadbalancer:
+        allowed: True
+      mail:
+        allowed: True
+      planet:
+        allowed: True
+      pypy-web:
+        allowed: True
+      pythontest:
+        allowed: True
+      salt-master:
+        allowed: True
+      slack:
+        allowed: True
+      moin:
+        allowed: True
+      web-pypa:
+        allowed: True
+
   dstufft:
     fullname: "Donald Stufft"
     admin: True
