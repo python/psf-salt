@@ -29,6 +29,9 @@ users:
         allowed: True
       docs:
         allowed: True
+        groups:
+          - docs
+          - docsbuild
       downloads:
         allowed: True
       hg:
