@@ -11,49 +11,9 @@ users:
 
   chloe:
     fullname: "Chloe Gerhardson"
-    # admin: True
+    admin: True
     ssh_keys:
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCGR9HmTHRbpGL3fSGG8f9XvAvmymfb5WZTgiIskvmpc054SHV/9sbq13toPcJOFtxQ1Gk33xAPcMohbI6rJ0Vw= Chloes-MacBook-Pro@secretive.Chloe’s-MacBook-Pro.local
-    access:
-      backup-server:
-        allowed: True
-      bugs:
-        allowed: True
-      buildbot:
-        allowed: True
-      cdn-logs:
-        allowed: True
-      codespeed:
-        allowed: True
-      consul:
-        allowed: True
-      docs:
-        allowed: True
-        groups:
-          - docs
-          - docsbuild
-      downloads:
-        allowed: True
-      hg:
-        allowed: True
-      loadbalancer:
-        allowed: True
-      mail:
-        allowed: True
-      planet:
-        allowed: True
-      pypy-web:
-        allowed: True
-      pythontest:
-        allowed: True
-      salt-master:
-        allowed: True
-      slack:
-        allowed: True
-      moin:
-        allowed: True
-      web-pypa:
-        allowed: True
 
   dstufft:
     fullname: "Donald Stufft"
