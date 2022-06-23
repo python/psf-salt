@@ -1,6 +1,6 @@
 {% if pillar["dc"] in pillar["consul"]["dcs"] %}
 
-{% set is_server = salt["match.compound"](pillar["roles"]["consul"]) %}
+{% set is_server = salt["match.compound"](pillar["roles"]["consul"]["pattern"])  %}
 
 
 consul-pkgs:
