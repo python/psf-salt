@@ -40,8 +40,8 @@ Fastly
    www.python.org, docs.python.org) use this CDN to improve end-user latency.
 
 DigitalOcean
-   `DigitalOcean <https://digitalocean.com>`_ is the current target for most of
-   the infrastructure we currently host in Rackspace, services deployed here
+   `DigitalOcean <https://digitalocean.com>`_ is the current primary hosting
+   for most of the infrastructure, services deployed here
    are managed by `Salt <http://www.saltstack.com>`_.
 
 Heroku
