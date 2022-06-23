@@ -127,13 +127,6 @@ genauth-wrapper-setuid-setgid-workaround:
     - require:
       - user: hgaccounts-user
 
-/etc/default/irker:
-  file.managed:
-    - user: root
-    - group: root
-    - mode: 644
-    - contents: 'IRKER_OPTIONS="-n deadparrot%03d -H localhost"'
-
 /usr/share/mercurial/templates/hgpythonorg:
   file.recurse:
     - source: salt://hg/files/hg/templates/hgpythonorg
@@ -142,18 +135,6 @@ genauth-wrapper-setuid-setgid-workaround:
     - file_mode: 644
     - require:
       - pkg: hg-deps
-
-irker:
-  pkg.installed:
-    - pkgs:
-      - irker
-  service.running:
-    - enable: True
-    - require:
-      - pkg: irker
-      - file: /etc/default/irker
-    - watch:
-      - file: /etc/default/irker
 
 apache2:
   pkg.installed:

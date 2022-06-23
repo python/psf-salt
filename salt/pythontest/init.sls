@@ -2,17 +2,17 @@ include:
   - tls.lego
   - nginx
 
-lego_bootstrap:
-  cmd.run:
-    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="news.pythontest.net" --webroot /etc/lego --path /etc/lego --key-type rsa2048 run
-    - creates: /etc/lego/certificates/news.pythontest.net.json
+#lego_bootstrap:
+#  cmd.run:
+#    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="news.pythontest.net" --webroot /etc/lego --path /etc/lego --key-type rsa2048 run
+#    - creates: /etc/lego/certificates/news.pythontest.net.json
 
-lego_renew:
-  cron.present:
-    - name: /usr/bin/sudo -u nginx /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="news.pythontest.net" --webroot /etc/lego --path /etc/lego --key-type rsa2048  renew --days 30 && /usr/sbin/service inn2 restart
-    - identifier: roundup_lego_renew
-    - hour: 0
-    - minute: random
+#lego_renew:
+#  cron.present:
+#    - name: /usr/bin/sudo -u nginx /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="news.pythontest.net" --webroot /etc/lego --path /etc/lego --key-type rsa2048  renew --days 30 && /usr/sbin/service inn2 restart
+#    - identifier: roundup_lego_renew
+#    - hour: 0
+#    - minute: random
 
 git:
   pkg.installed
