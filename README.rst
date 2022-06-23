@@ -2,4 +2,4 @@ Python Infrastructure
 =====================
 
 * `Documentation <http://infra.psf.io/>`_
-* `IRC: #python-infra on Freenode <http://webchat.freenode.net?channels=%23python-infra>`_
+* `IRC: #python-infra on Libera <https://web.libera.chat/#python-infra>`_
