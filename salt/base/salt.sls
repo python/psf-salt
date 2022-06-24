@@ -79,6 +79,14 @@ salt-master:
     - mode: 644
     - require:
       - pkg: consul-pkgs
+
+/srv/psf_known_hosts:
+  file.managed:
+    - source: salt://base/config/known_hosts.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
 {% endif %}
 
 salt-minion-pkg:
