@@ -12,40 +12,40 @@ roles:
     contact:  "Infrastructure staff"
   bugs:
     pattern:  "bugs.ams1.psf.io"
-    purpose:  ""
-    contact:  ""
+    purpose:  "Roundup hosting for CPython, Jython, and Roundup"
+    contact:  "Infrastructure staff"
   buildbot:
     pattern:  "buildbot.nyc1.psf.io"
-    purpose:  ""
-    contact:  ""
+    purpose:  "Hosting for CPython buildbot server"
+    contact:  "zware, haypo, pablogsa"
   cdn-logs: 
     pattern:  "cdn-logs.nyc1.psf.io"
-    purpose:  ""
-    contact:  ""
+    purpose:  "Realtime log streaming from Fastly CDN for debug"
+    contact:  "Infrastructure Staff"
   codespeed: 
     pattern:  "codespeed*.nyc1.psf.io"
-    purpose:  ""
+    purpose:  "Hosting for speed.python.org and speed.pypy.org"
     contact:  ""
   consul: 
     pattern:  "consul*.nyc1.psf.io"
     purpose:  "Runs '<https://www.consul.io/service>' discovery"
-    contact:  "dstufft"
+    contact:  "Infrastructure Staff"
   docs:
     pattern:  "docs.nyc1.psf.io"
     purpose:  "Builds and serves CPython's documentation"
-    contact:  "benjamin"
+    contact:  "mdk"
   downloads:
     pattern:  "downloads.nyc1.psf.io"
-    purpose:  ""
-    contact:  ""
+    purpose:  "Serves python.org downloads"
+    contact:  "CPython Release Managers"
   hg:
     pattern:  "hg.nyc1.psf.io"
-    purpose:  ""
-    contact:  ""
+    purpose:  "Version Control Archives, serves hg.python.org and svn.python.org"
+    contact:  "Infrastructure Staff"
   loadbalancer:
     pattern:  "lb*.nyc1.psf.io"
     purpose:  "Load balancer"
-    contact:  "dstufft"
+    contact:  "Infrastructure Staff"
   mail: 
     pattern:  "mail.ams1.psf.io"
     purpose:  "Mail and mailman server"
@@ -56,20 +56,20 @@ roles:
     contact:  "benjamin"
   pypy-web: 
     pattern:  "pypy-web.nyc1.psf.io"
-    purpose:  ""
-    contact:  ""
+    purpose:  "Serves www.pypy.org"
+    contact:  "mattip, fijal"
   pythontest: 
     pattern:  "pythontest.nyc3.psf.io"
     purpose:  "Test resources for CPython's test suite."
-    contact:  benjamin"
+    contact:  "Infrastructure Staff"
   salt-master: 
     pattern:  "salt.nyc1.psf.io"
-    purpose:  ""
-    contact:  ""
+    purpose:  "Salt server"
+    contact:  "Infrastructure Staff"
   moin: 
     pattern:  "moin.nyc1.psf.io"
-    purpose:  ""
-    contact:  ""
+    purpose:  "Hosts moin sites for wiki.python.org, wiki.jython.org"
+    contact:  "lemburg"
 
   # Misc PyPA
   web-pypa:
