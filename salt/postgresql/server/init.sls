@@ -1,8 +1,8 @@
 {% set postgresql = salt["pillar.get"]("postgresql", {}) %}
 {% set data_partitions = [] %}
 
-{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
-{% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"], "psf_internal").items())|sort(attribute='0')|first)[1]|sort()|first %}
+{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
+{% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"]["pattern"], "psf_internal").items())|sort(attribute='0')|first)[1]|sort()|first %}
 {% endif %}
 
 {% if data_partitions|length() > 1 %}
@@ -13,7 +13,7 @@ include:
   - stunnel
   - monitoring.client.collectors.postgresql
   - postgresql.base
-{% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
+{% if salt["match.compound"](pillar["roles"]["postgresql-primary"]["pattern"]) %}
   - postgresql.server.wal-e
 {% endif %}
 
@@ -65,21 +65,21 @@ postgresql-server:
     - require:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.config_dir }}/conf.d
-      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
       - cmd: consul-template
       {% endif %}
     - watch:
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
       - file: {{ postgresql.hba_file }}
-      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
       - file: /etc/ssl/certs/PSF_CA.pem
       {% endif %}
 
 
 postgresql-psf-cluster:
   cmd.run:
-    {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
+    {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]["pattern"]) %}
     - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.4 --port {{ postgresql.port }} psf
     {% else %}
     - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -U replicator
@@ -96,7 +96,7 @@ postgresql-psf-cluster:
     - require:
       - pkg: postgresql-server
       - file: postgresql-data
-      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
       - file: /etc/ssl/certs/PSF_CA.pem
       - file: /etc/consul.d/service-postgresql.json
       - service: consul
@@ -198,9 +198,9 @@ postgresql-psf-cluster:
       - pkg: stunnel
 
 
-{% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
+{% if salt["match.compound"](pillar["roles"]["postgresql-primary"]["pattern"]) %}
 
-{% for hostname in salt["mine.get"](pillar["roles"]["postgresql"], "psf_internal").keys() %}
+{% for hostname in salt["mine.get"](pillar["roles"]["postgresql"]["pattern"], "psf_internal").keys() %}
 {% if hostname != grains["fqdn"] %}
 replication-slot-{{ hostname.split(".")|first }}:
   postgres_replica.slot:
@@ -257,9 +257,9 @@ replicator:
         name: postgresql
         port: 5432
         tags:
-          {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]) %}
+          {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]["pattern"]) %}
           - primary
-          {% elif salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+          {% elif salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
           - replica
           {% endif %}
     - user: root
@@ -269,7 +269,7 @@ replicator:
       - pkg: consul-pkgs
 
 
-{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]) %}
+{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
 
 /usr/share/consul-template/templates/recovery.conf:
   file.managed:

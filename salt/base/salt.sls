@@ -32,7 +32,7 @@ salt-2018.3:
 {% endif %}
 
 
-{% if salt["match.compound"](pillar["roles"]["salt-master"]) %}
+{% if salt["match.compound"](pillar["roles"]["salt-master"]["pattern"]) %}
 include:
   - tls.lego
 

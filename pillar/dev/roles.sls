@@ -6,24 +6,72 @@
 #   http://docs.saltstack.com/en/latest/topics/targeting/compound.html
 
 roles:
-  backup-server: "backup-server.vagrant.psf.io"
-  bugs: "bugs.vagrant.psf.io"
-  cdn-logs: "cdn-logs.vagrant.psf.io"
-  consul: "consul.vagrant.psf.io"
-  docs: "docs.vagrant.psf.io"
-  downloads: "downloads.vagrant.psf.io"
-  hg: "hg.vagrant.psf.io"
-  jython-web: "jython-web.vagrant.psf.io"
-  loadbalancer: "loadbalancer.vagrant.psf.io"
-  monitoring: "monitoring.vagrant.psf.io"
-  packages: "packages.vagrant.psf.io"
-  planet: "planet.vagrant.psf.io"
-  postgresql: "postgresql-*.vagrant.psf.io"
-  postgresql-primary: "postgresql-primary.vagrant.psf.io"
-  postgresql-replica: "postgresql-replica.vagrant.psf.io"
-  salt-master: "salt-master.vagrant.psf.io"
-  speed-web: "speed-web.vagrant.psf.io"
-  tracker: "tracker.vagrant.psf.io"
-  wiki: "wiki.vagrant.psf.io"
+  backup-server:
+    pattern: "backup-server.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  bugs:
+    pattern: "bugs.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  buildbot:
+    pattern: "buildbot.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  cdn-logs:
+    pattern: "cdn-logs.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  codespeed:
+    pattern: "codespeed.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  consul:
+    pattern: "consul.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  docs:
+    pattern: "docs.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  downloads:
+    pattern: "downloads.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  hg:
+    pattern: "hg.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  loadbalancer:
+    pattern: "loadbalancer.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  mail:
+    pattern: "mail.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  planet:
+    pattern: "planet.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  pypy-web:
+    pattern: "pypy-web.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  pythontest:
+    pattern: "pythontest.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  salt-master:
+    pattern: "salt-master.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  moin:
+    pattern: "moin.vagrant.psf.io"
+    purpose: ""
+    contact: ""
 
-  web-pypa: "pypa-web.vagrant.psf.io"
+  web-pypa:
+    pattern: "pypa-web.vagrant.psf.io"
+    purpose: ""
+    contact: ""
