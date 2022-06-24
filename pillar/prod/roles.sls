@@ -66,10 +66,6 @@ roles:
     pattern:  "salt.nyc1.psf.io"
     purpose:  ""
     contact:  ""
-  slack:
-    pattern:  "slack.nyc1.psf.io"
-    purpose:  "Slack IRC bridge"
-    contact:  "benjamin" 
   moin: 
     pattern:  "moin.nyc1.psf.io"
     purpose:  ""
