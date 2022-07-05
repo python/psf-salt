@@ -5,6 +5,9 @@
 
 FROM ubuntu:18.04
 ENV container docker
+
+RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update -y && apt-get dist-upgrade -y
 
 # Install system dependencies, you may not need all of these
