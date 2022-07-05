@@ -32,10 +32,12 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "docker" do |docker, override|
     override.vm.box = nil
-    docker.build_dir = '.'
     override.ssh.insert_key = true
-    docker.has_ssh = true
 
+    docker.build_dir = '.'
+    docker.build_args = ['--platform', 'linux/amd64']
+    docker.has_ssh = true
+    docker.remains_running = true
     docker.privileged = true
   end
 
