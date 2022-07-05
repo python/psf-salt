@@ -8,7 +8,7 @@ ENV container docker
 RUN apt-get update -y && apt-get dist-upgrade -y
 
 # Install system dependencies, you may not need all of these
-RUN apt-get install -y --no-install-recommends ssh sudo libffi-dev systemd openssh-client
+RUN apt-get install -y --no-install-recommends ssh sudo libffi-dev systemd openssh-client wget gnupg-utils gnupg apt-utils ca-certificates
 
 # Needed to run systemd
 # VOLUME [ "/sys/fs/cgroup" ]
