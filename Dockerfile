@@ -19,6 +19,8 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+COPY ./docker/etc/ssl/private/dhparams.pem /etc/ssl/private/dhparams.pem
+
 # Needed to run systemd
 # VOLUME [ "/sys/fs/cgroup" ]
 # Doesn't appear to be necessary? See comments
