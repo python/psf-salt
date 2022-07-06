@@ -26,30 +26,33 @@ MASTER2 = "#{SUBNET2}.2"
 
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.provider "vmware" do |config|
+    config.vm.box = "hashicorp/bionic64"
+  end
+
+  config.vm.provider "docker" do |docker, override|
+    override.vm.box = nil
+    override.ssh.insert_key = true
+
+    docker.build_dir = '.'
+    docker.build_args = ['--platform', 'linux/amd64']
+    docker.has_ssh = true
+    docker.remains_running = true
+    docker.privileged = true
+  end
 
   config.vm.define "salt-master" do |s_config|
     s_config.vm.hostname = "salt-master.vagrant.psf.io"
-    s_config.vm.network "private_network", ip: MASTER1, virtualbox__intnet: "psf1"
-    s_config.vm.network "private_network", ip: MASTER2, virtualbox__intnet: "psf2"
-
-    s_config.vm.provider "virtualbox" do |v|
-      v.memory = 1024
-      v.cpus = 2
-    end
+    s_config.vm.network "private_network", ip: MASTER1
+    s_config.vm.network "private_network", ip: MASTER2
 
     s_config.vm.synced_folder "salt/", "/srv/salt/"
     s_config.vm.synced_folder "pillar/", "/srv/pillar/"
 
     # Provision the salt-master.
     s_config.vm.provision :shell, :inline => <<-HEREDOC
-      wget -O - https://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -
-      echo 'deb http://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3 bionic main' > /etc/apt/sources.list.d/saltstack.list
-    HEREDOC
-
-    s_config.vm.provision :shell, :inline => <<-HEREDOC
       apt-get update
-      apt-get install -y salt-master
+      apt-get install -y salt-master python3-openssl
       ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf
     HEREDOC
 
@@ -62,6 +65,7 @@ Vagrant.configure("2") do |config|
       echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf
       service salt-minion restart
       salt-call state.highstate
+      sudo salt '*' saltutil.refresh_pillar
     HEREDOC
 
     # Run this always, because we need to sync our states.
@@ -89,21 +93,14 @@ Vagrant.configure("2") do |config|
       end
 
       s_config.vm.hostname = "#{server}.vagrant.psf.io"
-      s_config.vm.network "private_network", ip: "#{SUBNET1}.#{num + 10}", virtualbox__intnet: "psf1"
-      s_config.vm.network "private_network", ip: "#{SUBNET2}.#{num + 10}", virtualbox__intnet: "psf2"
+      s_config.vm.network "private_network", ip: "#{SUBNET1}.#{num + 10}"
+      s_config.vm.network "private_network", ip: "#{SUBNET2}.#{num + 10}"
 
       ports.each do |port|
         s_config.vm.network "forwarded_port", guest: port, host: port
       end
 
       # Provision the salt-minion
-      if codename == "bionic"
-        s_config.vm.provision :shell, :inline => <<-HEREDOC
-          wget -O - https://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -
-          echo 'deb http://repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3 bionic main' > /etc/apt/sources.list.d/saltstack.list
-        HEREDOC
-      end
-
       s_config.vm.provision :shell, :inline => <<-HEREDOC
         apt-get update
         apt-get install -y salt-minion
