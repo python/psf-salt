@@ -57,7 +57,7 @@ Vagrant.configure("2") do |config|
 
     s_config.vm.provision :shell, :inline => <<-HEREDOC
       apt-get update
-      apt-get install -y salt-master
+      apt-get install -y salt-master python3-openssl
       ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf
     HEREDOC
 
