@@ -51,11 +51,6 @@ Vagrant.configure("2") do |config|
 
     # Provision the salt-master.
     s_config.vm.provision :shell, :inline => <<-HEREDOC
-      wget --quiet -O - https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -
-      echo 'deb http://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3 bionic main' > /etc/apt/sources.list.d/saltstack.list
-    HEREDOC
-
-    s_config.vm.provision :shell, :inline => <<-HEREDOC
       apt-get update
       apt-get install -y salt-master python3-openssl
       ln -sf /vagrant/conf/vagrant/master.conf /etc/salt/master.d/local.conf
@@ -106,13 +101,6 @@ Vagrant.configure("2") do |config|
       end
 
       # Provision the salt-minion
-      if codename == "bionic"
-        s_config.vm.provision :shell, :inline => <<-HEREDOC
-          wget --quiet -O - https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -
-          echo 'deb http://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3 bionic main' > /etc/apt/sources.list.d/saltstack.list
-        HEREDOC
-      end
-
       s_config.vm.provision :shell, :inline => <<-HEREDOC
         apt-get update
         apt-get install -y salt-minion

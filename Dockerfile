@@ -43,5 +43,11 @@ RUN mkdir /var/run/sshd
 EXPOSE 22
 RUN /usr/sbin/sshd
 
+# Setup Salt Common
+
+RUN wget --quiet -O - https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -
+RUN echo 'deb http://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3 bionic main' > /etc/apt/sources.list.d/saltstack.list
+RUN apt-get update -y && apt-get install -y --no-install-recommends salt-minion
+
 # Start Systemd (systemctl)
 CMD ["/lib/systemd/systemd"]
