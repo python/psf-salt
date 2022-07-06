@@ -11,7 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update -y && apt-get dist-upgrade -y
 
 # Install system dependencies, you may not need all of these
-RUN apt-get install -y --no-install-recommends ssh sudo libffi-dev systemd openssh-client wget gnupg-utils gnupg apt-utils ca-certificates dbus locales cron dialog
+RUN apt-get install -y --no-install-recommends ssh sudo libffi-dev systemd openssh-client wget gnupg-utils gnupg apt-utils ca-certificates dbus locales cron dialog rsyslog
 
 RUN locale-gen en_US.UTF-8
 COPY ./docker/etc/locale.conf /etc/locale.conf
