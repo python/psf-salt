@@ -32,8 +32,8 @@ roles:
     contact: ""
   docs:
     pattern: "docs.vagrant.psf.io"
-    purpose: ""
-    contact: ""
+    purpose: "Builds and serves CPython's documentation"
+    contact: "mdk"
   downloads:
     pattern: "downloads.vagrant.psf.io"
     purpose: ""

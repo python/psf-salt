@@ -1,0 +1,20 @@
+..
+    START AUTOMATED SECTION **DO NOT DIRECTLY EDIT - Salt will blow away your changes!!!**
+
+{% set role_mapping = {} -%}
+{% for role, config in salt["pillar.get"]("roles", {}).items() -%}
+  {% set x=role_mapping.__setitem__(config["pattern"], role) -%}
+{% endfor %}
+
+.. csv-table::
+   :header: "Name", "Purpose", "Contact", "Datacener"
+
+{% for server in salt['minion.list']()['minions']|sort -%}
+{% set role = salt['match.filter_by'](role_mapping, minion_id=server) -%}
+{% set datacenter = salt['mine.get']("*", "psf_dc").get(server, "") -%}
+{% set roleconfig = salt["pillar.get"]("roles", {}).get(role, {}) %}
+   "{{ server }}", "{{ roleconfig.get("purpose", "") }}", "{{ roleconfig.get("contact", "") }}", "{{ datacenter }}"
+{%- endfor %}
+
+..
+    END AUTOMATED SECTION **DO NOT DIRECTLY EDIT - Salt will blow away your changes!!!**

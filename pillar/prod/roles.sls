@@ -28,7 +28,7 @@ roles:
     contact:  ""
   consul: 
     pattern:  "consul*.nyc1.psf.io"
-    purpose:  "Runs '<https://www.consul.io/service>' discovery"
+    purpose:  "Runs `Consul <https://www.consul.io/>`_ discovery service"
     contact:  "Infrastructure Staff"
   docs:
     pattern:  "docs.nyc1.psf.io"
