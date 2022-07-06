@@ -5,7 +5,7 @@ Server List
 Hosts managed by Salt
 ---------------------
 
-This list is `automatically generated <https://github.com/python/psf-salt/blob/66bfe549a281de775551ab94861328ccd7d47467/salt/base/config/salt-server-list.rst.jinja#L12-L17>`_ by our salt server.
+This list is `automatically generated <https://github.com/python/psf-salt/blob/main/salt/base/config/salt-server-list.rst.jinja>`_ by our salt server.
 
 ..
     START AUTOMATED SECTION **DO NOT DIRECTLY EDIT - Salt will blow away your changes!!!**
