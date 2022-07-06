@@ -35,7 +35,7 @@ Vagrant.configure("2") do |config|
     override.ssh.insert_key = true
 
     docker.build_dir = '.'
-    docker.build_args = ['--platform', 'linux/amd64']
+    #docker.build_args = ['--platform', 'linux/amd64']
     docker.has_ssh = true
     docker.remains_running = true
     docker.privileged = true
@@ -66,6 +66,7 @@ Vagrant.configure("2") do |config|
       service salt-minion restart
       salt-call state.highstate
       sudo salt '*' saltutil.refresh_pillar
+      sleep 5
     HEREDOC
 
     # Run this always, because we need to sync our states.
