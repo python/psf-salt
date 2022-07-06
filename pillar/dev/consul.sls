@@ -1,14 +1,14 @@
 consul:
   bootstrap:
     vagrant:
-      - consul.vagrant.psf.io
+      - salt-master.vagrant.psf.io
   acl:
     default: deny
     dc: vagrant
     down: extend-cache
     ttl: 30s
   dcs:
-    vagrant: consul.vagrant.psf.io
+    vagrant: salt-master.vagrant.psf.io
   external:
     - datacenter: vagrant
       node: pythonanywhere

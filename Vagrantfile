@@ -70,6 +70,7 @@ Vagrant.configure("2") do |config|
       echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf
       service salt-minion restart
       salt-call state.highstate
+      sudo salt '*' saltutil.refresh_pillar
     HEREDOC
 
     # Run this always, because we need to sync our states.

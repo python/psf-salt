@@ -27,7 +27,7 @@ roles:
     purpose: ""
     contact: ""
   consul:
-    pattern: "consul.vagrant.psf.io"
+    pattern: "E@(consul|salt-master).vagrant.psf.io"
     purpose: ""
     contact: ""
   docs:
