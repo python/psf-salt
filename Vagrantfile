@@ -65,8 +65,10 @@ Vagrant.configure("2") do |config|
       echo 'master: #{MASTER1}\n' > /etc/salt/minion.d/local.conf
       service salt-minion restart
       salt-call state.highstate
-      sudo salt '*' saltutil.refresh_pillar
-      sleep 5
+      while ! salt-call consul.cluster_ready | grep True; do echo 'waiting for consul'; sleep 1; done
+      salt '*' saltutil.sync_all
+      salt '*' saltutil.refresh_grains
+      salt '*' saltutil.refresh_pillar wait=True timeout=30
     HEREDOC
 
     # Run this always, because we need to sync our states.
