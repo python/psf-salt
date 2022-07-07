@@ -109,7 +109,7 @@ def ext_pillar(minion_id, pillar, key_path, acl_path):
     master_acl_token = _gen_master_acl("__master__", acl_path)
 
     # If this is a server in the ACL data center, give it the acl master token
-    is_server = __salt__["match.compound"](pillar["roles"]["consul"]["pattern"])
+    is_server = __salt__["match.compound"](pillar["roles"]["consul"]["pattern"], minion_id=minion_id)
     in_acl_dc = bool(pillar["dc"] == pillar["consul"]["acl"]["dc"])
     if is_server and in_acl_dc:
         data["consul"]["acl"]["tokens"]["__master__"] = master_acl_token
