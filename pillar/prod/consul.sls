@@ -4,6 +4,9 @@ consul:
       - consul0.nyc1.psf.io
       - consul1.nyc1.psf.io
       - consul2.nyc1.psf.io
+      - consul-a.nyc1.psf.io
+      - consul-b.nyc1.psf.io
+      - consul-c.nyc1.psf.io
   acl:
     default: deny
     dc: nyc1
