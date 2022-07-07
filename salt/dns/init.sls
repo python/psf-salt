@@ -1,5 +1,5 @@
-boto3:
-  pip.installed
+python3-boto3:
+  pkg.installed
 
 {% set public_ipv4 = salt["mine.get"]("*", "public_ipv4") %}
 
