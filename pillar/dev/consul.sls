@@ -2,6 +2,8 @@ consul:
   bootstrap:
     vagrant:
       - salt-master.vagrant.psf.io
+      - consul.vagrant.psf.io
+      - none.vagrant.psf.io
   acl:
     default: deny
     dc: vagrant
