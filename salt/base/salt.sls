@@ -22,8 +22,8 @@ salt-2018.3:
   pkgrepo.managed:
     - humanname: repo.saltstack.org
     {% if grains["oscodename"] == "focal" %}
-    - name: deb [arch=amd64] https://archive.repo.saltproject.io/py3/ubuntu/20.04/amd64/archive/3003.3 focal main
-    - key_url: https://archive.repo.saltproject.io/py3/ubuntu/20.04/amd64/latest/salt-archive-keyring.gpg
+    - name: deb https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004 focal main
+    - key_url: https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004/salt-archive-keyring.gpg
     {% else %}
     - name: deb http://archive.repo.saltstack.com/py3/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
     - key_url: https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub

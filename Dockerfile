@@ -3,7 +3,7 @@
 # Adds SSH daemon, Systemd
 # Adapted from https://github.com/BashtonLtd/docker-vagrant-images/blob/master/ubuntu1404/Dockerfile
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV container docker
 
 RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo $TZ > /etc/timezone
@@ -11,7 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update -y && apt-get dist-upgrade -y
 
 # Install system dependencies, you may not need all of these
-RUN apt-get install -y --no-install-recommends ssh sudo libffi-dev systemd openssh-client wget gnupg-utils gnupg apt-utils ca-certificates dbus locales cron dialog rsyslog
+RUN apt-get install -y --no-install-recommends ssh sudo libffi-dev systemd openssh-client wget gnupg-utils gnupg apt-utils ca-certificates dbus locales cron dialog rsyslog iproute2
 
 RUN locale-gen en_US.UTF-8
 COPY ./docker/etc/locale.conf /etc/locale.conf
@@ -45,8 +45,8 @@ RUN /usr/sbin/sshd
 
 # Setup Salt Common
 
-RUN wget --quiet -O - https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub | apt-key add -
-RUN echo 'deb http://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3 bionic main' > /etc/apt/sources.list.d/saltstack.list
+RUN wget --quiet -O /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/arm64/3004/salt-archive-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=arm64] https://repo.saltproject.io/py3/ubuntu/20.04/arm64/3004 focal main" > /etc/apt/sources.list.d/salt.list
 RUN apt-get update -y && apt-get install -y --no-install-recommends salt-minion
 
 # Start Systemd (systemctl)

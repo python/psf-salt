@@ -1,19 +1,11 @@
-import salt.minion
-
-from salt._compat import string_types
-
+import salt.loader
 
 def compound(tgt, minion_id=None):
     opts = {'grains': __grains__}
-    if minion_id is not None:
-        if not isinstance(minion_id, string_types):
-            minion_id = str(minion_id)
-        else:
-            minion_id = __grains__['id']
     opts['id'] = minion_id
-    matcher = salt.minion.Matcher(opts, __salt__)
+    matcher = salt.loader.matchers(dict(__opts__, **opts))['compound_match.match']
     try:
-        return matcher.compound_match(tgt)
+        return matcher(tgt)
     except Exception:
         pass
     return False

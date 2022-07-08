@@ -63,7 +63,7 @@ roles:
     purpose:  "Test resources for CPython's test suite."
     contact:  "Infrastructure Staff"
   salt-master: 
-    pattern:  "salt.nyc1.psf.io"
+    pattern:  "salt*.nyc1.psf.io"
     purpose:  "Salt server"
     contact:  "Infrastructure Staff"
   moin: 
