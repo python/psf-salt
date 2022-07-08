@@ -3,7 +3,7 @@
 
 {% set role_mapping = {} -%}
 {% for role, config in salt["pillar.get"]("roles", {}).items() -%}
-  {% set x=role_mapping.__setitem__(config["pattern"], role) -%}
+  {% set _dummy = role_mapping.update( {config["pattern"]: role} ) -%}
 {% endfor %}
 
 .. csv-table::
