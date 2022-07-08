@@ -1,7 +1,8 @@
 boto-pkgs:
   pkg.installed:
-    - python3-boto
-    - python3-boto3
+    - pkgs:
+      - python3-boto
+      - python3-boto3
 
 {% set public_ipv4 = salt["mine.get"]("*", "public_ipv4") %}
 
