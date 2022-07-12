@@ -19,6 +19,7 @@ haproxy:
   pkg:
     - installed
     - require:
+      - pkg: rsyslog
       - file: /usr/sbin/policy-rc.d
 
   service.running:
@@ -27,6 +28,7 @@ haproxy:
     - require:
       - pkg: haproxy
       - cmd: consul-template
+      - service: rsyslog
     - watch:
       - file: /etc/ssl/private/*.pem
       - file: /etc/haproxy/fastly_token

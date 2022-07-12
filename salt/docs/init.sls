@@ -13,9 +13,6 @@ doc-pkgs:
       - fonts-freefont-otf
       - git
       - mercurial
-      - python-dev
-      - python-virtualenv
-      - python3-venv
       - python3.10-dev
       - python3.10-venv
       - latexmk
@@ -50,26 +47,12 @@ docsbuild-scripts:
 virtualenv:
   cmd.run:
     - runas: docsbuild
-    - name: 'python3.10 -m venv --without-pip /srv/docsbuild/venv'
-    - creates: /srv/docsbuild/venv/bin/python
+    - name: 'python3.10 -m venv /srv/docsbuild/venv'
+    - creates:
+      - /srv/docsbuild/venv/bin/python
+      - /srv/docsbuild/venv/bin/pip
     - require:
       - pkg: doc-pkgs
-
-/srv/docsbuild/venv/get-pip.py:
-  file.managed:
-    - user: docsbuild
-    - source: https://bootstrap.pypa.io/get-pip.py
-    - source_hash: sha256=d1563edc7e23c98ac4f82d354606d5205d09ce4cc0f971edc80daa7978762d90
-    - require:
-      - cmd: virtualenv
-
-virtualenv-pip:
-  cmd.run:
-    - runas: docsbuild
-    - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/venv/get-pip.py
-    - creates: /srv/docsbuild/venv/bin/pip
-    - require:
-      - file: /srv/docsbuild/venv/get-pip.py
 
 virtualenv-dependencies:
   cmd.run:
@@ -77,7 +60,8 @@ virtualenv-dependencies:
     - cwd: /srv/docsbuild/scripts
     - name: /srv/docsbuild/venv/bin/pip install -r /srv/docsbuild/scripts/requirements.txt
     - require:
-      - cmd: virtualenv-pip
+      - git: docsbuild-scripts
+      - cmd: virtualenv
     - onchanges:
       - git: docsbuild-scripts
 

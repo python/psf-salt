@@ -87,6 +87,14 @@ salt-master:
     - user: root
     - group: root
     - mode: 644
+
+/srv/salt-server-list.rst:
+  file.managed:
+    - source: salt://base/config/salt-server-list.rst.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
 {% endif %}
 
 salt-minion-pkg:
