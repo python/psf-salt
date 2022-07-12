@@ -72,6 +72,6 @@ roles:
     contact: ""
 
   web-pypa:
-    pattern: "pypa-web.vagrant.psf.io"
+    pattern: "web-pypa.vagrant.psf.io"
     purpose: ""
     contact: ""
