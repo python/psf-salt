@@ -4,18 +4,22 @@
 SERVERS = [
   "backup-server",
   {:name => "bugs", :box => "ubuntu/xenial64", :codename => "xenial", :ports => [8080]},
+  "buildsbot",
   "cdn-logs",
+  "codespeed",
   "consul",
   "docs",
   "downloads",
   "hg",
   "jython-web",
+  "mail",
   {:name => "loadbalancer", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20100]},
   "planet",
   {:name => "postgresql-primary", :roles => ["postgresql", "postgresql-primary"]},
   {:name => "postgresql-replica", :roles => ["postgresql", "postgresql-replica"]},
-  "speed-web",
-  "pypa-web",
+  "pypy-web",
+  "pythontest",
+  "web-pypa",
 ]
 
 SUBNET1 = "192.168.50"
