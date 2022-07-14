@@ -1,5 +1,6 @@
+{% import "consul/etc/_address_list.jinja" as address_list %}
 {
-    "bootstrap_expect": {{ pillar["consul"]["bootstrap"][pillar["dc"]]|length() }},
+    "bootstrap_expect": {{ address_list.join_addresses|length() }},
     "cert_file": "/etc/ssl/private/consul.psf.io.pem",
     "key_file": "/etc/ssl/private/consul.psf.io.pem",
     "server": true

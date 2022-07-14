@@ -1,0 +1,8 @@
+{% set join_addresses = [] -%}
+{% for server in pillar["consul"]["bootstrap"][pillar["dc"]] -%}
+  {% for name, addresses in salt["mine.get"](server, "psf_internal").items()|sort() -%}
+    {% for address in addresses -%}
+      {% do join_addresses.append(address) -%}
+    {% endfor -%}
+  {% endfor -%}
+{% endfor -%}
