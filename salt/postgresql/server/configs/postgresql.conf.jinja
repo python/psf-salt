@@ -22,8 +22,8 @@
   {% set maintenance_work_mem = 2048 %}
 {% endif %}
 
-{% set checkpoint_segments = 32 %}
-{% set checkpoint_completion_target = 0.7 %}
+{% set checkpoint_flush_after = '256kB' %}
+{% set checkpoint_completion_target = 0.5 %}
 
 {% set default_statistics_target = 100 %}
 
@@ -81,7 +81,7 @@ synchronous_commit = local
 
 # - Checkpoints -
 
-checkpoint_segments = {{ checkpoint_segments }}
+checkpoint_flush_after = {{ checkpoint_flush_after }}
 checkpoint_completion_target = {{ checkpoint_completion_target }}
 
 
@@ -91,7 +91,7 @@ checkpoint_completion_target = {{ checkpoint_completion_target }}
 
 # - Sending Server(s) -
 
-max_replication_slots = {{ postgresql.replicas }}
+max_replication_slots = {{ postgresql.replicas * 2 }}
 max_wal_senders = {{ (postgresql.replicas * 1.5)|round(method="ceil")|int }}
 wal_keep_segments = 32
 

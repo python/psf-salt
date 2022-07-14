@@ -4,7 +4,7 @@ include:
 postgresql-client:
   pkg.installed:
     - pkgs:
-      - postgresql-client-9.4
+      - postgresql-client-11
       - python-psycopg2
       - python3-psycopg2
 

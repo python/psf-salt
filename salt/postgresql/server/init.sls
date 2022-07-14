@@ -32,7 +32,7 @@ postgresql-data:
 {% endif %}
 
   file.directory:
-    - name: /srv/postgresql/9.4
+    - name: /srv/postgresql/11
     - user: root
     - group: root
     - mode: 777
@@ -47,12 +47,11 @@ postgresql-data:
 postgresql-server:
   pkg.installed:
     - pkgs:
-      - postgresql-9.4
-      - postgresql-contrib-9.4
+      - postgresql-11
 
   cmd.run:
-    - name: pg_dropcluster --stop 9.4 main
-    - onlyif: pg_lsclusters | grep '^9\.4\s\+main\s\+'
+    - name: pg_dropcluster --stop 11 main
+    - onlyif: pg_lsclusters | grep '^11\s\+main\s\+'
     - require:
       - pkg: postgresql-server
 
@@ -78,7 +77,7 @@ postgresql-server:
 postgresql-psf-cluster:
   cmd.run:
     {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]["pattern"]) %}
-    - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.4 --port {{ postgresql.port }} psf
+    - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 11 --port {{ postgresql.port }} psf
     {% else %}
     - name: pg_basebackup -h {{ postgresql_primary }} -p {{ postgresql.port }} --pgdata {{ postgresql.data_dir }} -U replicator
     - env:
@@ -90,7 +89,7 @@ postgresql-psf-cluster:
       - PGPASSWORD: {{ pillar["postgresql-users"]["replicator"] }}
     - runas: postgres
     {% endif %}
-    - unless: pg_lsclusters | grep '^9\.4\s\+psf\s\+'
+    - unless: pg_lsclusters | grep '^11\s\+psf\s\+'
     - require:
       - pkg: postgresql-server
       - file: postgresql-data
@@ -109,7 +108,7 @@ postgresql-psf-cluster:
     - mode: 755
 
 # Make sure that our log file is writeable
-/var/log/postgresql/postgresql-9.4-psf.log:
+/var/log/postgresql/postgresql-11-psf.log:
   file.managed:
     - user: postgres
     - group: postgres

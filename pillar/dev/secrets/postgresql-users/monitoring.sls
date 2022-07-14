@@ -1,2 +1,0 @@
-postgresql-users:
-  monitoring: insecurepasswordlol
