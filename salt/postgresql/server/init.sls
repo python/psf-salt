@@ -191,33 +191,14 @@ replicator:
     - require:
       - service: postgresql-server
 
-{% for user, password in salt["pillar.get"]("postgresql-superusers", {}).items() %}
+{% for user, config in salt["pillar.get"]("postgresql-superusers", {}).items() %}
 {{ user }}-superuser:
   postgres_user.present:
     - name: {{ user }}
     - superuser: True
-    - password: {{ password }}
+    - password: {{ config.password }}
     - require:
       - service: postgresql-server
-{% endfor %}
-
-{% for user, password in salt["pillar.get"]("postgresql-users", {}).items() %}
-{{ user }}-user:
-  postgres_user.present:
-    - name: {{ user }}
-    - password: {{ password }}
-    - require:
-      - service: postgresql-server
-{% endfor %}
-
-{% for database, config in postgresql.get("databases", {}).items() %}
-{{ database }}-database:
-  postgres_database.present:
-    - name: {{ database }}
-    - owner: {{ config['owner'] }}
-    - require:
-      - service: postgresql-server
-      - postgres_user: {{ config['owner'] }}-user
 {% endfor %}
 
 {% endif %}

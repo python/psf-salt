@@ -107,8 +107,7 @@ base:
   'salt-master':
     - match: nodegroup
     - firewall.salt
-    - secrets.dyn
+    - postgres.databases
     - secrets.aws
     - secrets.postgresql-admin
-    - postgresql.server
     - secrets.postgresql-users.all

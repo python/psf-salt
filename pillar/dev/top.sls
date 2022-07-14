@@ -7,6 +7,7 @@ base:
     - sudoers
     - tls
     - users
+    - postgres.clusters
 
   'backup-server':
     - match: nodegroup
@@ -69,9 +70,11 @@ base:
     - match: nodegroup
     - firewall.postgresql
     - postgresql.server
+    - postgres.databases
 
   'postgresql-primary':
     - match: nodegroup
+    - secrets.postgresql-admin
     - secrets.postgresql-users.all
 
   'postgresql-replica':

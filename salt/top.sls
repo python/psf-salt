@@ -85,6 +85,7 @@ base:
   'postgresql':
     - match: nodegroup
     - postgresql.server
+    - postgresql.admin
 
   'pydotorg':
     - match: nodegroup
@@ -104,6 +105,7 @@ base:
 
   'salt-master':
     - match: nodegroup
+    - postgresql.admin
     - dns
 
   'slack':
