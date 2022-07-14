@@ -9,17 +9,17 @@
 local   all             postgres                                peer
 
 # Monitoring
-host    all             diamond         127.0.0.1/32            md5
+hostssl all             diamond         127.0.0.1/32            md5
 
 # Replication
-host replication       replicator       {{ psf_internal }}      md5
+hostssl replication       replicator       {{ psf_internal }}      md5
 
 # Application Databases
-host monitoring        monitoring       0.0.0.0/0               md5
-host bugs-python       bugs-python      0.0.0.0/0               md5
-host pydotorg-prod     pydotorg-prod    0.0.0.0/0               md5
-host pydotorg-staging  pydotorg-staging 0.0.0.0/0               md5
-host pydotorg-staging2 pydotorg-staging 0.0.0.0/0               md5
-host pycon-prod        pycon-prod       0.0.0.0/0               md5
-host pycon-staging     pycon-staging    0.0.0.0/0               md5
-host speed-web         speed-web        0.0.0.0/0               md5
+hostssl monitoring        monitoring       0.0.0.0/0               md5
+hostssl bugs-python       bugs-python      0.0.0.0/0               md5
+hostssl pydotorg-prod     pydotorg-prod    0.0.0.0/0               md5
+hostssl pydotorg-staging  pydotorg-staging 0.0.0.0/0               md5
+hostssl pydotorg-staging2 pydotorg-staging 0.0.0.0/0               md5
+hostssl pycon-prod        pycon-prod       0.0.0.0/0               md5
+hostssl pycon-staging     pycon-staging    0.0.0.0/0               md5
+hostssl speed-web         speed-web        0.0.0.0/0               md5

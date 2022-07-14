@@ -1,15 +1,14 @@
 postgresql-users:
-  bugs-python: insecurepasswordlol
-  monitoring: insecurepasswordlol
-  pydotorg-prod: insecurepasswordlol
-  pydotorg-staging: insecurepasswordlol
-  pycon-prod: insecurepasswordlol
-  pycon-staging: insecurepasswordlol
-  speed-web: insecurepasswordlol
-  testpypi: insecurepasswordlol
-  discourse-user: insecurepasswordlol
+  codespeed-cpython: insecurepasswordlol
+  codespeed-pypy: insecurepasswordlol
+  roundup-cpython: insecurepasswordlol
+  roundup-jython: insecurepasswordlol
+  roundup-roundup: insecurepasswordlol
+  roundup-cpython_test: insecurepasswordlol
+  buildbot-master: insecurepasswordlol
+  buildbot-master_test: insecurepasswordlol
 
 postgresql-superusers:
-  diamond: insecurepasswordlol
+  salt-master: insecurepasswordlol
 
 postgresql-replicator: insecurereplicatorpasswordlol

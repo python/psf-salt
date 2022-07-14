@@ -47,14 +47,16 @@ external_pid_file = '{{ postgresql.pid_file }}'
 # - Connection Settings -
 
 listen_addresses = 'localhost,{{ salt["network.ip_addrs"](cidr=psf_internal)[0] }}'
-port = {{ postgresql.port - 1 }}
+port = {{ postgresql.port }}
 max_connections = {{ postgresql.max_connections }}
 unix_socket_directories = '/var/run/postgresql'
 
 # - Security and Authentication -
 
-# We offload TLS handling to stunnel.
-ssl = false
+ssl           = true
+ssl_ca_file   = '/etc/ssl/certs/PSF_CA.pem'
+ssl_cert_file = '/etc/ssl/private/postgresql.psf.io.pem'
+ssl_key_file  = '/etc/ssl/private/postgresql.psf.io.pem'
 
 
 #------------------------------------------------------------------------------

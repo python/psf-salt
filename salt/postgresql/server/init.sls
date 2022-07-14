@@ -2,7 +2,7 @@
 {% set data_partitions = [] %}
 
 {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
-{% set postgresql_primary = ((salt["mine.get"](pillar["roles"]["postgresql-primary"]["pattern"], "psf_internal").items())|sort(attribute='0')|first)[1]|sort()|first %}
+{% set postgresql_primary = (salt["mine.get"](pillar["roles"]["postgresql-primary"]["pattern"], "psf_internal").items()|sort()|first)[1]|first %}
 {% endif %}
 
 {% if data_partitions|length() > 1 %}
@@ -10,8 +10,6 @@ This Does Not Support Multi Data Disk Servers!!!!
 {% endif %}
 
 include:
-  - stunnel
-  - monitoring.client.collectors.postgresql
   - postgresql.base
 {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]["pattern"]) %}
   - postgresql.server.wal-e
@@ -82,12 +80,12 @@ postgresql-psf-cluster:
     {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]["pattern"]) %}
     - name: pg_createcluster --datadir {{ postgresql.data_dir }} --locale en_US.UTF-8 9.4 --port {{ postgresql.port }} psf
     {% else %}
-    - name: pg_basebackup --pgdata {{ postgresql.data_dir }} -U replicator
+    - name: pg_basebackup -h {{ postgresql_primary }} -p {{ postgresql.port }} --pgdata {{ postgresql.data_dir }} -U replicator
     - env:
       - PGHOST: postgresql.psf.io
       - PGHOSTADDR: {{ postgresql_primary }}
       - PGPORT: "{{ postgresql.port }}"
-      - PGSSLMODE: verify-full
+      - PGSSLMODE: verify-ca
       - PGSSLROOTCERT: /etc/ssl/certs/PSF_CA.pem
       - PGPASSWORD: {{ pillar["postgresql-users"]["replicator"] }}
     - runas: postgres
@@ -116,6 +114,7 @@ postgresql-psf-cluster:
     - user: postgres
     - group: postgres
     - mode: 640
+    - replace: False
 
 
 {{ postgresql.config_dir }}:
@@ -174,37 +173,13 @@ postgresql-psf-cluster:
       - file: {{ postgresql.config_dir }}
 
 
-/etc/network/if-up.d/stunnel:
-  file.managed:
-    - source: salt://postgresql/server/if-up.sh
-    - user: root
-    - group: root
-    - mode: 750
-
-  cmd.wait:
-    - name: IFACE=lo /etc/network/if-up.d/stunnel
-    - watch:
-      - file: /etc/network/if-up.d/stunnel
-
-
-/etc/stunnel/postgresql.conf:
-  file.managed:
-    - source: salt://postgresql/server/configs/stunnel.conf.jinja
-    - template: jinja
-    - user: root
-    - group: root
-    - mode: 644
-    - require:
-      - pkg: stunnel
-
-
 {% if salt["match.compound"](pillar["roles"]["postgresql-primary"]["pattern"]) %}
 
-{% for hostname in salt["mine.get"](pillar["roles"]["postgresql"]["pattern"], "psf_internal").keys() %}
+{% for hostname in salt["mine.get"](pillar["roles"]["postgresql"]["pattern"], "psf_internal") %}
 {% if hostname != grains["fqdn"] %}
 replication-slot-{{ hostname.split(".")|first }}:
   postgres_replica.slot:
-    - name: {{ hostname.split(".")|first }}
+    - name: {{ hostname.split(".")|first|replace('-', '_') }}
     - require:
       - service: postgresql-server
 {% endif %}
@@ -236,14 +211,14 @@ replicator:
       - service: postgresql-server
 {% endfor %}
 
-{% for database, user in postgresql.get("databases", {}).items() %}
+{% for database, config in postgresql.get("databases", {}).items() %}
 {{ database }}-database:
   postgres_database.present:
     - name: {{ database }}
-    - owner: {{ user }}
+    - owner: {{ config['owner'] }}
     - require:
       - service: postgresql-server
-      - postgres_user: {{ user }}-user
+      - postgres_user: {{ config['owner'] }}-user
 {% endfor %}
 
 {% endif %}

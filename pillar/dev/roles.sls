@@ -50,6 +50,18 @@ roles:
     pattern: "mail.vagrant.psf.io"
     purpose: ""
     contact: ""
+  postgresql:
+    pattern: "postgresql-*.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  postgresql-primary:
+    pattern: "postgresql-primary.vagrant.psf.io"
+    purpose: ""
+    contact: ""
+  postgresql-replica:
+    pattern: "postgresql-replica.vagrant.psf.io"
+    purpose: ""
+    contact: ""
   planet:
     pattern: "planet.vagrant.psf.io"
     purpose: ""
