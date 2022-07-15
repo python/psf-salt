@@ -317,7 +317,7 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
             for role in [
                 pillar.get("roles", {}).get(r) for r in config.get("roles", "")
             ]
-            if role.get("pattern") is not None
+            if role and role.get("pattern") is not None
         ]
         if any([compound(pat, minion_id) for pat in role_patterns]):
             # Create the options
