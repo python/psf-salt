@@ -22,8 +22,8 @@
   {% set maintenance_work_mem = 2048 %}
 {% endif %}
 
-{% set checkpoint_segments = 32 %}
-{% set checkpoint_completion_target = 0.7 %}
+{% set checkpoint_flush_after = '256kB' %}
+{% set checkpoint_completion_target = 0.5 %}
 
 {% set default_statistics_target = 100 %}
 
@@ -47,14 +47,16 @@ external_pid_file = '{{ postgresql.pid_file }}'
 # - Connection Settings -
 
 listen_addresses = 'localhost,{{ salt["network.ip_addrs"](cidr=psf_internal)[0] }}'
-port = {{ postgresql.port - 1 }}
+port = {{ postgresql.port }}
 max_connections = {{ postgresql.max_connections }}
 unix_socket_directories = '/var/run/postgresql'
 
 # - Security and Authentication -
 
-# We offload TLS handling to stunnel.
-ssl = false
+ssl           = true
+ssl_ca_file   = '/etc/ssl/certs/PSF_CA.pem'
+ssl_cert_file = '/etc/ssl/private/postgresql.psf.io.pem'
+ssl_key_file  = '/etc/ssl/private/postgresql.psf.io.pem'
 
 
 #------------------------------------------------------------------------------
@@ -79,7 +81,7 @@ synchronous_commit = local
 
 # - Checkpoints -
 
-checkpoint_segments = {{ checkpoint_segments }}
+checkpoint_flush_after = {{ checkpoint_flush_after }}
 checkpoint_completion_target = {{ checkpoint_completion_target }}
 
 
@@ -89,7 +91,7 @@ checkpoint_completion_target = {{ checkpoint_completion_target }}
 
 # - Sending Server(s) -
 
-max_replication_slots = {{ postgresql.replicas }}
+max_replication_slots = {{ postgresql.replicas * 2 }}
 max_wal_senders = {{ (postgresql.replicas * 1.5)|round(method="ceil")|int }}
 wal_keep_segments = 32
 

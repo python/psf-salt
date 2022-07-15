@@ -6,6 +6,18 @@ tls:
     default: ECDH+AESGCM:ECDH+CHACHA20:ECDH+AES256:ECDH+AES128:!aNULL:!SHA1:!AESCCM
 
   gen_certs:
+    bootstrap.pypa.psf.io:
+      roles:
+        - web-pypa
+
+    buildbot-master.psf.io:
+      roles:
+        - buildbot
+
+    codespeed.psf.io:
+      roles:
+        - codespeed
+
     consul.psf.io:
       roles:
         - consul
@@ -26,17 +38,13 @@ tls:
       roles:
         - loadbalancer
 
-    codespeed.psf.io:
+    moin.psf.io:
       roles:
-        - codespeed
+        - moin
 
-    bootstrap.pypa.psf.io:
+    postgresql.psf.io:
       roles:
-        - web-pypa
-
-    buildbot-master.psf.io:
-      roles:
-        - buildbot
+        - postgresql
 
     salt.psf.io:
       roles:
@@ -49,7 +57,3 @@ tls:
     pypy-web.psf.io:
       roles:
         - pypy-web
-
-    moin.psf.io:
-      roles:
-        - moin
