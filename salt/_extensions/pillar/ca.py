@@ -254,6 +254,11 @@ def create_ca_signed_cert(
     cert.add_extensions(
         [
             OpenSSL.crypto.X509Extension(
+                b"subjectAltName",
+                False,
+                ", ".join(["DNS:" + CN]).encode('utf-8'),
+            ),
+            OpenSSL.crypto.X509Extension(
                 b"keyUsage",
                 True,
                 b"digitalSignature, keyEncipherment",
