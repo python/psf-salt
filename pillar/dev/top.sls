@@ -84,6 +84,7 @@ base:
   'salt-master':
     - match: nodegroup
     - firewall.salt
+    - pebble
 
   'speed-web':
     - match: nodegroup
