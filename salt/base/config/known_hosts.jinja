@@ -1,5 +1,6 @@
 {% for server in salt['minion.list']()['minions']|sort -%}
 {% set keys = salt['ssh.recv_known_host_entries'](server, hash_known_hosts=False) -%}
+{% if keys -%}
 {% for key in keys|sort(attribute='enc') -%}
 {{ key['hostname'] }} {{ key['enc'] }} {{ key['key'] }}
-{% endfor %}{%- endfor %}
+{% endfor %}{% endif %}{%- endfor %}
