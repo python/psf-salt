@@ -33,8 +33,28 @@ roundup-deps:
     - pkgs:
       - mercurial
       - postfix
-      - python-virtualenv
-      - python-pip
+      - python2.7
+      - python2.7-dev
+      - curl
+      - libssl-dev
+      - libpq-dev
+
+roundup-pip:
+  cmd.run:
+    - name: curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2.7
+    - creates: /usr/local/bin/pip2.7
+    - umask: 022
+    - requires:
+      - pkg: roundup-deps
+
+roundup-virtualenv:
+  cmd.run:
+    - name: /usr/local/bin/pip2.7 install "virtualenv<21"
+    - creates: /usr/local/bin/virtualenv
+    - umask: 022
+    - require:
+      - cmd: roundup-pip
+
 
 roundup-user:
   user.present:
@@ -106,8 +126,11 @@ roundup-venv:
   virtualenv.managed:
     - name: /srv/roundup/env/
     - user: roundup
+    - virtualenv_bin: /usr/local/bin/virtualenv
     - python: /usr/bin/python2.7
     - requirements: salt:///bugs/requirements.txt
+    - require:
+      - cmd: roundup-virtualenv
 
 roundup-install:
   pip.installed:
