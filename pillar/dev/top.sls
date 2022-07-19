@@ -49,6 +49,12 @@ base:
     - secrets.fastly
     - secrets.tls.certs.loadbalancer
 
+  'mail':
+    - match: nodegroup
+    - firewall.mail
+    - groups.mail
+    - mail-opt-out
+
   'monitoring':
     - match: nodegroup
     - firewall.monitoring
