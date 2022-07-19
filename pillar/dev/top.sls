@@ -53,6 +53,7 @@ base:
     - match: nodegroup
     - firewall.mail
     - groups.mail
+    - mail-opt-out
 
   'monitoring':
     - match: nodegroup

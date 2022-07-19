@@ -18,7 +18,7 @@ base:
   'bugs':
     - match: nodegroup
     - firewall.bugs
-    - secrets.mail-opt-out
+    - mail-opt-out
     - secrets.bugs
     - secrets.backup.bugs
     - bugs
@@ -72,13 +72,13 @@ base:
   'mail':
     - match: nodegroup
     - firewall.mail
-    - secrets.mail-opt-out
     - secrets.backup.mail
     - groups.mail
+    - mail-opt-out
 
   'moin':
     - match: nodegroup
-    - secrets.mail-opt-out
+    - mail-opt-out
     - firewall.rs-lb-backend
     - secrets.backup.moin
 
