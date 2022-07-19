@@ -84,6 +84,8 @@ tracker-cpython-nginx-extras-upstreams:
     - source: salt://bugs/config/cpython/tracker-upstreams.conf
     - user: root
     - group: root
+    - require:
+      - file: tracker-nginx-extras
 
 tracker-cpython-nginx-extras:
   file.managed:
@@ -91,3 +93,5 @@ tracker-cpython-nginx-extras:
     - source: salt://bugs/config/cpython/tracker-extras.conf
     - user: root
     - group: root
+    - require:
+      - file: tracker-nginx-extras

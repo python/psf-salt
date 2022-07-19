@@ -4,3 +4,5 @@ tracker-roundup-nginx-extras-upstreams:
     - source: salt://bugs/config/roundup/tracker-upstreams.conf
     - user: root
     - group: root
+    - require:
+      - file: tracker-nginx-extras

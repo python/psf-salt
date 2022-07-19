@@ -124,6 +124,8 @@ tracker-nginx-extras:
     - user: root
     - group: root
     - mode: 755
+    - require:
+      - pkg: nginx
 
 {% for tracker, config in pillar["bugs"]["trackers"].items() %}
 tracker-{{ tracker }}-database:
@@ -227,6 +229,8 @@ tracker-{{ tracker }}-nginx-config:
     - context:
       tracker: {{ tracker }}
       server_name: {{ config.get('server_name') }}
+    - require:
+      - file: /etc/nginx/sites.d/
 
 roundup-{{ tracker }}-backup:
   file.directory:
@@ -234,6 +238,7 @@ roundup-{{ tracker }}-backup:
     - user: roundup
     - group: root
     - mode: 750
+    - makedirs: True
 
 tracker-{{ tracker }}-backup:
   cron.present:
