@@ -17,8 +17,13 @@ lego_extract:
   archive.extracted:
     - name: /usr/local/bin/
     - if_missing: /usr/local/bin/lego
-    - source: https://github.com/xenolf/lego/releases/download/v1.2.1/lego_v1.2.1_linux_amd64.tar.gz
-    - source_hash: sha256=ee8252c442e13cac40a2dcdeead9cc5812c44c393e72b39695d428b9275a0509
+    {% if grains.osarch == 'amd64' %}
+    - source: https://github.com/go-acme/lego/releases/download/v4.8.0/lego_v4.8.0_linux_amd64.tar.gz
+    - source_hash: sha256=e8a0d808721af53f64977d4c4811e596cb273e1b950fadd5bf39b6781d2c311c
+    {% elif grains.osarch == 'arm64' %}
+    - source: https://github.com/go-acme/lego/releases/download/v4.8.0/lego_v4.8.0_linux_arm64.tar.gz
+    - source_hash: sha256=b2f43fdccdd434e00547750f40e4203f1a5fdcd5186764d3c52a05635600a220
+    {% endif %}
     - archive_format: tar
     - tar_options: -J --strip-components=1 lego
     - enforce_toplevel: False

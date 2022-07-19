@@ -75,6 +75,7 @@ Vagrant.configure("2") do |config|
       salt '*' saltutil.sync_all
       salt '*' saltutil.refresh_grains
       salt '*' saltutil.refresh_pillar wait=True timeout=30
+      salt-call state.highstate
     HEREDOC
 
     # Run this always, because we need to sync our states.

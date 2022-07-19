@@ -1,0 +1,14 @@
+[Unit]
+Description=Pebble
+After=network.target
+
+[Service]
+Type=simple
+Environment=PEBBLE_VA_ALWAYS_VALID=1
+ExecStart=/usr/local/bin/pebble -config /etc/pebble-config.json
+KillMode=process
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

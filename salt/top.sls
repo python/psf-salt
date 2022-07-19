@@ -107,6 +107,7 @@ base:
     - match: nodegroup
     - postgresql.admin
     - dns
+    - tls.pebble
 
   'slack':
     - match: nodegroup

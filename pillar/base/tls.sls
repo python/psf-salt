@@ -50,6 +50,10 @@ tls:
       roles:
         - salt-master
 
+    salt-master.vagrant.psf.io:
+      roles:
+        - salt-master-vagrant
+
     svn.psf.io:
       roles:
         - hg

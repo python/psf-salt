@@ -78,6 +78,10 @@ roles:
     pattern: "salt-master.vagrant.psf.io"
     purpose: ""
     contact: ""
+  salt-master-vagrant:
+    pattern: "salt-master.vagrant.psf.io"
+    purpose: ""
+    contact: ""
   moin:
     pattern: "moin.vagrant.psf.io"
     purpose: ""
