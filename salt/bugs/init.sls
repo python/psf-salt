@@ -55,6 +55,13 @@ roundup-virtualenv:
     - require:
       - cmd: roundup-pip
 
+roundup-group:
+  group.present:
+    - name: roundup
+    - addusers:
+      - nginx
+    - require:
+      - pkg: nginx
 
 roundup-user:
   user.present:
@@ -63,12 +70,8 @@ roundup-user:
       - roundup
     - home: /srv/roundup
     - createhome: True
-
-roundup-nginx-group-member:
-  group.present:
-    - name: roundup
-    - addusers:
-      - nginx
+    - require:
+      - group: roundup
 
 roundup-home:
   file.directory:
