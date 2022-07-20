@@ -173,6 +173,11 @@ apache2:
     - target: /etc/apache2/mods-available/socache_shmcb.load
 
 
+/etc/apache2/mods-enabled/dav.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/dav.load
+
+
 /etc/apache2/mods-enabled/dav_svn.load:
   file.symlink:
     - target: /etc/apache2/mods-available/dav_svn.load
@@ -181,6 +186,16 @@ apache2:
 /etc/apache2/mods-enabled/dav_svn.conf:
   file.symlink:
     - target: /etc/apache2/mods-available/dav_svn.conf
+
+
+/etc/apache2/mods-enabled/authz_svn.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/authz_svn.load
+
+
+/etc/apache2/mods-enabled/rewrite.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/rewrite.load
 
 
 /etc/apache2/ports.conf:
