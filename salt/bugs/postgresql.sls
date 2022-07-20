@@ -26,6 +26,7 @@ roundup_postgres_backup_dir:
     - user: postgres
     - group: postgres
     - mode: 750
+    - makedirs: True
 
 roundup_postgres_wal_archives:
   file.directory:

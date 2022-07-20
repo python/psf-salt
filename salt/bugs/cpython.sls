@@ -63,11 +63,11 @@ rietveld:
       - cmd: /etc/systemd/system/rietveld.service
     - watch_any:
       - file: /etc/systemd/system/rietveld.service
-      - hg: rietveld-clone
-      - hg: django-gae2django-clone
+      - git: rietveld-clone
+      - git: django-gae2django-clone
       - file: tracker-cpython-config
       - file: tracker-cpython-detector-config
-      - hg: tracker-cpython-clone
+      - git: tracker-cpython-clone
 
 bpo-suggest:
   service.running:
@@ -76,7 +76,7 @@ bpo-suggest:
       - cmd: /etc/systemd/system/bpo-suggest.service
     - watch_any:
       - file: /etc/systemd/system/bpo-suggest.service
-      - hg: tracker-cpython-clone
+      - git: tracker-cpython-clone
 
 tracker-cpython-nginx-extras-upstreams:
   file.managed:
@@ -84,6 +84,8 @@ tracker-cpython-nginx-extras-upstreams:
     - source: salt://bugs/config/cpython/tracker-upstreams.conf
     - user: root
     - group: root
+    - require:
+      - file: tracker-nginx-extras
 
 tracker-cpython-nginx-extras:
   file.managed:
@@ -91,3 +93,5 @@ tracker-cpython-nginx-extras:
     - source: salt://bugs/config/cpython/tracker-extras.conf
     - user: root
     - group: root
+    - require:
+      - file: tracker-nginx-extras

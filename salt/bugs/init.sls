@@ -6,12 +6,12 @@ include:
 
 lego_bootstrap:
   cmd.run:
-    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --webroot /etc/lego --path /etc/lego --key-type ec256 run
+    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http --path /etc/lego --key-type ec256 run
     - creates: /etc/lego/certificates/{{ grains['fqdn'] }}.json
 
 lego_renew:
   cron.present:
-    - name: /usr/bin/sudo -u nginx /usr/local/bin/lego -a --email="infrastructure-staff@python.org" --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && /usr/sbin/service nginx reload && /usr/sbin/service postfix reload
+    - name: /usr/bin/sudo -u nginx /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http.webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && /usr/sbin/service nginx reload && /usr/sbin/service postfix reload
     - identifier: roundup_lego_renew
     - hour: 0
     - minute: random
@@ -26,14 +26,42 @@ lego_config:
     - mode: 644
     - require:
       - sls: tls.lego
+      - cmd: lego_bootstrap
 
 roundup-deps:
   pkg.installed:
     - pkgs:
       - mercurial
       - postfix
-      - python-virtualenv
-      - python-pip
+      - python2.7
+      - python2.7-dev
+      - curl
+      - libssl-dev
+      - libpq-dev
+
+roundup-pip:
+  cmd.run:
+    - name: curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2.7
+    - creates: /usr/local/bin/pip2.7
+    - umask: 022
+    - requires:
+      - pkg: roundup-deps
+
+roundup-virtualenv:
+  cmd.run:
+    - name: /usr/local/bin/pip2.7 install "virtualenv<21"
+    - creates: /usr/local/bin/virtualenv
+    - umask: 022
+    - require:
+      - cmd: roundup-pip
+
+roundup-group:
+  group.present:
+    - name: roundup
+    - addusers:
+      - nginx
+    - require:
+      - pkg: nginx
 
 roundup-user:
   user.present:
@@ -42,12 +70,8 @@ roundup-user:
       - roundup
     - home: /srv/roundup
     - createhome: True
-
-roundup-nginx-group-member:
-  group.present:
-    - name: roundup
-    - addusers:
-      - nginx
+    - require:
+      - group: roundup
 
 roundup-home:
   file.directory:
@@ -105,8 +129,11 @@ roundup-venv:
   virtualenv.managed:
     - name: /srv/roundup/env/
     - user: roundup
+    - virtualenv_bin: /usr/local/bin/virtualenv
     - python: /usr/bin/python2.7
     - requirements: salt:///bugs/requirements.txt
+    - require:
+      - cmd: roundup-virtualenv
 
 roundup-install:
   pip.installed:
@@ -123,6 +150,8 @@ tracker-nginx-extras:
     - user: root
     - group: root
     - mode: 755
+    - require:
+      - pkg: nginx
 
 {% for tracker, config in pillar["bugs"]["trackers"].items() %}
 tracker-{{ tracker }}-database:
@@ -226,6 +255,8 @@ tracker-{{ tracker }}-nginx-config:
     - context:
       tracker: {{ tracker }}
       server_name: {{ config.get('server_name') }}
+    - require:
+      - file: /etc/nginx/sites.d/
 
 roundup-{{ tracker }}-backup:
   file.directory:
@@ -233,6 +264,7 @@ roundup-{{ tracker }}-backup:
     - user: roundup
     - group: root
     - mode: 750
+    - makedirs: True
 
 tracker-{{ tracker }}-backup:
   cron.present:
