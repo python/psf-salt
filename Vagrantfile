@@ -41,7 +41,6 @@ Vagrant.configure("2") do |config|
     override.ssh.insert_key = true
 
     docker.build_dir = '.'
-    #docker.build_args = ['--platform', 'linux/amd64']
     docker.has_ssh = true
     docker.remains_running = true
     docker.privileged = true

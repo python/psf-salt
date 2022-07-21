@@ -45,8 +45,8 @@ RUN /usr/sbin/sshd
 
 # Setup Salt Common
 
-RUN wget --quiet -O /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/arm64/3004/salt-archive-keyring.gpg
-RUN echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=arm64] https://repo.saltproject.io/py3/ubuntu/20.04/arm64/3004 focal main" > /etc/apt/sources.list.d/salt.list
+RUN wget --quiet -O /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004/salt-archive-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004 focal main" > /etc/apt/sources.list.d/salt.list
 RUN apt-get update -y && apt-get install -y --no-install-recommends salt-minion
 
 # Start Systemd (systemctl)
