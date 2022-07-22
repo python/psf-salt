@@ -1,4 +1,4 @@
-{% for site, info in salt["pillar.get"]("planet_sites").items() %}
+{% for site, info in salt["pillar.get"]("planet", {}).get("sites").items() %}
 
 server {
     listen 80;
@@ -11,13 +11,13 @@ server {
     server_name {{ site }};
     error_log /var/log/nginx/{{ site }}.error.log;
     access_log /var/log/nginx/{{ site }}.access.log;
-    ssl_certificate /etc/letsencrypt/live/{{ site }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ site }}/privkey.pem;
+    ssl_certificate /etc/lego/certificates/{{ grains['fqdn'] }}.crt;
+    ssl_certificate_key /etc/lego/certificates/{{ grains['fqdn'] }}.key;
 
     root /srv/{{ site }}/;
 }
 
-{% for domain in info.get("extra_domains", []) %}
+{% for domain in info.get("subject_alternative_names", []) %}
 server {
     server_name {{ domain }};
     error_log /var/log/nginx/redir-{{ domain }}.error.log;
