@@ -27,7 +27,7 @@ lego_bootstrap:
 
 lego_renew:
   cron.present:
-    - name: /usr/bin/sudo -u nginx /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['planet']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http --http.webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && /usr/sbin/service nginx reload
+    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['planet']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http --http.webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && /usr/sbin/service nginx reload
     - identifier: roundup_lego_renew
     - hour: 0
     - minute: random
