@@ -1,7 +1,7 @@
-planet_sites:
-  planetpython.org:
-    config: config.ini
-    extra_domains:
-      - www.planetpython.org
-#  planet.jython.org:
-#    config: jython.ini
+planet:
+  subject_alternative_names:
+    - planetpython.org
+    - www.planetpython.org
+  sites:
+    planetpython.org:
+      config: config.ini
