@@ -1,6 +1,6 @@
 include:
   - nginx
-  - tls.lego 
+  - tls.lego
 
 git:
   pkg.installed
