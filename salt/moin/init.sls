@@ -2,9 +2,10 @@ moin:
   group.present:
     - system: True
 
-  user.present:
+  user.present: 
     - home: /srv/moin
-    - gid_from_name: True
+    - groups:
+      - moin  
     - require:
       - group: moin
 
@@ -12,11 +13,13 @@ moin-pkgs:
   pkg.installed:
     - pkgs:
       - build-essential
-      - python-virtualenv
+      - python3-virtualenv
       - python-docutils
       - python-gdchart2
-      - python-openid
       - python-xapian
+      - python2.7
+      - python2.7-dev
+      - curl
 
 www-data:
   user.present:
@@ -32,7 +35,7 @@ www-data:
     - user: moin
     - system_site_packages: True
     - pip_pkgs:
-      - moin==1.9.11
+      - python-openid==2.2.5
 
 /srv/moin/moin.wsgi:
   file.managed:
