@@ -9,9 +9,7 @@ codespeed-deps:
     - pkgs:
       - git
       - mercurial
-      - python-dev
       - python3-dev
-      - python-virtualenv
       - python3-virtualenv
       - build-essential
       - libpq-dev

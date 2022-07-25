@@ -22,6 +22,13 @@ base:
     - fastly-logging
     - firewall.fastly-logging
 
+  'codespeed':
+    - match: nodegroup
+    - firewall.codespeed
+    - codespeed
+    - secrets.postgresql-users.codespeed
+    - secrets.codespeed
+
   'docs':
     - match: nodegroup
     - firewall.rs-lb-backend
