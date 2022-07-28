@@ -275,7 +275,7 @@ users:
     accesss:
       codespeed:
         allowed: True
-        sudo: True    
+        sudo: True
 
   jafo:
     fullname: "Sean Reifschneider"
@@ -444,7 +444,7 @@ users:
         sudo: True
         allowed: True
         groups:
-          - roundup    
+          - roundup
 
   lemburg:
     fullname: "Marc-Andre Lemburg"
