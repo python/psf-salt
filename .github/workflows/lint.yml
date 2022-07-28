@@ -29,7 +29,7 @@ jobs:
       name: Determine changed files
       uses: jitterbit/get-changed-files@v1
       with:
-        format: space-delimited
+        format: json
 
     - name: Run Linter
-      run: tox -e lint -- ${{ steps.files.outputs.added_modified }}
+      run: tox -e lint -- $(jq -r '.[] | select(. | endswith(".sls"))' <<< '${{ steps.files.outputs.added_modified }}' | xargs)
