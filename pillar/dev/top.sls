@@ -86,12 +86,6 @@ base:
     - firewall.salt
     - pebble
 
-  'speed-web':
-    - match: nodegroup
-    - firewall.rs-lb-backend
-    - secrets.postgresql-users.speed-web
-    - secrets.speed-web
-
   'tracker':
     - match: nodegroup
     - secrets.postgresql-users.tracker
