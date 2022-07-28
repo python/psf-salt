@@ -198,15 +198,6 @@ users:
         groups:
           - downloads
 
-  frank:
-    fullname: "Frank Wiles"
-    ssh_keys:
-      - ssh-dss AAAAB3NzaC1kc3MAAACBAN3K472pNxIi1LIz6VeFYVmsRDhj5Kx7xKpoKVNUBXKZastMQ7rhI/KeRVshhR+q4apR4EbKE9qsyO2632RYzC5W8lc6YKs/lShMBDe2knnyQsaLLguOsrn8+1PusdxPPW91XCINTrKyr3Nwsh5dck8OvzJ9ahCIW0RlZiV3dyM7AAAAFQC/4DxBpn/7d2QVFjf2jL6y3AtgeQAAAIEAva/IdhMV7inBKd1aMBCNdul59eAuZImjAgAY6HNJoh7iFHHx/jZRc9vhk8YfWV0Bu9MIECVN8rbdwrYCvmkDhreTYZ4dLntO7qtHgjeIEX2qZbz+WihmcF8G2XubShJSX1eGsbgl4cNPWbTBf/EzLf++RdfIqSMWuZO6/LQxL8oAAACBALSbnQv/5eQf3hGzXb91tDutWLjx/QvR7UXmJjgvAhSdAbvACLE+hF30XXYXwlwAycPn1G/cYZThMlVZnHZXKscErir0vNKFR922vjfjsTZ2QfNL5RCpggzeMMT8J6s4Mo936vut8nsWUJ69Bwz2Ib4/GPE2NcmAb6iuht2HmqaI
-    access:
-      pydotorg:
-        allowed: True
-        sudo: True
-
   brian:
     fullname: "Brian Curtin"
     ssh_keys:
@@ -324,16 +315,6 @@ users:
         groups:
           - docs
           - docsbuild
-
-  berker:
-    fullname: "Berker Peksag"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdJMNdov7ZzE6LZcYucb1dUUGaiRcBrqvJpQEgsqh50dSFawxRmjGtT2L7qcpYC/wxlUkTuUQpw8SepViIQuTQhIemyHfUUM0CjNTbEXE+lnVg2Re5V7ShsfY8RE3UVjbN3IkJW47dpASt5on7Llqa6eS3/IFdHa3pRTf35SdlsaF/t5nXXSwnFzUVY/lbv6gYB1Tgy9Pbi35MvlAS1AFstTFTz5LylimGfo7dNIQHAQHQc5M0zqcspvcPlUzIAgm8RYSp8L6kQ5jOagnPtCEGAcOHKRX0427l3GxfYhziGoBjvRU0iwuOtzloepAHXvgZJk1/1KycvSRRcFtAoWYd berker.peksag@gmail.com
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDPoCBV+yjow9tlIRQ/EbhAdBeuaqXgdVsaGTfsY4kDFfBfiaDITmzJk220/HuHHyLYuHAcDNqwS0f1GCURJv3PPaoLYpMyeA/VlPldyl8+vjkL5lNPbSDyOIEw+t4I2qDkry59xosHzQwuB+6VEgPU3tBpj/gCXyekwNCjTaY+6FaRF3/zLUpuv84AXBR2vaZ4pJBFrp5OMZxOzqSA1nnqieSoDGfArl8GsGHHlykTaDI2cVtHq2wnMjU4lG4lRACVITiNo1Oq3uLYgRnxSbOi4fHmYvG3fdDDz/JYgN52RXA1cA90pZua03VR9UErbDIzAk4CiPx7urpL1xYMwP59aDkbpqgJNCWyn0kAlNTyaVH19kvEtlGI1KMYJrREuwzwZx23cM95Fl7aJyrOm6C14y7QBvjS4MxepIOhayOu9BFntTYczqT2W/zrfDBDz9wFSsPNHRyHw1ouUWCD8j4DZCcVm2SAopLc3qbK+J9otBWTlJaBlkEUsHA9KWolB0ygSxQeOSOnQ8WACOmRr4HtG641WTwfUWTZLd3VtPFOSH3MnWKHelNCK7vOze2H2pF3i+uiNthCFyMYs5/eWHasjq17aMg8qkbZhcLRurqYWXg0G07bRQULbmd3xearvKKqwPMlFxLypR4YjUUwc6Um/PnMQnz7qhoGLqtFuA7o7Q== berker.peksag@gmail.com
-    access:
-      pydotorg:
-        allowed: True
-        sudo: True
 
   maxking:
     fullname: "Abhilash Raj"
