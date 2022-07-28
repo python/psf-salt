@@ -94,10 +94,6 @@ base:
     - dns
     - tls.pebble
 
-  'slack':
-    - match: nodegroup
-    - slack-irc
-
   'web-pypa':
     - match: nodegroup
     - pypa.bootstrap
