@@ -37,11 +37,6 @@ base:
     - match: nodegroup
     - firewall.rs-lb-backend
 
-  'jython-web':
-    - match: nodegroup
-    - groups.jython
-    - firewall.http
-
   'loadbalancer':
     - match: nodegroup
     - haproxy
@@ -54,18 +49,6 @@ base:
     - firewall.mail
     - groups.mail
     - mail-opt-out
-
-  'monitoring':
-    - match: nodegroup
-    - firewall.monitoring
-    - secrets.postgresql-users.monitoring
-    - secrets.monitoring.server
-
-  'packages':
-    - match: nodegroup
-    - firewall.http
-    - aptly.packages
-    - secrets.aptly
 
   'planet':
     - match: nodegroup
@@ -91,12 +74,6 @@ base:
     - match: nodegroup
     - firewall.salt
     - pebble
-
-  'speed-web':
-    - match: nodegroup
-    - firewall.rs-lb-backend
-    - secrets.postgresql-users.speed-web
-    - secrets.speed-web
 
   'tracker':
     - match: nodegroup

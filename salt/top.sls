@@ -43,13 +43,6 @@ base:
     - pgbouncer
     - codespeed
 
-  'discourse':
-    - match: nodegroup
-    - discourse
-    - redis
-    - nodejs
-    - nginx
-
   'docs':
     - match: nodegroup
     - docs
@@ -65,10 +58,6 @@ base:
   'hg':
     - match: nodegroup
     - hg
-
-  'jython-web':
-    - match: nodegroup
-    - jython
 
   'loadbalancer':
     - match: nodegroup
@@ -87,14 +76,6 @@ base:
     - postgresql.server
     - postgresql.admin
 
-  'pydotorg':
-    - match: nodegroup
-    - pydotorg
-
-  'pycon':
-    - match: nodegroup
-    - pycon
-
   'pypy-web':
     - match: nodegroup
     - pypy-web
@@ -108,10 +89,6 @@ base:
     - postgresql.admin
     - dns
     - tls.pebble
-
-  'slack':
-    - match: nodegroup
-    - slack-irc
 
   'web-pypa':
     - match: nodegroup

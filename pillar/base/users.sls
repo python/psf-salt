@@ -26,10 +26,6 @@ users:
     ssh_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG7R8y2Ecocj+t5rP7YNmNWM+QmmZ8Wuz0f1btJ3KcA0 donald@stufft.io
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5md5DAPib7J+uGHanzgQOJ9GwGYAi7RLbG+rB/0NRk8UbUnwzn0JwkqNTXzeomUapO5Z3cOxQ98jzb0k03hGOzhzjIQpaKI1uKxPPquDevf/PwM5ZQaJzlx/8ah76GzJtEQpIIIbw/fofzywv9pZKTBCDL3wBHB94oByQjr0BG9CfjbMZq6FXcBKfo89L56nLQ8cdvxg2tjNJQElva5gL/xnqjpowtQYjA9MPKFmDwJPcrRF2AstBg5Zpkg+8K4JhJltucXTPEva97alK9prshGFY6XLtVD0mtgbwpHFXjFm7cIQYr8XG3pJdtWki0fLg0o3W1YBukQ+reDblT8SnFaDscgF1gStTra5zXfVF5OJaaRFE8zaYuwC01DQT9sN9G4fV4eK8HRbgpObCJcxnCyTs/SYGVhO1PpOiQYmyswGUlV4vU8G3gl3u0D+gkcpHRkdko0HlFbNUt1wKIZWcGLJcKkNWMKGSf1TaciU+6+2A4QVDxtdab8HdjnbuugX9/FckqjZypaUOwl8U4fYc4JbdUQ78PvcQrSQvhRPZB+1KSvm8rwRuBnFWiNlYmThLhGmKDBXegNF8eFRe4dApzv2DyshasHs4tNv46YIox6FdFEw0voRNPqhbTCF3XIdOQvxkHeZRyGGWv4WCTImM5+3GhXrbOQUtB9NjfM7rhQ== donald@stufft.io
-    access:
-      packages:
-        groups:
-          - aptly-uploaders
 
   benjaminws:
     fullname: "Benjamin W. Smith"
@@ -59,9 +55,6 @@ users:
       downloads:
         groups:
           - downloads
-      jython-web:
-        groups:
-          - jython
 
   # Other users
   antoine:
@@ -94,16 +87,6 @@ users:
         allowed: True
         sudo: True
 
-  fwierzbicki:
-    fullname: "Frank Wierzbicki"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAscNf5qrUYYXPjSJAjDPeZIwmxHJKf10sjBSoRXoD6nBfCoN+joPZIX+xxPZWqunFKcRxcaQCtxAOYLWDy2s4AfIe1oGv2gPZsrYOs3FrlSYSnvOgfbQzmqs1p7Jm5Rxwh/TKRonh8iYt8YD04z6oQ1/p1WkazsVXD/dekX0vC5PzMRMIpq3oUTJ1BaWbFQmh580r6J9mAgavxwuaOrDT/Ld73kvYwdFFbIuK1LRcYdQvuJDK8+y9qTk5shb8FtmAPLCwQV9S4OwItoZVUp29rCQgmPH3dOY1GB2EM2lus7mRRc4e371kIGKC5/jCLSeA0Jc4mATDvxSx45sSmygutw==
-    access:
-      jython-web:
-        allowed: True
-        groups:
-          - jython
-
   gbrandl:
     fullname: "Georg Brandl"
     ssh_keys:
@@ -122,16 +105,6 @@ users:
       hg:
         allowed: True
         sudo: True
-
-  gronholm:
-    fullname: "Alex Gronholmn"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAoAooLyA81RQSzJKuQ3r7XwFOFpuCQACW5pM7qrNDkwSJALxIFn/TIecGc94AecRyhQfzQThJVNGm7x4+W92tDb+LY8EGO+LiizgHwMFSF9SOosHLiuAklC/OFy7xAnfwEJbW41ZALsW+K84tDv4WseO2iKCqhwP+9Wi6ToV+9Nk=
-    access:
-      jython-web:
-        allowed: True
-        groups:
-          - jython
 
   larry:
     fullname: "Larry Hastings"
@@ -181,16 +154,6 @@ users:
           - docs
           - docsbuild
 
-  pjenvey:
-    fullname: "Philip Jenvey"
-    ssh_keys:
-      - ssh-dss AAAAB3NzaC1kc3MAAAEBAIZHS9XNndCJaMiUhkqqMecbLMa2MQg8wAq9ekncy06WEiHxNJwgUYtObrtZQFxlXpwad1q/6p9KQBkGlneUaAdFNoEqEwCex4INiqhrjzKAyRs42zy5i2bh8blFMGN/0LejJihABC7eBE42DWNBdbkUXqJLVPJX5rMduR8qCHMyyD/y+2MmsQGIORjYNTnV+E5lb20WfC7RrFA1+rImPdmI5gyXafHtfPewRWk4wBg+CjIDJ7ci4mqLaTrXAgOjoJwBn5hWGdFq7jTlThEt38riXYK/EiX+lx3Ncj5GFaqk9Try9A0dgSp2ifBlNUn8Qkh4qpmDeRectveFJK04o7cAAAAVAMgyHCzNfUfrzyeIqVVz+vcbC9FZAAABADpjkVMORDKgmC9wPwIlXxEuU3T6Srsnc8Pn90lAlNhBCNEVFlWBnSilK1jRrB/o5PFVFDAao51LsPRfPaSAmIYp//CowQHtTFo6qDzH1YLYvUUy/YRiXeFhHabFonr6CfAasYzbnkI5fUBwgNv9ZrnjnmG1P4WgWoIhpEKUhXssWmoev40182YDNXe3dEkbSUqWBjqniPUVaUsyPYb7PAmzm5sAjJgZtGz98KioAgTxEoTwCb9lkyBP9TWkoJzYRMoM9vheDwFRRGn2yRRYUG3JU5nSP4AAD+vRbBn/dSJJSOJ+RWOmvRGcEYuop+0/NAQ2RUuzyGlxcjsa9NLnSHgAAAEATPC5OAnez+kwqxJbbxA+OaYkODFoBMjq9Gwwz1/wjMRKvqjzJFwkmSlQtOLPFpr111HZzk7Z6LAJ/cxDLW9AB6ACHGoTpb5gT0YF8vhhpiOIbh525e1fbhW1iBir4PYmC1C4Yn5vzGH/Xtt5l7d5UvEyndtKrjKl6CAvio/v5Oc1nVZvZEEMzdxp5UyVTmrSpKhXmbfkr3B6kh6RF6esvBx/5o3RDWVJYj4MooBjfj6VRvuDtufKTeRe5sptP2eUPu0kjQ9GGxfCf7AXqDJRE//ziLaewdVy1o5jxu+RvHzQh7mk9lzNgcwr0cvMD0hVfEkQk9hrGIIZs/vJAIZlWQ==
-    access:
-      jython-web:
-        allowed: True
-        groups:
-          - jython
-
   sdower:
     fullname: "Steve Dower"
     ssh_keys:
@@ -201,15 +164,6 @@ users:
         allowed: True
         groups:
           - downloads
-
-  frank:
-    fullname: "Frank Wiles"
-    ssh_keys:
-      - ssh-dss AAAAB3NzaC1kc3MAAACBAN3K472pNxIi1LIz6VeFYVmsRDhj5Kx7xKpoKVNUBXKZastMQ7rhI/KeRVshhR+q4apR4EbKE9qsyO2632RYzC5W8lc6YKs/lShMBDe2knnyQsaLLguOsrn8+1PusdxPPW91XCINTrKyr3Nwsh5dck8OvzJ9ahCIW0RlZiV3dyM7AAAAFQC/4DxBpn/7d2QVFjf2jL6y3AtgeQAAAIEAva/IdhMV7inBKd1aMBCNdul59eAuZImjAgAY6HNJoh7iFHHx/jZRc9vhk8YfWV0Bu9MIECVN8rbdwrYCvmkDhreTYZ4dLntO7qtHgjeIEX2qZbz+WihmcF8G2XubShJSX1eGsbgl4cNPWbTBf/EzLf++RdfIqSMWuZO6/LQxL8oAAACBALSbnQv/5eQf3hGzXb91tDutWLjx/QvR7UXmJjgvAhSdAbvACLE+hF30XXYXwlwAycPn1G/cYZThMlVZnHZXKscErir0vNKFR922vjfjsTZ2QfNL5RCpggzeMMT8J6s4Mo936vut8nsWUJ69Bwz2Ib4/GPE2NcmAb6iuht2HmqaI
-    access:
-      pydotorg:
-        allowed: True
-        sudo: True
 
   brian:
     fullname: "Brian Curtin"
@@ -328,16 +282,6 @@ users:
         groups:
           - docs
           - docsbuild
-
-  berker:
-    fullname: "Berker Peksag"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdJMNdov7ZzE6LZcYucb1dUUGaiRcBrqvJpQEgsqh50dSFawxRmjGtT2L7qcpYC/wxlUkTuUQpw8SepViIQuTQhIemyHfUUM0CjNTbEXE+lnVg2Re5V7ShsfY8RE3UVjbN3IkJW47dpASt5on7Llqa6eS3/IFdHa3pRTf35SdlsaF/t5nXXSwnFzUVY/lbv6gYB1Tgy9Pbi35MvlAS1AFstTFTz5LylimGfo7dNIQHAQHQc5M0zqcspvcPlUzIAgm8RYSp8L6kQ5jOagnPtCEGAcOHKRX0427l3GxfYhziGoBjvRU0iwuOtzloepAHXvgZJk1/1KycvSRRcFtAoWYd berker.peksag@gmail.com
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDPoCBV+yjow9tlIRQ/EbhAdBeuaqXgdVsaGTfsY4kDFfBfiaDITmzJk220/HuHHyLYuHAcDNqwS0f1GCURJv3PPaoLYpMyeA/VlPldyl8+vjkL5lNPbSDyOIEw+t4I2qDkry59xosHzQwuB+6VEgPU3tBpj/gCXyekwNCjTaY+6FaRF3/zLUpuv84AXBR2vaZ4pJBFrp5OMZxOzqSA1nnqieSoDGfArl8GsGHHlykTaDI2cVtHq2wnMjU4lG4lRACVITiNo1Oq3uLYgRnxSbOi4fHmYvG3fdDDz/JYgN52RXA1cA90pZua03VR9UErbDIzAk4CiPx7urpL1xYMwP59aDkbpqgJNCWyn0kAlNTyaVH19kvEtlGI1KMYJrREuwzwZx23cM95Fl7aJyrOm6C14y7QBvjS4MxepIOhayOu9BFntTYczqT2W/zrfDBDz9wFSsPNHRyHw1ouUWCD8j4DZCcVm2SAopLc3qbK+J9otBWTlJaBlkEUsHA9KWolB0ygSxQeOSOnQ8WACOmRr4HtG641WTwfUWTZLd3VtPFOSH3MnWKHelNCK7vOze2H2pF3i+uiNthCFyMYs5/eWHasjq17aMg8qkbZhcLRurqYWXg0G07bRQULbmd3xearvKKqwPMlFxLypR4YjUUwc6Um/PnMQnz7qhoGLqtFuA7o7Q== berker.peksag@gmail.com
-    access:
-      pydotorg:
-        allowed: True
-        sudo: True
 
   maxking:
     fullname: "Abhilash Raj"
