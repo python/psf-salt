@@ -50,12 +50,6 @@ base:
     - groups.mail
     - mail-opt-out
 
-  'monitoring':
-    - match: nodegroup
-    - firewall.monitoring
-    - secrets.postgresql-users.monitoring
-    - secrets.monitoring.server
-
   'planet':
     - match: nodegroup
     - planet
