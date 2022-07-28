@@ -2,7 +2,7 @@ moin:
   group.present:
     - system: True
 
-  user.present: 
+  user.present:
     - home: /srv/moin
     - groups:
       - moin  
