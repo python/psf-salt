@@ -37,11 +37,6 @@ base:
     - match: nodegroup
     - firewall.rs-lb-backend
 
-  'jython-web':
-    - match: nodegroup
-    - groups.jython
-    - firewall.http
-
   'loadbalancer':
     - match: nodegroup
     - haproxy

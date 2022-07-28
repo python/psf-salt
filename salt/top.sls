@@ -59,10 +59,6 @@ base:
     - match: nodegroup
     - hg
 
-  'jython-web':
-    - match: nodegroup
-    - jython
-
   'loadbalancer':
     - match: nodegroup
     - haproxy

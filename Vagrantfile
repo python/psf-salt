@@ -11,7 +11,6 @@ SERVERS = [
   "docs",
   "downloads",
   "hg",
-  "jython-web",
   {:name => "loadbalancer", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20100]},
   "mail",
   "moin",
