@@ -275,7 +275,7 @@ users:
     accesss:
       codespeed:
         allowed: True
-        sudo: True    
+        sudo: True
 
   jafo:
     fullname: "Sean Reifschneider"
