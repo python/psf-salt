@@ -43,13 +43,6 @@ base:
     - pgbouncer
     - codespeed
 
-  'discourse':
-    - match: nodegroup
-    - discourse
-    - redis
-    - nodejs
-    - nginx
-
   'docs':
     - match: nodegroup
     - docs
