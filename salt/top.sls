@@ -87,10 +87,6 @@ base:
     - postgresql.server
     - postgresql.admin
 
-  'pycon':
-    - match: nodegroup
-    - pycon
-
   'pypy-web':
     - match: nodegroup
     - pypy-web
