@@ -95,21 +95,21 @@ docsbuild-quick:
   file.directory:
     - user: docsbuild
     - group: docsbuild
-    - mode: 755
+    - mode: "0755"
 
 /etc/logrotate.d/docsbuild:
   file.managed:
     - source: salt://docs/config/docsbuild.logrotate
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 /etc/nginx/sites.d/docs-backend.conf:
   file.managed:
     - source: salt://docs/config/nginx.docs-backend.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/nginx/sites.d/
       - file: /etc/nginx/fastly_params
@@ -124,6 +124,6 @@ docsbuild-quick:
         port: 9000
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
