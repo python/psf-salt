@@ -13,7 +13,6 @@ moin-pkgs:
   pkg.installed:
     - pkgs:
       - build-essential
-      - python3-virtualenv
       - python-docutils
       - python-gdchart2
       - python-xapian
@@ -30,11 +29,28 @@ www-data:
       - user: moin
       - pkg: moin-pkgs
 
+pip:
+  cmd.run:
+    - name: curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2.7
+    - creates: /usr/local/bin/pip2.7
+    - umask: 022
+
+virtualenv:
+  cmd.run:
+    - name: /usr/local/bin/pip2.7 install "virtualenv<21"
+    - creates: /usr/local/bin/virtualenv
+    - umask: 022
+
 /srv/moin/venv:
   virtualenv.managed:
     - user: moin
     - system_site_packages: True
+    - virtualenv_bin: /usr/local/bin/virtualenv
+    - python: /usr/bin/python2.7
+    - require:
+      - cmd: virtualenv
     - pip_pkgs:
+      - moin==1.9.11
       - python-openid==2.2.5
 
 /srv/moin/moin.wsgi:
