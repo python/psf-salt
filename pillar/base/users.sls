@@ -444,7 +444,7 @@ users:
         sudo: True
         allowed: True
         groups:
-          - roundup    
+          - roundup
 
   lemburg:
     fullname: "Marc-Andre Lemburg"
