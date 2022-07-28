@@ -27,40 +27,40 @@ codespeed-logs:
     - name: /var/log/codespeed
     - user: codespeed
     - group: codespeed
-    - mode: 755
+    - mode: "0755"
 
 /etc/logrotate.d/codespeed:
   file.managed:
     - source: salt://codespeed/config/codespeed.logrotate
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 codespeed-socks:
   file.directory:
     - name: /var/run/codespeed
     - user: codespeed
     - group: codespeed
-    - mode: 755
+    - mode: "0755"
 
 {% for instance, config in pillar.get('codespeed-instances', {}).items() %}
 
 /srv/codespeed/{{ instance }}:
   file.directory:
     - user: codespeed
-    - mode: 755
+    - mode: "0755"
 
 /srv/codespeed/{{ instance }}/data:
   file.directory:
     - user: codespeed
-    - mode: 755
+    - mode: "0755"
 
 /srv/codespeed/{{ instance }}/data/media:
   file.directory:
     - user: codespeed
     - group: codespeed
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: "0755"
+    - file_mode: "0644"
     - recurse:
       - user
       - group
@@ -70,8 +70,8 @@ codespeed-socks:
   file.directory:
     - user: codespeed
     - group: codespeed
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: "0755"
+    - file_mode: "0644"
     - recurse:
       - user
       - group
@@ -81,7 +81,7 @@ codespeed-socks:
   file.directory:
     - user: codespeed
     - group: codespeed
-    - mode: 755
+    - mode: "0755"
 
 codespeed-{{ instance }}-source:
   git.latest:
@@ -115,7 +115,7 @@ codespeed-{{ instance }}-env:
     - cwd: /srv/codespeed/{{ instance }}/src
     - pip_upgrade: True
     - python: {{ config.get('python_version', 'python2') }}
-    - requirements: /srv/codespeed/{{ instance }}/src/deploy-requirements.txt 
+    - requirements: /srv/codespeed/{{ instance }}/src/deploy-requirements.txt
     - watch:
       - git: codespeed-{{ instance }}-source
 
@@ -129,7 +129,7 @@ codespeed-{{ instance }}-local_settings:
     - user: codespeed
     - group: codespeed
     - show_changes: False
-    - mode: 640
+    - mode: "0640"
     - template: jinja
     - context:
       instance: {{ instance }}
@@ -164,7 +164,7 @@ codespeed-{{ instance }}-pre-reload:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - context:
       instance: {{ instance }}
       wsgi_app: {{ config['wsgi_app'] }}
@@ -190,7 +190,7 @@ codespeed-{{ instance }}:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - context:
       instance: {{ instance }}
       server_names: {{ config['hostname'] }}
@@ -208,7 +208,7 @@ codespeed-{{ instance }}:
         port: {{ config['port'] }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
