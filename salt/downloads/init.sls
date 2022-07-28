@@ -7,7 +7,7 @@ include:
     - source: salt://downloads/config/nginx.downloads-backend.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/nginx/sites.d/
       - file: /etc/nginx/fastly_params
@@ -17,9 +17,9 @@ include:
   file.managed:
     - user: root
     - group: downloads
-    - mode: 644
+    - mode: "0644"
     - makedirs: True
-    - dir_mode: 775
+    - dir_mode: "0775"
 
 
 /etc/consul.d/service-downloads.json:
@@ -31,6 +31,6 @@ include:
         port: 9000
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
