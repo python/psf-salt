@@ -5,7 +5,7 @@ moin:
   user.present:
     - home: /srv/moin
     - groups:
-      - moin  
+      - moin
     - require:
       - group: moin
 
@@ -33,13 +33,13 @@ pip:
   cmd.run:
     - name: curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2.7
     - creates: /usr/local/bin/pip2.7
-    - umask: 022
+    - umask: "022"
 
 virtualenv:
   cmd.run:
     - name: /usr/local/bin/pip2.7 install "virtualenv<21"
     - creates: /usr/local/bin/virtualenv
-    - umask: 022
+    - umask: "022"
 
 /srv/moin/venv:
   virtualenv.managed:
@@ -58,7 +58,7 @@ virtualenv:
     - source: salt://moin/configs/moin.wsgi
     - user: moin
     - group: moin
-    - mode: 644
+    - mode: "0644"
     - require:
       - user: moin
       - group: moin
@@ -67,7 +67,7 @@ virtualenv:
   file.directory:
     - user: root
     - group: root
-    - dir_mode: 755
+    - dir_mode: "0755"
 
 /etc/moin/python.py:
   file.managed:
@@ -75,7 +75,7 @@ virtualenv:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/moin
 
@@ -85,7 +85,7 @@ virtualenv:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/moin
 
@@ -95,7 +95,7 @@ virtualenv:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/moin
 
@@ -105,7 +105,7 @@ virtualenv:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/moin
       - file: /etc/moin/python.py
@@ -117,7 +117,7 @@ virtualenv:
     - source: salt://moin/configs/shared_intermap.txt
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/moin
 
@@ -176,7 +176,7 @@ apache2:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: apache2
 
@@ -186,7 +186,7 @@ apache2:
     - source: salt://moin/configs/wiki.python.org.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: apache2
 
@@ -195,7 +195,7 @@ apache2:
     - target: ../sites-available/wiki.python.org.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 /etc/consul.d/service-moin.json:
   file.managed:
@@ -206,7 +206,7 @@ apache2:
         port: 9000
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
@@ -214,7 +214,7 @@ apache2:
   file.directory:
     - user: moin
     - group: moin
-    - mode: 750
+    - mode: "0750"
     - require:
       - user: moin
       - group: moin
@@ -224,7 +224,7 @@ apache2:
     - source: salt://moin/scripts/moin_maint_cleansessions.sh
     - user: moin
     - group: moin
-    - mode: 750
+    - mode: "0750"
     - require:
       - file: /srv/moin/bin
   cron.present:
@@ -239,7 +239,7 @@ apache2:
     - source: salt://moin/scripts/moin_maint_cleansessions_all.sh
     - user: moin
     - group: moin
-    - mode: 750
+    - mode: "0750"
     - require:
       - file: /srv/moin/bin
   cron.present:
@@ -255,7 +255,7 @@ apache2:
     - source: salt://moin/scripts/moin_maint_cleanpage.sh
     - user: moin
     - group: moin
-    - mode: 750
+    - mode: "0750"
     - require:
       - file: /srv/moin/bin
   cron.present:
@@ -271,7 +271,7 @@ apache2:
     - source: salt://moin/scripts/moin_maint_index_rebuild.sh
     - user: moin
     - group: moin
-    - mode: 750
+    - mode: "0750"
     - require:
       - file: /srv/moin/bin
   cron.present:
@@ -286,4 +286,4 @@ apache2:
     - source: salt://moin/configs/logrotate.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
