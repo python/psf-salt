@@ -61,12 +61,6 @@ base:
     - secrets.postgresql-users.monitoring
     - secrets.monitoring.server
 
-  'packages':
-    - match: nodegroup
-    - firewall.http
-    - aptly.packages
-    - secrets.aptly
-
   'planet':
     - match: nodegroup
     - planet
