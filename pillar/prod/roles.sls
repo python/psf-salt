@@ -67,7 +67,7 @@ roles:
     purpose:  "Salt server"
     contact:  "Infrastructure Staff"
   moin: 
-    pattern:  "moin.nyc1.psf.io"
+    pattern:  "moin*.nyc1.psf.io"
     purpose:  "Hosts moin sites for wiki.python.org, wiki.jython.org"
     contact:  "lemburg"
 
