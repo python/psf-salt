@@ -68,6 +68,7 @@ haproxy:
         - wiki.python.org
         - wiki.jython.org
       verify_host: moin.psf.io
+      check: "HEAD /moin/HelpContents HTTP/1.1\\r\\nHost:\\ wiki.python.org"
 
     svn:
       domains:
