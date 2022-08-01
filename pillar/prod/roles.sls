@@ -18,15 +18,15 @@ roles:
     pattern:  "buildbot.nyc1.psf.io"
     purpose:  "Hosting for CPython buildbot server"
     contact:  "zware, haypo, pablogsa"
-  cdn-logs: 
+  cdn-logs:
     pattern:  "cdn-logs.nyc1.psf.io"
     purpose:  "Realtime log streaming from Fastly CDN for debug"
     contact:  "Infrastructure Staff"
-  codespeed: 
+  codespeed:
     pattern:  "codespeed*.nyc1.psf.io"
     purpose:  "Hosting for speed.python.org and speed.pypy.org"
     contact:  ""
-  consul: 
+  consul:
     pattern:  "consul*.nyc1.psf.io"
     purpose:  "Runs `Consul <https://www.consul.io/>`_ discovery service"
     contact:  "Infrastructure Staff"
@@ -46,27 +46,27 @@ roles:
     pattern:  "lb*.nyc1.psf.io"
     purpose:  "Load balancer"
     contact:  "Infrastructure Staff"
-  mail: 
+  mail:
     pattern:  "mail.ams1.psf.io"
     purpose:  "Mail and mailman server"
     contact:  "postmasters"
-  planet: 
+  planet:
     pattern:  "planet.nyc1.psf.io"
     purpose:  "Planet Python"
     contact:  "benjamin"
-  pypy-web: 
+  pypy-web:
     pattern:  "pypy-web.nyc1.psf.io"
     purpose:  "Serves www.pypy.org"
     contact:  "mattip, fijal"
-  pythontest: 
+  pythontest:
     pattern:  "pythontest.nyc3.psf.io"
     purpose:  "Test resources for CPython's test suite."
     contact:  "Infrastructure Staff"
-  salt-master: 
+  salt-master:
     pattern:  "salt*.nyc1.psf.io"
     purpose:  "Salt server"
     contact:  "Infrastructure Staff"
-  moin: 
+  moin:
     pattern:  "moin*.nyc1.psf.io"
     purpose:  "Hosts moin sites for wiki.python.org, wiki.jython.org"
     contact:  "lemburg"
