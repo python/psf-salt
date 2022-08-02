@@ -25,7 +25,7 @@ roundup_postgres_backup_dir:
     - name: /backup/postgresql/base_backups
     - user: postgres
     - group: postgres
-    - mode: 750
+    - mode: "0750"
     - makedirs: True
 
 roundup_postgres_wal_archives:
@@ -33,7 +33,7 @@ roundup_postgres_wal_archives:
     - name: /backup/postgresql/wal_logs
     - user: postgres
     - group: postgres
-    - mode: 750
+    - mode: "0750"
 
 roundup_cluster:
   postgres_cluster.present:
@@ -74,7 +74,7 @@ roundup_postgres_backup_script:
     - source: salt:///bugs/files/postgres-backup.bash
     - user: postgres
     - group: postgres
-    - mode: 750
+    - mode: "0750"
 
 roundup_postgres_nightly_backup:
   cron.present:

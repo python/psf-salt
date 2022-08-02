@@ -13,7 +13,7 @@ consul:
   file.managed:
     - name: /lib/systemd/system/consul.service
     - source: salt://consul/init/consul.service
-    - mode: 644
+    - mode: "0644"
 
   service.running:
     - enable: True
@@ -73,7 +73,7 @@ consul:
     - template: jinja
     - user: root
     - group: consul
-    - mode: 640
+    - mode: "0640"
     - show_diff: False
     - require:
       - pkg: consul-pkgs
@@ -89,7 +89,7 @@ consul:
     - template: jinja
     - user: root
     - group: consul
-    - mode: 640
+    - mode: "0640"
     - show_diff: False
     - require:
       - pkg: consul-pkgs
@@ -101,7 +101,7 @@ consul:
     - template: jinja
     - user: root
     - group: consul
-    - mode: 640
+    - mode: "0640"
     - show_diff: False
     - require:
       - pkg: consul-pkgs
@@ -132,7 +132,7 @@ consul-template:
   file.managed:
     - name: /lib/systemd/system/consul-template.service
     - source: salt://consul/init/consul-template.service
-    - mode: 644
+    - mode: "0644"
 
   service.running:
     - enable: True
@@ -151,7 +151,7 @@ consul-template:
     - source: salt://consul/etc/consul-template/base.json
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 
 /usr/share/consul-template/templates/:

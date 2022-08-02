@@ -23,7 +23,7 @@ lego_config:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - sls: tls.lego
       - cmd: lego_bootstrap
@@ -43,15 +43,15 @@ roundup-pip:
   cmd.run:
     - name: curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2.7
     - creates: /usr/local/bin/pip2.7
-    - umask: 022
-    - requires:
+    - umask: "022"
+    - require:
       - pkg: roundup-deps
 
 roundup-virtualenv:
   cmd.run:
     - name: /usr/local/bin/pip2.7 install "virtualenv<21"
     - creates: /usr/local/bin/virtualenv
-    - umask: 022
+    - umask: "022"
     - require:
       - cmd: roundup-pip
 
@@ -78,22 +78,22 @@ roundup-home:
     - name: /srv/roundup
     - user: roundup
     - group: roundup
-    - mode: 755
+    - mode: "0755"
 
 roundup-backup:
   file.directory:
     - name: /backup/roundup
     - user: roundup
     - group: root
-    - mode: 750
+    - mode: "0750"
 
 roundup-logs:
   file.directory:
     - name: /var/log/roundup
     - user: roundup
     - group: roundup
-    - dir_mode: 770
-    - file_mode: 660
+    - dir_mode: "0770"
+    - file_mode: "0660"
     - recurse:
       - user
       - group
@@ -104,19 +104,19 @@ roundup-trackers:
     - name: /srv/roundup/trackers
     - user: roundup
     - group: roundup
-    - mode: 755
+    - mode: "0755"
 
 roundup-data:
   file.directory:
     - name: /srv/roundup/data
     - user: roundup
-    - mode: 755
+    - mode: "0755"
 
 roundup-run:
   file.directory:
     - name: /var/run/roundup
     - user: roundup
-    - mode: 755
+    - mode: "0755"
 
 roundup-clone:
   git.latest:
@@ -149,7 +149,7 @@ tracker-nginx-extras:
     - name: /etc/nginx/conf.d/tracker-extras
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
     - require:
       - pkg: nginx
 
@@ -163,7 +163,7 @@ tracker-{{ tracker }}-datadir:
   file.directory:
     - name: /srv/roundup/data/{{ tracker }}
     - user: roundup
-    - mode: 750
+    - mode: "0750"
 
 tracker-{{ tracker }}-clone:
   git.latest:
@@ -174,7 +174,7 @@ tracker-{{ tracker }}-clone:
 tracker-{{ tracker }}-clone-permissions:
   file.directory:
     - name: /srv/roundup/trackers/{{ tracker }}
-    - mode: 750
+    - mode: "0750"
 
 tracker-{{ tracker }}-config:
   file.managed:
@@ -182,7 +182,7 @@ tracker-{{ tracker }}-config:
     - source: salt://bugs/config/config.ini.jinja
     - user: roundup
     - group: roundup
-    - mode: 640
+    - mode: "0640"
     - template: jinja
     - defaults: {{ dict(pillar['bugs']['defaults']) }}
     - context: {{ config.get('config', {}) }}
@@ -193,7 +193,7 @@ tracker-{{ tracker }}-detector-config:
     - source: salt://bugs/config/detector-config.ini.jinja
     - user: roundup
     - group: roundup
-    - mode: 640
+    - mode: "0640"
     - template: jinja
     - context:
       detector_config: {{ config.get('detector_config', {}) }}
@@ -204,7 +204,7 @@ tracker-{{ tracker }}-mailgw-forward:
     - source: salt://bugs/config/instance-forward.jinja
     - user: roundup
     - group: roundup
-    - mode: 640
+    - mode: "0640"
     - template: jinja
     - context:
       tracker: {{ tracker }}
@@ -214,7 +214,7 @@ tracker-{{ tracker }}-wsgi:
     - name: /srv/roundup/trackers/{{ tracker }}/wsgi.py
     - source: salt://bugs/config/instance_wsgi.py.jinja
     - user: roundup
-    - mode: 644
+    - mode: "0644"
     - template: jinja
     - context:
       tracker: {{ tracker }}
@@ -250,7 +250,7 @@ tracker-{{ tracker }}-nginx-config:
     - name: /etc/nginx/sites.d/tracker-{{ tracker }}.conf
     - source: salt://bugs/config/nginx.conf.jinja
     - user: nginx
-    - mode: 600
+    - mode: "0600"
     - template: jinja
     - context:
       tracker: {{ tracker }}
@@ -263,7 +263,7 @@ roundup-{{ tracker }}-backup:
     - name: /backup/roundup/{{ tracker }}
     - user: roundup
     - group: root
-    - mode: 750
+    - mode: "0750"
     - makedirs: True
 
 tracker-{{ tracker }}-backup:

@@ -52,7 +52,7 @@ wal-e-install:
   file.directory:
     - user: root
     - group: postgres
-    - mode: 750
+    - mode: "0750"
 
 
 /etc/wal-e.d/WALE_SWIFT_PREFIX:
@@ -60,7 +60,7 @@ wal-e-install:
     - contents: "{{ wale['swift-prefix'] }}/{{ grains['fqdn'] }}"
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - file: /etc/wal-e.d
 
@@ -70,7 +70,7 @@ wal-e-install:
     - contents_pillar: wal-e:swift-authurl
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - file: /etc/wal-e.d
 
@@ -80,7 +80,7 @@ wal-e-install:
     - contents_pillar: wal-e:swift-region
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - file: /etc/wal-e.d
 
@@ -90,7 +90,7 @@ wal-e-install:
     - contents_pillar: wal-e:swift-user
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - file: /etc/wal-e.d
 
@@ -100,7 +100,7 @@ wal-e-install:
     - contents_pillar: wal-e:swift-password
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - file: /etc/wal-e.d
 
@@ -110,7 +110,7 @@ wal-e-install:
     - contents_pillar: wal-e:gpg-key-id
     - user: root
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - file: /etc/wal-e.d
 
@@ -120,7 +120,7 @@ wal-e-install:
     - contents_pillar: wal-e:gpg-key
     - user: root
     - group: postgres
-    - mode: 644
+    - mode: "0644"
     - show_diff: False
     - require:
       - pkg: postgresql-server
@@ -140,7 +140,7 @@ wal-e-gpg-key:
     - template: jinja
     - user: postgres
     - group: postgres
-    - mode: 600
+    - mode: "0600"
     - require:
       - cmd: wal-e-gpg-key
 
@@ -170,7 +170,7 @@ wal-e-initial-backup:
     - template: jinja
     - user: postgres
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - pkg: python-wal-e
       - file: {{ postgresql.config_dir }}/conf.d

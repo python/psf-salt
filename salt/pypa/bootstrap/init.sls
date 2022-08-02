@@ -14,7 +14,7 @@ bootrap-deps:
   file.directory:
     - user: nginx
     - group: nginx
-    - mode: 755
+    - mode: "0755"
     - makedirs: True
 
 
@@ -184,6 +184,6 @@ purge-index:
         port: 9000
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs

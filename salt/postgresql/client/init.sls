@@ -11,7 +11,7 @@ postgresql-client:
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 {% for postgres_cluster, config in pillar.get('postgresql-clusters', {}).items() %}
 {% if 'ca_cert' in config %}
@@ -20,7 +20,7 @@ postgresql-client:
     - contents_pillar: postgresql-clusters:{{ postgres_cluster }}:ca_cert
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 {% endif %}
 {% if 'ca_cert_pillar' in config %}
 /etc/ssl/postgres/{{ postgres_cluster }}.crt:
@@ -28,7 +28,7 @@ postgresql-client:
     - contents_pillar: {{ config['ca_cert_pillar'] }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 {% endif %}
 {% endfor %}
 
@@ -38,4 +38,4 @@ postgresql-client:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"

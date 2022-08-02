@@ -2,8 +2,8 @@
 {{ "{{" }} with service "{{ service }}@{{ pillar.dc }}" }}
 {{
    caller(
-         addr="{{(index . 0).Address}}",
-         port="{{(index . 0).Port}}",
+         addr="{{ (index . 0).Address }}",
+         port="{{ (index . 0).Port }}",
    )
 }}
 {{ "{{ end }}" }}

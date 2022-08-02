@@ -16,7 +16,7 @@ planet-user:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/nginx/sites.d/
 
@@ -39,7 +39,7 @@ lego_config:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - sls: tls.lego
       - cmd: lego_bootstrap
@@ -48,7 +48,7 @@ lego_config:
   file.directory:
     - user: planet
     - group: planet
-    - mode: 755
+    - mode: "0755"
 
 https://github.com/python/planet:
   git.latest:
@@ -63,7 +63,7 @@ https://github.com/python/planet:
   file.directory:
     - user: planet
     - group: planet
-    - mode: 770
+    - mode: "0770"
 
 /srv/run-planet.sh:
   file.managed:
@@ -71,7 +71,7 @@ https://github.com/python/planet:
     - template: jinja
     - user: planet
     - group: planet
-    - mode: 544
+    - mode: "0544"
   cron.present:
     - identifier: run-planet
     - user: planet
@@ -83,13 +83,13 @@ https://github.com/python/planet:
   file.directory:
     - user: planet
     - group: planet
-    - mode: 755
-/srv/{{site }}/static:
+    - mode: "0755"
+/srv/{{ site }}/static:
   file.symlink:
     - target: /srv/planet/static
     - user: planet
     - group: planet
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /srv/{{ site }}/
 {% endfor %}
