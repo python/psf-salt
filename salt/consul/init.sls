@@ -120,7 +120,7 @@ consul:
 consul-template:
   pkg.installed: []
 
-  cmd.wait:
+  cmd.run:
     - name: consul-template -config /etc/consul-template.d -once
     - require:
       - pkg: consul-pkgs

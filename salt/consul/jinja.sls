@@ -1,5 +1,5 @@
 {% macro simple_service(service) %}
-{{ "{{" }} with service "{{ service }}@{{ pillar.dc }}" }}
+{{ "{{" }} with service "{{ service }}@{{ pillar.dc }}" }} # noqa: 206
 {{
    caller(
          addr="{{ (index . 0).Address }}",
