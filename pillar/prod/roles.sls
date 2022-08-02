@@ -31,7 +31,7 @@ roles:
     purpose:  "Runs `Consul <https://www.consul.io/>`_ discovery service"
     contact:  "Infrastructure Staff"
   docs:
-    pattern:  "docs.nyc1.psf.io"
+    pattern:  "docs*.nyc1.psf.io"
     purpose:  "Builds and serves CPython's documentation"
     contact:  "mdk"
   downloads:
