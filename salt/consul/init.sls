@@ -125,7 +125,7 @@ consul-template:
     - require:
       - pkg: consul-pkgs
       - service: consul
-    - watch:
+    - onchanges:
       - file: /etc/consul-template.d/*.json
       - file: /usr/share/consul-template/templates/*
 

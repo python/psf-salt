@@ -130,7 +130,7 @@ wal-e-gpg-key:
   cmd.run:
     - name: gpg --import /var/lib/postgresql/wal-e.gpg
     - user: postgres
-    - watch:
+    - onchanges:
       - file: /var/lib/postgresql/wal-e.gpg
 
 
