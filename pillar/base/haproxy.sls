@@ -14,6 +14,7 @@ haproxy:
       domains:
         - docs.python.org
         - doc.python.org
+      check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ docs.python.org"
 
     downloads:
       domains:
