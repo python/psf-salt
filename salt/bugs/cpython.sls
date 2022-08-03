@@ -19,7 +19,7 @@ django-gae2django-clone:
 /var/run/cpython-extras:
   file.directory:
     - user: roundup
-    - mode: 755
+    - mode: "0755"
 
 /srv/roundup/trackers/cpython/rietveld/rietveld_helper:
   file.symlink:

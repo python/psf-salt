@@ -23,8 +23,8 @@ hg-user:
     - source: salt://hg/files/hg/bin
     - include_empty: True
     - user: hg
-    - dir_mode: 755
-    - file_mode: 755
+    - dir_mode: "0755"
+    - file_mode: "0755"
     - require:
       - user: hg-user
 
@@ -33,8 +33,8 @@ hg-user:
     - source: salt://hg/files/hg/wsgi
     - include_empty: True
     - user: hg
-    - dir_mode: 755
-    - file_mode: 755
+    - dir_mode: "0755"
+    - file_mode: "0755"
     - require:
       - user: hg-user
 
@@ -43,8 +43,8 @@ hg-user:
     - source: salt://hg/files/hg/src
     - include_empty: True
     - user: hg
-    - dir_mode: 755
-    - file_mode: 755
+    - dir_mode: "0755"
+    - file_mode: "0755"
     - require:
       - user: hg-user
 
@@ -53,8 +53,8 @@ hg-user:
     - source: salt://hg/files/hg/web
     - include_empty: True
     - user: hg
-    - dir_mode: 755
-    - file_mode: 755
+    - dir_mode: "0755"
+    - file_mode: "0755"
     - require:
       - user: hg-user
 
@@ -76,8 +76,8 @@ hgaccounts-user:
     - source: salt://hg/files/hgaccounts/bin
     - include_empty: True
     - user: hgaccounts
-    - dir_mode: 755
-    - file_mode: 755
+    - dir_mode: "0755"
+    - file_mode: "0755"
     - require:
       - user: hgaccounts-user
 
@@ -86,8 +86,8 @@ hgaccounts-user:
     - source: salt://hg/files/hgaccounts/src
     - include_empty: True
     - user: hgaccounts
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: "0755"
+    - file_mode: "0644"
     - require:
       - user: hgaccounts-user
 
@@ -112,7 +112,7 @@ genauth-wrapper-owner:
 genauth-wrapper-setuid-setgid-workaround:
   file.managed:
     - name: /srv/hgaccounts/bin/genauth-wrapper
-    - mode: 6755
+    - mode: "6755"
     - require:
       - file: genauth-wrapper-owner
 
@@ -121,9 +121,9 @@ genauth-wrapper-setuid-setgid-workaround:
     - source: salt://hg/config/hg-account-admins
     - user: hgaccounts
     - group: hgaccounts
-    - mode: 600
+    - mode: "0600"
     - makedirs: true
-    - dir_mode: 700
+    - dir_mode: "0700"
     - require:
       - user: hgaccounts-user
 
@@ -131,8 +131,8 @@ genauth-wrapper-setuid-setgid-workaround:
   file.recurse:
     - source: salt://hg/files/hg/templates/hgpythonorg
     - include_empty: True
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: "0755"
+    - file_mode: "0644"
     - require:
       - pkg: hg-deps
 
@@ -204,7 +204,7 @@ apache2:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: apache2
 
@@ -214,7 +214,7 @@ apache2:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: apache2
 
@@ -223,7 +223,7 @@ apache2:
     - target: ../sites-available/hg.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 /etc/apache2/sites-available/svn.conf:
   file.managed:
@@ -231,7 +231,7 @@ apache2:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: apache2
 
@@ -240,13 +240,13 @@ apache2:
     - target: ../sites-available/svn.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 /etc/apache2/REDIRECTS:
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
     - require:
       - pkg: apache2
 
@@ -255,7 +255,7 @@ apache2:
     - source: salt://hg/config/legacy/REDIRECTS/sigs.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/apache2/REDIRECTS
 
@@ -264,7 +264,7 @@ apache2:
     - source: salt://hg/config/legacy/REDIRECTS/releases.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/apache2/REDIRECTS
 
@@ -273,7 +273,7 @@ apache2:
     - source: salt://hg/config/legacy/legacy-redirects.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/apache2/REDIRECTS/sigs.conf
       - file: /etc/apache2/REDIRECTS/releases.conf
@@ -284,7 +284,7 @@ apache2:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/apache2/legacy-redirects.conf
 
@@ -293,14 +293,14 @@ apache2:
     - target: ../sites-available/legacy.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 /etc/logrotate.d/apache2:
   file.managed:
     - source: salt://hg/config/apache.logrotate
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: apache2
 
@@ -313,7 +313,7 @@ apache2:
         port: 9000
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
@@ -326,7 +326,7 @@ apache2:
         port: 9001
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
@@ -339,7 +339,7 @@ apache2:
         port: 9002
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
@@ -352,6 +352,6 @@ apache2:
         port: 22
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs

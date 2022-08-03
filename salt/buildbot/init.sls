@@ -29,13 +29,13 @@ buildbot-user:
   file.directory:
     - user: buildbot
     - group: buildbot
-    - mode: 750
+    - mode: "0750"
 
 /srv:
   file.directory:
     - user: buildbot
     - group: buildbot
-    - mode: 755
+    - mode: "0755"
 
 /srv/buildbot:
   git.latest:
@@ -83,7 +83,7 @@ find /data/www/buildbot/test-results -type f -mtime +7 -exec rm {} \;:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - context:
       instance: master
       port: 9000
@@ -100,7 +100,7 @@ find /data/www/buildbot/test-results -type f -mtime +7 -exec rm {} \;:
         port: 9000
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
@@ -113,6 +113,6 @@ find /data/www/buildbot/test-results -type f -mtime +7 -exec rm {} \;:
         port: 9020
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs

@@ -35,7 +35,7 @@ postgresql-data:
     - name: /srv/postgresql/11
     - user: root
     - group: root
-    - mode: 777
+    - mode: "0777"
 {% if data_partitions %}
     - require:
       - mount: postgresql-data
@@ -105,14 +105,14 @@ postgresql-psf-cluster:
   file.directory:
     - user: postgres
     - group: postgres
-    - mode: 755
+    - mode: "0755"
 
 # Make sure that our log file is writeable
 /var/log/postgresql/postgresql-11-psf.log:
   file.managed:
     - user: postgres
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - replace: False
 
 
@@ -120,7 +120,7 @@ postgresql-psf-cluster:
   file.directory:
     - user: postgres
     - group: postgres
-    - mode: 755
+    - mode: "0755"
     - makedirs: True
     - require:
       - cmd: postgresql-psf-cluster
@@ -130,7 +130,7 @@ postgresql-psf-cluster:
   file.directory:
     - user: postgres
     - group: postgres
-    - mode: 755
+    - mode: "0755"
     - makedirs: True
     - require:
       - file: {{ postgresql.config_dir }}
@@ -142,7 +142,7 @@ postgresql-psf-cluster:
     - template: jinja
     - user: postgres
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.config_dir }}
@@ -154,7 +154,7 @@ postgresql-psf-cluster:
     - template: jinja
     - user: postgres
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.config_dir }}
@@ -166,7 +166,7 @@ postgresql-psf-cluster:
     - template: jinja
     - user: postgres
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - require:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.config_dir }}
@@ -219,7 +219,7 @@ replicator:
           {% endif %}
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
@@ -232,7 +232,7 @@ replicator:
     - template: jinja
     - user: postgres
     - group: postgres
-    - mode: 640
+    - mode: "0640"
     - show_diff: False
     - require:
       - pkg: consul-template
@@ -250,7 +250,7 @@ replicator:
         command: "chgrp postgres {{ postgresql.recovery_file }} && chmod 640 {{ postgresql.recovery_file }} && service postgresql restart"
     - user: root
     - group: root
-    - mode: 640
+    - mode: "0640"
     - require:
       - pkg: consul-template
 
