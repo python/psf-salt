@@ -77,7 +77,7 @@ chmod-ftpdata:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
        - file: /etc/nginx/sites.d/
        - git: testdata-repo
@@ -87,11 +87,11 @@ chmod-ftpdata:
     - source: salt://pythontest/config/vsftpd.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 /etc/news/inn.conf:
   file.managed:
     - source: salt://pythontest/config/inn.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"

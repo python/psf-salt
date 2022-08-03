@@ -3,4 +3,4 @@
     - source: salt://base/harden/config/profile.sh
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"

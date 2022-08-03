@@ -25,11 +25,5 @@ jobs:
     - name: Install tox and any other packages
       run: pip install tox
 
-    - id: files
-      name: Determine changed files
-      uses: jitterbit/get-changed-files@v1
-      with:
-        format: json
-
     - name: Run Linter
-      run: tox -e lint -- $(jq -r '.[] | select(. | endswith(".sls"))' <<< '${{ steps.files.outputs.added_modified }}' | xargs)
+      run: tox -e lint

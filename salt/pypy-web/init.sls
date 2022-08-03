@@ -11,7 +11,7 @@ pypy-web-deps:
   file.directory:
     - user: nginx
     - group: nginx
-    - mode: 755
+    - mode: "0755"
     - makedirs: True
 
 /etc/nginx/sites.d/pypy-web.conf:
@@ -44,6 +44,6 @@ pypy-web-clone:
         port: 9000
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs

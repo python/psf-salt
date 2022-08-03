@@ -42,7 +42,7 @@ nginx:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: nginx
 
@@ -53,7 +53,7 @@ nginx:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: nginx
 
@@ -63,7 +63,7 @@ nginx:
     - contents:
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - replace: False
     - require:
       - pkg: nginx
@@ -73,7 +73,7 @@ nginx:
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
     - require:
       - pkg: nginx
 
@@ -83,7 +83,7 @@ nginx:
     - source: salt://nginx/config/nginx.logrotate
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: nginx
 
@@ -92,7 +92,7 @@ nginx:
   file.directory:
     - user: nginx
     - group: root
-    - mode: 0755
+    - mode: "0755"
     - require:
       - pkg: nginx
       - user: nginx

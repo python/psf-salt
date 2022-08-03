@@ -8,7 +8,7 @@ ssl-cert:
     - contents_pillar: tls:ca:{{ name }}
     - user: root
     - group: ssl-cert
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: ssl-cert
 {% endfor %}
@@ -20,7 +20,7 @@ ssl-cert:
     - contents_pillar: tls:certs:{{ name }}
     - user: root
     - group: ssl-cert
-    - mode: 640
+    - mode: "0640"
     - show_diff: False
     - require:
       - pkg: ssl-cert

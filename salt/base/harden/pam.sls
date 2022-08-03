@@ -19,7 +19,7 @@ libpam-passwdqc:
     - source: salt://base/harden/config/pam_passwdqc
     - user: root
     - group: root
-    - mode: 640
+    - mode: "0640"
     - require:
       - pkg: libpam-passwdqc
 

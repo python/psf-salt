@@ -2,8 +2,8 @@
   file.directory:
     - user: root
     - group: root
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: "0755"
+    - file_mode: "0644"
 
 psf:
   pkgrepo.managed:
@@ -14,7 +14,7 @@ psf:
 # Make source list globally readable.
 /etc/apt/sources.list.d/psf.list:
   file.managed:
-    - mode: 644
+    - mode: "0644"
     - replace: False
     - require:
       - pkgrepo: psf

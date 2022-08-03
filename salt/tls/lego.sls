@@ -32,13 +32,13 @@ lego_extract:
   file.directory:
     - user: root
     - group: root
-    - mode: 0755
+    - mode: "0755"
 
 /etc/lego/.well-known/acme-challenge:
   file.directory:
     - user: nginx
     - group: root
-    - mode: 0750
+    - mode: "0750"
     - makedirs: True
     - require:
       - file: /etc/lego

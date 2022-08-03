@@ -36,7 +36,7 @@ root-cron-path:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - order: 2
 
   module.wait:

@@ -2,14 +2,14 @@
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 /etc/iptables/rules.v4:
   file.managed:
     - source: salt://firewall/config/iptables.jinja
     - user: root
     - group: root
-    - mode: 600
+    - mode: "0600"
     - template: jinja
     - require:
       - pkg: iptables-persistent
@@ -21,7 +21,7 @@
     - template: jinja
     - user: root
     - group: root
-    - mode: 600
+    - mode: "0600"
     - require:
       - pkg: iptables-persistent
 

@@ -16,7 +16,7 @@ mail-pkgs:
         smtp: {{ smtp }}
     - user: root
     - group: root
-    - mode: 640
+    - mode: "0640"
     - show_diff: False
     - require:
       - pkg: mail-pkgs

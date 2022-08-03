@@ -33,7 +33,7 @@ datadog-agent:
   file.managed:
     - user: root
     - group: root
-    - mode: 0644
+    - mode: "0644"
     - template: jinja
     - source: salt://datadog/config/datadog.yaml.jinja
     - context:
