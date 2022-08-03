@@ -6,22 +6,22 @@ include:
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 /etc/backup/.ssh:
   file.directory:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
 
 {% for backup, config in salt['pillar.get']('backup:directories', {}).items() %}
 
 {{ backup }}-ssh-key:
   file.managed:
     - name: /etc/backup/.ssh/id_rsa_{{ backup }}
-    - contents_pillar: backup:directories:{{ backup }}:ssh_key
+    - contents_pillar: backup-secret:directories:{{ backup }}:ssh_key
     - user: {{ config['user'] }}
-    - mode: 600
+    - mode: "0600"
     - show_diff: False
 
 {{ backup }}-script-dir:
@@ -33,7 +33,7 @@ include:
   file.managed:
     - name: /usr/local/backup/{{ backup }}/scripts/backup.bash
     - user: {{ config['user'] }}
-    - mode: 500
+    - mode: "0500"
     - source: salt://backup/client/templates/backup.bash.jinja
     - template: jinja
     - context:
