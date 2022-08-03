@@ -7,7 +7,7 @@ include:
   file.managed:
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
     - contents: |
          #!/bin/bash
          exit 101
@@ -40,7 +40,7 @@ haproxy:
     - contents_pillar: fastly:token
     - user: root
     - group: root
-    - mode: 640
+    - mode: "0640"
     - show_diff: False
     - require:
       - pkg: haproxy
@@ -51,7 +51,7 @@ haproxy:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: haproxy
 
@@ -62,7 +62,7 @@ haproxy:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
@@ -77,7 +77,7 @@ haproxy:
         command: service haproxy reload
     - user: root
     - group: root
-    - mode: 640
+    - mode: "0640"
     - require:
       - pkg: consul-pkgs
 
@@ -88,7 +88,7 @@ haproxy:
     - source: salt://haproxy/bin/haproxy-ocsp
     - user: root
     - group: root
-    - mode: 755
+    - mode: "0755"
   {% else %}
   file.absent
   {% endif %}
@@ -131,7 +131,7 @@ haproxy-ocsp:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/nginx/sites.d/
 
@@ -142,6 +142,6 @@ haproxy-ocsp:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/nginx/sites.d/

@@ -46,7 +46,7 @@ salt-master-pkg:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - order: last
 
 salt-master:
@@ -62,7 +62,7 @@ salt-master:
     - source: salt://base/config/letsencrypt-well-known-nginx.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - file: /etc/nginx/sites.d/
       - sls: tls.lego
@@ -76,7 +76,7 @@ salt-master:
         port: 9000
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: consul-pkgs
 
@@ -86,7 +86,7 @@ salt-master:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 /srv/salt-server-list.rst:
   file.managed:
@@ -94,7 +94,7 @@ salt-master:
     - template: jinja
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 {% endif %}
 
 salt-minion-pkg:
@@ -106,7 +106,7 @@ salt-minion-pkg:
     - contents: "mine_interval: 5"
     - user: root
     - group: root
-    - mode: 640
+    - mode: "0640"
 
 salt-minion:
   service.running:

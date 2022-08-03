@@ -39,7 +39,7 @@ elasticsearch:
         port: 9200
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - service: elasticsearch
       - pkg: consul-pkgs

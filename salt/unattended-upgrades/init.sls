@@ -14,7 +14,7 @@ unattended-upgrades:
     - source: salt://unattended-upgrades/config/10periodic
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 
 /etc/apt/apt.conf.d/50unattended-upgrades:
@@ -22,6 +22,6 @@ unattended-upgrades:
     - source: salt://unattended-upgrades/config/50unattended-upgrades
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
     - require:
       - pkg: unattended-upgrades

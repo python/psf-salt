@@ -3,4 +3,4 @@
     - source: salt://base/harden/config/limits.conf
     - user: root
     - group: root
-    - mode: 440
+    - mode: "0440"

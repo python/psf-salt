@@ -4,4 +4,4 @@
     - template: jinja
     - user: root
     - group: root
-    - mode: 444
+    - mode: "0444"

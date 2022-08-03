@@ -1,8 +1,8 @@
 {% if 'sudoer_groups' in pillar %}
 {% for group in pillar.get('sudoer_groups', {}) %}
-{{group}}-sudoer_group:
+{{ group }}-sudoer_group:
   group.present:
-    - name: {{group}}
+    - name: {{ group }}
 {% endfor %}
 /etc/sudoers.d/salt:
   file.managed:
@@ -12,5 +12,5 @@
       sudoers: {{ pillar.get('sudoer_groups', {}).keys()|join(',') }}
     - user: root
     - group: root
-    - mode: 640
+    - mode: "0640"
 {% endif %}

@@ -17,7 +17,7 @@ include:
 
 /home/psf-users:
   file.directory:
-    - mode: 755
+    - mode: "0755"
 
 {% for user_name, user_config in salt["pillar.get"]("users", {}).items() %}
 {% set admin = user_config.get("admin", false) %}
@@ -62,7 +62,7 @@ include:
   file.directory:
     - name: /home/psf-users/{{ user_name }}/.ssh
     - user: {{ user_name }}
-    - mode: 700
+    - mode: "0700"
     - require:
       - user: {{ user_name }}
 
@@ -70,7 +70,7 @@ include:
   file.managed:
     - name: /home/psf-users/{{ user_name }}/.ssh/authorized_keys
     - user: {{ user_name }}
-    - mode: 600
+    - mode: "0600"
     - source: salt://users/config/authorized_keys.jinja
     - template: jinja
     - context:

@@ -10,7 +10,7 @@ pgbouncer-pkg:
     - template: jinja
     - user: postgres
     - group: postgres
-    - mode: 600
+    - mode: "0600"
     - show_changes: False
     - require:
       - pkg: pgbouncer-pkg
@@ -21,7 +21,7 @@ pgbouncer-pkg:
     - template: jinja
     - user: postgres
     - group: postgres
-    - mode: 600
+    - mode: "0600"
     - show_changes: False
     - require:
       - pkg: pgbouncer-pkg

@@ -24,7 +24,7 @@ pebble-build:
     - cwd: /usr/local/src/pebble
     - env:
       - GOPATH: /usr/local/golang/pebble
-    - requires:
+    - require:
       - git: pebble-source
       - file: pebble-golang-workspace
 
@@ -32,7 +32,7 @@ pebble-install:
   file.copy:
     - name: /usr/local/bin/pebble
     - source: /usr/local/golang/pebble/bin/pebble
-    - mode: 755
+    - mode: "0755"
 
 pebble-config:
   file.managed:
@@ -43,7 +43,7 @@ pebble-service:
   file.managed:
     - name: /lib/systemd/system/pebble.service
     - source: salt://tls/config/pebble.service
-    - mode: 644
+    - mode: "0644"
 
   service.running:
     - name: pebble
