@@ -1,6 +1,6 @@
 backup-server:
   volumes:
-    /dev/xvdb: /backup
+    /dev/sda: /backup
   backups:
     docs:
       directory: /backup/python-docs
