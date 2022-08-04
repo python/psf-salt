@@ -7,7 +7,7 @@
 
 roles:
   backup-server:
-    pattern:  "backup.sfo1.psf.io"
+    pattern:  "backup*.sfo1.psf.io"
     purpose:  "Automated backup of infrastructure"
     contact:  "Infrastructure staff"
   bugs:
