@@ -102,6 +102,16 @@ html_theme = "furo"
 # further.  For a list of options available for each theme, see the
 # documentation.
 # html_theme_options = {}
+html_theme_options = {
+  "light_css_variables": {
+    "color-brand-primary": "#cc33ff",
+    "color-brand-content": "#df80ff",
+  },
+  "dark_css_variables": {
+    "color-brand-primary": "#cc33ff",
+    "color-brand-content": "#df80ff",
+  }
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []
