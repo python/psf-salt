@@ -12,6 +12,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+from datetime import datetime
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -39,7 +41,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Python Infrastructure"
-copyright = "2022, Python Infrastructure Team"
+copyright = f'{str(datetime.now().year)}, Python Infrastructure Team'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
