@@ -12,10 +12,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-try:
-    import sphinx_rtd_theme
-except ImportError:
-    sphinx_rtd_theme = None
+from datetime import datetime
 
 # -- General configuration ------------------------------------------------
 
@@ -25,13 +22,16 @@ except ImportError:
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = ['myst_parser']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = ".rst"
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
 
 # The encoding of source files.
 # source_encoding = "utf-8-sig"
@@ -41,7 +41,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Python Infrastructure"
-copyright = "2019, Python Infrastructure Team"
+copyright = f'{str(datetime.now().year)}, Python Infrastructure Team'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -96,11 +96,7 @@ pygments_style = "sphinx"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-if sphinx_rtd_theme:
-    html_theme = "sphinx_rtd_theme"
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-else:
-    html_theme = "default"
+html_theme = "furo"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
