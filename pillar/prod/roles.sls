@@ -35,7 +35,7 @@ roles:
     purpose:  "Builds and serves CPython's documentation"
     contact:  "mdk"
   downloads:
-    pattern:  "downloads.nyc1.psf.io"
+    pattern:  "downloads*.nyc1.psf.io"
     purpose:  "Serves python.org downloads"
     contact:  "CPython Release Managers"
   hg:

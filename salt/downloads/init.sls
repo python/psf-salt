@@ -13,15 +13,6 @@ include:
       - file: /etc/nginx/fastly_params
 
 
-/srv/www.python.org/_check:
-  file.managed:
-    - user: root
-    - group: downloads
-    - mode: "0644"
-    - makedirs: True
-    - dir_mode: "0775"
-
-
 /etc/consul.d/service-downloads.json:
   file.managed:
     - source: salt://consul/etc/service.jinja
