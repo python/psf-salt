@@ -11,7 +11,7 @@ To view haproxy status: 
 
 -Prepare an ssh configuration file to access the host with native ssh commands: `vagrant ssh-config salt-master loadbalancer >> vagrant-ssh` 
 
--Open an ssh session with port forwarding to the haproxy status page: `ssh -L 4646:127:0.0.1:464 -F vagrant-ssh loadbalancer`
+-Open an ssh session with port forwarding to the haproxy status page: `ssh -L 4646:127.0.0.1:4646 -F vagrant-ssh loadbalancer`
 
 -view the haproxy status page in your browser `loacalhost:4646/haproxy?stats` 
 
