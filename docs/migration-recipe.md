@@ -13,7 +13,7 @@ To view haproxy status: 
 
 -Open an ssh session with port forwarding to the haproxy status page: `ssh -L 4646:127.0.0.1:4646 -F vagrant-ssh loadbalancer`
 
--view the haproxy status page in your browser `loacalhost:4646/haproxy?stats` 
+-view the haproxy status page in your browser `http://localhost:4646/haproxy?stats` 
 
 2.  Edit pillar data for roles.sls to include both old and new hostnames (ex. hostname*)
 
