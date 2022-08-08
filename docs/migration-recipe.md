@@ -23,7 +23,7 @@ To view haproxy status: 
 
 1.  ssh into the salt-master server `ssh salt.nyc1.psf.io`
 
-2.  Navigate to srv/psf-salt `user@salt:~$ cd srv/psf-salt`
+2.  Navigate to srv/psf-salt `user@salt:~$ cd /srv/psf-salt`
 
 3.  Run `user@salt:/srv/psf-salt$ sudo git pull`
 
