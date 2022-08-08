@@ -92,7 +92,7 @@ index 68387c9..7a8ace1 100644
 
 4.  ensure that the volume is mounted in the correct location 
 
-5.  run rsync once to move bulk of data and as necessary to watch for changes `user@new-host:~$ sudo -E -s rsync -avz --rsync-path="sudo rsync" username@hostname: /pathname/ /pathname/` 
+5.  run rsync once to move bulk of data and as necessary to watch for changes `user@new-host:~$ sudo -E -s rsync -av --rsync-path="sudo rsync" username@old-host:/pathname/ /pathname/` 
 
 -The `/pathname/` can be determined by looking at the pillar data for backups, `pillar/prod/backup` using the source_directory path for the given host (example: the downloads host uses `/srv/`)
 
