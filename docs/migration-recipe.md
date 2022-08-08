@@ -116,7 +116,7 @@ index 68387c9..7a8ace1 100644
 
 #### Shutdown and reclaim hostname:
 
-1.  On old host, destroy old host by running, `user@old-host:~$ sudo -h shutdown now`
+1.  On old host, stop the old host by running, `user@old-host:~$ sudo -h shutdown now`
 
 2.  Change the hostname in Digital Ocean 
 
