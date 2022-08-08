@@ -21,7 +21,7 @@ To view haproxy status: 
 
 #### Update Salt Master with latest config including prep from above
 
-1.  ssh into the salt-master server `ssh salt-master`
+1.  ssh into the salt-master server `ssh salt.nyc1.psf.io`
 
 2.  Navigate to srv/psf-salt `user@salt:~$ cd srv/psf-salt`
 
