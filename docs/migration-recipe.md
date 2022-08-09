@@ -49,7 +49,7 @@ index 68387c9..7a8ace1 100644
 
 #### Ensure new configuration doesn't impact host being migrated
 
-1.  ssh into the old host `ssh old-host`
+1.  ssh into the old-host `ssh old-host`
 
 2.  Run `user@old-host:~$ sudo salt-call state.highstate`
 
@@ -68,68 +68,78 @@ index 68387c9..7a8ace1 100644
 
 -  `user@new-host:~$ echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004 focal main" > /etc/apt/sources.list.d/salt.list`
 
-3.  Install and configure the salt-minion. On new host, run the command
+3.  Install and configure the salt-minion. On new-host, run the command
 
 - `user@new-host:~$ apt-get update -y && apt-get install -y --no-install-recommends salt-minion`
 
-- On the original host, look through `etc/salt/minion.d*` to set up salt-minion configuration files to match on new host 
+- On the old-host, look through `etc/salt/minion.d*` to set up salt-minion configuration files to match on new-host 
 
 4. Restart the salt-minion service on the new host to pickup the configuration and register with salt-master: `user@new-host:~$ sudo salt-call service.restart`
 
-5.  On salt-master, accept the key for the new host: `user@new-host:~$ sudo salt-key -a hostname`
+5.  On salt-master, accept the key for the new-host: `user@new-host:~$ sudo salt-key -a new-host`
 
 6. Ensure that the new host is not passing health checks in the loadbalancer: `ssh -L 4646:127.0.0.1:4646 lb-a.nyc1.psf.io` then open http://localhost:4646/haproxy?stats in your browser.
- 
+
 7.  Run hightstate on the salt-master to create a public dns record for the new-host `user@salt:/srv/psf-salt$ sudo salt-call state.highstate`
 
 #### Begin data migration:
 
 1.  `ssh -A new-host` into new host to enable forwarding of ssh-agent
 
-2.  stop cron jobs, `user@new-host:~$ sudo service cron stop`
+2.  Stop cron jobs `user@new-host:~$ sudo service cron stop`
 
-3.  stop public-facing services, like nginx, or the service the health check is looking for ex)  `user@new-host:~$ sudo service nginx stop`
+3.  Stop public-facing services, like nginx, or the service the health check is looking for ex)  `user@new-host:~$ sudo service nginx stop`
 
-4.  ensure that the volume is mounted in the correct location 
+4.  Ensure that any additional volumes are mounted and in the correct location:
+- Check what disks are currently mounted and where: `df`
+- Determine where any additional disks should be mounted (based on salt configuration of services, for example `docs` and `downloads` roles need a big `/srv` for their data storage
+- Ensure mounting of any external disks are in the right location using `mount` command with appropriate arguments
+- Ensure that the volumes will be remounted on startup by configuring them in `/etc/fstab` 
 
-5.  run rsync once to move bulk of data and as necessary to watch for changes `user@new-host:~$ sudo -E -s rsync -av --rsync-path="sudo rsync" username@old-host:/pathname/ /pathname/` 
+5.  Run rsync once to move bulk of data and as necessary to watch for changes `user@new-host:~$ sudo -E -s rsync -av --rsync-path="sudo rsync" username@old-host:/pathname/ /pathname/` 
 
 - The `/pathname/` can be determined by looking at the pillar data for backups, `pillar/prod/backup` using the source_directory path for the given host (example: the downloads host uses `/srv/`)
 
 #### Stop services on old host:
 
-1.  ssh into old host ( `ssh old-host` )
+1.  ssh into old-host ( `ssh old-host` )
 
-2.  stop cron jobs, `user@old-host:~$ sudo service cron stop`
+2.  Stop cron jobs `user@old-host:~$ sudo service cron stop`
 
-3.  stop public-facing services, like nginx, or the service the health check is looking for ex)  `user@old-host:~$ sudo service nginx stop`
+3.  Stop public-facing services, like nginx, or the service the health check is looking for ex)  `user@old-host:~$ sudo service nginx stop`
 
 #### Finish data migration and restart cron/public-facing services:
 
-1. run rsync once more to finalize data migration `user@new-host:~$ sudo -E -s rsync -avz --rsync-path="sudo rsync" username@hostname: /pathname/ /pathname/` 
+1. Run rsync once more to finalize data migration `user@new-host:~$ sudo -E -s rsync -av --rsync-path="sudo rsync" username@hostname: /pathname/ /pathname/` 
 
-2.  start cron jobs, `user@new-host:~$ sudo service cron start`
+2.  Start cron jobs `user@new-host:~$ sudo service cron start`
 
-3.  start public-facing services involved with healthcheck, like nginx, `user@new-host:~$ sudo service nginx start`
+3.  Start public-facing services involved with healthcheck, like nginx, `user@new-host:~$ sudo service nginx start`
 
-4.  check if users have any files on old host and transfer accordingly
+4.  Ensure that the new-host is live and serving traffic by viewing loadbalancer page:
+- view the haproxy status page in your browser `http://localhost:4646/haproxy?stats`
+
+5.  Check if users have any files on old-host and transfer accordingly:
+- `user@new-host:~$ for user in /home/psf-users/*; do sudo -E -s rsync --delete -av --progress --rsync-path="sudo rsync" user@old-host:$user/ $user/migrated-from-ubuntu-1804-lts-host/; done`
 
 #### Shutdown and reclaim hostname:
 
-1.  On old host, stop the old host by running, `user@old-host:~$ sudo -h shutdown now`
+1.  On old-host, stop the old-host by running, `user@old-host:~$ sudo -h shutdown now`
 
-2.  Change the hostname in Digital Ocean 
+2.  Change the new-host name in DigitalOcean by removing the suffix or similar that was used to differentiate it from the old-host.
 
-3.  On new host, run `user@new-host:~$ sudo hostname new-host` to rename
+3.  Destroy the old-host in DigitalOcean    
 
-4.  Update hostname in `etc/hostname`,  `etc/salt/minion_id`, and `etc/hosts`
+3.  On new-host, run `user@new-host:~$ sudo hostname new-host` to rename
+
+4.  Update new-host name in `/etc/hostname`,  `/etc/salt/minion_id`, and `/etc/hosts`
 
 5. Restart the salt minion `user@new-host:~$ salt-call service.restart`
 
-6.  Run `user@new-host:~$ sudo salt-key -L` to list out and `user@new-host:~$ salt-key -d host` to remove old keys 
+6.  Run `user@new-host:~$ sudo salt-key -L` to list out and `user@new-host:~$ salt-key -d old-host` to remove old keys 
 
-7.  Run `user@new-host:~$ sudo salt-key -a hostname` to accept new keys
+7.  Run `user@new-host:~$ sudo salt-key -a new-host` to accept new keys
 
-8.  Restart datadog, `user@new-host:~$ sudo service datadog restart` 
+8.  Restart datadog `user@new-host:~$ sudo service datadog restart` 
 
-9.  Run highstate (`user@salt:~$ sudo salt-call state.highstate`) on salt-master to update domain name as well as known_hosts file
+9.  Run highstate `user@salt:~$ sudo salt-call state.highstate` on salt-master to update domain name as well as known_hosts file
