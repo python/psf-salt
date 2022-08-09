@@ -1,9 +1,10 @@
-Migrating to new host:
-----------------------
+Migrating to new host
+=====================
 
-### Prepare salt configuration for migration:  
+## Prepare salt configuration for migration
 
 1.  Ensure that salt-master, loadbalancer, and host in question can be brought up with vagrant locally, and that their health check for the relevant service is failing in haproxy after the host is fully up
+
 - `laptop:psf-salt user$ vagrant up salt-master`
 - `laptop:psf-salt user$ vagrant up loadbalancer`
 - `laptop:psf-salt user$ vagrant up host`
@@ -11,11 +12,8 @@ Migrating to new host:
 To view haproxy status: 
 
 - vagrant up the salt-master, loadbalancer, and host in question (`vagrant up`)
-
 - Prepare an ssh configuration file to access the host with native ssh commands: `vagrant ssh-config salt-master loadbalancer >> vagrant-ssh` 
-
 - Open an ssh session with port forwarding to the haproxy status page: `ssh -L 4646:127.0.0.1:4646 -F vagrant-ssh loadbalancer`
-
 - view the haproxy status page in your browser `http://localhost:4646/haproxy?stats`
 
 2.  Edit pillar data for roles.sls to include both old and new hostnames (ex. hostname*)
@@ -35,9 +33,9 @@ index 68387c9..7a8ace1 100644
    hg:
 ```
 
-### Migrate the host:
+## Migrate the host
 
-#### Update Salt Master with latest config including prep from above
+### Update Salt Master with latest config including prep from above
 
 1.  ssh into the salt-master server `ssh salt.nyc1.psf.io`
 
@@ -47,31 +45,29 @@ index 68387c9..7a8ace1 100644
 
 5.  Run highstate to update the roles settings to reflect the new matchng pattern, as well as additional changes to support migration: `user@salt:/srv/psf-salt$ sudo salt-call state.highstate`
 
-#### Ensure new configuration doesn't impact host being migrated
+### Ensure new configuration doesn't impact host being migrated
 
 1.  ssh into the old-host `ssh old-host`
 
 2.  Run `user@old-host:~$ sudo salt-call state.highstate`
 
-#### Create new host:
+### Create new host
 1.  Start a new droplet  in digital ocean, and check resources being used on old host to see if we are over or under spending on resources 
 
 2.  Create a new droplet with new version of ubuntu, appropriate resources,  and name it according to hostname + 2004
 
-#### Provision new host for migration:
+### Provision new host for migration
 
 1. ssh into new-host via the IP address provided by DigitalOcean`ssh root@NNN.NNN.NNN.NNN`
 
 2.  Add Salt repositories for our current target version (add the apt-repo and install salt-minion package)
 
 -   `user@new-host:~$ wget --quiet -O /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004/salt-archive-keyring.gpg`
-
 -  `user@new-host:~$ echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004 focal main" > /etc/apt/sources.list.d/salt.list`
 
 3.  Install and configure the salt-minion. On new-host, run the command
 
 - `user@new-host:~$ apt-get update -y && apt-get install -y --no-install-recommends salt-minion`
-
 - On the old-host, look through `etc/salt/minion.d*` to set up salt-minion configuration files to match on new-host 
 
 4. Restart the salt-minion service on the new host to pickup the configuration and register with salt-master: `user@new-host:~$ sudo salt-call service.restart`
@@ -82,7 +78,7 @@ index 68387c9..7a8ace1 100644
 
 7.  Run hightstate on the salt-master to create a public dns record for the new-host `user@salt:/srv/psf-salt$ sudo salt-call state.highstate`
 
-#### Begin data migration:
+### Begin data migration
 
 1.  `ssh -A new-host` into new host to enable forwarding of ssh-agent
 
@@ -100,7 +96,7 @@ index 68387c9..7a8ace1 100644
 
 - The `/pathname/` can be determined by looking at the pillar data for backups, `pillar/prod/backup` using the source_directory path for the given host (example: the downloads host uses `/srv/`)
 
-#### Stop services on old host:
+### Stop services on old host
 
 1.  ssh into old-host ( `ssh old-host` )
 
@@ -108,7 +104,7 @@ index 68387c9..7a8ace1 100644
 
 3.  Stop public-facing services, like nginx, or the service the health check is looking for ex)  `user@old-host:~$ sudo service nginx stop`
 
-#### Finish data migration and restart cron/public-facing services:
+### Finish data migration and restart cron/public-facing services
 
 1. Run rsync once more to finalize data migration `user@new-host:~$ sudo -E -s rsync -av --rsync-path="sudo rsync" username@hostname: /pathname/ /pathname/` 
 
@@ -122,7 +118,7 @@ index 68387c9..7a8ace1 100644
 5.  Check if users have any files on old-host and transfer accordingly:
 - `user@new-host:~$ for user in /home/psf-users/*; do sudo -E -s rsync --delete -av --progress --rsync-path="sudo rsync" user@old-host:$user/ $user/migrated-from-ubuntu-1804-lts-host/; done`
 
-#### Shutdown and reclaim hostname:
+### Shutdown and reclaim hostname
 
 1.  On old-host, stop the old-host by running, `user@old-host:~$ sudo -h shutdown now`
 
