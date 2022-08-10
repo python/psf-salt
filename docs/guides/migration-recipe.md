@@ -41,13 +41,13 @@ index 68387c9..7a8ace1 100644
 
 2.  Navigate to srv/psf-salt `user@salt:~$ cd /srv/psf-salt`
 
-4.  Run `user@salt:/srv/psf-salt$ sudo git pull`
+3.  Run `user@salt:/srv/psf-salt$ sudo git pull`
 
-5.  Run highstate to update the roles settings to reflect the new matchng pattern, as well as additional changes to support migration: `user@salt:/srv/psf-salt$ sudo salt-call state.highstate`
+4.  Run highstate to update the roles settings to reflect the new matchng pattern, as well as additional changes to support migration: `user@salt:/srv/psf-salt$ sudo salt-call state.highstate`
 
 ### Ensure new configuration doesn't impact host being migrated
 
-1.  ssh into the old-host `ssh old-host`
+1.  ssh into the old-host `laptop:psf-salt user$ ssh old-host`
 
 2.  Run `user@old-host:~$ sudo salt-call state.highstate`
 
@@ -68,23 +68,28 @@ index 68387c9..7a8ace1 100644
 3.  Install and configure the salt-minion. On new-host, run the command
 
 - `user@new-host:~$ apt-get update -y && apt-get install -y --no-install-recommends salt-minion`
-- On the old-host, look through `etc/salt/minion.d*` to set up salt-minion configuration files to match on new-host 
+- On the old-host, look through `/etc/salt/minion.d*` to set up salt-minion configuration files to match on new-host:
+  - run `user@old-host:~$ for file in /etc/salt/minion.d/*; do echo -e "cat > $file <<EOF"; sudo cat $file; echo "EOF"; done` to generate bash that will create these files 
 
 4. Restart the salt-minion service on the new host to pickup the configuration and register with salt-master: `user@new-host:~$ sudo salt-call service.restart`
 
-5.  On salt-master, accept the key for the new-host: `user@new-host:~$ sudo salt-key -a new-host`
+5. On salt-master, accept the key for the new-host: `user@new-host:~$ sudo salt-key -a new-host`
 
-6. Ensure that the new host is not passing health checks in the loadbalancer: `ssh -L 4646:127.0.0.1:4646 lb-a.nyc1.psf.io` then open http://localhost:4646/haproxy?stats in your browser.
+6. On the new-host, run highstate `sudo salt-call sate.highstate` 
 
-7.  Run hightstate on the salt-master to create a public dns record for the new-host `user@salt:/srv/psf-salt$ sudo salt-call state.highstate`
+7. Log out of root session
+
+8. Ensure that the new host is not passing health checks in the loadbalancer: `ssh -L 4646:127.0.0.1:4646 lb-a.nyc1.psf.io` then open http://localhost:4646/haproxy?stats in your browser.
+
+9.  Run hightstate on the salt-master to create a public dns record for the new-host `user@salt:/srv/psf-salt$ sudo salt-call state.highstate`
 
 ### Begin data migration
 
-1.  `ssh -A new-host` into new host to enable forwarding of ssh-agent
+1.  `laptop:psf-salt user$ ssh -A new-host` into new host to enable forwarding of ssh-agent
 
 2.  Stop cron jobs `user@new-host:~$ sudo service cron stop`
 
-3.  Stop public-facing services, like nginx, or the service the health check is looking for ex)  `user@new-host:~$ sudo service nginx stop`
+3.  Stop public-facing services, like nginx, or the service the health check is looking for. Use this command as an example:  `user@new-host:~$ sudo service nginx stop`
 
 4.  Ensure that any additional volumes are mounted and in the correct location:
 - Check what disks are currently mounted and where: `df`
@@ -98,7 +103,7 @@ index 68387c9..7a8ace1 100644
 
 ### Stop services on old host
 
-1.  ssh into old-host ( `ssh old-host` )
+1.  ssh into old-host ( `laptop:psf-salt user$ ssh old-host` )
 
 2.  Stop cron jobs `user@old-host:~$ sudo service cron stop`
 
@@ -120,22 +125,22 @@ index 68387c9..7a8ace1 100644
 
 ### Shutdown and reclaim hostname
 
-1.  On old-host, stop the old-host by running, `user@old-host:~$ sudo -h shutdown now`
+1.  On old-host, stop the old-host by running, `user@old-host:~$ sudo shutdown -h now`
 
-2.  Change the new-host name in DigitalOcean by removing the suffix or similar that was used to differentiate it from the old-host.
+2.  Destroy the old-host in DigitalOcean
 
-3.  Destroy the old-host in DigitalOcean    
+3.  Change the new-host name in DigitalOcean by removing the suffix or similar that was used to differentiate it from the old-host.
 
-3.  On new-host, run `user@new-host:~$ sudo hostname new-host` to rename
+4.  Run `user@salt:~$ sudo salt-key -L` to list out and `user@salt:~$ sudo salt-key -d old-host` to remove old keys
 
-4.  Update new-host name in `/etc/hostname`,  `/etc/salt/minion_id`, and `/etc/hosts`
+5.  On new-host, run `user@new-host:~$ sudo hostname new-host` to rename
 
-5. Restart the salt minion `user@new-host:~$ salt-call service.restart`
+6.  Update new-host name in `/etc/hostname`,  `/etc/salt/minion_id`, and `/etc/hosts`
 
-6.  Run `user@new-host:~$ sudo salt-key -L` to list out and `user@new-host:~$ salt-key -d old-host` to remove old keys 
+7.  Restart the salt minion `user@new-host:~$ sudo salt-call service.restart`
 
-7.  Run `user@new-host:~$ sudo salt-key -a new-host` to accept new keys
+8.  Restart datadog `user@new-host:~$ sudo service datadog-agent restart` 
 
-8.  Restart datadog `user@new-host:~$ sudo service datadog restart` 
+9.  Run `user@salt:~$ sudo salt-key -a new-host` to accept new keys
 
-9.  Run highstate `user@salt:~$ sudo salt-call state.highstate` on salt-master to update domain name as well as known_hosts file
+10.  Run highstate `user@salt:~$ sudo salt-call state.highstate` on salt-master to update domain name as well as known_hosts file
