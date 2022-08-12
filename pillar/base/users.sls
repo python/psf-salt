@@ -400,3 +400,6 @@ users:
         allowed: True
         groups:
           - moin
+      planet:
+        sudo: True
+        allowed: True
