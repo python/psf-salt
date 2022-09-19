@@ -15,3 +15,7 @@ mine_functions:
 
   ipv6_addrs:
     mine_function: network.ip_addrs6
+
+  osfinger:
+    - mine_function: grains.get
+    - osfinger
