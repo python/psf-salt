@@ -27,7 +27,7 @@ As a result of a request for a download from URLS matching `^/packages/[a-f0-9]{
 ```download|%{now}V|%{client.geo.country_code}V|%{req.url.path}V|%{tls.client.protocol}V|%{tls.client.cipher}V|%{resp.http.x-amz-meta-project}V|%{resp.http.x-amz-meta-version}V|%{resp.http.x-amz-meta-package-type}V|%{req.http.user-agent}V```
 
 
-
+---
 
 # PyPI Docs Hosting
 
@@ -49,8 +49,7 @@ Also redirects deprecated docs to a new location if configured in the root `redi
 
 Fastly service sits in front of conveyor and caches the results (pretty vanilla).
 
-
-
+---
 
 # Linehaul
 
@@ -79,8 +78,7 @@ Another table, `bigquery-public-data.pypi.distribution_metadata` is kept up to d
 
 More details available at https://warehouse.pypa.io/api-reference/bigquery-datasets.html
 
-
-
+---
 
 # Camo
 
@@ -94,4 +92,77 @@ Using a [template filter](https://github.com/pypi/warehouse/blob/637435d22451494
 
 Source: https://github.com/pypi/camo
 
-Hosted on cabotage. Runs a fork of https://github.com/cactus/go-camo with modifications to work with cabotage. 
+Hosted on cabotage. Runs a fork of https://github.com/cactus/go-camo with modifications to work with cabotage.
+
+---
+
+# Warehouse (pypi.org)
+
+This service has three primary uses!
+
+1) Web UI for PyPI, so this is the place on the internet that people go to interact "as a human" with PyPI! So that encompasses management of accounts, projects, releases, as well as browsing/searching packages. (This also includes an admin interface where PyPI moderators and admins can perform certain functions through a browser).
+
+2) Uploads! Warehouse exposes an "upload" service that allows maintainers of projects to upload new files to PyPI, this also has the side effect of creating releases, and on the very first upload creating projects (if they don't exist but are allowed to). This is currently exposed at `upload.pypi.org` and is served directly from the backends, since uploads through Fastly (CDN) are prohibitively slow.
+
+3) Serve APIs!
+
+There are currently, Four (4) main APIs to consider.
+
+- Simple API (https://warehouse.pypa.io/api-reference/legacy.html#simple-project-api)
+  * This is the primary API that Python package tools interact with for installation. It has two implementations [HTML](https://peps.python.org/pep-0503/) and a newer [JSON](https://peps.python.org/pep-0691/).
+  * Primarily it serves pages like `https://pypi.org/simple/{PROJECT_NAME}/` and returns a list of all files available for that project. Some metadata is baked into the response in both HTML and JSON cases.
+  * Installers use the simple API responses to determine where to download selected files from. Namely `files.pythonhosted.org`
+- JSON API (https://warehouse.pypa.io/api-reference/json.html)
+  * This is an API growing in popularity!!!! Contains a superset of the data available from Simple API. Advantages before the JSON Simple are that this is easily machine readable without parsing HTML.
+- XMLRPC 🔥 API (https://warehouse.pypa.io/api-reference/xml-rpc.html)
+  * Extremely old API!
+  * It's really only supported for one usecase which is Mirroring.
+  * Biggest drawback for us, is that it's almost impossible to cache with Fastly.
+- RSS feed API (https://warehouse.pypa.io/api-reference/feeds.html)
+  * I dunno, some people love RSS 🥰
+
+##Backends
+
+### warehouse.cmh1.psfhosted.org
+
+Source: https://github.com/pypi/warehouse
+
+The service that runs in cabotage and is the code that serves requests for the Web UI, APIs, and uploads.
+
+Also runs a suite of workers that do various asyncronous and scheduled tasks.
+
+### Postgresql
+
+We run postgres using Amazon Relational Database Service (RDS). This is the database for PyPI. All persistent data aside from the files themselves live in this DB!
+
+RDS provides failover and redudancy for system issues as well was automated snapshots and backups of the DB so if disaster strikes... we can restore!
+
+We also use the Perfomrance Insights to troubleshout database performace issues.
+
+### Redis
+
+Redis is a high performance in-memory Key-Value store that we use for caching! Basically any thing that we don't need to keep around forever but need on-demand and quick access too (HTTP Session keys, ratelimit counters, and our XMLRPC cache among other things?)
+
+We run redis using another managed Amazon service, Elasticache. This also takes care of redudancy and failover for us!
+
+### Queuing
+
+Tasks for the workers are queued via Amazon Simple Queue Service (SQS) and processed with the [Celery](https://celeryproject.org).
+
+### Elasticsearch
+
+Dedicated search "appliance" software that allows us to index content on PyPI and make it searchable in a performant manner via the Web UI.
+
+Also run by an Amazon managed service "Amazon OpenSearch Service" which is a closed-source implementation of "Elasticsearch". Provides reduncancy and failover.
+
+## Frontends
+
+### Fastly (for pypi.org)
+
+We use Fastly as a CDN for PyPI and cache *as much as possible* for *as long as possible* and purge just the necessary pages when something changes. We do the most work in this Fastly to normalize requests and remove all kinds of reasons why a page might not be cachable!
+
+About the only interesting bit is that our Fastly configuration has the ability to transparently failover to a static mirror for /simple and /json apis when the primary backend (warehouse.cmh1.psfhosted.org) is down. If and only if such a mirror exists and is online and available and up to date.
+
+### None! (for upload.pypi.org)
+
+We have an alias record for upload.pypi.org that points straight at the AWS Elastic Load Balancer in front of our Kubernetes/Ingress stack. This basically to make uploads as direct and pefrormant as possible, but has the drawback of high latency and low bandwidth the further someone is from AWS us-east-2 (Ohio). There's a proposal from Donald to improve the upload api published as [PEP 694](https://peps.python.org/pep-0694/).
