@@ -8,11 +8,16 @@ Domain: files.pythonhosted.org
 
 Hosts files uploaded to PyPI.
 
+Bucket: `pypi-files`
+Link: https://console.cloud.google.com/storage/browser/pypi-files
+
 Only used for URLS matching: `^/packages/[a-f0-9]{2}/[a-f0-9]{2}/[a-f0-9]{60}/`
 
 ### Amazon S3 (deprecated)
 
 Old bucket `pypi-files` for files uploaded to PyPI. No longer used except to check for URLS matching `^/packages/[a-f0-9]{2}/[a-f0-9]{2}/[a-f0-9]{60}/` if NOT found in GCS.
+
+Link: https://s3.console.aws.amazon.com/s3/buckets/pypi-files?region=us-west-2&tab=objects
 
 ### conveyor.cmh1.psfhosted.org
 
@@ -20,9 +25,13 @@ Source: https://github.com/pypa/conveyor
 
 Hosted on cabotage, this is used to redirect legacy URLS like `/packages/{python_version}/{project_l}/{project_name}/{filename}` to the location of an upload (if found). https://warehouse.pypa.io/api-reference/integration-guide.html#querying-pypi-for-package-urls
 
+Link: https://cabotage.cmh1.psfhosted.com/projects/pypa/pypi/applications/conveyor
+
 ## Download analytics
 
-As a result of a request for a download from URLS matching `^/packages/[a-f0-9]{2}/[a-f0-9]{2}/[a-f0-9]{60}/`, the Fastly service also writes a log line to the GCS bucket for Linehaul to ingest with the format:
+As a result of a request for a download from URLS matching `^/packages/[a-f0-9]{2}/[a-f0-9]{2}/[a-f0-9]{60}/`, the Fastly service also writes a log line to the GCS bucket `linehaul-logs` for Linehaul to ingest with the format:
+
+Link: https://console.cloud.google.com/storage/browser/linehaul-logs
 
 ```download|%{now}V|%{client.geo.country_code}V|%{req.url.path}V|%{tls.client.protocol}V|%{tls.client.cipher}V|%{resp.http.x-amz-meta-project}V|%{resp.http.x-amz-meta-version}V|%{resp.http.x-amz-meta-package-type}V|%{req.http.user-agent}V```
 
@@ -43,11 +52,15 @@ This proxies to Amazon S3 to retrieve and appropriately set MIME type on files r
 
 Also redirects deprecated docs to a new location if configured in the root `redirects.txt` document of the `pypi-docs` bucket.
 
+Link:https://s3.console.aws.amazon.com/s3/buckets/pypi-docs?region=us-west-2&tab=objects
+
 ## Frontends
 
 ### Fastly
 
 Fastly service sits in front of conveyor and caches the results (pretty vanilla).
+
+Link: https://manage.fastly.com/configure/services/2M2szYhuuDVGuIS6NlWe5G
 
 ---
 
@@ -57,6 +70,8 @@ Runs in Google Cloud Functions, consumes logs uploaded to Google Cloud Storage f
 
 The resulting data includes detailed (but anonymous) client information on downloads of files as well as requests to the Simple API.
 
+Link: https://console.cloud.google.com/functions/list?project=the-psf
+
 ## Google Cloud Functions
 
 Source: https://github.com/pypa/linehaul-cloud-function
@@ -65,16 +80,29 @@ Two functions are exposed, one to ingest files and another to publish them to Bi
 
 `linehaul-ingestor`: Triggered by successful uploads of files to `linehaul-logs`, downloads log files, processes them, uploads the results to `linehaul-bigquery-data`, and deletes the log file.
 
+Link: https://console.cloud.google.com/functions/details/us-central1/linehaul-ingestor?env=gen1&project=the-psf
+
 `linehaul-publisher`: Triggered by a scheduled message on the Google Pub/Sub Topic `linehaul-publisher-topic`, every 15 minutes collects up to 1000 files from the `linehaul-bigquery-data` Google Cloud Storage bucket and batch ingests them to Google Big Query dataset, and deletes the results files after success.
 
+Link: https://console.cloud.google.com/functions/details/us-central1/linehaul-publisher?env=gen1&project=the-psf
+
 ## Google BigQuery Public Dataset
+
+Link:https://console.cloud.google.com/bigquery?project=the-psf
 
 Linehaul is responsible for publishing new data to the following BigQuery tables hosted in the BigQuery public dataset:
 
 `bigquery-public-data.pypi.file_downloads`
+
+Link: https://console.cloud.google.com/bigquery?project=the-psf&ws=!1m5!1m4!4m3!1sthe-psf!2spypi!3sfile_downloads
+
 `bigquery-public-data.pypi.simple_requests`
 
+Link:https://console.cloud.google.com/bigquery?project=the-psf&ws=!1m5!1m4!4m3!1sthe-psf!2spypi!3ssimple_requests
+
 Another table, `bigquery-public-data.pypi.distribution_metadata` is kept up to date by Warehouse.
+
+Link: https://console.cloud.google.com/bigquery?project=the-psf&ws=!1m5!1m4!4m3!1sthe-psf!2spypi!3sdistribution_metadata
 
 More details available at https://warehouse.pypa.io/api-reference/bigquery-datasets.html
 
@@ -85,6 +113,8 @@ More details available at https://warehouse.pypa.io/api-reference/bigquery-datas
 An image proxy, provides assured HTTPS for all images rendered from third party or external sites on PyPI. This also prevents some theoretical attacks on HTTP sessions/cookies due to loading from third party domains.
 
 Using a [template filter](https://github.com/pypi/warehouse/blob/637435d22451494c83a5c404c409211b25df7c13/warehouse/filters.py#L69-L88), Warehouse camoifyies specific images as well as entire descriptions for individual projects.
+
+Link: https://cabotage.cmh1.psfhosted.com/projects/pypa/pypi/applications/camo
 
 **Note**: Potential project for Chloe, setup a Fastly service to cache images served via Camo.
 
@@ -130,6 +160,8 @@ Source: https://github.com/pypi/warehouse
 The service that runs in cabotage and is the code that serves requests for the Web UI, APIs, and uploads.
 
 Also runs a suite of workers that do various asyncronous and scheduled tasks.
+
+Link: https://cabotage.cmh1.psfhosted.com/projects/pypa/pypi/applications/warehouse
 
 ### Postgresql
 
