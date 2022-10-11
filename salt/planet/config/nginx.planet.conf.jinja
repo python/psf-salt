@@ -1,9 +1,17 @@
 {% for site, info in salt["pillar.get"]("planet", {}).get("sites").items() %}
 
 server {
-    listen 80;
+    listen 80 default_server;
     server_name {{ site }};
-    return 301 https://$host$request_uri;
+
+    location /.well-known/acme-challenge/ {
+      alias /etc/lego/.well-known/acme-challenge/;
+      try_files $uri =404;
+    }
+
+    location / {
+      return 301 https://$host$request_uri;
+    }
 }
 
 server {
