@@ -306,6 +306,9 @@ users:
       codespeed:
         sudo: True
         allowed: True
+      buildbot:
+        sudo: True
+        allowed: True
       downloads:
         sudo: True
         allowed: True
