@@ -1,0 +1,38 @@
+# Update Fastly IP list on a weekly basis
+
+name: Update Fastly IP List
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  update-fastly-ip-list:
+    name: Update Fastly IP List
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install required packages
+        run: pip install pyyaml requests
+
+      - name: Run fastly_ip_updater.py
+        run: python .github/workflows/fastly_ip_updater.py
+
+      - name: add/commit/push changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: GitHub Actions
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: "Update Fastly IP List"
+          push: true
