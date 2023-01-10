@@ -19,11 +19,7 @@ logrotate_time_hourly:
     - name: /etc/systemd/system/timers.target.wants/logrotate.timer
     - pattern: OnCalendar=daily
     - repl: OnCalendar=hourly
-
-/etc/cron.hourly/logrotate:
-  file.symlink:
-    - target: /etc/cron.daily/logrotate
   cmd.run:
     - name: systemctl daemon-reload
-    - onchanges:
-      - file: /etc/cron.hourly/logrotate
+    - require:
+      - file: logrotate_time_hourly
