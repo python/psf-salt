@@ -14,18 +14,11 @@
   file.managed:
     - source: salt://cdn-logs/config/fastly.logrotate.conf
 
-{% set timer_file = '/etc/systemd/system/timers.target.wants/logrotate.timer' %}
-
 logrotate_time_hourly:
   file.replace:
-    - name: {{ timer_file }}
-    - pattern: '^OnCalendar'
-    - repl: 'OnCalendar=hourly'
-
-{{ timer_file }}:
-  file.managed:
-     - source: /etc/cron.hourly/logrotate
-#    - source: salt://cdn-logs/config/fastly.logrotate.conf
+    - name: /etc/systemd/system/timers.target.wants/logrotate.timer
+    - pattern: OnCalendar=daily
+    - repl: OnCalendar=hourly
 
 /etc/cron.hourly/logrotate:
   file.symlink:
