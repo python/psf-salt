@@ -14,12 +14,14 @@
   file.managed:
     - source: salt://cdn-logs/config/fastly.logrotate.conf
 
-logrotate_time_hourly:
-  file.replace:
+/etc/systemd/system/timers.target.wants/logrotate.timer:
+  ini.options_present:
     - name: /etc/systemd/system/timers.target.wants/logrotate.timer
-    - pattern: OnCalendar=daily
-    - repl: OnCalendar=hourly
+    - separator: '='
+    - sections: 
+        Timer:
+          OnCalendar: daily
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
-      - file: logrotate_time_hourly
+      - ini: /etc/systemd/system/timers.target.wants/logrotate.timer
