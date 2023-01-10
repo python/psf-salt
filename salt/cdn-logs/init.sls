@@ -19,6 +19,8 @@
     - name: /etc/systemd/system/timers.target.wants/logrotate.timer
     - separator: '='
     - sections:
+        Unit:
+          Description: 'Hourly rotation of log files'
         Timer:
           OnCalendar: daily
   cmd.run:
