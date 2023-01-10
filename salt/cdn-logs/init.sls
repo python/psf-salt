@@ -18,7 +18,7 @@
   ini.options_present:
     - name: /etc/systemd/system/timers.target.wants/logrotate.timer
     - separator: '='
-    - sections: 
+    - sections:
         Timer:
           OnCalendar: daily
   cmd.run:
