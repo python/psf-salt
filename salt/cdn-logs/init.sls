@@ -21,5 +21,5 @@ logrotate_time_hourly:
     - repl: OnCalendar=hourly
   cmd.run:
     - name: systemctl daemon-reload
-    - require:
+    - onchanges:
       - file: logrotate_time_hourly
