@@ -14,6 +14,16 @@
   file.managed:
     - source: salt://cdn-logs/config/fastly.logrotate.conf
 
-/etc/cron.hourly/logrotate:
-  file.symlink:
-    - target: /etc/cron.daily/logrotate
+/etc/systemd/system/timers.target.wants/logrotate.timer:
+  ini.options_present:
+    - name: /etc/systemd/system/timers.target.wants/logrotate.timer
+    - separator: '='
+    - sections:
+        Unit:
+          Description: 'Hourly rotation of log files'
+        Timer:
+          OnCalendar: hourly
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - ini: /etc/systemd/system/timers.target.wants/logrotate.timer
