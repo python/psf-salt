@@ -22,7 +22,7 @@
         Unit:
           Description: 'Hourly rotation of log files'
         Timer:
-          OnCalendar: daily
+          OnCalendar: hourly
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
