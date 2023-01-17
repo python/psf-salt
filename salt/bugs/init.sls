@@ -196,7 +196,7 @@ tracker-{{ tracker }}-detector-config:
     - mode: "0640"
     - template: jinja
     - context:
-      detector_config: {{ config.get('detector_config', {}) }}
+        detector_config: {{ config.get('detector_config', {}) }}
 
 tracker-{{ tracker }}-mailgw-forward:
   file.managed:
@@ -207,7 +207,7 @@ tracker-{{ tracker }}-mailgw-forward:
     - mode: "0640"
     - template: jinja
     - context:
-      tracker: {{ tracker }}
+        tracker: {{ tracker }}
 
 tracker-{{ tracker }}-wsgi:
   file.managed:
@@ -217,15 +217,15 @@ tracker-{{ tracker }}-wsgi:
     - mode: "0644"
     - template: jinja
     - context:
-      tracker: {{ tracker }}
+        tracker: {{ tracker }}
 
 /etc/systemd/system/roundup-{{ tracker }}.service:
   file.managed:
     - source: salt://bugs/config/instance.service.jinja
     - template: jinja
     - context:
-      tracker: {{ tracker }}
-      workers: {{ config.get('workers', '4') }}
+        tracker: {{ tracker }}
+        workers: {{ config.get('workers', '4') }}
 
   cmd.run:
     - name: systemctl daemon-reload
@@ -253,8 +253,8 @@ tracker-{{ tracker }}-nginx-config:
     - mode: "0600"
     - template: jinja
     - context:
-      tracker: {{ tracker }}
-      server_name: {{ config.get('server_name') }}
+        tracker: {{ tracker }}
+        server_name: {{ config.get('server_name') }}
     - require:
       - file: /etc/nginx/sites.d/
 

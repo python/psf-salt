@@ -37,10 +37,10 @@ include:
     - source: salt://backup/client/templates/backup.bash.jinja
     - template: jinja
     - context:
-      pre_script: '{{ config.get('pre_script', ":") }}'
-      remote_command: '/usr/bin/rdiff-backup --terminal-verbosity 1 {%- for exclude in config.get('exclude', []) %} --exclude {{ exclude }} {%- endfor %} --no-eas --remote-schema "ssh -i /etc/backup/.ssh/id_rsa_{{ backup }} -C %s rdiff-backup --server" {{ config['source_directory'] }} {{ config['target_user'] }}@{{ config['target_host'] }}::{{ config['target_directory'] }}'
-      post_script: '{{ config.get('post_script', ":") }}'
-      cleanup_script: '{{ config.get('cleanup_script', ":") }}'
+        pre_script: '{{ config.get('pre_script', ":") }}'
+        remote_command: '/usr/bin/rdiff-backup --terminal-verbosity 1 {%- for exclude in config.get('exclude', []) %} --exclude {{ exclude }} {%- endfor %} --no-eas --remote-schema "ssh -i /etc/backup/.ssh/id_rsa_{{ backup }} -C %s rdiff-backup --server" {{ config['source_directory'] }} {{ config['target_user'] }}@{{ config['target_host'] }}::{{ config['target_directory'] }}'
+        post_script: '{{ config.get('post_script', ":") }}'
+        cleanup_script: '{{ config.get('cleanup_script', ":") }}'
 
 {{ backup }}-cron:
   file.managed:
@@ -48,8 +48,8 @@ include:
     - template: jinja
     - source: salt://backup/client/templates/cron.jinja
     - context:
-      job_frequency: {{ config['frequency'] }}
-      job_user: {{ config['user'] }}
-      job_command: /usr/local/backup/{{ backup }}/scripts/backup.bash
+        job_frequency: {{ config['frequency'] }}
+        job_user: {{ config['user'] }}
+        job_command: /usr/local/backup/{{ backup }}/scripts/backup.bash
 
 {% endfor %}

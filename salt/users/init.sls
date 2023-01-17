@@ -74,7 +74,7 @@ include:
     - source: salt://users/config/authorized_keys.jinja
     - template: jinja
     - context:
-      ssh_keys: {{ user_config["ssh_keys"] }}
+        ssh_keys: {{ user_config["ssh_keys"] }}
     - require:
       - user: {{ user_name }}
 

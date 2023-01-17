@@ -37,6 +37,6 @@ datadog-agent:
     - template: jinja
     - source: salt://datadog/config/datadog.yaml.jinja
     - context:
-      api_key: {{ pillar.get('datadog_api_key') }}
-      tags: {{ datadog_tags }}
+        api_key: {{ pillar.get('datadog_api_key') }}
+        tags: {{ datadog_tags }}
 {% endif %}

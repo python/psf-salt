@@ -132,19 +132,19 @@ codespeed-{{ instance }}-local_settings:
     - mode: "0640"
     - template: jinja
     - context:
-      instance: {{ instance }}
-      db_host: {{ db_cluster_config['host'] }}
-      db_port: {{ db_cluster_config['port'] }}
-      db_name: {{ config['db_user'] }}
-      db_user: {{ config['db_user'] }}
-      db_pass: {{ db_user_config['password'] }}
-      db_cert: /etc/ssl/postgres/{{ db_user_config['cluster'] }}.crt
-      server_name: {{ config['hostname'] }}
-      secret_key: {{ secrets[instance]['secret_key'] }}
-      admin_team_name: {{ config.get('admin_team_name', 'PSF Codespeed Admins') }}
-      admin_team_email: {{ config.get('admin_team_email', 'speed@python.org') }}
-      server_email: {{ config.get('server_email', '{}@codespeed.pythonhosted.org'.format(instance)) }}
-      default_from_email: {{ config.get('default_from_email', 'noreply@codespeed.pythonhosted.org') }}
+        instance: {{ instance }}
+        db_host: {{ db_cluster_config['host'] }}
+        db_port: {{ db_cluster_config['port'] }}
+        db_name: {{ config['db_user'] }}
+        db_user: {{ config['db_user'] }}
+        db_pass: {{ db_user_config['password'] }}
+        db_cert: /etc/ssl/postgres/{{ db_user_config['cluster'] }}.crt
+        server_name: {{ config['hostname'] }}
+        secret_key: {{ secrets[instance]['secret_key'] }}
+        admin_team_name: {{ config.get('admin_team_name', 'PSF Codespeed Admins') }}
+        admin_team_email: {{ config.get('admin_team_email', 'speed@python.org') }}
+        server_email: {{ config.get('server_email', '{}@codespeed.pythonhosted.org'.format(instance)) }}
+        default_from_email: {{ config.get('default_from_email', 'noreply@codespeed.pythonhosted.org') }}
 
 codespeed-{{ instance }}-pre-reload:
   cmd.run:
@@ -166,8 +166,8 @@ codespeed-{{ instance }}-pre-reload:
     - group: root
     - mode: "0644"
     - context:
-      instance: {{ instance }}
-      wsgi_app: {{ config['wsgi_app'] }}
+        instance: {{ instance }}
+        wsgi_app: {{ config['wsgi_app'] }}
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
@@ -192,9 +192,9 @@ codespeed-{{ instance }}:
     - group: root
     - mode: "0644"
     - context:
-      instance: {{ instance }}
-      server_names: {{ config['hostname'] }}
-      port: {{ config['port'] }}
+        instance: {{ instance }}
+        server_names: {{ config['hostname'] }}
+        port: {{ config['port'] }}
     - require:
       - file: /etc/nginx/sites.d/
       - file: /etc/nginx/fastly_params
