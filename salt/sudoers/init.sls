@@ -9,7 +9,7 @@
     - source: salt://sudoers/config/salt.jinja
     - template: jinja
     - context:
-      sudoers: {{ pillar.get('sudoer_groups', {}).keys()|join(',') }}
+        sudoers: {{ pillar.get('sudoer_groups', {}).keys()|join(',') }}
     - user: root
     - group: root
     - mode: "0640"

@@ -39,8 +39,8 @@ include:
     - template: jinja
     - source: salt://backup/server/templates/cron.jinja
     - context:
-      cron: '0 3 * * *'
-      job_user: root
-      job_command: 'rdiff-backup --terminal-verbosity 2 --force --remove-older-than {{ config['increment_retention'] }} {{ config['directory'] }}'
+        cron: '0 3 * * *'
+        job_user: root
+        job_command: 'rdiff-backup --terminal-verbosity 2 --force --remove-older-than {{ config['increment_retention'] }} {{ config['directory'] }}'
 
 {% endfor %}
