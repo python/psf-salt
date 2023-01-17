@@ -85,8 +85,8 @@ find /data/www/buildbot/test-results -type f -mtime +7 -exec rm {} \;:
     - group: root
     - mode: "0644"
     - context:
-      instance: master
-      port: 9000
+        instance: master
+        port: 9000
     - require:
       - file: /etc/nginx/sites.d/
       - file: /etc/nginx/fastly_params

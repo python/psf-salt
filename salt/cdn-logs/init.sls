@@ -8,7 +8,7 @@
     - source: salt://cdn-logs/config/fastly.rsyslog.conf
     - template: jinja
     - context:
-      fastly_logging_names: {{ pillar["fastly-logging-names"] }}
+        fastly_logging_names: {{ pillar["fastly-logging-names"] }}
 
 /etc/logrotate.d/fastly-logs:
   file.managed:
