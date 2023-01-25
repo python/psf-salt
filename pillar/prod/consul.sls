@@ -21,3 +21,8 @@ consul:
       address: www.pythonanywhere.com
       service: console
       port: 443
+    - datacenter: nyc1
+      node: jobspyfound
+      address: pythonsoftwarefoundation.applytojob.com
+      service: jobs
+      port: 443

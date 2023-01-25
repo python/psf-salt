@@ -50,6 +50,13 @@ haproxy:
       check: "GET /test/rev/ea32503c754c HTTP/1.1\\r\\nHost:\\ hg.python.org"
       verify_host: hg.psf.io
 
+    jobs:
+      domains:
+        - jobs.pyfound.org
+      check: False
+      ca-file: "ca-certificates.crt"
+      verify_host: pythonsoftwarefoundation.applytojob.com
+
     pypa-bootstrap:
       domains:
         - bootstrap.pypa.io
