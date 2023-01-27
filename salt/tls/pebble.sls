@@ -13,6 +13,7 @@ pebble-golang-workspace:
 pebble-source:
    git.latest:
      - name: https://github.com/letsencrypt/pebble.git
+     - force_reset: remote-changes
      - target: /usr/local/src/pebble
      - require:
        - pkg: pebble-build-deps
