@@ -1,6 +1,6 @@
 datadog_repo:
   pkgrepo.managed:
-    - name: "deb https://apt.datadoghq.com/ stable 6"
+    - name: "deb https://apt.datadoghq.com stable 6"
     - file: /etc/apt/sources.list.d/datadog.list
     - key_url: salt://datadog/config/APT-GPG-KEY-DATADOG
 
