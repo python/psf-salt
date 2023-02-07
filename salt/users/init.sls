@@ -4,7 +4,7 @@ include:
 {% for user_name, user_config in salt["pillar.get"]("users", {}).items() %}
 {% set admin = user_config.get("admin", false) %}
 {% set access = {} %}
-{% for pat, data in user_config.get("access", {}).items() if salt["match.compound"](salt["pillar.get"]("roles:" + pat + ":pattern")) %}  # " Syntax fix
+{% for pat, data in user_config.get("access", {}).items() if salt["match.compound"](salt["pillar.get"]("roles:" + pat + ":pattern", "devnull.psf.io")) %}  # " Syntax fix
   {% do access.update(data) %}
 {% endfor %}
 
@@ -22,7 +22,7 @@ include:
 {% for user_name, user_config in salt["pillar.get"]("users", {}).items() %}
 {% set admin = user_config.get("admin", false) %}
 {% set access = {} %}
-{% for pat, data in user_config.get("access", {}).items() if salt["match.compound"](salt["pillar.get"]("roles:" + pat + ":pattern")) %}  # " Syntax fix
+{% for pat, data in user_config.get("access", {}).items() if salt["match.compound"](salt["pillar.get"]("roles:" + pat + ":pattern", "devnull.psf.io")) %}  # " Syntax fix
   {% do access.update(data) %}
 {% endfor %}
 
