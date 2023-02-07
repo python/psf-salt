@@ -80,9 +80,6 @@ users:
         allowed: True
         groups:
           - downloads
-      mailman:
-        allowed: True
-        sudo: True
       mail:
         allowed: True
         sudo: True
@@ -251,8 +248,6 @@ users:
       mail:
         allowed: True
         sudo: True
-        groups:
-          - mailman
 
   hildeb:
     fullname: "Ralf Hildebrandt"
@@ -295,8 +290,6 @@ users:
       mail:
         allowed: True
         sudo: True
-        groups:
-          - mailman
 
   ambv:
     fullname: "Łukasz Langa"
