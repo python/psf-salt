@@ -80,9 +80,6 @@ users:
         allowed: True
         groups:
           - downloads
-      mailman:
-        allowed: True
-        sudo: True
       mail:
         allowed: True
         sudo: True
