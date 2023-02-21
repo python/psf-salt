@@ -84,7 +84,7 @@ salt-master:
   file.directory:
     - user: root
     - group: root
-    - mode: "0644"
+    - mode: "0755"
 
 /srv/public/psf_known_hosts:
   file.managed:
@@ -116,7 +116,7 @@ salt-master:
     - template: jinja
     - context:
        name: publish-files
-       port: 9000
+       port: 9001
     - user: root
     - group: root
     - mode: "0644"
