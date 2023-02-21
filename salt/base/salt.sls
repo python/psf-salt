@@ -80,7 +80,13 @@ salt-master:
     - require:
       - pkg: consul-pkgs
 
-/srv/psf_known_hosts:
+/srv/public:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: "0644"
+
+/srv/public/psf_known_hosts:
   file.managed:
     - source: salt://base/config/known_hosts.jinja
     - template: jinja
@@ -88,13 +94,36 @@ salt-master:
     - group: root
     - mode: "0644"
 
-/srv/salt-server-list.rst:
+/srv/public/salt-server-list.rst:
   file.managed:
     - source: salt://base/config/salt-server-list.rst.jinja
     - template: jinja
     - user: root
     - group: root
     - mode: "0644"
+
+/etc/nginx/sites.d/publish-files.conf:
+  file.managed:
+    - source: salt://base/config/publish-files-nginx.conf
+    - user: root
+    - group: root
+    - require:
+       - file: /srv/public
+
+/etc/consul.d/service-publish-files.conf:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+       name: publish-files
+       port: 9000
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+       - pkg: consul-pkgs
+
+
 {% endif %}
 
 salt-minion-pkg:
