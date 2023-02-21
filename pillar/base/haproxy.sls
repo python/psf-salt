@@ -94,6 +94,11 @@ haproxy:
       verify_host: salt.psf.io
       check: "GET /.well-known/acme-challenge/sentinel HTTP/1.1\\r\\nHost:\\ salt.psf.io"
 
+    publish-files:
+      domains: []
+      verify_host: salt-public.psf.io
+      check: "GET /srv/public HTTP/1.1\\r\\nHost:\\ salt-public.psf.io"
+
   redirects:
     cheeseshop.python.org:
       target: pypi.org
