@@ -115,8 +115,8 @@ salt-master:
     - source: salt://consul/etc/service.jinja
     - template: jinja
     - context:
-       name: publish-files
-       port: 9001
+        name: publish-files
+        port: 9001
     - user: root
     - group: root
     - mode: "0644"
