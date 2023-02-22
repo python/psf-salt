@@ -107,6 +107,7 @@ salt-master:
     - source: salt://base/config/publish-files-nginx.conf
     - user: root
     - group: root
+    - mode: "0644"
     - require:
        - file: /srv/public
 
