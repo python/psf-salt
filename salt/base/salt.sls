@@ -57,6 +57,15 @@ salt-master:
     - watch:
       - file: /etc/salt/master.d/roles.conf
 
+/etc/lego/.well-known/acme-challenge/sentinel:
+  file.managed:
+    - contents: "OK"
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - sls: tls.lego
+
 /etc/nginx/sites.d/letsencrypt-well-known.conf:
   file.managed:
     - source: salt://base/config/letsencrypt-well-known-nginx.conf
