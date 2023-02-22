@@ -148,8 +148,7 @@ class FarmConfig(multiconfig.DefaultConfig):
     actions_excluded.append('thread_monitor')
 
     # mail functions. use empty mail_smarthost to disable.
-    #mail_smarthost = 'mail.python.org'
-    mail_smarthost = 'localhost'
+    mail_smarthost = 'mail.python.org'
     mail_from = 'Python Wiki <wiki@python.org>'
 
     language_default = 'en'
