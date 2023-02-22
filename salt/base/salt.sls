@@ -109,6 +109,7 @@ salt-master:
     - group: root
     - mode: "0644"
     - require:
+       - file: /etc/nginx/sites.d/
        - file: /srv/public
 
 /etc/consul.d/service-publish-files.conf:
