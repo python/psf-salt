@@ -107,12 +107,10 @@ salt-master:
     - source: salt://base/config/publish-files-nginx.conf
     - user: root
     - group: root
-    - mode: "0644"
     - require:
-       - file: /etc/nginx/sites.d/
        - file: /srv/public
 
-/etc/consul.d/service-publish-files.json:
+/etc/consul.d/service-publish-files.conf:
   file.managed:
     - source: salt://consul/etc/service.jinja
     - template: jinja
