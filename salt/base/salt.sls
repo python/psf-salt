@@ -121,7 +121,7 @@ salt-master:
        - file: /etc/nginx/sites.d/
        - file: /srv/public
 
-/etc/consul.d/service-publish-files.conf:
+/etc/consul.d/service-publish-files.json:
   file.managed:
     - source: salt://consul/etc/service.jinja
     - template: jinja
