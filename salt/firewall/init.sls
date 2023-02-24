@@ -36,7 +36,6 @@ iptables-persistent:
       - netfilter-persistent
       {% endif %}
 
-{% if pillar["dc"] != "vagrant" %}
   service.enabled:
     {% if grains["oscodename"] == "trusty" %}
     - name: iptables-persistent
@@ -57,4 +56,3 @@ iptables-persistent:
     - watch:
       - file: /etc/iptables/rules.v4
       - file: /etc/iptables/rules.v6
-{% endif %}
