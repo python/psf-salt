@@ -2,8 +2,8 @@
 
 firewall:
 
-  salt_master_letsencrypt:
-    port: 9000
+  salt_master_letsencrypt_and_publish_files:
+    port: 9000:9001
     source: *psf_internal_network
 
   salt_master_bugs_ams1:
