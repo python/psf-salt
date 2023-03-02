@@ -1,5 +1,5 @@
 Register a service with haproxy
------------------------------
+===============================
 
 1.  Ensure that the salt-master and loadbalancer can be brought up with vagrant locally.
 

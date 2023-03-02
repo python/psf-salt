@@ -1,5 +1,5 @@
 Opening a port
---------------
+==============
 
 1.  Ensure the salt-master can be brought up with vagrant locally. 
 
