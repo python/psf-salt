@@ -11,6 +11,7 @@ doc-pkgs:
     - pkgs:
       - build-essential
       - fonts-freefont-otf
+      - fonts-noto
       - git
       - mercurial
       - python3.10-dev
