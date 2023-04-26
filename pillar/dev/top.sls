@@ -33,6 +33,11 @@ base:
     - firewall.rs-lb-backend
     - groups.downloads
 
+  'gnumailman':
+    - match: nodegroup
+    - firewall.mail
+    - mail-opt-out
+
   'hg':
     - match: nodegroup
     - firewall.rs-lb-backend

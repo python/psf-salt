@@ -22,6 +22,11 @@ backup-server:
       user: python-bugs
       increment_retention: 30D
       authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsMBXD2hOm536YI0GMSratv8cM1CZ1M3J1bsvj2NqD9PEp10o3FD5ofr81kB+BTyFKMnpwxuP/dcoCfiY4dCF1COIa82nUtvuklFYTVybW8dL7DevWxoX0F6PeK8Ox+kcuASjmgx2UJ/pisKEIhFQYTF4bmevSRXbLv94461dxOO6j2MOgtJRGDmr/2OhA30VAnjMw1U+4flZd6FLodfq1udX8NVTBg05BIAwLNYLFrvLO8yMlqZzb4TbA53w29yyNIoSlXBLtG+K19mAA3ki+rqZdhdS+k6u1/u0AVUcDvmX1MrOtcvucy74SIesBDJfdyR7OFpHmAx4/aDPVdmGV
+    gnumailman-data:
+      directory: /backup/gnumailman-data
+      user: gnumailman
+      increment_retention: 90D
+      authorized_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDcqPefaRsYhkulCx/TtNOX4BaVqfGePoQraS8ELmujkrX3KP56u2uKshIUob8uCf/daRhlWnKKIyy8redICHc/+CmUSZjSgETgdbnVIYW17sZ+hCvME8AEc/FAObFrU9BEmOHU0LwA6SY2YclL9knz/Pd94aojXGhx5FjStJg/AfOuhcSzn1dgRfBERm9JPplgubFeVDocBJ816glLydh5Qg0TG1sgJtS2dczvhc0wwfQqnAVQtnhmxjVUBedj4efNaJhXK1N1aa+i5ev3k9Es6yXV/2jyAGEXAn8eiciVHCUt0vNDz+nNnckCHCQitkaA3VnF03Di5BaiJRTqyiyzRdtzh832O3DQLO54ep/S+jgYoFfajPnFbChHNTNpVI7VJHpsE8W8XEwvcf/ZU3sW5XHxfvwYq9KjOw7LWF26IT8pka2/WPClWeG3xKs10ndV2sNUmWpRJMIRQ82JFr2/4L23qzoI++7CDjb63X6eZeK+QtLTaj6pLel9nZVIapU=
     hg:
       directory: /backup/python-hg
       user: hg
