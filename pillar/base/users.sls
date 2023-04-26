@@ -83,6 +83,9 @@ users:
       mail:
         allowed: True
         sudo: True
+      gnumailman:
+        allowed: True
+        sudo: True
 
   gbrandl:
     fullname: "Georg Brandl"
@@ -250,6 +253,9 @@ users:
         sudo: True
         groups:
           - mailman
+      gnumailman:
+        allowed: True
+        sudo: True
 
   hildeb:
     fullname: "Ralf Hildebrandt"
@@ -294,6 +300,9 @@ users:
         sudo: True
         groups:
           - mailman
+      gnumailman:
+        allowed: True
+        sudo: True
 
   ambv:
     fullname: "Łukasz Langa"

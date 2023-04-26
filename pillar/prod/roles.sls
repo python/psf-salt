@@ -38,6 +38,10 @@ roles:
     pattern:  "downloads*.nyc1.psf.io"
     purpose:  "Serves python.org downloads"
     contact:  "CPython Release Managers"
+  gnumailman:
+    pattern:  "gnumailman.nyc1.psf.io"
+    purpose:  "GNU Mailman Project wiki and lists"
+    contact:  "Mark Sapiro"
   hg:
     pattern:  "hg.nyc1.psf.io"
     purpose:  "Version Control Archives, serves hg.python.org and svn.python.org"

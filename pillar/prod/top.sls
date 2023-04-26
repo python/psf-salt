@@ -58,6 +58,13 @@ base:
     - backup.downloads
     - secrets.backup.downloads
 
+  'gnumailman':
+    - match: nodegroup
+    - firewall.mail
+    - mail-opt-out
+    - backup.gnumailman
+    - secrets.backup.gnumailman
+
   'hg':
     - match: nodegroup
     - firewall.rs-lb-backend

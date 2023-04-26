@@ -38,6 +38,10 @@ roles:
     pattern: "downloads.vagrant.psf.io"
     purpose: ""
     contact: ""
+  gnumailman:
+    pattern: "gnumailman.vagrant.psf.io"
+    purpose: ""
+    contact: ""
   hg:
     pattern: "hg.vagrant.psf.io"
     purpose: ""
