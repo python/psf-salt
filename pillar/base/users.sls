@@ -256,6 +256,8 @@ users:
       gnumailman:
         allowed: True
         sudo: True
+        groups:
+          -mailman
 
   hildeb:
     fullname: "Ralf Hildebrandt"
@@ -303,6 +305,8 @@ users:
       gnumailman:
         allowed: True
         sudo: True
+        groups:
+          - mailman
 
   ambv:
     fullname: "Łukasz Langa"
