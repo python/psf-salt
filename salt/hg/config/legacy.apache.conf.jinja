@@ -87,6 +87,9 @@
 
     # Temporary doc redirection for Mailman
     RewriteRule ^/doc/current/lib/(.*) http://docs.python.org/lib/$1 [R,L]
+    
+    # Redirect donation honor roll
+    RedirectMatch permanent ^/psf/donations/?$ https://www.python.org/psf/donations/
 
     
     # This is now a redirect + mod_redirect-proxy for POST
