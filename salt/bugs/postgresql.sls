@@ -2,7 +2,7 @@
 pgdg-repo:
   pkgrepo.managed:
     - humanname: PostgresSQL Global Development Group
-    - name: deb http://apt.postgresql.org/pub/repos/apt {{ grains['oscodename'] }}-pgdg main
+    - name: deb http://apt-archive.postgresql.org/pub/repos/apt {{ grains['oscodename'] }}-pgdg main
     - file: /etc/apt/sources.list.d/pgdg.list
     - gpgcheck: 1
     - key_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
