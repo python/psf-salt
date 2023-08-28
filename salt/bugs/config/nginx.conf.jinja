@@ -70,7 +70,7 @@ server {
   }
 
   location / {
-    limit_req zone=mylimit-{{ tracker }} burst=5 nodelay;
+    limit_req zone=limit-{{ tracker }} burst=5 nodelay;
     proxy_pass http://tracker-{{ tracker }}/;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
