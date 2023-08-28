@@ -25,3 +25,7 @@ firewall:
   salt_master_remote_backup:
     port: 4505:4506
     source: 138.68.57.99
+
+  salt_master_pebble:
+    port: 14000
+    source: *psf_internal_network
