@@ -53,9 +53,10 @@ haproxy:
     jobs:
       domains:
         - jobs.pyfound.org
-      check: False
+      check: "GET / HTTP/1.1\\r\\nHost:\\ pythonsoftwarefoundation.applytojob.com"
       ca-file: "ca-certificates.crt"
       verify_host: pythonsoftwarefoundation.applytojob.com
+      sni: pythonsoftwarefoundation.applytojob.com
       extra:
         - http-request replace-header Host ^.*$ pythonsoftwarefoundation.applytojob.com
 

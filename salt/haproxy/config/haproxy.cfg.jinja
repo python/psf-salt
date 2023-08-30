@@ -223,7 +223,7 @@ backend {{ service }}
     {% endfor -%}
 
     {{ "{{" }}range service "{{ service }}@{{ pillar.dc }}" "any"}}
-    {% raw %}server {{.Node}} {{.Address}}:{{.Port}}{% endraw %}{% if config.get("check", True) %} check{% endif %}{% if config.get("tls", True) %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{% endif %}{{ "{{end}}" }}
+    {% raw %}server {{.Node}} {{.Address}}:{{.Port}}{% endraw %}{% if config.get("check", True) %} check{% if config.get("sni", False)%} check-sni {{ config.get("sni") }}{% endif %}{% if config.get("sni", False)%} sni str({{ config.get("sni") }}){% endif %}{% endif %}{% if config.get("tls", True) %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{% endif %}{{ "{{end}}" }}
 
 {% endfor %}
 
