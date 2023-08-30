@@ -56,6 +56,8 @@ haproxy:
       check: False
       ca-file: "ca-certificates.crt"
       verify_host: pythonsoftwarefoundation.applytojob.com
+      extra:
+        - http-request replace-header Host ^.*$ pythonsoftwarefoundation.applytojob.com
 
     pypa-bootstrap:
       domains:
