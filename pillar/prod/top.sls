@@ -109,6 +109,7 @@ base:
     - match: nodegroup
     - firewall.http
     - firewall.ftp
+    - firewall.snakebite
 
   'web-pypa':
     - match: nodegroup
