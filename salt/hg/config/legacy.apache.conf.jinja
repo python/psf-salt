@@ -116,4 +116,12 @@
     <Location /dev/peps>
         Header set X-Robots-Tag "noindex, nofollow"
     </Location>
+
+  <IfModule mod_ratelimit.c>
+    <Location /srv/hg/>
+        SetOutputFilter RATE_LIMIT
+        SetEnv rate-limit 500
+    </Location>
+  </IfModule>
+
 </VirtualHost>
