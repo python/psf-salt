@@ -141,6 +141,7 @@ apache2:
     - pkgs:
       - apache2
       - libapache2-mod-wsgi
+      - libapache2-mod-qos
   service.running:
     - enable: True
     - reload: True
@@ -152,6 +153,10 @@ apache2:
       - file: /etc/apache2/sites-enabled/*
       - file: /etc/apache2/mods-enabled/*
       - file: /etc/ssl/private/hg.psf.io.pem
+  cmd.run:
+    - name: a2enmod qos
+    - require:
+      - pkg: apache2
 
 /etc/apache2/mods-enabled/headers.load:
   file.symlink:
