@@ -234,8 +234,6 @@ apache2:
     - mode: "0644"
     - require:
       - pkg: apache2
-    - cmd.run:
-      - name: a2enmod ratelimit
 
 /etc/apache2/sites-enabled/svn.conf:
   file.symlink:
@@ -289,8 +287,6 @@ apache2:
     - mode: "0644"
     - require:
       - file: /etc/apache2/legacy-redirects.conf
-    - cmd.run:
-      - name: a2enmod ratelimit
 
 /etc/apache2/sites-enabled/legacy.conf:
   file.symlink:

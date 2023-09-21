@@ -44,13 +44,6 @@
         Require valid-user
     </Location>
 
-  <IfModule mod_ratelimit.c>
-    <Location /srv/hg/>
-        SetOutputFilter RATE_LIMIT
-        SetEnv rate-limit 500
-    </Location>
-  </IfModule>
-
     Alias /robots.txt /srv/svnweb/robots.txt
     <Directory /srv/svnweb/>
         Options Indexes FollowSymLinks MultiViews
