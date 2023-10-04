@@ -153,8 +153,10 @@ apache2:
       - file: /etc/apache2/sites-enabled/*
       - file: /etc/apache2/mods-enabled/*
       - file: /etc/ssl/private/hg.psf.io.pem
-  cmd.run:
-    - name: a2enmod qos
+
+enable_mod_qos:
+  apache_module.enabled:
+    - name: qos
     - require:
       - pkg: apache2
 
