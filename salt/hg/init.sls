@@ -48,6 +48,12 @@ hg-user:
     - require:
       - user: hg-user
 
+/srv/hg/repos:
+  file.directory:
+    - user: hg
+    - group: hg
+    - mode: 755
+
 /srv/hg/web:
   file.recurse:
     - source: salt://hg/files/hg/web
