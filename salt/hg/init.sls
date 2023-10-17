@@ -18,6 +18,18 @@ hg-user:
     - require:
       - user: hgaccounts-user
 
+/srv/hg:
+  file.directory:
+    - user: hg
+    - group: hg
+    - mode: 0755
+
+/srv/hgaccounts:
+  file.directory:
+    - user: hgaccounts
+    - group: hgaccounts
+    - mode: 0755
+
 /srv/hg/bin:
   file.recurse:
     - source: salt://hg/files/hg/bin
@@ -163,6 +175,12 @@ apache2:
 enable_mod_qos:
   apache_module.enabled:
     - name: qos
+    - require:
+      - pkg: apache2
+
+enable_mod_unique_id:
+  apache_module.enabled:
+    - name: unique_id
     - require:
       - pkg: apache2
 
