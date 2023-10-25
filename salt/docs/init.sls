@@ -78,7 +78,6 @@ docsbuild-full:
     - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/scripts/build_docs.py
     - user: docsbuild
     - minute: 7
-    - hour: 0
     - require:
       - cmd: virtualenv-dependencies
 
