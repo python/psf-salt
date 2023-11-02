@@ -22,13 +22,13 @@ hg-user:
   file.directory:
     - user: hg
     - group: hg
-    - mode: 0755
+    - mode: "0755"
 
 /srv/hgaccounts:
   file.directory:
     - user: hgaccounts
     - group: hgaccounts
-    - mode: 0755
+    - mode: "0755"
 
 /srv/hg/bin:
   file.recurse:
@@ -64,7 +64,7 @@ hg-user:
   file.directory:
     - user: hg
     - group: hg
-    - mode: 755
+    - mode: "0755"
 
 /srv/hg/web:
   file.recurse:
