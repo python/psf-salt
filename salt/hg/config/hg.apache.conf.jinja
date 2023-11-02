@@ -1,10 +1,6 @@
-<IfModule mod_qos.c>
-    QS_ClientEventLimitCount 100 60
-    QS_ErrorResponseCode 429
-</IfModule>
-
 <VirtualHost _default_:9000>
-    ServerName hg.python.org
+    ServerName hg.psf.io
+    ServerAlias hg.python.org
 
     SSLEngine on
     SSLCertificateFile /etc/ssl/private/hg.psf.io.pem
