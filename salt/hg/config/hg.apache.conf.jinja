@@ -1,4 +1,11 @@
+#Configure rate limiting
+QS_ClientEventLimitCount 10 60 rate_limit
+QS_ClientEventPerSecLimit 1
+QS_ErrorResponseCode 429
+
 <VirtualHost _default_:9000>
+    SetEnvIf Request_URI / rate_limit=1
+
     ServerName hg.psf.io
     ServerAlias hg.python.org
 
