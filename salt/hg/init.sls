@@ -228,6 +228,15 @@ enable_mod_unique_id:
   file.symlink:
     - target: /etc/apache2/mods-available/rewrite.load
 
+/etc/apache2/rate_limit.conf:
+  file.managed:
+    - source: salt://hg/config/rate_limit.apache.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: apache2
 
 /etc/apache2/ports.conf:
   file.managed:
