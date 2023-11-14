@@ -1,7 +1,7 @@
-#Configure rate limiting
-QS_ClientEventLimitCount 10 60 rate_limit
-QS_ClientEventPerSecLimit 1
-QS_ErrorResponseCode 429
+# Configure rate limiting
+QS_ClientEventLimitCount {{pillar.get("rate_limit_config", {}).get("requests", 10) }} {{pillar.get("rate_limit_config", {}).get("per_second", 60) }} rate_limit
+QS_ClientEventPerSecond 1
+QS_ErrorResponseCode {{pillar.get("rate_limit_config", {}).get("response_code", 429)}}
 
 <VirtualHost _default_:9000>
     SetEnvIf Request_URI / rate_limit=1
