@@ -41,6 +41,7 @@ base:
   'hg':
     - match: nodegroup
     - firewall.rs-lb-backend
+    - rate-limit
 
   'loadbalancer':
     - match: nodegroup
