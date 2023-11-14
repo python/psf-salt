@@ -1,4 +1,4 @@
-rate_limit_config: | 
-  QS_ClientEventLimitCount 10 60 rate_limit
-  QS_ClientEventPerSecLimit 1
-  QS_ErrorResponseCode 429
+rate_limit_config:
+  requests:      120
+  per_second:    60
+  response_code: 429
