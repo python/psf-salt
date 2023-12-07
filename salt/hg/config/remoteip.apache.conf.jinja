@@ -1,0 +1,13 @@
+LoadModule remoteip_module modules/mod_remoteip.so
+
+RemoteIPHeader X-Forwarded-For
+RemoteIPInternalProxy {{pillar["psf_internal_network"] }}
+
+LogFormat "%a %l %u %t \"%r\" %>s %O \"%{X-Forwarded-For}i\" \"%{My-Header}i\"" custom
+
+<If "%{REMOTE_ADDR} -ipmatch '{{ pillar["psf_internal_network"] }}'">
+ Header set My-Header "inside"
+</If>
+
+QS_VipIpHeaderName "My-Header"
+
