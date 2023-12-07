@@ -184,6 +184,12 @@ enable_mod_unique_id:
     - require:
       - pkg: apache2
 
+enable_remoteip:
+  apache_module.enabled:
+    - name: remoteip
+    - require:
+      - pkg: apache2
+
 /etc/apache2/mods-enabled/headers.load:
   file.symlink:
     - target: /etc/apache2/mods-available/headers.load
