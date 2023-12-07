@@ -260,6 +260,23 @@ apache2:
     - group: root
     - mode: "0644"
 
+/etc/apache2/sites-available/remoteip.conf:
+  file.managed:
+    - source: salt://hg/config/remoteip.apache.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: apache2
+
+/etc/apache2/sites-enabled/remoteip.conf:
+  file.symlink:
+    - target: ../sites-available/remoteip.conf
+    - user: root
+    - group: root
+    - mode: "0644"
+
 /etc/apache2/REDIRECTS:
   file.directory:
     - user: root
