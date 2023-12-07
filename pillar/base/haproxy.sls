@@ -47,7 +47,7 @@ haproxy:
     hg:
       domains:
         - hg.python.org
-      check: "GET /test/rev/ea32503c754c HTTP/1.1\\r\\nHost:\\ hg.python.org"
+      check: "GET / HTTP/1.1\\r\\nHost:\\ hg.python.org"
       verify_host: hg.psf.io
 
     jobs:
