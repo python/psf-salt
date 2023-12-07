@@ -3,6 +3,14 @@ QS_ClientEventLimitCount {{pillar.get("rate_limit_config", {}).get("requests", 1
 QS_ClientEventPerSecLimit 1
 QS_ErrorResponseCode {{pillar.get("rate_limit_config", {}).get("response_code", 429)}}
 
+QS_VipIpHeaderName My-Header drop
+RemoteIPHeader X-Forwarded-For
+RemoteIPInternalProxy {{pillar["psf_internal_network"] }}
+
+<If "%{REMOTE_ADDR} -ipmatch '{{ pillar["psf_internal_network"] }}'">
+ Header set My-Header "inside"
+</If>
+
 <VirtualHost _default_:9000>
     SetEnvIf Request_URI / rate_limit=1
 
