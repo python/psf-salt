@@ -18,6 +18,24 @@ hg-user:
     - require:
       - user: hgaccounts-user
 
+/srv/hg:
+  file.directory:
+    - user: hg
+    - group: hg
+    - mode: "0755"
+
+/srv/hgaccounts:
+  file.directory:
+    - user: hgaccounts
+    - group: hgaccounts
+    - mode: "0755"
+
+/srv/hg/repos:
+  file.directory:
+    - user: hg
+    - group: hg
+    - mode: "0755"
+
 /srv/hg/bin:
   file.recurse:
     - source: salt://hg/files/hg/bin
