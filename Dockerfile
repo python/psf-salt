@@ -21,6 +21,9 @@ ENV LC_ALL en_US.UTF-8
 
 COPY ./docker/etc/ssl/private/dhparams.pem /etc/ssl/private/dhparams.pem
 
+# Install Vim
+RUN apt-get install -y vim
+
 # Needed to run systemd
 # VOLUME [ "/sys/fs/cgroup" ]
 # Doesn't appear to be necessary? See comments
