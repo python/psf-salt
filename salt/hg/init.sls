@@ -169,6 +169,8 @@ apache2:
       - file: /etc/apache2/sites-available/*
       - file: /etc/apache2/sites-enabled/*
       - file: /etc/apache2/mods-enabled/*
+      - file: /etc/apache2/conf-available/*
+      - file: /etc/apache2/conf-enabled/*
       - file: /etc/ssl/private/hg.psf.io.pem
 
 /etc/apache2/mods-enabled/remoteip.load:
