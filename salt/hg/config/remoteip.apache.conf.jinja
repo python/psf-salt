@@ -1,0 +1,22 @@
+# Load the mod_remoteip module
+LoadModule remoteip_module modules/mod_remoteip.so
+
+# Set an environment variable 'forwarded' if the XFF header is present
+SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
+
+# Define 'combined' and 'forwarded' log formats
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" forwarded
+
+# Specify location of error log file
+ErrorLog ${APACHE_LOG_DIR}/error.log
+
+# Configure access logs with conditional logging
+CustomLog ${APACHE_LOG_DIR}/access.log combined env=!forwarded
+CustomLog ${APACHE_LOG_DIR}/access.log forwarded env=forwarded
+
+# Configure mod_remoteip to update client IP using XFF header
+# Specify internal proxy ips to be trusted
+RemoteIPHeader X-Forwarded-For
+RemoteIPInternalProxy 127.0.0.1
+RemoteIpInternalProxy  {{ pillar["psf_internal_network"] }}

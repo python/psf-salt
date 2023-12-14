@@ -169,7 +169,13 @@ apache2:
       - file: /etc/apache2/sites-available/*
       - file: /etc/apache2/sites-enabled/*
       - file: /etc/apache2/mods-enabled/*
+      - file: /etc/apache2/conf-available/*
+      - file: /etc/apache2/conf-enabled/*
       - file: /etc/ssl/private/hg.psf.io.pem
+
+/etc/apache2/mods-enabled/remoteip.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/remoteip.load
 
 /etc/apache2/mods-enabled/headers.load:
   file.symlink:
@@ -256,6 +262,23 @@ apache2:
 /etc/apache2/sites-enabled/svn.conf:
   file.symlink:
     - target: ../sites-available/svn.conf
+    - user: root
+    - group: root
+    - mode: "0644"
+
+/etc/apache2/conf-available/remoteip.conf:
+  file.managed:
+    - source: salt://hg/config/remoteip.apache.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: apache2
+
+/etc/apache2/conf-enabled/remoteip.conf:
+  file.symlink:
+    - target: ../conf-available/remoteip.conf
     - user: root
     - group: root
     - mode: "0644"
