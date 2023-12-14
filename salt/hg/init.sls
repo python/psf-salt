@@ -173,6 +173,10 @@ apache2:
       - file: /etc/apache2/conf-enabled/*
       - file: /etc/ssl/private/hg.psf.io.pem
 
+/etc/apache2/mods-enabled/qos.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/qos.load
+
 /etc/apache2/mods-enabled/remoteip.load:
   file.symlink:
     - target: /etc/apache2/mods-available/remoteip.load
