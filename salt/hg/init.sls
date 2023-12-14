@@ -283,6 +283,23 @@ apache2:
     - group: root
     - mode: "0644"
 
+/etc/apache2/conf-available/ratelimit.conf:
+  file.managed:
+    - source: salt://hg/config/ratelimit.apache.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: apache2
+
+/etc/apache2/conf-enabled/ratelimit.conf:
+  file.symlink:
+    - target: ../conf-available/ratelimit.conf
+    - user: root
+    - group: root
+    - mode: "0644"
+
 /etc/apache2/REDIRECTS:
   file.directory:
     - user: root
