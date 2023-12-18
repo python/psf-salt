@@ -159,6 +159,7 @@ apache2:
     - pkgs:
       - apache2
       - libapache2-mod-wsgi
+      - libapache2-mod-qos
   service.running:
     - enable: True
     - reload: True
@@ -225,6 +226,9 @@ apache2:
   file.symlink:
     - target: /etc/apache2/mods-available/rewrite.load
 
+/etc/apache2/mods-enabled/unique_id.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/unique_id.load
 
 /etc/apache2/ports.conf:
   file.managed:
