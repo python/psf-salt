@@ -1,5 +1,13 @@
+# Configure rate limiting
+QS_ClientEventLimitCount {{pillar.get("rate_limit_config", {}).get("requests", 10) }} {{pillar.get("rate_limit_config", {}).get("per_second", 60) }} rate_limit
+QS_ClientEventPerSecLimit 1
+QS_ErrorResponseCode {{pillar.get("rate_limit_config", {}).get("response_code", 429)}}
+
 <VirtualHost _default_:9000>
-    ServerName hg.python.org
+    SetEnvIf Request_URI / rate_limit=1
+
+    ServerName hg.psf.io
+    ServerAlias hg.python.org
 
     SSLEngine on
     SSLCertificateFile /etc/ssl/private/hg.psf.io.pem
