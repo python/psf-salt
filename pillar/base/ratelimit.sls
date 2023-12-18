@@ -1,4 +1,4 @@
 rate_limit_config:
-  requests: 120
-  per_second: 10
+  requests: 1
+  per_second: 1
   resposne_code: 429
