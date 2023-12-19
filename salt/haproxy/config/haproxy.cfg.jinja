@@ -95,6 +95,11 @@ listen tls:
 
     option httplog
 
+    # Capture the user agent in the log
+    capture request header User-Agent len 512
+    # Capture X-Forwarded-For in the log
+    capture request header X-Forwarded-For len 64
+
     http-request set-header X-Client-IP %[src]
 
     server default 127.0.0.1:19001
@@ -112,6 +117,8 @@ frontend main
 
     # Capture the user agent in the log
     capture request header User-Agent len 512
+    # Capture X-Forwarded-For in the log
+    capture request header X-Forwarded-For len 64
 
     acl letsencrypt-well-known-acl path_beg /.well-known/acme-challenge/
     use_backend letsencrypt-well-known if letsencrypt-well-known-acl
