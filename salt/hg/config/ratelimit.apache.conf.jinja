@@ -2,9 +2,3 @@
 QS_ClientEventLimitCount {{pillar.get("rate_limit_config", {}).get("requests", 10) }} {{pillar.get("rate_limit_config", {}).get("per_second", 60) }} rate_limit
 QS_ClientEventPerSecLimit 1
 QS_ErrorResponseCode {{pillar.get("rate_limit_config", {}).get("response_code", 429)}}
-
-# Configure VIP Ip Header Name to include our loadbalancer and prevent it from getting rate limited
-QS_VipIpHeaderName My-Header drop
-<If "%{REMOTE_ADDR} -ipmatch '{{ pillar["psf_internal_network"] }}'">
- Header set My-Header "inside"
-</If>
