@@ -37,7 +37,8 @@ Vagrant.configure("2") do |config|
     override.vm.box = nil
     override.ssh.insert_key = true
 
-    docker.build_dir = 'dockerfiles/focal'
+    docker.build_dir = 'dockerfiles'
+    docker.dockerfile = 'Dockerfile.focal'
     docker.has_ssh = true
     docker.remains_running = true
     docker.privileged = true
@@ -46,7 +47,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "salt-master" do |s_config|
     # Uncomment below to migrate salt-master to jammy
     # s_config.vm.provider "docker" do |docker, override|
-    #   docker.build_dir = "dockerfiles/jammy"
+    #   docker.build_dir = "dockerfiles"
+    #   docker.dockerfile = "Dockerfile.jammy"
     # end
 
     s_config.vm.hostname = "salt-master.vagrant.psf.io"
@@ -105,7 +107,8 @@ Vagrant.configure("2") do |config|
 
       if codename == "jammy"
         s_config.vm.provider "docker" do |d|
-          d.build_dir = "dockerfiles/jammy"
+          d.build_dir = "dockerfiles"
+          d.dockerfile = "Dockerfile.jammy"
         end
       end
 
