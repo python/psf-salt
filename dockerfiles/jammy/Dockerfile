@@ -3,7 +3,7 @@
 # Adds SSH daemon, Systemd
 # Adapted from https://github.com/BashtonLtd/docker-vagrant-images/blob/master/ubuntu1404/Dockerfile
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 ENV container docker
 
 RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo $TZ > /etc/timezone
@@ -14,12 +14,12 @@ RUN apt-get update -y && apt-get dist-upgrade -y
 RUN apt-get install -y --no-install-recommends ssh sudo libffi-dev systemd openssh-client wget gnupg-utils gnupg apt-utils ca-certificates dbus locales cron dialog rsyslog iproute2 logrotate
 
 RUN locale-gen en_US.UTF-8
-COPY ./docker/etc/locale.conf /etc/locale.conf
+COPY ./etc/locale.conf /etc/locale.conf
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-COPY ./docker/etc/ssl/private/dhparams.pem /etc/ssl/private/dhparams.pem
+COPY ./etc/ssl/private/dhparams.pem /etc/ssl/private/dhparams.pem
 
 # Install Vim
 RUN apt-get install -y vim

@@ -37,13 +37,18 @@ Vagrant.configure("2") do |config|
     override.vm.box = nil
     override.ssh.insert_key = true
 
-    docker.build_dir = '.'
+    docker.build_dir = 'dockerfiles/focal'
     docker.has_ssh = true
     docker.remains_running = true
     docker.privileged = true
   end
 
   config.vm.define "salt-master" do |s_config|
+    # Uncomment below to migrate salt-master to jammy
+    # s_config.vm.provider "docker" do |docker, override|
+    #   docker.build_dir = "dockerfiles/jammy"
+    # end
+
     s_config.vm.hostname = "salt-master.vagrant.psf.io"
     s_config.vm.network "private_network", ip: MASTER1
     s_config.vm.network "private_network", ip: MASTER2
@@ -96,6 +101,12 @@ Vagrant.configure("2") do |config|
     config.vm.define server, autostart: false do |s_config|
       if box
         s_config.vm.box = box
+      end
+
+      if codename == "jammy"
+        s_config.vm.provider "docker" do |d|
+          d.build_dir = "dockerfiles/jammy"
+        end
       end
 
       s_config.vm.hostname = "#{server}.vagrant.psf.io"
