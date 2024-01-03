@@ -95,13 +95,13 @@ haproxy:
     letsencrypt-well-known:
       domains: []
       verify_host: salt.psf.io
-      check: "GET /.well-known/acme-challenge/sentinel HTTP/1.1\\r\\nHost:\\ salt.psf.io"
+      check: "GET /.well-known/acme-challenge/sentinel-fail HTTP/1.1\\r\\nHost:\\ salt.psf.io" 
 
     publish-files:
       domains:
         - salt-public.psf.io
       verify_host: salt.psf.io
-      check: "GET /salt-server-list.rst HTTP/1.1\\r\\nHost:\\ salt-public.psf.io"
+      check: "GET /salt-server-list-fail.rst HTTP/1.1\\r\\nHost:\\ salt-public.psf.io"
 
   redirects:
     cheeseshop.python.org:
