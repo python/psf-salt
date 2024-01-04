@@ -29,12 +29,7 @@ MASTER2 = "#{SUBNET2}.2"
 
 
 Vagrant.configure("2") do |config|
-  config.vm.provider "vmware" do |config|
-    config.vm.box = "hashicorp/bionic64"
-  end
-
   config.vm.provider "docker" do |docker, override|
-    override.vm.box = nil
     override.ssh.insert_key = true
 
     docker.build_dir = 'dockerfiles'
@@ -89,27 +84,19 @@ Vagrant.configure("2") do |config|
     if server_c.instance_of?(Hash)
       server = server_c[:name]
       roles = server_c.fetch :roles, [server]
-      box = server_c.fetch :box, nil
-      codename = server_c.fetch :codename, "bionic"
+      codename = server_c.fetch :codename, "focal"
       ports = server_c.fetch :ports, []
     else
       server = server_c
       roles = [server_c]
-      box = nil
-      codename = "bionic"
+      codename = "focal"
       ports = []
     end
 
     config.vm.define server, autostart: false do |s_config|
-      if box
-        s_config.vm.box = box
-      end
-
-      if codename == "jammy"
-        s_config.vm.provider "docker" do |d|
-          d.build_dir = "dockerfiles"
-          d.dockerfile = "Dockerfile.jammy"
-        end
+      s_config.vm.provider "docker" do |d|
+        d.build_dir = "dockerfiles"
+        d.dockerfile = "Dockerfile." + codename
       end
 
       s_config.vm.hostname = "#{server}.vagrant.psf.io"
