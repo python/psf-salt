@@ -21,8 +21,9 @@ ENV LC_ALL en_US.UTF-8
 
 COPY ./etc/ssl/private/dhparams.pem /etc/ssl/private/dhparams.pem
 
-# Install Vim
+# Install Vim and Curl
 RUN apt-get install -y vim
+RUN apt-get install -y curl
 
 # Needed to run systemd
 # VOLUME [ "/sys/fs/cgroup" ]
@@ -48,8 +49,8 @@ RUN /usr/sbin/sshd
 
 # Setup Salt Common
 
-RUN wget --quiet -O /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004/salt-archive-keyring.gpg
-RUN echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004 focal main" > /etc/apt/sources.list.d/salt.list
+RUN sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/$(dpkg --print-architecture)/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/salt/py3/ubuntu/22.04/$(dpkg --print-architecture)/latest jammy main" | sudo tee /etc/apt/sources.list.d/salt.list
 RUN apt-get update -y && apt-get install -y --no-install-recommends salt-minion
 
 # Start Systemd (systemctl)
