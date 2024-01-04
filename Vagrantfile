@@ -7,7 +7,7 @@ SERVERS = [
   "buildbot",
   "cdn-logs",
   "codespeed",
-  "consul",
+  {:name => "consul", :codename => "jammy"},
   "docs",
   "downloads",
   "hg",
@@ -46,10 +46,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "salt-master" do |s_config|
     # Uncomment below to migrate salt-master to jammy
-    # s_config.vm.provider "docker" do |docker, override|
-    #   docker.build_dir = "dockerfiles"
-    #   docker.dockerfile = "Dockerfile.jammy"
-    # end
+    s_config.vm.provider "docker" do |docker, override|
+      docker.build_dir = "dockerfiles"
+      docker.dockerfile = "Dockerfile.jammy"
+    end
 
     s_config.vm.hostname = "salt-master.vagrant.psf.io"
     s_config.vm.network "private_network", ip: MASTER1
