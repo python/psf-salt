@@ -6,6 +6,16 @@ python-requests:
 python-msgpack:
   pkg.latest:
     - name: python3-msgpack
+
+{% elif grains["oscodename"] == "jammy" %}
+python-requests:
+  pkg.latest:
+    - name: python3-requests
+
+python-msgpack:
+  pkg.latest:
+    - name: python3-msgpack
+
 {% else %}
 python-requests:
   pkg.latest
