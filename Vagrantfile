@@ -7,7 +7,7 @@ SERVERS = [
   "buildbot",
   "cdn-logs",
   "codespeed",
-  "consul",
+  {:name => "consul", :codename => "jammy"},
   "docs",
   "downloads",
   "hg",
