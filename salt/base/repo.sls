@@ -7,9 +7,10 @@
 
 psf:
   pkgrepo.managed:
-    - name: "deb https://packagecloud.io/psf/infra/ubuntu {{ grains['oscodename'] }} main"
+    - name: "deb [signed-by=/etc/apt/keyrings/packagecloud.gpg arch={{ grains["osarch"] }}] https://packagecloud.io/psf/infra/ubuntu {{ grains['oscodename'] }} main"
     - file: /etc/apt/sources.list.d/psf.list
     - key_url: salt://base/config/APT-GPG-KEY-PSF
+    - aptkey: False
 
 # Make source list globally readable.
 /etc/apt/sources.list.d/psf.list:
