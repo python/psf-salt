@@ -1,8 +1,9 @@
 datadog_repo:
   pkgrepo.managed:
-    - name: "deb https://apt.datadoghq.com stable 6"
+    - name: "deb [signed-by=/etc/apt/keyrings/datadoghq.gpg arch={{ grains["osarch"] }}]  https://apt.datadoghq.com stable 6"
     - file: /etc/apt/sources.list.d/datadog.list
     - key_url: salt://datadog/config/APT-GPG-KEY-DATADOG
+    - aptkey: False
 
 {% set in_datadog_tags = pillar.get('datadog_tags', []) + grains.get('datadog_tags', []) + grains.get('datadog_tags_from_metadata', []) %}
 {% set datadog_tags = [] %}
