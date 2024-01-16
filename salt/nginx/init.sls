@@ -1,9 +1,13 @@
 nginx:
   pkgrepo.managed:
+    {% if grains["oscodename"] == "jammy" %}
     - name: deb [signed-by=/etc/apt/keyrings/nginx.gpg arch={{ grains["osarch"] }}] http://nginx.org/packages/ubuntu {{ grains.oscodename }} nginx
+    - aptkey: False
+    {% else %}
+    - name: deb http://nginx.org/packages/ubuntu {{ grains.oscodename }} nginx
+    {% endif %}
     - file: /etc/apt/sources.list.d/nginx.list
     - key_url: salt://nginx/config/APT-GPG-KEY-NGINX
-    - aptkey: False
     - order: 2
     - require_in:
       - pkg: nginx
