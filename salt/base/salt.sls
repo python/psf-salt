@@ -6,6 +6,16 @@ python-requests:
 python-msgpack:
   pkg.latest:
     - name: python3-msgpack
+
+{% elif grains["oscodename"] == "jammy" %}
+python-requests:
+  pkg.latest:
+    - name: python3-requests
+
+python-msgpack:
+  pkg.latest:
+    - name: python3-msgpack
+
 {% else %}
 python-requests:
   pkg.latest
@@ -24,6 +34,11 @@ salt-2018.3:
     {% if grains["oscodename"] == "focal" %}
     - name: deb https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004 focal main
     - key_url: https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004/salt-archive-keyring.gpg
+    {% elif grains["oscodename"] == "jammy" %}
+    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.gpg arch={{ grains["osarch"] }}] https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/latest jammy main
+    - file: /etc/apt/sources.list.d/salt.list
+    - key_url: https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+    - aptkey: False
     {% else %}
     - name: deb http://archive.repo.saltstack.com/py3/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
     - key_url: https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub

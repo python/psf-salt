@@ -47,9 +47,8 @@ EXPOSE 22
 RUN /usr/sbin/sshd
 
 # Setup Salt Common
-
-RUN wget --quiet -O /etc/apt/keyrings/SALT-PROJECT-GPG-PUBKEY-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/$(dpkg --print-architecture)/SALT-PROJECT-GPG-PUBKEY-2023.gpg
-RUN echo "deb [signed-by=/etc/apt/keyrings/SALT-PROJECT-GPG-PUBKEY-2023.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/salt/py3/ubuntu/22.04/$(dpkg --print-architecture)/3006 jammy main" > /etc/apt/sources.list.d/saltstack.list
+RUN wget --quiet -O /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/$(dpkg --print-architecture)/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/salt/py3/ubuntu/22.04/$(dpkg --print-architecture)/3006 jammy main" > /etc/apt/sources.list.d/salt.list
 RUN apt-get update -y && apt-get install -y --no-install-recommends salt-minion
 
 # Start Systemd (systemctl)
