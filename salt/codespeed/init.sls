@@ -9,10 +9,12 @@ codespeed-deps:
     - pkgs:
       - git
       - mercurial
-      - python-dev
       - python3-dev
-      - python-virtualenv
       - python3-virtualenv
+      {% if grains["oscodename"] != "jammy" %}
+      - python-dev
+      - python-virtualenv
+      {% endif %}
       - build-essential
       - libpq-dev
 
