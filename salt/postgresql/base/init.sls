@@ -3,7 +3,7 @@ postgresql-key:
   file.managed:
     - name: /etc/apt/keyrings/postgresql.asc
     - mode: "0644"
-    - source: salt://postgresql/base/APT-GPG-KEY-POSTGRESQL-NEW
+    - source: salt://postgresql/base/APT-GPG-KEY-POSTGRESQL
 
 postgresql-repo:
   pkgrepo.managed:
