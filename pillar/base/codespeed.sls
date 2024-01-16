@@ -5,7 +5,7 @@ codespeed-instances:
     db_name: codespeed-cpython
     port: 9000
     source: https://github.com/python/codespeed.git
-    source_ref: speed.python.org
+    source_ref: old-speed.python.org
     python_version: python3
     module: speed_python
     wsgi_app: speed_python.wsgi:application
