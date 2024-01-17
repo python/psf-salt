@@ -15,7 +15,6 @@ SERVERS = [
   "mail",
   "moin",
   "planet",
-  "postgresql-primary",
   "pypy-web",
   "pythontest",
   "web-pypa",

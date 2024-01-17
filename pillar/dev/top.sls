@@ -67,25 +67,15 @@ base:
     - planet
     - firewall.http
 
-  'postgresql':
-    - match: nodegroup
-    - firewall.postgresql
-    - postgresql.server
-    - postgres.databases
-
-  'postgresql-primary':
-    - match: nodegroup
-    - secrets.postgresql-admin
-    - secrets.postgresql-users.all
-
-  'postgresql-replica':
-    - match: nodegroup
-    - secrets.postgresql-users.replica
-
   'salt-master':
     - match: nodegroup
     - firewall.salt
     - pebble
+    - firewall.postgresql
+    - postgresql.server
+    - postgres.databases
+    - secrets.postgresql-admin
+    - secrets.postgresql-users.all
 
   'tracker':
     - match: nodegroup
