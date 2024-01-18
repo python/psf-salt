@@ -24,3 +24,9 @@ Manually managed hosts
 +==============================+==============================================+=============+===============+=========================+
 | speed-python.osuosl.org      | Python Speed                                 | noah        | OSUOSL        | OSUOSL                  |
 +------------------------------+----------------------------------------------+-------------+---------------+-------------------------+
+
+--------------------
+Validating Host Keys
+--------------------
+
+Salt keeps an ssh `known_hosts` compatible list up to date for download at `<https://salt-public.psf.io/psf_known_hosts>`_
