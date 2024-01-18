@@ -55,11 +55,11 @@ roles:
     purpose: ""
     contact: ""
   postgresql:
-    pattern: "postgresql-*.vagrant.psf.io"
+    pattern: "salt-master.vagrant.psf.io"
     purpose: ""
     contact: ""
   postgresql-primary:
-    pattern: "postgresql-primary.vagrant.psf.io"
+    pattern: "salt-master.vagrant.psf.io"
     purpose: ""
     contact: ""
   postgresql-replica:

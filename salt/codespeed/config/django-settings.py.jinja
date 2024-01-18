@@ -14,7 +14,7 @@ DATABASES = {
         "USER": "{{ db_user}}",
         "PASSWORD": "{{ db_pass }}",
         "OPTIONS": {
-            "sslmode": "verify-full",
+            "sslmode": "verify-ca",
             "sslrootcert": "{{ db_cert }}",
         },
     }
