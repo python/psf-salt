@@ -5,8 +5,8 @@ LoadModule remoteip_module modules/mod_remoteip.so
 SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
 
 # Define 'combined' and 'forwarded' log formats
-LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
-LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" forwarded
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %a -combined " combined
+LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" -forwarded " forwarded
 
 # Specify location of error log file
 ErrorLog ${APACHE_LOG_DIR}/error.log
