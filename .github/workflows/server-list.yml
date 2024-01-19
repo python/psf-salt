@@ -1,0 +1,29 @@
+name: Update Server List
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-server-list:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Update salt-server-list.rst
+      run: |
+        wget --quiet -O docs/salt-server-list.rst https://salt-public.psf.io/salt-server-list.rst
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        commit-message: Update docs/salt-server-list.rst
+        branch: salt-server-list
+        delete-branch: true
+        title: 'Update docs/salt-server-list.rst'
+        body: |
+          Update detected from https://salt-public.psf.io/salt-server-list.rst
