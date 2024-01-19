@@ -1,6 +1,8 @@
 name: Update Server List
 
 on:
+  schedule:
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
