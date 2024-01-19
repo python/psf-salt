@@ -11,7 +11,7 @@ roles:
     purpose:  "Automated backup of infrastructure"
     contact:  "Infrastructure staff"
   bugs:
-    pattern:  "bugs.ams1.psf.io"
+    pattern:  "bugs.*.psf.io"
     purpose:  "Roundup hosting for CPython, Jython, and Roundup"
     contact:  "Infrastructure staff"
   buildbot:
