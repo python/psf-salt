@@ -8,7 +8,7 @@
 
 
    "backup.sfo1.psf.io", "Automated backup of infrastructure", "Infrastructure staff", "Ubuntu-20.04", "sfo1"
-   "bugs.ams1.psf.io", "Roundup hosting for CPython, Jython, and Roundup", "Infrastructure staff", "Ubuntu-16.04", "ams1"
+   "bugs.nyc1.psf.io", "Roundup hosting for CPython, Jython, and Roundup", "Infrastructure staff", "Ubuntu-22.04", "nyc1"
    "buildbot.nyc1.psf.io", "Hosting for CPython buildbot server", "zware, haypo, pablogsa", "Ubuntu-20.04", "nyc1"
    "cdn-logs.nyc1.psf.io", "Realtime log streaming from Fastly CDN for debug", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
    "codespeed.nyc1.psf.io", "Hosting for speed.python.org and speed.pypy.org", "", "Ubuntu-22.04", "nyc1"
