@@ -3,7 +3,7 @@
 
 SERVERS = [
   "backup-server",
-  {:name => "bugs", :box => "ubuntu/xenial64", :codename => "xenial", :ports => [8080]},
+  {:name => "bugs", :codename => "jammy", :ports => [8080]},
   "buildbot",
   "cdn-logs",
   {:name => "codespeed", :codename => "jammy"},

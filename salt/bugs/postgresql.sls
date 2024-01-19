@@ -2,7 +2,7 @@
 pgdg-repo:
   pkgrepo.managed:
     - humanname: PostgresSQL Global Development Group
-    - name: deb http://apt-archive.postgresql.org/pub/repos/apt {{ grains['oscodename'] }}-pgdg main
+    - name: deb http://apt.postgresql.org/pub/repos/apt {{ grains['oscodename'] }}-pgdg main
     - file: /etc/apt/sources.list.d/pgdg.list
     - gpgcheck: 1
     - key_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -11,12 +11,12 @@ pgdg-repo:
 postgresql-server:
   pkg.installed:
     - pkgs:
-      - postgresql-10
+      - postgresql-16
 
 clear_default_cluster:
   postgres_cluster.absent:
     - name: 'main'
-    - version: '10'
+    - version: '16'
     - require:
       - pkg: postgresql-server
 
@@ -38,21 +38,21 @@ roundup_postgres_wal_archives:
 roundup_cluster:
   postgres_cluster.present:
     - name: 'roundup'
-    - version: '10'
+    - version: '16'
     - locale: 'en_US.UTF-8'
     - encoding: 'UTF8'
-    - datadir: '/srv/postgresql/10/roundup'
+    - datadir: '/srv/postgresql/16/roundup'
     - require:
       - pkg: postgresql-server
 
 roundup_postgres_config:
   file.managed:
-    - name: /etc/postgresql/10/roundup/conf.d/roundup.conf
+    - name: /etc/postgresql/16/roundup/conf.d/roundup.conf
     - source: salt://bugs/config/postgresql.conf
     - user: postgres
     - group: postgres
 
-postgresql@10-roundup:
+postgresql@16-roundup:
   service.running:
     - restart: True
     - enable: True
