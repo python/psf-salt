@@ -128,7 +128,8 @@ salt-master:
 
 /etc/nginx/sites.d/realip.conf:
   file.managed:
-    - source: salt://base/config/realip-nginx.conf
+    - source: salt://base/config/realip-nginx.jinja.conf
+    - template: jinja
     - user: root
     - group: root
     - mode: "0644"
