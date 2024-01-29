@@ -126,6 +126,15 @@ salt-master:
     - group: root
     - mode: "0644"
 
+/etc/nginx/sites.d/realip.conf:
+  file.managed:
+    - source: salt://base/config/realip-nginx.conf
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+       - file: /etc/nginx/sites.d/
+
 /etc/nginx/sites.d/publish-files.conf:
   file.managed:
     - source: salt://base/config/publish-files-nginx.conf
