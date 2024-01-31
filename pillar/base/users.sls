@@ -9,12 +9,6 @@ users:
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBnWofdFIY68N19Q04fiWKPYx+dcpc7nmU10IyOyon2KJa5blCDoxFOemOeWl8doAfFO2qhprQ2YhNABes3pZOc= ee@chungus
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBt9u0P2LhONN5ngUmtU8GupeRXp+BKXnq9Pmx6r6vE8iJ1MQCeRroiNpJ5C8Lr+2yCgsRK5pLndKOowIz5hFPY= ee@pancack
 
-  chloe:
-    fullname: "Chloe Gerhardson"
-    admin: True
-    ssh_keys:
-      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCGR9HmTHRbpGL3fSGG8f9XvAvmymfb5WZTgiIskvmpc054SHV/9sbq13toPcJOFtxQ1Gk33xAPcMohbI6rJ0Vw= Chloes-MacBook-Pro@secretive.Chloe’s-MacBook-Pro.local
-
   dstufft:
     fullname: "Donald Stufft"
     admin: True
