@@ -94,6 +94,15 @@ nginx:
     - require:
       - pkg: nginx
 
+/etc/nginx/sites.d/realip.conf:
+  file.managed:
+    - source: salt://nginx/config/realip-nginx.jinja.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - file: /etc/nginx/sites.d/
 
 /etc/logrotate.d/nginx:
   file.managed:
