@@ -20,7 +20,6 @@ global systems such as DNS. The currrent team members are:
 * Alex Gaynor (has no responsibilities)
 * Benjamin Peterson
 * Benjamin W. Smith
-* Chloe Gerhardson (PSF Infrastructure Engineer)
 * Donald Stufft
 * Ee Durbin (PSF Director of Infrastructure)
 * Noah Kantrowitz
