@@ -447,4 +447,5 @@ users:
     access:
       cdn-logs:
         allowed: true
-
+        groups:
+          - adm
