@@ -267,6 +267,11 @@ users:
       mail:
         allowed: True
         sudo: True
+      moin:
+        sudo: True
+        allowed: True
+        groups:
+          - moin
 
   mdk:
     fullname: "Julien Palard"
