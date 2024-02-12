@@ -53,8 +53,8 @@ This requires configuration on the master like::
           name: PSF_CA
           cert_opts:
             C: US
-            ST: NH
-            L: Wolfeboro
+            ST: Oregon
+            L: Beaverton
             O: Python Software Foundation
             OU: Infrastructure Team
             emailAddress: infrastructure@python.org
