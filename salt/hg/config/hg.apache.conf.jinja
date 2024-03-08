@@ -1,5 +1,9 @@
 <VirtualHost _default_:9000>
-    ServerName hg.python.org
+    # The line below applies rate limiting rules, configred in ratelimit.apache.conf.jinja
+    SetEnvIf Request_URI / rate_limit=1
+
+    ServerName hg.psf.io
+    ServerAlias hg.python.org
 
     SSLEngine on
     SSLCertificateFile /etc/ssl/private/hg.psf.io.pem

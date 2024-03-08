@@ -159,6 +159,7 @@ apache2:
     - pkgs:
       - apache2
       - libapache2-mod-wsgi
+      - libapache2-mod-qos
   service.running:
     - enable: True
     - reload: True
@@ -172,6 +173,10 @@ apache2:
       - file: /etc/apache2/conf-available/*
       - file: /etc/apache2/conf-enabled/*
       - file: /etc/ssl/private/hg.psf.io.pem
+
+/etc/apache2/mods-enabled/qos.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/qos.load
 
 /etc/apache2/mods-enabled/remoteip.load:
   file.symlink:
@@ -221,6 +226,9 @@ apache2:
   file.symlink:
     - target: /etc/apache2/mods-available/rewrite.load
 
+/etc/apache2/mods-enabled/unique_id.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/unique_id.load
 
 /etc/apache2/ports.conf:
   file.managed:
@@ -279,6 +287,23 @@ apache2:
 /etc/apache2/conf-enabled/remoteip.conf:
   file.symlink:
     - target: ../conf-available/remoteip.conf
+    - user: root
+    - group: root
+    - mode: "0644"
+
+/etc/apache2/conf-available/ratelimit.conf:
+  file.managed:
+    - source: salt://hg/config/ratelimit.apache.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: apache2
+
+/etc/apache2/conf-enabled/ratelimit.conf:
+  file.symlink:
+    - target: ../conf-available/ratelimit.conf
     - user: root
     - group: root
     - mode: "0644"
