@@ -1,4 +1,4 @@
-git:
+dstufft-git:
   pkg.installed
 
 https://github.com/dstufft/dotfiles.git:
@@ -9,7 +9,7 @@ https://github.com/dstufft/dotfiles.git:
     - force_checkout: True
     - force_reset: True
     - require:
-      - pkg: git
+      - pkg: dstufft-git
       - user: dstufft
 
 /home/psf-users/dstufft/.zshenv:
