@@ -1,4 +1,4 @@
-{% if pillar.get('pebble', default={'enabled': False}).enabled %}
+{% if pillar.get('pebble', {'enabled': False}).enabled %}
 pebble-build-deps:
   pkg.installed:
     - pkgs:
