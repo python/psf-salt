@@ -1,5 +1,6 @@
 dstufft-git:
-  pkg.installed
+  pkg.installed:
+    - name: git
 
 https://github.com/dstufft/dotfiles.git:
   git.latest:
