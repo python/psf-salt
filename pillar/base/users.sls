@@ -247,7 +247,7 @@ users:
         allowed: True
         sudo: True
         groups:
-          -mailman
+          - mailman
 
   hildeb:
     fullname: "Ralf Hildebrandt"
