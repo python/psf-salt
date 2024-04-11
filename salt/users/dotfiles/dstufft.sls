@@ -7,6 +7,7 @@ https://github.com/dstufft/dotfiles.git:
     - user: dstufft
     - force_clone: True
     - force_checkout: True
+    - force_reset: True
     - require:
       - pkg: git
       - user: dstufft
