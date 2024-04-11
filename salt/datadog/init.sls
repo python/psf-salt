@@ -1,13 +1,24 @@
+{% if grains["oscodename"] == "jammy" %}
+datadogkey:
+  file.managed:
+    - name: /etc/apt/keyrings/datadog.asc
+    - mode: "0644"
+    - source: salt://datadog/config/APT-GPG-KEY-DATADOG
+
 datadog_repo:
   pkgrepo.managed:
-    {% if grains["oscodename"] == "jammy" %}
-    - name: "deb [signed-by=/etc/apt/keyrings/datadoghq.gpg arch={{ grains["osarch"] }}]  https://apt.datadoghq.com stable 6"
+    - name: "deb [signed-by=/etc/apt/keyrings/datadog.asc arch={{ grains["osarch"] }}]  https://apt.datadoghq.com stable 6"
     - aptkey: False
-    {% else %}
-    - name: "deb https://apt.datadoghq.com stable 6"
-    {% endif %}
-    - key_url: salt://datadog/config/APT-GPG-KEY-DATADOG
     - file: /etc/apt/sources.list.d/datadog.list
+    - require:
+      - file: datadogkey
+{% else %}
+datadog_repo:
+  pkgrepo.managed:
+    - name: "deb https://apt.datadoghq.com stable 6"
+    - file: /etc/apt/sources.list.d/datadog.list
+    - key_url: salt://datadog/config/APT-GPG-KEY-DATADOG
+{% endif %}
 
 {% set in_datadog_tags = pillar.get('datadog_tags', []) + grains.get('datadog_tags', []) + grains.get('datadog_tags_from_metadata', []) %}
 {% set datadog_tags = [] %}

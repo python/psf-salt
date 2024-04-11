@@ -89,7 +89,6 @@ salt-master:
     - mode: "0644"
     - require:
       - file: /etc/nginx/sites.d/
-      - sls: tls.lego
 
 /etc/consul.d/service-letsencrypt-well-known.json:
   file.managed:

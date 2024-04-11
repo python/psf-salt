@@ -25,7 +25,6 @@ lego_config:
     - group: root
     - mode: "0644"
     - require:
-      - sls: tls.lego
       - cmd: lego_bootstrap
 
 roundup-deps:
