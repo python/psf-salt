@@ -33,6 +33,7 @@ bugs:
             spambayes_ham_cutoff: "0.2"
             spambayes_spam_cutoff: "0.85"
             ciavc_server: "http://CIA.vc"
+      accept_email: False
     jython:
       source: https://github.com/psf/bpo-tracker-jython.git
       server_name: bugs.jython.org
@@ -56,6 +57,7 @@ bugs:
             spambayes_uri: "http://localhost:8001/sbrpc"
             spambayes_ham_cutoff: "0.2"
             spambayes_spam_cutoff: "0.85"
+      accept_email: True
     roundup:
       source: https://github.com/psf/bpo-tracker-roundup.git
       server_name: issues.roundup-tracker.org
@@ -77,6 +79,7 @@ bugs:
           nosy__email_sending: "multiple"
           extra_config: {}
       detector_config: {}
+      accept_email: True
   defaults:
       main__database: "db"
       main__template_engine: "zopetal"

@@ -154,6 +154,62 @@ tracker-nginx-extras:
     - require:
       - pkg: nginx
 
+/etc/postfix/main.cf:
+  file.managed:
+    - source: salt://bugs/config/postfix/main.cf
+    - user: root
+    - group: root
+    - mode: "0644"
+    - template: jinja
+    - require:
+      - pkg: roundup-deps
+      - cmd: lego_bootstrap
+
+/etc/postfix/virtual:
+  file.managed:
+    - source: salt://bugs/config/postfix/virtual
+    - user: root
+    - group: root
+    - mode: "0644"
+    - template: jinja
+    - require:
+      - file: /etc/postfix/main.cf
+
+map-virtual:
+  cmd.run:
+    - name: postmap /etc/postfix/virtual
+    - onchanges:
+      - file: /etc/postfix/virtual
+
+/etc/postfix/reject_recipients:
+  file.managed:
+    - source: salt://bugs/config/postfix/reject_recipients
+    - user: root
+    - group: root
+    - mode: "0644"
+    - template: jinja
+    - require:
+      - file: /etc/postfix/main.cf
+
+map-reject_recipients:
+  cmd.run:
+    - name: postmap /etc/postfix/reject_recipients
+    - onchanges:
+      - file: /etc/postfix/reject_recipients
+
+postfix:
+  service.running:
+    - enable: True
+    - reload: True
+    - require:
+      - file: /etc/postfix/main.cf
+      - file: /etc/postfix/virtual
+      - file: /etc/postfix/reject_recipients
+    - watch_any:
+      - file: /etc/postfix/main.cf
+      - file: /etc/postfix/virtual
+      - file: /etc/postfix/reject_recipients
+
 {% for tracker, config in pillar["bugs"]["trackers"].items() %}
 tracker-{{ tracker }}-database:
   postgres_database.present:
