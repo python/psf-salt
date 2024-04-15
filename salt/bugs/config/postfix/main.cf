@@ -46,7 +46,7 @@ recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
 
-virtual_alias_domains ={%- for domain in pillar['bugs']['subject_alternative_names']  %} {{ domain }}{%- endfor %}
+virtual_alias_domains = {% for tracker, config in pillar["bugs"]["trackers"].items() %}{% set tracker_email_list = config["config"]["tracker__email"].split('@') %}{{ tracker_email_list[-1] }} {% endfor %}
 virtual_alias_maps = hash:/etc/postfix/virtual
 
 smtpd_recipient_restrictions = check_recipient_access hash:/etc/postfix/reject_recipients
