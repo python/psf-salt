@@ -1,0 +1,3 @@
+{% for tracker, config in pillar["bugs"]["trackers"].items() %}{% if config.get("accept_email", False) %}
+{{ config["config"]["tracker__email"] }}	roundup+{{ tracker }}
+{%- endif %}{%- endfor %}
