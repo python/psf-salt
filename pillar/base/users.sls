@@ -464,3 +464,20 @@ users:
       buildbot:
         allowed: True
         sudo : True
+
+  hugovk:
+    fullname: "Hugo van Kemenade"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGTTCyZejfWSW277j177F09VOt8dctuFRpDnsLe+7Ifw hugovk@users.noreply.github.com
+    access:
+      downloads:
+        sudo: True
+        allowed: True
+        groups:
+          - downloads
+      docs:
+        sudo: True
+        allowed: True
+        groups:
+          - docs
+          - docsbuild
