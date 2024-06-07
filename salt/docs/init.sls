@@ -66,6 +66,12 @@ virtualenv-dependencies:
     - onchanges:
       - git: docsbuild-scripts
 
+docsbuild-analytics:
+  cron.env_present:
+    - user: docsbuild
+    - name: PYTHON_DOCS_ENABLE_ANALYTICS
+    - value: 1
+
 docsbuild-sentry:
   cron.env_present:
     - user: docsbuild
