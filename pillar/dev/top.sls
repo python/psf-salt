@@ -81,10 +81,6 @@ base:
     - match: nodegroup
     - secrets.postgresql-users.tracker
 
-  'web-pypa':
-    - match: nodegroup
-    - firewall.rs-lb-backend
-
   'wiki':
     - match: nodegroup
     - moin

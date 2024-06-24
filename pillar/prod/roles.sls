@@ -74,9 +74,3 @@ roles:
     pattern:  "moin*.nyc1.psf.io"
     purpose:  "Hosts moin sites for wiki.python.org, wiki.jython.org"
     contact:  "lemburg"
-
-  # Misc PyPA
-  web-pypa:
-    pattern:  "web*.pypa.nyc1.psf.io"
-    purpose:  "Python Packaging Authority"
-    contact:  "dstufft"
