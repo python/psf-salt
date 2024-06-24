@@ -111,10 +111,6 @@ base:
     - firewall.ftp
     - firewall.snakebite
 
-  'web-pypa':
-    - match: nodegroup
-    - firewall.rs-lb-backend
-
   'salt-master':
     - match: nodegroup
     - firewall.salt

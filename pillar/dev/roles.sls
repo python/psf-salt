@@ -90,8 +90,3 @@ roles:
     pattern: "moin.vagrant.psf.io"
     purpose: ""
     contact: ""
-
-  web-pypa:
-    pattern: "web-pypa.vagrant.psf.io"
-    purpose: ""
-    contact: ""

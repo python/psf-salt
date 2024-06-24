@@ -6,10 +6,6 @@ tls:
     default: ECDH+AESGCM:ECDH+CHACHA20:ECDH+AES256:ECDH+AES128:!aNULL:!SHA1:!AESCCM
 
   gen_certs:
-    bootstrap.pypa.psf.io:
-      roles:
-        - web-pypa
-
     buildbot-master.psf.io:
       roles:
         - buildbot

@@ -89,7 +89,3 @@ base:
     - postgresql.admin
     - dns
     - tls.pebble
-
-  'web-pypa':
-    - match: nodegroup
-    - pypa.bootstrap

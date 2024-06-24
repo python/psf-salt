@@ -17,7 +17,6 @@ SERVERS = [
   "planet",
   "pypy-web",
   "pythontest",
-  "web-pypa",
 ]
 
 SUBNET1 = "192.168.50"
