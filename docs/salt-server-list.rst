@@ -27,7 +27,6 @@
    "pypy-web.nyc1.psf.io", "Serves www.pypy.org", "mattip, fijal", "Ubuntu-18.04", "nyc1"
    "pythontest.nyc3.psf.io", "Test resources for CPython's test suite.", "Infrastructure Staff", "Ubuntu-18.04", "nyc3"
    "salt.nyc1.psf.io", "Salt server", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
-   "web0.pypa.nyc1.psf.io", "Python Packaging Authority", "dstufft", "Ubuntu-18.04", "nyc1"
 
 ..
     END AUTOMATED SECTION **DO NOT DIRECTLY EDIT - Salt will blow away your changes!!!**
