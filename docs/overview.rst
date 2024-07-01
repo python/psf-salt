@@ -15,13 +15,14 @@ infrastructure to run a PSF service. Indeed, the day to day operations of most
 services are handled by people not on the infrastructure team. The
 infrastructure team can assist in setting up new services and advise maintainers
 of individual services. Its members also generally handle changes to sensitive
-global systems such as DNS. The currrent team members are:
+global systems such as DNS. The current team members are:
 
 * Alex Gaynor (has no responsibilities)
 * Benjamin Peterson
 * Benjamin W. Smith
 * Donald Stufft
 * Ee Durbin (PSF Director of Infrastructure)
+* Jacob Coffee (PSF Infrastructure Engineer)
 * Noah Kantrowitz
 
 The best way to contact the infrastructure team is mailing
