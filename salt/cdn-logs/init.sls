@@ -1,3 +1,7 @@
+adm:
+  group.present:
+    - name: adm
+
 /var/log/fastly/:
   file.directory:
     - user: syslog
