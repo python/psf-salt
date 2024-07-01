@@ -9,6 +9,12 @@ users:
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBnWofdFIY68N19Q04fiWKPYx+dcpc7nmU10IyOyon2KJa5blCDoxFOemOeWl8doAfFO2qhprQ2YhNABes3pZOc= ee@chungus
       - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBt9u0P2LhONN5ngUmtU8GupeRXp+BKXnq9Pmx6r6vE8iJ1MQCeRroiNpJ5C8Lr+2yCgsRK5pLndKOowIz5hFPY= ee@pancack
 
+  coffee:
+    fullname: "Jacob Coffee"
+    admin: True
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC2fixTzzHg6BLqMs8VS/n0vhriIsAM/ycog+lfz89pl76ODceoW9Iq9i8lS1i+LaQyGRthHzJwgTvcPcqCQYWcXurdlxMRu2/+J8M9vIN5TvxMoXqY2W4dWegyW3Q1tP8vrZv1wQXwB43odUQ8+hCRQedZbhMosIoqu6YB9vj8WKZCGiK5zne3DZxcl8LQFRiEO0XWkWUQaNLsPQFhN/KqbIwnwjt6ieVGKu+5JY5qJOLx/YHl+z/jctPomJ0vXR7qU4ysjS6IkF/aFdl6QamNahwyZ2BJokKMpcLSKZOTB7hnlwjkGaq80hlnkSfUHvs175qyb9b7o0JDC4XNHHrEWqyHXG7vPxijP42WHc0NWwH7l9N/0a97Tctok3paQ5njdKnO23XsmLtJetSOdWraEJ468T2YqxjI+L49D8uwtZmfkqEhiNy8sVlEwwv/VV4GAFmgG5v0ChHAJUO/zntOHcVmxdaEwRftlzV6ODanhZq7qQ2qoOsfAOoa1817b5r9fI2JEQS5GZU0oPWyLx3xG1vvhSFmrpZSesOIyWP3AwWZXBKgiMjOdVQBE70XVMLjT68pbyfhyzdZ+/y2WzMLSFkPS0UJQ0tAG54Tg1SxDuy88Ef6vtgc7yqbt4HKDQHEyOeKb/jqr0NzZnu+2/LRzhUnkZWgbxxTc88JQgd4eQ== yubi5c
+
   dstufft:
     fullname: "Donald Stufft"
     admin: True
