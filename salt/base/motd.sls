@@ -6,7 +6,7 @@
 /etc/update-motd.d/60-unminimize:
   file.managed:
     - mode: "0644"
-    - replace: True
+    - replace: False
 
 /etc/update-motd.d/91-contract-ua-esm-status:
   file.managed:
