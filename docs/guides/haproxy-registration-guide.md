@@ -1,17 +1,17 @@
 Register a service with haproxy
 ===============================
 
-1.  Ensure that the `salt-master` and `loadbalancer` can be brought up with vagrant locally.
+1.  Ensure that the `salt-master` and `loadbalancer` can be brought up with vagrant locally:
     ```console
     vagrant up salt-master
     vagrant up loadbalancer
     ```
-2.  In the local repository, create a new state/directory to manage files for your service
+2.  In the local repository, create a new state/directory to manage files for your service:
     ```console
     touch salt/base/salt.sls
     ```
-3.  Additionally, add an `nginx` configuration state and consul-service state that exposes that directory over HTTP 
-    - This configuration might look similar to an existing haproxy service like letsencrypt
+3.  Additionally, add an `nginx` configuration state and `consul` service state that exposes that directory over HTTP:
+    - This configuration might look similar to an existing haproxy service like `letsencrypt`
     ```yaml
     /etc/nginx/sites.d/letsencrypt-well-known.conf:
       file.managed:
@@ -37,7 +37,7 @@ Register a service with haproxy
           - pkg: consul-pkgs
     ```
 
-4. In your local repository, navigate to `salt/base/config` and add an `nginx` configuration file. 
+4. In your local repository, navigate to `salt/base/config` and add an `nginx` configuration file:
   This configuration file might look similarly to the one of the `letsencrypt` service: 
     ```nginx
     server {
