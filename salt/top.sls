@@ -17,6 +17,7 @@ base:
     - tls
     - rsyslog
     - datadog
+    - base.motd
 
   'backup-server':
     - match: nodegroup
