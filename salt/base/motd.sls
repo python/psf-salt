@@ -17,12 +17,6 @@
         #!/bin/bash
 
         HOSTNAME=$(hostname)
-        DISK_USAGE=$(df -h / | tail -1 | awk '{print $5}')
-        UPTIME=$(uptime -p)
-        MEMORY_USAGE=$(free -h | awk '/^Mem:/ {print $3 "/" $2}')
-        LOAD_AVERAGE=$(uptime | awk -F'[a-z]:' '{ print $2}')
-        IP_ADDRESS=$(hostname -I | awk '{print $1}')
-        LOGGED_IN_USERS=$(who | wc -l)
 
         cat << 'EOF'
         ===============================
@@ -38,17 +32,11 @@
         Any changes made to this host may be reverted.
 
         Repository: https://github.com/python/psf-salt
+        Hostname: $HOSTNAME
 
         System Information
         ------------------
 
         EOF
 
-        echo " Hostname: $HOSTNAME"
-        echo " Disk Usage: $DISK_USAGE"
-        echo " Uptime: $UPTIME"
-        echo " Memory Usage: $MEMORY_USAGE"
-        echo " Load Average: $LOAD_AVERAGE"
-        echo " IP Address: $IP_ADDRESS"
-        echo " Logged-in Users: $LOGGED_IN_USERS"
         echo ""
