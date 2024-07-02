@@ -11,7 +11,7 @@
 /etc/update-motd.d/91-contract-ua-esm-status:
   file.managed:
     - mode: "0644"
-    - replace: True
+    - replace: False
 
 /etc/update-motd.d/99-psf:
   file.managed:
