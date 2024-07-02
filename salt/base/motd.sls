@@ -1,7 +1,7 @@
 /etc/update-motd.d/10-help-text:
   file.managed:
     - mode: "0644"
-    - replace: True
+    - replace: False
 
 /etc/update-motd.d/60-unminimize:
   file.managed:
