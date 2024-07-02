@@ -1,18 +1,21 @@
 /etc/update-motd.d/10-help-text:
   file.managed:
-    - mode: 0644
+    - mode: "0644"
+    - replace: True
 
 /etc/update-motd.d/60-unminimize:
   file.managed:
-    - mode: 0644
+    - mode: "0644"
+    - replace: True
 
 /etc/update-motd.d/91-contract-ua-esm-status:
   file.managed:
-    - mode: 0644
+    - mode: "0644"
+    - replace: True
 
 /etc/update-motd.d/99-psf:
   file.managed:
-    - mode: 0755
+    - mode: "0755"
     - contents: |
         #!/bin/bash
 
