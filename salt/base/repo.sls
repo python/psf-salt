@@ -1,4 +1,4 @@
-{% if grains["oscodename"] == "jammy" %}
+{% if grains["oscodename"] in ["jammy", "focal"] %}
 psfkey:
   file.managed:
     - name: /etc/apt/keyrings/packagecloud.asc

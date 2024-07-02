@@ -7,7 +7,7 @@ python-msgpack:
   pkg.latest:
     - name: python3-msgpack
 
-{% elif grains["oscodename"] == "jammy" %}
+{% elif grains["oscodename"] in ["jammy", "noble"] %}
 python-requests:
   pkg.latest:
     - name: python3-requests
@@ -28,16 +28,21 @@ python3-pip:
   pkg.latest
 
 {% if grains["os"] == "Ubuntu" %}
-salt-2018.3:
+salt-repo:
   pkgrepo.managed:
     - humanname: repo.saltstack.org
     {% if grains["oscodename"] == "focal" %}
     - name: deb https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004 focal main
     - key_url: https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004/salt-archive-keyring.gpg
     {% elif grains["oscodename"] == "jammy" %}
-    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.gpg arch={{ grains["osarch"] }}] https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/latest jammy main
+    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.gpg arch={{ grains["osarch"] }}] https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/3007 jammy main
     - file: /etc/apt/sources.list.d/salt.list
     - key_url: https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+    - aptkey: False
+    {% elif grains["oscodename"] == "noble" %}
+    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.gpg arch={{ grains["osarch"] }}] https://repo.saltproject.io/salt/py3/ubuntu/24.04/{{ grains["osarch"] }}/3007 noble main
+    - file: /etc/apt/sources.list.d/salt.list
+    - key_url: https://repo.saltproject.io/salt/py3/ubuntu/24.04/{{ grains["osarch"] }}/SALT-PROJECT-GPG-PUBKEY-2023.gpg
     - aptkey: False
     {% else %}
     - name: deb http://archive.repo.saltstack.com/py3/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main

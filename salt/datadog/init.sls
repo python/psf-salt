@@ -1,4 +1,4 @@
-{% if grains["oscodename"] == "jammy" %}
+{% if grains["oscodename"] == ["jammy", "noble"] %}
 datadogkey:
   file.managed:
     - name: /etc/apt/keyrings/datadog.asc
