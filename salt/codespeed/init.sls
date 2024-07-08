@@ -11,7 +11,7 @@ codespeed-deps:
       - mercurial
       - python3-dev
       - python3-virtualenv
-      {% if grains["oscodename"] != "jammy" %}
+      {% if grains["oscodename"] not in ["jammy", "noble"] %}
       - python-dev
       - python-virtualenv
       {% endif %}
