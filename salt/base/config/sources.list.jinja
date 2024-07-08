@@ -4,12 +4,13 @@
 {% set base_repo = "us.archive.ubuntu.com/ubuntu/" %}
 {% endif %}
 
+{# TODO: Investigate, these seem to be handled doubly in sources.list.d as well as sources.list
 ###### Ubuntu Main Repos
-deb http://{{ base_repo }} {{ grains["oscodename"] }} main restricted universe
-deb-src http://{{ base_repo }} {{ grains["oscodename"] }} main restricted universe
+{#deb http://{{ base_repo }} {{ grains["oscodename"] }} main restricted universe#}
+{#deb-src http://{{ base_repo }} {{ grains["oscodename"] }} main restricted universe#}
 
 ###### Ubuntu Update Repos
-deb http://{{ base_repo }} {{ grains["oscodename"] }}-security main restricted universe
-deb http://{{ base_repo }} {{ grains["oscodename"] }}-updates main restricted universe
-deb-src http://{{ base_repo }} {{ grains["oscodename"] }}-security main restricted universe
-deb-src http://{{ base_repo }} {{ grains["oscodename"] }}-updates main restricted universe
+{#deb http://{{ base_repo }} {{ grains["oscodename"] }}-security main restricted universe#}
+{#deb http://{{ base_repo }} {{ grains["oscodename"] }}-updates main restricted universe#}
+{#deb-src http://{{ base_repo }} {{ grains["oscodename"] }}-security main restricted universe#}
+{#deb-src http://{{ base_repo }} {{ grains["oscodename"] }}-updates main restricted universe#}

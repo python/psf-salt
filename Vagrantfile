@@ -16,7 +16,7 @@ SERVERS = [
   "moin",
   "planet",
   "pypy-web",
-  "pythontest",
+  {:name => "pythontest", :codename => "noble"},
 ]
 
 SUBNET1 = "192.168.50"
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "salt-master" do |s_config|
      s_config.vm.provider "docker" do |docker, override|
        docker.build_dir = "dockerfiles"
-       docker.dockerfile = "Dockerfile.jammy"
+       docker.dockerfile = "Dockerfile.noble"
      end
 
     s_config.vm.hostname = "salt-master.vagrant.psf.io"
