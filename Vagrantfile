@@ -1,21 +1,20 @@
 #!/usr/bin/env ruby
 
-
 SERVERS = [
-  "backup-server",
+  {:name => "backup-server", :codename => "noble"},
   {:name => "bugs", :codename => "jammy", :ports => [8080]},
-  "buildbot",
+  {:name => "buildbot", :codename => "noble"},
   "cdn-logs",
-  {:name => "codespeed", :codename => "jammy"},
-  {:name => "consul", :codename => "jammy"},
-  "docs",
-  "downloads",
+  {:name => "codespeed", :codename => "noble"},
+  {:name => "consul", :codename => "noble"},
+  {:name => "docs", :codename => "noble"},
+  {:name => "downloads", :codename => "noble"},
   "hg",
-  {:name => "loadbalancer", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20010]},
-  "mail",
+  {:name => "loadbalancer", :codename => "noble", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20010]},
+  {:name => "mail", :codename => "noble"},
   "moin",
-  "planet",
-  "pypy-web",
+  {:name => "planet", :codename => "noble"},
+  {:name => "pypy-web", :codename => "noble"},
   {:name => "pythontest", :codename => "noble"},
 ]
 
