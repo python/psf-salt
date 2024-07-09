@@ -55,6 +55,7 @@ buildbot-user:
     - user: buildbot
     - group: buildbot
     - mode: "0644"
+    - replace: False
     - require:
       - git: /srv/buildbot
 
