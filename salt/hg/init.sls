@@ -158,7 +158,7 @@ apache2:
   pkg.installed:
     - pkgs:
       - apache2
-      - libapache2-mod-wsgi
+      - libapache2-mod-wsgi-py3
   service.running:
     - enable: True
     - reload: True

@@ -9,7 +9,7 @@ SERVERS = [
   {:name => "consul", :codename => "noble"},
   {:name => "docs", :codename => "noble"},
   {:name => "downloads", :codename => "noble"},
-  "hg",
+  {:name => "hg", :codename => "noble"},
   {:name => "loadbalancer", :codename => "noble", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20010]},
   {:name => "mail", :codename => "noble"},
   "moin",
