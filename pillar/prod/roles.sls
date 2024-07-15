@@ -15,11 +15,11 @@ roles:
     purpose:  "Roundup hosting for CPython, Jython, and Roundup"
     contact:  "Infrastructure staff"
   buildbot:
-    pattern:  "buildbot.nyc1.psf.io"
+    pattern:  "buildbot*.nyc1.psf.io"
     purpose:  "Hosting for CPython buildbot server"
     contact:  "zware, haypo, pablogsa"
   cdn-logs:
-    pattern:  "cdn-logs.nyc1.psf.io"
+    pattern:  "cdn-logs*.nyc1.psf.io"
     purpose:  "Realtime log streaming from Fastly CDN for debug"
     contact:  "Infrastructure Staff"
   codespeed:
@@ -43,7 +43,7 @@ roles:
     purpose:  "GNU Mailman Project wiki and lists"
     contact:  "Mark Sapiro"
   hg:
-    pattern:  "hg.nyc1.psf.io"
+    pattern:  "hg*.nyc1.psf.io"
     purpose:  "Version Control Archives, serves hg.python.org and svn.python.org"
     contact:  "Infrastructure Staff"
   loadbalancer:
@@ -55,15 +55,15 @@ roles:
     purpose:  "Mail and mailman server"
     contact:  "postmasters"
   planet:
-    pattern:  "planet.nyc1.psf.io"
+    pattern:  "planet*.nyc1.psf.io"
     purpose:  "Planet Python"
     contact:  "benjamin"
   pypy-web:
-    pattern:  "pypy-web.nyc1.psf.io"
+    pattern:  "pypy-web*.nyc1.psf.io"
     purpose:  "Serves www.pypy.org"
     contact:  "mattip, fijal"
   pythontest:
-    pattern:  "pythontest.nyc3.psf.io"
+    pattern:  "pythontest*.nyc3.psf.io"
     purpose:  "Test resources for CPython's test suite."
     contact:  "Infrastructure Staff"
   salt-master:
