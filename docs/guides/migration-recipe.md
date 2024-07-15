@@ -105,15 +105,16 @@ index 68387c9..7a8ace1 100644
       ```console
       for file in /etc/salt/minion.d/*; do echo -e "cat > $file <<EOF"; sudo cat $file; echo "EOF"; done
       ```
-4. Restart the salt-minion service on the new host to pick up the configuration and register with salt-master:
+      - Copy and paste the generated commands to create and populate the files on `new-host` 
+4. Restart the `salt-minion` service on the **new host** to pick up the configuration and register with salt-master:
     ```console
     sudo salt-call service.restart
     ```
-5. On salt-master, accept the key for the new-host:
+5. On **`salt-master`**, accept the key for the new-host:
     ```console
     sudo salt-key -a new-host
     ```
-6. On the new-host, run `highstate`:
+6. On the **`new-host`**, run `highstate`:
     ```console
     sudo salt-call state.highstate
     ```
@@ -123,7 +124,7 @@ index 68387c9..7a8ace1 100644
     ssh -L 4646:127.0.0.1:4646 lb-a.nyc1.psf.io
     ```
    - Then view the `haproxy` status page in your browser [`http://localhost:4646/haproxy?stats`][loadbalancer]
-9.  Run `hightstate` on the salt-master to create a public dns record for the new-host
+9.  Run `hightstate` on the `salt-master` to create a public dns record for the new host
     ```console
     sudo salt-call state.highstate
     ```
