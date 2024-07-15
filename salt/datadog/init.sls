@@ -1,17 +1,17 @@
 {% if grains["oscodename"] == "jammy" %}
 datadogkey:
   file.managed:
-    - name: /etc/apt/keyrings/datadog.asc
+    - name: /usr/share/keyrings/datadog-archive-keyring.gpg
     - mode: "0644"
     - source: salt://datadog/config/APT-GPG-KEY-DATADOG
 
 datadog_repo:
   pkgrepo.managed:
-    - name: "deb [signed-by=/etc/apt/keyrings/datadog.asc arch={{ grains["osarch"] }}]  https://apt.datadoghq.com stable 6"
-    - aptkey: False
+    - name: "deb [signed-by=/usr/share/keyrings/datadog-archive-keyring.gpg arch={{ grains['osarch'] }}] https://apt.datadoghq.com stable 6"
     - file: /etc/apt/sources.list.d/datadog.list
     - require:
       - file: datadogkey
+    - aptkey: False
 {% else %}
 datadog_repo:
   pkgrepo.managed:
