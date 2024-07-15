@@ -27,11 +27,12 @@ server {
   rewrite ^/3.x.stable(/?)$ /#/grid?branch=main&tag=stable redirect;
   rewrite ^/stable(/?)$ /#/grid?tag=stable redirect;
 
+  rewrite ^/all/(.*) /$1 break;
+
   location / {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header Host $http_host;
       proxy_redirect off;
-      rewrite /all/(.*) /$1 break;
       proxy_pass http://localhost:9010;
   }
 
