@@ -89,12 +89,19 @@ index 68387c9..7a8ace1 100644
     ```console
     ssh root@NNN.NNN.NNN.NNN
    ```
-2. Add Salt repositories for our current target version (add the apt-repo and install `salt-minion` package)
+2. Add Salt repositories for our current target version (add the apt-repo and install `salt-minion` package):
+    > **Note**: Ensure you are adding the correct key/repository for the version of Ubuntu you are using. 
+    >
+    > See [the Salt installation guide](https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/ubuntu.html) for more information.
     ```console
-    # Add the SaltStack repository key
-    wget --quiet -O /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004/salt-archive-keyring.gpg
-    # Add the SaltStack repository
-    echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004 focal main" > /etc/apt/sources.list.d/salt.list
+    UBUNTU_VERSION=$(lsb_release -rs)
+    ARCH=$(dpkg --print-architecture)
+    CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d '=' -f 2)
+   
+    echo "Adding the SaltStack repository key for $UBUNTU_VERSION $CODENAME ($ARCH)..."
+    sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/$UBUNTU_VERSION/$ARCH/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+    echo "Adding the SaltStack repository for $UBUNTU_VERSION $CODENAME ($ARCH)..."
+    echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=$ARCH] https://repo.saltproject.io/salt/py3/ubuntu/$UBUNTU_VERSION/$ARCH/latest $CODENAME main" | sudo tee /etc/apt/sources.list.d/salt.list
     ```
 3. Install and configure the salt-minion. On `$new-host`, run the command
     ```console
