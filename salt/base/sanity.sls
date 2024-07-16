@@ -5,6 +5,7 @@ niceties:
       - htop
       - traceroute
 
+{% if grains["oscodename"] != "noble" %}
 time-sync:
   pkg.installed:
     - pkgs:
@@ -15,7 +16,7 @@ ntp:
   service:
     - running
     - enable: True
-
+{% endif %}
 
 # Cron has a default $PATH of only /usr/bin:/bin, however the root user's
 # default $PATH in the shell includes various sbin directories. This can cause
