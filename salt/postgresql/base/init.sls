@@ -1,4 +1,4 @@
-{% if grains["oscodename"] == "jammy" %}
+{% if grains["oscodename"] in ["jammy", "noble"] %}
 postgresql-key:
   file.managed:
     - name: /etc/apt/keyrings/postgresql.asc
