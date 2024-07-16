@@ -16,7 +16,7 @@ systemd-timesyncd:
     - running
     - enable: True
 {% else %}
-time-sync-ntp
+time-sync-ntp:
   pkg.installed:
     - pkgs:
       - ntp
