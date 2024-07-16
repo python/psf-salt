@@ -28,6 +28,11 @@ python3-pip:
   pkg.latest
 
 {% if grains["os"] == "Ubuntu" %}
+{# TODO: can be removed after anytime after 2024-07-16 #}
+remove_old_salt_repo:
+  file.absent:
+    - name: /etc/apt/sources.list.d/saltstack.list
+
 salt-repo:
   pkgrepo.managed:
     - humanname: repo.saltstack.org
