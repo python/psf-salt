@@ -89,12 +89,19 @@ index 68387c9..7a8ace1 100644
     ```console
     ssh root@NNN.NNN.NNN.NNN
    ```
-2. Add Salt repositories for our current target version (add the apt-repo and install `salt-minion` package)
+2. Add Salt repositories for our current target version (add the apt-repo and install `salt-minion` package):
+    > **Note**: Ensure you are adding the correct key/repository for the version of Ubuntu you are using. 
+    >
+    > See [the Salt installation guide](https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/ubuntu.html) for more information.
     ```console
-    # Add the SaltStack repository key
-    wget --quiet -O /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004/salt-archive-keyring.gpg
-    # Add the SaltStack repository
-    echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://repo.saltproject.io/py3/ubuntu/20.04/$(dpkg --print-architecture)/3004 focal main" > /etc/apt/sources.list.d/salt.list
+    UBUNTU_VERSION=$(lsb_release -rs)
+    ARCH=$(dpkg --print-architecture)
+    CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d '=' -f 2)
+   
+    echo "Adding the SaltStack repository key for $UBUNTU_VERSION $CODENAME ($ARCH)..."
+    sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/$UBUNTU_VERSION/$ARCH/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+    echo "Adding the SaltStack repository for $UBUNTU_VERSION $CODENAME ($ARCH)..."
+    echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=$ARCH] https://repo.saltproject.io/salt/py3/ubuntu/$UBUNTU_VERSION/$ARCH/latest $CODENAME main" | sudo tee /etc/apt/sources.list.d/salt.list
     ```
 3. Install and configure the salt-minion. On `$new-host`, run the command
     ```console
@@ -105,15 +112,16 @@ index 68387c9..7a8ace1 100644
       ```console
       for file in /etc/salt/minion.d/*; do echo -e "cat > $file <<EOF"; sudo cat $file; echo "EOF"; done
       ```
-4. Restart the salt-minion service on the new host to pick up the configuration and register with salt-master:
+      - Copy and paste the generated commands to create and populate the files on `new-host` 
+4. Restart the `salt-minion` service on the **new host** to pick up the configuration and register with salt-master:
     ```console
     sudo salt-call service.restart
     ```
-5. On salt-master, accept the key for the new-host:
+5. On **`salt-master`**, accept the key for the new-host:
     ```console
     sudo salt-key -a new-host
     ```
-6. On the new-host, run `highstate`:
+6. On the **`new-host`**, run `highstate`:
     ```console
     sudo salt-call state.highstate
     ```
@@ -123,7 +131,7 @@ index 68387c9..7a8ace1 100644
     ssh -L 4646:127.0.0.1:4646 lb-a.nyc1.psf.io
     ```
    - Then view the `haproxy` status page in your browser [`http://localhost:4646/haproxy?stats`][loadbalancer]
-9.  Run `hightstate` on the salt-master to create a public dns record for the new-host
+9.  Run `hightstate` on the `salt-master` to create a public dns record for the new host
     ```console
     sudo salt-call state.highstate
     ```
