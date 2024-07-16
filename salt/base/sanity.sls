@@ -5,8 +5,18 @@ niceties:
       - htop
       - traceroute
 
-{% if grains["oscodename"] != "noble" %}
-time-sync:
+{% if grains["oscodename"] in ["noble"] %}
+time-sync-timesyncd:
+    pkg.installed:
+      - pkgs:
+        - systemd-timesyncd
+
+systemd-timesyncd:
+  service:
+    - running
+    - enable: True
+{% else %}
+time-sync-ntp
   pkg.installed:
     - pkgs:
       - ntp
