@@ -60,6 +60,13 @@ haproxy:
       extra:
         - http-request replace-header Host ^.*$ pythonsoftwarefoundation.applytojob.com
 
+    planet:
+      domains:
+        - planetpython.org
+        - www.planetpython.org
+      verify_host: planet.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ planet.psf.io"
+
     pypy-web:
       domains:
         - www.pypy.org

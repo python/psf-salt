@@ -100,6 +100,7 @@ base:
     - match: nodegroup
     - planet
     - firewall.http
+    - firewall.planet
 
   'pypy-web':
     - match: nodegroup
