@@ -23,6 +23,7 @@
    "lb-b.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
    "mail.ams1.psf.io", "Mail and mailman server", "postmasters", "Ubuntu-14.04", "ams1"
    "moin.nyc1.psf.io", "Hosts moin sites for wiki.python.org, wiki.jython.org", "lemburg", "Ubuntu-20.04", "nyc1"
+   "planet-2404.nyc1.psf.io", "Planet Python", "benjamin", "Ubuntu-24.04", "nyc1"
    "planet.nyc1.psf.io", "Planet Python", "benjamin", "Ubuntu-18.04", "nyc1"
    "pypy-web.nyc1.psf.io", "Serves www.pypy.org", "mattip, fijal", "Ubuntu-18.04", "nyc1"
    "pythontest-2404.nyc3.psf.io", "Test resources for CPython's test suite.", "Infrastructure Staff", "Ubuntu-24.04", "nyc3"
