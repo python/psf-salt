@@ -28,6 +28,11 @@ python3-pip:
   pkg.latest
 
 {% if grains["os"] == "Ubuntu" %}
+{# TODO: can be removed after anytime after 2024-07-16 #}
+remove_old_salt_repo:
+  file.absent:
+    - name: /etc/apt/sources.list.d/saltstack.list
+
 salt-repo:
   pkgrepo.managed:
     - humanname: repo.saltstack.org
@@ -36,19 +41,17 @@ salt-repo:
     - key_url: https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004/salt-archive-keyring.gpg
     {% elif grains["oscodename"] == "jammy" %}
     - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.gpg arch={{ grains["osarch"] }}] https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/3007 jammy main
-    - file: /etc/apt/sources.list.d/salt.list
     - key_url: https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/SALT-PROJECT-GPG-PUBKEY-2023.gpg
     - aptkey: False
     {% elif grains["oscodename"] == "noble" %}
     - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.gpg arch={{ grains["osarch"] }}] https://repo.saltproject.io/salt/py3/ubuntu/24.04/{{ grains["osarch"] }}/3007 noble main
-    - file: /etc/apt/sources.list.d/salt.list
     - key_url: https://repo.saltproject.io/salt/py3/ubuntu/24.04/{{ grains["osarch"] }}/SALT-PROJECT-GPG-PUBKEY-2023.gpg
     - aptkey: False
     {% else %}
     - name: deb http://archive.repo.saltstack.com/py3/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
     - key_url: https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub
     {% endif %}
-    - file: /etc/apt/sources.list.d/saltstack.list
+    - file: /etc/apt/sources.list.d/salt.list
 {% endif %}
 
 
