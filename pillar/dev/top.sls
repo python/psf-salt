@@ -16,6 +16,7 @@ base:
   'bugs':
     - match: nodegroup
     - bugs
+    - firewall.bugs
 
   'cdn-logs':
     - match: nodegroup
@@ -67,7 +68,6 @@ base:
     - planet
     - firewall.http
     - firewall.planet
-    - firewall.bugs
 
   'salt-master':
     - match: nodegroup
