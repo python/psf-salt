@@ -38,6 +38,10 @@ tls:
       roles:
         - moin
 
+    planet.psf.io:
+      roles:
+        - planet
+
     postgresql.psf.io:
       roles:
         - postgresql
