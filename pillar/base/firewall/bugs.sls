@@ -9,6 +9,6 @@ firewall:
     port: 587
   submission:
     port: 465
-  frontend-planet:
+  frontend-bugs:
     port: 9000
     source: *psf_internal_network
