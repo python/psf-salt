@@ -20,15 +20,6 @@ planet-user:
     - require:
       - file: /etc/nginx/sites.d/
 
-{% if pillar["dc"] == "vagrant" %}
-salt-master:
-  host.present:
-    - ip: 192.168.50.2
-    - names:
-      - salt-master.vagrant.psf.io
-      - salt-master
-{% endif %}
-
 lego_bootstrap:
   cmd.run:
     - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['planet']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http --path /etc/lego --key-type ec256 run
