@@ -5,7 +5,19 @@ niceties:
       - htop
       - traceroute
 
-time-sync:
+{% if grains["oscodename"] in ["noble"] %}
+systemd-timesyncd:
+   pkg:
+     - installed
+   service:
+     {% if grains["detect_virt"] in ["docker"] %}
+     - enabled
+     {% else %}
+     - running
+     - enable: True
+    {% endif %}
+{% else %}
+ntp-packages:
   pkg.installed:
     - pkgs:
       - ntp
@@ -15,7 +27,7 @@ ntp:
   service:
     - running
     - enable: True
-
+{% endif %}
 
 # Cron has a default $PATH of only /usr/bin:/bin, however the root user's
 # default $PATH in the shell includes various sbin directories. This can cause
