@@ -2,7 +2,7 @@ include:
   - nginx
 
 {% if pillar["dc"] == "vagrant" %}
-salt-master:
+salt-master-vagrant-host-entry:
   host.present:
     - ip: 192.168.50.2
     - names:
