@@ -1,6 +1,15 @@
 include:
   - nginx
 
+{% if pillar["dc"] == "vagrant" %}
+salt-master:
+  host.present:
+    - ip: 192.168.50.2
+    - names:
+      - salt-master.vagrant.psf.io
+      - salt-master
+{% endif %}
+
 crypto_packages:
   pkg.installed:
     - pkgs:
