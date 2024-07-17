@@ -10,8 +10,12 @@ systemd-timesyncd:
    pkg:
      - installed
    service:
+     {% if grains["detect_virt"] in ["docker"] %}
+     - enabled
+     {% else %}
      - running
      - enable: True
+    {% endif %}
 {% else %}
 ntp-packages:
   pkg.installed:
