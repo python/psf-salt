@@ -6,17 +6,14 @@ niceties:
       - traceroute
 
 {% if grains["oscodename"] in ["noble"] %}
-time-sync-timesyncd:
-    pkg.installed:
-      - pkgs:
-        - systemd-timesyncd
-
 systemd-timesyncd:
-  service:
-    - running
-    - enable: True
+   pkg:
+     - installed
+   service:
+     - running
+     - enable: True
 {% else %}
-time-sync-ntp:
+ntp-packages:
   pkg.installed:
     - pkgs:
       - ntp
