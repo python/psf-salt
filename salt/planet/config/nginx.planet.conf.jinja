@@ -25,6 +25,17 @@ server {
     root /srv/{{ site }}/;
 }
 
+server {
+    listen 9000 ssl;
+    server_name {{ site }};
+    error_log /var/log/nginx/{{ site }}.error.log;
+    access_log /var/log/nginx/{{ site }}.access.log;
+    ssl_certificate /etc/ssl/private/planet.psf.io.pem;
+    ssl_certificate_key /etc/ssl/private/planet.psf.io.pem;
+
+    root /srv/{{ site }}/;
+}
+
 {% for domain in info.get("subject_alternative_names", []) %}
 server {
     server_name {{ domain }};
