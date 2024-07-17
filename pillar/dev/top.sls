@@ -67,6 +67,7 @@ base:
     - planet
     - firewall.http
     - firewall.planet
+    - firewall.bugs
 
   'salt-master':
     - match: nodegroup

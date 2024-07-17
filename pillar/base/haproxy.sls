@@ -67,6 +67,28 @@ haproxy:
       verify_host: planet.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ planet.psf.io"
 
+    bugs:
+      domains:
+        - bugs.python.org
+        - bugs.jython.org
+        - issues.roundup-tracker.org
+        - mail.roundup-tracker.org
+      servers:
+        - name: python_bugs
+          host: bugs.python.org
+          check: "HEAD / HTTP/1.1\\r\\nHost:\\ bugs.python.org"
+        - name: jython_bugs
+          host: bugs.jython.org
+          check: "HEAD / HTTP/1.1\\r\\nHost:\\ bugs.jython.org"
+
+    pypy-web:
+      domains:
+        - www.pypy.org
+      hsts_subdomains: False
+      hsts_preload: False
+      verify_host: pypy-web.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ pypy-web.psf.io"
+
     moin:
       domains:
         - wiki.python.org

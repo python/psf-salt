@@ -86,9 +86,9 @@ listen tls:
     bind :20006 ssl alpn h2,http/1.1 crt speed.pypy.org.pem
     bind :20007 ssl alpn h2,http/1.1 crt www.pycon.org.pem
     bind :20008 ssl alpn h2,http/1.1 crt jython.org.pem
-    bind 0.0.0.0:443 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem
-    bind :::443 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem  crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem
-    bind :20010 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem
+    bind 0.0.0.0:443 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
+    bind :::443 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem  crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
+    bind :20010 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
 
     mode http
 

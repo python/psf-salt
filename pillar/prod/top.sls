@@ -101,6 +101,7 @@ base:
     - planet
     - firewall.http
     - firewall.planet
+    - firewall.bugs
 
   'pythontest':
     - match: nodegroup

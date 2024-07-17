@@ -4,6 +4,19 @@ include:
   - tls.lego
   - nginx
 
+/etc/consul.d/service-bugs.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: bugs
+        port: 9000
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: consul-pkgs
+
 lego_bootstrap:
   cmd.run:
     - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http --path /etc/lego --key-type ec256 run
