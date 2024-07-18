@@ -57,7 +57,3 @@ tls:
     svn.psf.io:
       roles:
         - hg
-
-    pypy-web.psf.io:
-      roles:
-        - pypy-web
