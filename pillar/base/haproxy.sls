@@ -67,19 +67,29 @@ haproxy:
       verify_host: planet.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ planet.psf.io"
 
-    bugs:
+    bugs-python:
       domains:
         - bugs.python.org
+      verify_host: bugs.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ bugs.python.org"
+
+    bugs-jython:
+      domains:
         - bugs.jython.org
+      verify_host: bugs.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ bugs.jython.org"
+
+    bugs-roundup:
+      domains:
         - issues.roundup-tracker.org
+      verify_host: bugs.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ issues.roundup-tracker.org"
+
+    bugs-roundup-mail:
+      domains:
         - mail.roundup-tracker.org
-      servers:
-        - name: python_bugs
-          host: bugs.python.org
-          check: "HEAD / HTTP/1.1\\r\\nHost:\\ bugs.python.org"
-        - name: jython_bugs
-          host: bugs.jython.org
-          check: "HEAD / HTTP/1.1\\r\\nHost:\\ bugs.jython.org"
+      verify_host: bugs.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ mail.roundup-tracker.org"
 
     pypy-web:
       domains:
