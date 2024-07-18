@@ -125,7 +125,8 @@ index 68387c9..7a8ace1 100644
     ```console
     sudo salt-call state.highstate
     ```
-7. Log out of `root` session
+7. Log out of `root` session. The first `highstate` run adds the users defined in `pillar/base/users.sls` so that you 
+    can log in as your user.
 8. Ensure that the new host is not passing health checks in the load balancer:
     ```console
     ssh -L 4646:127.0.0.1:4646 lb-a.nyc1.psf.io
