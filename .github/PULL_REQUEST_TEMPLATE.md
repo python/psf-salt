@@ -7,7 +7,7 @@ By submitting this pull request, you agree to:
 -
 
 <!--
-Please add in issue numbers this pull request will close, if applicable
+If applicable, please add in issue numbers this pull request will close, if applicable
 Examples: Fixes #4321 or Closes #1234
 
 Ensure you are using a supported keyword to properly link an issue:
