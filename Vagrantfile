@@ -15,7 +15,6 @@ SERVERS = [
   "mail",
   "moin",
   "planet",
-  "pypy-web",
   "pythontest",
 ]
 
