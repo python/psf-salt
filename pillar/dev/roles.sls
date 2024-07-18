@@ -70,10 +70,6 @@ roles:
     pattern: "planet.vagrant.psf.io"
     purpose: ""
     contact: ""
-  pypy-web:
-    pattern: "pypy-web.vagrant.psf.io"
-    purpose: ""
-    contact: ""
   pythontest:
     pattern: "pythontest.vagrant.psf.io"
     purpose: ""

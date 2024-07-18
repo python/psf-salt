@@ -77,10 +77,6 @@ base:
     - postgresql.server
     - postgresql.admin
 
-  'pypy-web':
-    - match: nodegroup
-    - pypy-web
-
   'pythontest':
     - match: nodegroup
     - pythontest

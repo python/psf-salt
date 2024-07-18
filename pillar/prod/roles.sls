@@ -58,10 +58,6 @@ roles:
     pattern:  "planet*.nyc1.psf.io"
     purpose:  "Planet Python"
     contact:  "benjamin"
-  pypy-web:
-    pattern:  "pypy-web*.nyc1.psf.io"
-    purpose:  "Serves www.pypy.org"
-    contact:  "mattip, fijal"
   pythontest:
     pattern:  "pythontest*.nyc3.psf.io"
     purpose:  "Test resources for CPython's test suite."
