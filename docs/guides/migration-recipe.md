@@ -151,6 +151,9 @@ index 68387c9..7a8ace1 100644
     ```console
     sudo service nginx stop
     ```
+    ```{note}
+    Don't forget to pause service checks for both the old and new hosts in things like Dead Man's Snitch, Pingdom, etc.
+    ```
 4.  Ensure that any additional volumes are mounted and in the correct location: 
     - Check what disks are currently mounted and where: `df`
     - Determine where any additional disks should be mounted (based on salt configuration of services, for example `docs` and `downloads` roles need a big `/srv` for their data storage
