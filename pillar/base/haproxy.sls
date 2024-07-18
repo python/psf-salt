@@ -67,6 +67,21 @@ haproxy:
       verify_host: planet.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ planet.psf.io"
 
+    {% for (port, service) in [(25, "smtp"), (587, "smtps"), (465, "submission")] %}
+    /etc/consul.d/service-roundup-{{ service }}.json:
+      file.managed:
+        - source: salt://consul/etc/service.jinja
+        - template: jinja
+        - context:
+            name: roundup-{{ service }}
+            port: {{ port }}
+        - user: root
+        - group: root
+        - mode: "0644"
+        - require:
+          - pkg: consul-pkgs
+    {% endfor %}
+
     {% for tracker, config in pillar["bugs"]["trackers"].items() %}
     {{ tracker }}:
       domains:
