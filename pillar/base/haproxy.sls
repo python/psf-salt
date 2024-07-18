@@ -171,3 +171,16 @@ haproxy:
       extra:
         - timeout client 86400
         - timeout server 86400
+
+    {% for (port, service, ssl) in [(25, "smtp", False), (587, "smtps", True), (465, "submission", True)] %}
+    roundup-{{ service }}:
+      bind: :{{ port }}
+      service: roundup-{{ service }}
+      extra:
+        - timeout client 30m
+        - timeout server 30m
+        {% if ssl %}
+        {# TODO: Need to update pillar data and haproxy.cfg.jinja to utilize tls #}
+        - ssl crt /etc/ssl/private/bugs.psf.io.pem
+        {% endif %}
+    {% endfor %}
