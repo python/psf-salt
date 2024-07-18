@@ -83,7 +83,7 @@ index 68387c9..7a8ace1 100644
 2.  Create a new droplet with a new version of Ubuntu, appropriate resources, and name it according to a hostname + current LTS version
     - See the current preferred version of Ubuntu in [the Server Guide](server.rst)
 
-### Provision new host for migration
+#### Provision new host for migration
 
 1. SSH into `new-host` via the IP address provided by DigitalOcean:
     ```console
@@ -125,7 +125,8 @@ index 68387c9..7a8ace1 100644
     ```console
     sudo salt-call state.highstate
     ```
-7. Log out of `root` session
+7. Log out of `root` session. The first `highstate` run adds the users defined in `pillar/base/users.sls` so that you 
+    can log in as your user.
 8. Ensure that the new host is not passing health checks in the load balancer:
     ```console
     ssh -L 4646:127.0.0.1:4646 lb-a.nyc1.psf.io
@@ -136,7 +137,7 @@ index 68387c9..7a8ace1 100644
     sudo salt-call state.highstate
     ```
 
-### Begin data migration
+#### Begin data migration to new host
 
 1.  SSH into `new-host` to enable forwarding of `ssh-agent`
     ```console
@@ -151,12 +152,16 @@ index 68387c9..7a8ace1 100644
     ```console
     sudo service nginx stop
     ```
+    ```{note}
+    Don't forget to pause service checks for both the old and new hosts in things like Dead Man's Snitch, Pingdom, etc.
+    ```
 4.  Ensure that any additional volumes are mounted and in the correct location: 
     - Check what disks are currently mounted and where: `df`
     - Determine where any additional disks should be mounted (based on salt configuration of services, for example `docs` and `downloads` roles need a big `/srv` for their data storage
     - Ensure mounting of any external disks are in the right location using `mount` command with appropriate arguments
     - Ensure that the volumes will be remounted on startup by configuring them in `/etc/fstab`
-5.  Run rsync once to move the bulk of data and as necessary to watch for changes:
+5.  If the service has pillar data for backups (see `pillar/prod/backup/$service.sls`), 
+    run `rsync` once to move the bulk of data and as necessary to watch for changes:
     ```console
     sudo -E -s rsync -av --rsync-path="sudo rsync" username@hostname: /pathname/ /pathname/
     ```
@@ -178,9 +183,10 @@ index 68387c9..7a8ace1 100644
     sudo service nginx stop
     ```
 
-### Finish data migration and restart cron/public-facing services
+#### Finish data migration and restart cron/public-facing services
 
-1. Run `rsync` once more to finalize data migration:
+1. If the service has pillar data for backups (see `pillar/prod/backup/$service.sls`), 
+    run `rsync` once more to finalize data migration:
     ```console
     sudo -E -s rsync -av --rsync-path="sudo rsync" username@hostname: /pathname/ /pathname/
     ```
@@ -207,7 +213,8 @@ index 68387c9..7a8ace1 100644
     sudo shutdown -h now
     ```
 2.  Destroy the `old-host` in DigitalOcean
-3.  Change the `new-host` name in DigitalOcean by removing the suffix or similar that was used to differentiate it from the old-host.
+3.  Change the `new-host` name in DigitalOcean by removing the suffix or similar that was used to differentiate 
+    it from the old host (e.g., `new-hostname-2404` -> `old-hostname`)
 4.  List out and delete the old host keys:
     ```console
     sudo salt-key -L
