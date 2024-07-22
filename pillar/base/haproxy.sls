@@ -77,14 +77,6 @@ haproxy:
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ {{ config.server_name }}"
     {% endfor %}
 
-    pypy-web:
-      domains:
-        - www.pypy.org
-      hsts_subdomains: False
-      hsts_preload: False
-      verify_host: pypy-web.psf.io
-      check: "HEAD / HTTP/1.1\\r\\nHost:\\ pypy-web.psf.io"
-
     moin:
       domains:
         - wiki.python.org
