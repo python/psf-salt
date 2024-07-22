@@ -12,5 +12,8 @@ firewall:
   submission:
     port: 465
   frontend-bugs:
-    port: 9000
+    port:
+      {% for tracker in pillar["bugs"]["trackers"].items() %}
+      - {{ config.get('port') }}
+      {% endfor %}
     source: *psf_internal_network
