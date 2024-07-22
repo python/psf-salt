@@ -13,7 +13,7 @@ firewall:
     port: 465
   frontend-bugs:
     port:
-      {% for tracker in pillar["bugs"]["trackers"].items() %}
-      - {{ config.get('port') }}
-      {% endfor %}
+      - 9000
+      - 9001
+      - 9002
     source: *psf_internal_network
