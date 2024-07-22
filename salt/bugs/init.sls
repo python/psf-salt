@@ -4,18 +4,20 @@ include:
   - tls.lego
   - nginx
 
-/etc/consul.d/service-bugs.json:
+{% for tracker, config in pillar["bugs"]["trackers"].items() %}
+/etc/consul.d/service-{{ tracker }}.json:
   file.managed:
     - source: salt://consul/etc/service.jinja
     - template: jinja
     - context:
         name: bugs
-        port: 9000
+        port: {{ config.get('port') }}
     - user: root
     - group: root
     - mode: "0644"
     - require:
       - pkg: consul-pkgs
+{% endfor %}
 
 lego_bootstrap:
   cmd.run:
