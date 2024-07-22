@@ -1,3 +1,5 @@
+{% import_yaml 'bugs.sls' as bugs_data %}
+
 haproxy:
   services:
     buildbot-master:
@@ -67,7 +69,7 @@ haproxy:
       verify_host: planet.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ planet.psf.io"
 
-    {% for tracker, config in pillar["bugs"]["trackers"].items() %}
+    {% for tracker, config in bugs_data.get('bugs', {}).get('trackers', {}).items() %}
     {{ tracker }}:
       domains:
         - {{ config.server_name }}
@@ -174,7 +176,7 @@ haproxy:
 
     {% for (port, service, ssl) in [(25, "smtp", False), (587, "smtps", True), (465, "submission", True)] %}
     roundup-{{ service }}:
-      bind: :{{ port }} {% if ssl %} ssl crt /etc/ssl/private/bugs.psf.io.pem {% endif %}
+      bind: :{{ port }} {% if ssl %} ssl crt /etc/ssl/private/bugs.python.org.pem {% endif %}
       service: roundup-{{ service }}
       extra:
         - timeout client 30m
