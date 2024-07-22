@@ -340,6 +340,7 @@ tracker-{{ tracker }}-nginx-config:
     - context:
         tracker: {{ tracker }}
         server_name: {{ config.get('server_name') }}
+        port: {{ config.get('port') }}
     - require:
       - file: /etc/nginx/sites.d/
 

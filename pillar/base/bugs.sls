@@ -8,10 +8,10 @@ bugs:
     cpython:
       source: https://github.com/psf/bpo-tracker-cpython.git
       server_name: bugs.python.org
+      port: 9000
       workers: 16
       config:
           tracker: cpython
-          port: 9000
           main__database: /srv/roundup/data/cpython
           main__admin_email: roundup-admin@python.org
           main__dispatcher_email: roundup-admin@python.org
@@ -39,9 +39,9 @@ bugs:
     jython:
       source: https://github.com/psf/bpo-tracker-jython.git
       server_name: bugs.jython.org
+      port: 9001
       config:
           tracker: jython
-          port: 9001
           main__database: /srv/roundup/data/jython
           main__admin_email: roundup-admin@python.org
           main__dispatcher_email: roundup-admin@python.org
@@ -64,9 +64,9 @@ bugs:
     roundup:
       source: https://github.com/psf/bpo-tracker-roundup.git
       server_name: issues.roundup-tracker.org
+      port: 9002
       config:
           tracker: roundup
-          port: 9002
           main__database: /srv/roundup/data/roundup
           main__admin_email: roundup-admin@python.org
           main__dispatcher_email: roundup-admin@python.org

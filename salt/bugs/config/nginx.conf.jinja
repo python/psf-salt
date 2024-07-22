@@ -79,7 +79,7 @@ server {
 }
 
 server {
-  listen {{ port }} ssl;
+  listen {{ config["port"] }} ssl;
   server_name {{ server_name }};
   include mime.types;
 
