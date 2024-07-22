@@ -11,6 +11,7 @@ bugs:
       workers: 16
       config:
           tracker: cpython
+          port: 9000
           main__database: /srv/roundup/data/cpython
           main__admin_email: roundup-admin@python.org
           main__dispatcher_email: roundup-admin@python.org
@@ -40,6 +41,7 @@ bugs:
       server_name: bugs.jython.org
       config:
           tracker: jython
+          port: 9001
           main__database: /srv/roundup/data/jython
           main__admin_email: roundup-admin@python.org
           main__dispatcher_email: roundup-admin@python.org
@@ -64,6 +66,7 @@ bugs:
       server_name: issues.roundup-tracker.org
       config:
           tracker: roundup
+          port: 9002
           main__database: /srv/roundup/data/roundup
           main__admin_email: roundup-admin@python.org
           main__dispatcher_email: roundup-admin@python.org
