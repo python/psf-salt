@@ -32,7 +32,6 @@ bugs:
             spambayes_uri: "http://localhost:8001/sbrpc"
             spambayes_ham_cutoff: "0.2"
             spambayes_spam_cutoff: "0.85"
-            ciavc_server: "https://python.org"
       accept_email: False
       email_reject_message: "This tracker is in read-only mode. Please use GitHub issues to open a ticket: https://github.com/python/cpython/issues"
     jython:
