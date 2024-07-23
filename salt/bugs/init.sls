@@ -4,21 +4,6 @@ include:
   - tls.lego
   - nginx
 
-{% for tracker, config in pillar["bugs"]["trackers"].items() %}
-/etc/consul.d/service-{{ tracker }}.json:
-  file.managed:
-    - source: salt://consul/etc/service.jinja
-    - template: jinja
-    - context:
-        name: bugs
-        port: {{ config.get('port') }}
-    - user: root
-    - group: root
-    - mode: "0644"
-    - require:
-      - pkg: consul-pkgs
-{% endfor %}
-
 lego_bootstrap:
   cmd.run:
     - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http --path /etc/lego --key-type ec256 run
@@ -225,8 +210,9 @@ postfix:
       - file: /etc/postfix/virtual
       - file: /etc/postfix/reject_recipients
 
-{% for (port, service) in [(25, "smtp"), (587, "smtps"), (465, "submission")] %}
-/etc/consul.d/service-roundup-{{ service }}.json:
+{# We can extend this for smtps/submission later #}
+{% for (port, service) in [(25, "smtp")] %}
+/etc/consul.d/roundup-{{ service }}.json:
   file.managed:
     - source: salt://consul/etc/service.jinja
     - template: jinja
@@ -241,6 +227,19 @@ postfix:
 {% endfor %}
 
 {% for tracker, config in pillar["bugs"]["trackers"].items() %}
+/etc/consul.d/roundup-{{ tracker }}.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: roundup-{{ tracker }}
+        port: {{ config.get('port') }}
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: consul-pkgs
+
 tracker-{{ tracker }}-database:
   postgres_database.present:
     - name: roundup_{{ tracker }}
