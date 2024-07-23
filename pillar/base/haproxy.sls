@@ -1,5 +1,3 @@
-{% import_yaml 'bugs.sls' as bugs_data %}
-
 haproxy:
   services:
     buildbot-master:
@@ -69,12 +67,12 @@ haproxy:
       verify_host: planet.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ planet.psf.io"
 
-    {% for tracker, config in bugs_data.get('bugs', {}).get('trackers', {}).items() %}
-    {{ tracker }}:
+    {% for tracker, config in salt["pillar.get"]("bugs:trackers", {}).items() %}
+    roundup-{{ tracker }}:
       domains:
-        - {{ config.server_name }}
+        - {{ config['server_name'] }}
       verify_host: bugs.psf.io
-      check: "HEAD / HTTP/1.1\\r\\nHost:\\ {{ config.server_name }}"
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ {{ config['server_name'] }}"
     {% endfor %}
 
     moin:

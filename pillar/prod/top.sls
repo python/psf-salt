@@ -80,6 +80,7 @@ base:
     - ocsp
     - secrets.fastly
     - secrets.tls.certs.loadbalancer
+    - bugs
 
   'mail':
     - match: nodegroup

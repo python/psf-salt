@@ -56,6 +56,7 @@ base:
     - firewall.loadbalancer
     - secrets.fastly
     - secrets.tls.certs.loadbalancer
+    - bugs
 
   'mail':
     - match: nodegroup
