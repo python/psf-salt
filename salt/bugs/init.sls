@@ -227,19 +227,6 @@ postfix:
 {% endfor %}
 
 {% for tracker, config in pillar["bugs"]["trackers"].items() %}
-/etc/consul.d/roundup-{{ tracker }}.json:
-  file.managed:
-    - source: salt://consul/etc/service.jinja
-    - template: jinja
-    - context:
-        name: roundup-{{ tracker }}
-        port: {{ config.get('port') }}
-    - user: root
-    - group: root
-    - mode: "0644"
-    - require:
-      - pkg: consul-pkgs
-
 tracker-{{ tracker }}-database:
   postgres_database.present:
     - name: roundup_{{ tracker }}
@@ -344,6 +331,19 @@ tracker-{{ tracker }}-nginx-config:
         port: {{ config.get('port') }}
     - require:
       - file: /etc/nginx/sites.d/
+
+/etc/consul.d/roundup-{{ tracker }}.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: roundup-{{ tracker }}
+        port: {{ config.get('port') }}
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: consul-pkgs
 
 roundup-{{ tracker }}-backup:
   file.directory:
