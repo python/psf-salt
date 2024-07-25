@@ -34,3 +34,6 @@ firewall:
 
   "buildbot.python.org:worker":
     port: 9020
+
+  "bugs.python.org:smtp":
+    port: 20025
