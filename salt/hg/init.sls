@@ -2,6 +2,7 @@ hg-deps:
   pkg.installed:
     - pkgs:
       - mercurial
+      - python3-pygments
 
 svn-deps:
   pkg.installed:
@@ -158,7 +159,7 @@ apache2:
   pkg.installed:
     - pkgs:
       - apache2
-      - libapache2-mod-wsgi
+      - libapache2-mod-wsgi-py3
   service.running:
     - enable: True
     - reload: True
