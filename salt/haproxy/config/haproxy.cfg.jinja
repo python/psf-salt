@@ -219,8 +219,6 @@ backend {{ service }}
     # http://gnuterrypratchett.com/
     http-response set-header X-Clacks-Overhead GNU\ Terry\ Pratchett
 
-    capture request header X-Forwarded-For len 64
-
     {% if config.get("hsts", True) -%}
     # Add HSTS headers for anything that is configured to have them.
     http-response set-header Strict-Transport-Security max-age={{ config.get("hsts_seconds", 315360000) }}{% if config.get("hsts_subdomains", True) %};\ includeSubDomains{% endif %}{% if config.get("hsts_preload", True) %};\ preload{% endif %}
