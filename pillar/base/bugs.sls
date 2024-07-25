@@ -8,6 +8,7 @@ bugs:
     cpython:
       source: https://github.com/psf/bpo-tracker-cpython.git
       server_name: bugs.python.org
+      port: 9000
       workers: 16
       config:
           tracker: cpython
@@ -37,6 +38,7 @@ bugs:
     jython:
       source: https://github.com/psf/bpo-tracker-jython.git
       server_name: bugs.jython.org
+      port: 9001
       config:
           tracker: jython
           main__database: /srv/roundup/data/jython
@@ -61,6 +63,7 @@ bugs:
     roundup:
       source: https://github.com/psf/bpo-tracker-roundup.git
       server_name: issues.roundup-tracker.org
+      port: 9002
       config:
           tracker: roundup
           main__database: /srv/roundup/data/roundup

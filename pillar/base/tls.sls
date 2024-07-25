@@ -42,6 +42,10 @@ tls:
       roles:
         - planet
 
+    bugs.psf.io:
+      roles:
+        - bugs
+
     postgresql.psf.io:
       roles:
         - postgresql

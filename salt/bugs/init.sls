@@ -210,6 +210,22 @@ postfix:
       - file: /etc/postfix/virtual
       - file: /etc/postfix/reject_recipients
 
+{# We can extend this for smtps/submission later #}
+{% for (port, service) in [(25, "smtp")] %}
+/etc/consul.d/roundup-{{ service }}.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: roundup-{{ service }}
+        port: {{ port }}
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: consul-pkgs
+{% endfor %}
+
 {% for tracker, config in pillar["bugs"]["trackers"].items() %}
 tracker-{{ tracker }}-database:
   postgres_database.present:
@@ -312,8 +328,22 @@ tracker-{{ tracker }}-nginx-config:
     - context:
         tracker: {{ tracker }}
         server_name: {{ config.get('server_name') }}
+        port: {{ config.get('port') }}
     - require:
       - file: /etc/nginx/sites.d/
+
+/etc/consul.d/roundup-{{ tracker }}.json:
+  file.managed:
+    - source: salt://consul/etc/service.jinja
+    - template: jinja
+    - context:
+        name: roundup-{{ tracker }}
+        port: {{ config.get('port') }}
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: consul-pkgs
 
 roundup-{{ tracker }}-backup:
   file.directory:

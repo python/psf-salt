@@ -67,6 +67,14 @@ haproxy:
       verify_host: planet.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ planet.psf.io"
 
+    {% for tracker, config in salt["pillar.get"]("bugs:trackers", {}).items() %}
+    roundup-{{ tracker }}:
+      domains:
+        - {{ config['server_name'] }}
+      verify_host: bugs.psf.io
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ {{ config['server_name'] }}"
+    {% endfor %}
+
     moin:
       domains:
         - wiki.python.org
@@ -155,3 +163,13 @@ haproxy:
       extra:
         - timeout client 86400
         - timeout server 86400
+
+    {# We can extend this for smtps/submission later #}
+    {% for (port, service, ssl) in [(25, "smtp", False)] %}
+    roundup-{{ service }}:
+      bind: :{{ port }} {% if ssl %} ssl crt /etc/ssl/private/bugs.python.org.pem {% endif %}
+      service: roundup-{{ service }}
+      extra:
+        - timeout client 30m
+        - timeout server 30m
+    {% endfor %}

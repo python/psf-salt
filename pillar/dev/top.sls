@@ -16,6 +16,7 @@ base:
   'bugs':
     - match: nodegroup
     - bugs
+    - firewall.bugs
 
   'cdn-logs':
     - match: nodegroup
@@ -55,6 +56,7 @@ base:
     - firewall.loadbalancer
     - secrets.fastly
     - secrets.tls.certs.loadbalancer
+    - bugs
 
   'mail':
     - match: nodegroup

@@ -77,3 +77,49 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
 }
+
+server {
+  listen {{ port }} ssl;
+  server_name {{ server_name }};
+  include mime.types;
+
+  ssl_certificate /etc/ssl/private/bugs.psf.io.pem;
+  ssl_certificate_key /etc/ssl/private/bugs.psf.io.pem;
+
+  add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+  add_header X-Frame-Options "sameorigin";
+  add_header X-Xss-Protection "1; mode=block";
+  add_header X-Content-Type-Options "nosniff";
+  add_header X-Permitted-Cross-Domain-Policies "none";
+
+  error_log /var/log/nginx/roundup-{{ tracker }}.error.log;
+  access_log /var/log/nginx/roundup-{{ tracker }}.access.log timed_combined_{{ tracker }};
+
+  root /srv/roundup/trackers/{{ tracker }}/;
+
+  include conf.d/tracker-extras/{{ tracker }}*.conf;
+
+  gzip              on;
+  gzip_http_version 1.1;
+  gzip_proxied      any;
+  gzip_min_length   500;
+  gzip_comp_level   6;  # default comp_level is 1
+  gzip_disable      msie6;
+  gzip_types        text/plain text/css
+                    text/xml application/xml
+                    text/javascript application/javascript
+                    text/json application/json;
+
+  location /@@file/ {
+    rewrite ^/@@file/(.*) /html/$1 break;
+    expires 1h;
+  }
+
+  location / {
+    limit_req zone=limit-{{ tracker }} burst=5 nodelay;
+    proxy_pass http://tracker-{{ tracker }}/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
