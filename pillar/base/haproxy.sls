@@ -167,7 +167,7 @@ haproxy:
         - timeout server 86400
 
     {# We can extend this for smtps/submission later #}
-    {% for (port, service, ssl) in [(25, "smtp", False)] %}
+    {% for (port, service, ssl) in [(20025, "smtp", False)] %}
     roundup-{{ service }}:
       bind: :{{ port }} {% if ssl %} ssl crt /etc/ssl/private/bugs.python.org.pem {% endif %}
       service: roundup-{{ service }}
