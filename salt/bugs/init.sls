@@ -165,6 +165,17 @@ tracker-nginx-extras:
       - pkg: roundup-deps
       - cmd: lego_bootstrap
 
+/etc/postfix/master.cf:
+  file.managed:
+    - source: salt://bugs/config/postfix/master.cf
+    - user: root
+    - group: root
+    - mode: "0644"
+    - template: jinja
+    - require:
+      - pkg: roundup-deps
+      - cmd: lego_bootstrap
+
 /etc/postfix/virtual:
   file.managed:
     - source: salt://bugs/config/postfix/virtual
@@ -203,15 +214,17 @@ postfix:
     - reload: True
     - require:
       - file: /etc/postfix/main.cf
+      - file: /etc/postfix/master.cf
       - file: /etc/postfix/virtual
       - file: /etc/postfix/reject_recipients
     - watch_any:
       - file: /etc/postfix/main.cf
+      - file: /etc/postfix/master.cf
       - file: /etc/postfix/virtual
       - file: /etc/postfix/reject_recipients
 
 {# We can extend this for smtps/submission later #}
-{% for (port, service) in [(25, "smtp")] %}
+{% for (port, service) in [(20025, "smtp")] %}
 /etc/consul.d/roundup-{{ service }}.json:
   file.managed:
     - source: salt://consul/etc/service.jinja

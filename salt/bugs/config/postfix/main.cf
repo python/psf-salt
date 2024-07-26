@@ -50,3 +50,6 @@ virtual_alias_domains = {% for tracker, config in pillar["bugs"]["trackers"].ite
 virtual_alias_maps = hash:/etc/postfix/virtual
 
 smtpd_recipient_restrictions = check_recipient_access hash:/etc/postfix/reject_recipients
+
+postscreen_upstream_proxy_protocol = haproxy
+postscreen_upstream_proxy_timeout = 5s
