@@ -89,6 +89,7 @@ listen tls:
     bind 0.0.0.0:443 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
     bind :::443 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem  crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
     bind :20010 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
+    bind :20011 accept-proxy ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt www.pycon.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
 
     mode http
 
@@ -106,6 +107,7 @@ listen tls:
 
 frontend main
     bind :20000
+    bind :20001 accept-proxy
     bind 0.0.0.0:80
     bind :::80
     bind 127.0.0.1:19001  # This is our TLS socket.
@@ -236,7 +238,7 @@ backend {{ service }}
 
 {% for name, config in haproxy.listens.items() -%}
 listen {{ name }}
-    bind {{ config.bind }}
+    bind {{ config.bind }}{% if config.get("accept_proxy", False) %} accept-proxy{% endif %}
 
     mode tcp
     option tcplog
@@ -247,7 +249,7 @@ listen {{ name }}
     {% endfor %}
 
     {{ "{{" }}range service "{{ config.service }}@{{ pillar.dc }}"}}
-    {% raw %}server {{.Node}} {{.Address}}:{{.Port}} check{{end}}{% endraw %}
+    {% raw %}server {{.Node}} {{.Address}}:{{.Port}} check{{end}}{% endraw %}{% if config.get("send_proxy", False) %} send-proxy{% endif %}
 
 {% endfor %}
 

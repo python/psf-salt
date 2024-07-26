@@ -171,6 +171,8 @@ haproxy:
     roundup-{{ service }}:
       bind: :{{ port }} {% if ssl %} ssl crt /etc/ssl/private/bugs.python.org.pem {% endif %}
       service: roundup-{{ service }}
+      accept_proxy: True
+      send_proxy: True
       extra:
         - timeout client 30m
         - timeout server 30m
