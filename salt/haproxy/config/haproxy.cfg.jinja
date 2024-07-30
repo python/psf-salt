@@ -122,7 +122,6 @@ frontend main
     capture request header X-Forwarded-For len 64
 
     acl letsencrypt-well-known-acl path_beg /.well-known/acme-challenge/
-    use_backend letsencrypt-well-known if letsencrypt-well-known-acl
 
     # Determine if this request has TLS on the client side or not.
     acl is_tls dst_port 19001
@@ -141,6 +140,8 @@ frontend main
 
     # Redirect all HTTP traffic to HTTPS
     redirect code 301 scheme https if !is_tls !letsencrypt-well-known-acl
+
+    use_backend letsencrypt-well-known if letsencrypt-well-known-acl
 
     # Dispatch to the redirect backend for any redirects we have, we're going
     # to do this here after the HTTP -> HTTPS redirect even though this will
@@ -215,7 +216,25 @@ backend redirect
 {% for service, config in haproxy.services.items() %}
 backend {{ service }}
     {% if config.get("check") -%}
+    {% if grains["oscodename"] != "noble" -%}
     option httpchk {{ config.check }}
+    {%- else -%}
+    # Noble Config using the newer http-check syntax
+    # We need to split the check into parts to handle the extra things
+    # ...maybe there is a better way to do this?
+    {% set check_parts = config.check.split(' ', 2) -%}
+    {% set method = check_parts[0] -%}
+    {% set path = check_parts[1] -%}
+    {% if check_parts|length > 2 -%}
+        {% set extra = check_parts[2].split('\r\n') -%}
+        {% set version = extra[0] -%}
+        {% set headers = extra[1:] -%}
+    {% endif -%}
+    http-check send meth {{ method }} uri {{ path }} ver {{ version }}
+    {%- for header in headers %}
+    http-check send hdr {{ header.replace(':\\ ', ': ') }}
+    {%- endfor %}
+    {%- endif %}
     {%- endif %}
 
     # http://gnuterrypratchett.com/
