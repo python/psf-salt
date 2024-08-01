@@ -3,4 +3,4 @@ from mercurial import encoding
 
 CONFIG = '/srv/hg/repos.conf'
 encoding.encoding = 'utf-8'
-application = hgwebdir(CONFIG)
+application = hgwebdir(CONFIG.encode())
