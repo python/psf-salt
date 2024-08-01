@@ -97,6 +97,18 @@ hg-user:
       - file: /srv/hg/wsgi
 {% endif %}
 
+/srv/hg/wsgi/python.wsgi:
+  file.managed:
+    - user: hg
+    - mode: "0755"
+    - require:
+      - file: /srv/hg/wsgi
+    {% if grains["oscodename"] == "noble" %}
+    - source: salt://hg/files/hg/wsgi/python3.wsgi
+    {% else %}
+    - source: salt://hg/files/hg/wsgi/python.wsgi
+    {% endif %}
+
 /srv/hg/src:
   file.recurse:
     - source: salt://hg/files/hg/src
