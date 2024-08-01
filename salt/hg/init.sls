@@ -58,11 +58,9 @@ hg-user:
     - file_mode: "0755"
     - require:
       - user: hg-user
-    - exclude_pat:
-      - python*.wsgi
 
 {% if grains["oscodename"] == "noble" %}
-/srv/hg/wsgi/python3.wsgi:
+/srv/hg/wsgi/python.wsgi:
   file.managed:
     - source: salt://hg/files/hg/wsgi/python3.wsgi
     - user: hg
