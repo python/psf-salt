@@ -58,8 +58,6 @@ hg-user:
     - file_mode: "0755"
     - require:
       - user: hg-user
-    - exclude_pat:
-      - python*.wsgi
 
 {% if grains["oscodename"] == "noble" %}
 /srv/hg/wsgi/python3.wsgi:
