@@ -59,23 +59,17 @@ hg-user:
     - require:
       - user: hg-user
 
-{% if grains["oscodename"] == "noble" %}
 /srv/hg/wsgi/python.wsgi:
   file.managed:
+    - user: hg
+    - mode: "0755"
+    - require:
+      - file: /srv/hg/wsgi
+    {% if grains["oscodename"] == "noble" %}
     - source: salt://hg/files/hg/wsgi/python3.wsgi
-    - user: hg
-    - mode: "0755"
-    - require:
-      - file: /srv/hg/wsgi
-{% else %}
-/srv/hg/wsgi/python.wsgi:
-  file.managed:
+    {% else %}
     - source: salt://hg/files/hg/wsgi/python.wsgi
-    - user: hg
-    - mode: "0755"
-    - require:
-      - file: /srv/hg/wsgi
-{% endif %}
+    {% endif %}
 
 /srv/hg/src:
   file.recurse:
