@@ -115,7 +115,7 @@ index 68387c9..7a8ace1 100644
       - Copy and paste the generated commands to create and populate the files on `new-host` 
 4. Restart the `salt-minion` service on the **new host** to pick up the configuration and register with salt-master:
     ```console
-    sudo salt-call service.restart
+    sudo salt-call service.restart salt-minion
     ```
 5. On **`salt-master`**, accept the key for the new-host:
     ```console
@@ -230,7 +230,7 @@ index 68387c9..7a8ace1 100644
     ```
 7.  Restart the salt minion:
     ```console
-    sudo salt-call service.restart
+    sudo salt-call service.restart salt-minion
     ```
 8.  Restart Datadog agent:
     ```console
