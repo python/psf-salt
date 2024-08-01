@@ -79,36 +79,6 @@ hg-user:
       - file: /srv/hg/wsgi
 {% endif %}
 
-{% if grains["oscodename"] == "noble" %}
-/srv/hg/wsgi/python.wsgi:
-  file.managed:
-    - source: salt://hg/files/hg/wsgi/python3.wsgi
-    - user: hg
-    - mode: "0755"
-    - require:
-      - file: /srv/hg/wsgi
-{% else %}
-/srv/hg/wsgi/python.wsgi:
-  file.managed:
-    - source: salt://hg/files/hg/wsgi/python.wsgi
-    - user: hg
-    - mode: "0755"
-    - require:
-      - file: /srv/hg/wsgi
-{% endif %}
-
-/srv/hg/wsgi/python.wsgi:
-  file.managed:
-    - user: hg
-    - mode: "0755"
-    - require:
-      - file: /srv/hg/wsgi
-    {% if grains["oscodename"] == "noble" %}
-    - source: salt://hg/files/hg/wsgi/python3.wsgi
-    {% else %}
-    - source: salt://hg/files/hg/wsgi/python.wsgi
-    {% endif %}
-
 /srv/hg/src:
   file.recurse:
     - source: salt://hg/files/hg/src
@@ -211,7 +181,7 @@ apache2:
   pkg.installed:
     - pkgs:
       - apache2
-      - libapache2-mod-wsgi{% if grains["oscodename"] == ["noble"] %}-py3{% endif %}
+      - libapache2-mod-wsgi{% if grains["oscodename"] == "noble" %}-py3{% endif %}
   service.running:
     - enable: True
     - reload: True
