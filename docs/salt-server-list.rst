@@ -19,7 +19,7 @@
    "downloads.nyc1.psf.io", "Serves python.org downloads", "CPython Release Managers", "Ubuntu-20.04", "nyc1"
    "gnumailman.nyc1.psf.io", "GNU Mailman Project wiki and lists", "Mark Sapiro", "Ubuntu-20.04", "nyc1"
    "hg-2404.nyc1.psf.io", "Version Control Archives, serves hg.python.org and svn.python.org", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
-   "hg.nyc1.psf.io", "Version Control Archives, serves hg.python.org and svn.python.org", "Infrastructure Staff", "Ubuntu-18.04", "nyc1"
+   "hg.nyc1.psf.io", "Version Control Archives, serves hg.python.org and svn.python.org", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
    "lb-a.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
    "lb-b.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
    "mail.ams1.psf.io", "Mail and mailman server", "postmasters", "Ubuntu-14.04", "ams1"
