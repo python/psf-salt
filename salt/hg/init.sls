@@ -2,7 +2,9 @@ hg-deps:
   pkg.installed:
     - pkgs:
       - mercurial
+      {% if grains["oscodename"] == ["noble"] %}
       - python3-pygments
+      {% endif %}
 
 svn-deps:
   pkg.installed:
@@ -159,7 +161,7 @@ apache2:
   pkg.installed:
     - pkgs:
       - apache2
-      - libapache2-mod-wsgi-py3
+      - libapache2-mod-wsgi{% if grains["oscodename"] == ["noble"] %}-py3{% endif %}
   service.running:
     - enable: True
     - reload: True
