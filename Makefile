@@ -1,4 +1,4 @@
-PIP_COMMAND 	:= $(shell command -v uv >/dev/null 2>&1 && echo "uv pip" || echo "pip")
+PIP_COMMAND		:= $(shell command -v uv >/dev/null 2>&1 && echo "uv pip" || echo "pip")
 ENV_PREFIX		=  .venv/bin/
 
 docs-install: 										## Install docs dependencies
