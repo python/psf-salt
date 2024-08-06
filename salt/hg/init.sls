@@ -2,6 +2,9 @@ hg-deps:
   pkg.installed:
     - pkgs:
       - mercurial
+      {% if grains["oscodename"] == ["noble"] %}
+      - python3-pygments
+      {% endif %}
 
 svn-deps:
   pkg.installed:
@@ -55,6 +58,18 @@ hg-user:
     - file_mode: "0755"
     - require:
       - user: hg-user
+
+/srv/hg/wsgi/python.wsgi:
+  file.managed:
+    - user: hg
+    - mode: "0755"
+    - require:
+      - file: /srv/hg/wsgi
+    {% if grains["oscodename"] == "noble" %}
+    - source: salt://hg/files/hg/wsgi/python3.wsgi
+    {% else %}
+    - source: salt://hg/files/hg/wsgi/python.wsgi
+    {% endif %}
 
 /srv/hg/src:
   file.recurse:
@@ -158,7 +173,7 @@ apache2:
   pkg.installed:
     - pkgs:
       - apache2
-      - libapache2-mod-wsgi
+      - libapache2-mod-wsgi{% if grains["oscodename"] == "noble" %}-py3{% endif %}
   service.running:
     - enable: True
     - reload: True
