@@ -35,6 +35,7 @@ datadog-agent:
   pkg:
     - installed
     - require:
+      - pkg: datadog-signing-keys
       - pkgrepo: datadog_repo
   service:
     - running
