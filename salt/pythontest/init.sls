@@ -50,7 +50,7 @@ inn2:
   file.directory:
     - user: nginx
     - group: nginx
-    - mode: 755
+    - mode: "0755"
 
 testdata-repo:
   git.latest:
