@@ -46,6 +46,12 @@ inn2:
     - user: www-data
     - group: www-data
 
+/nonexistent:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 755
+
 testdata-repo:
   git.latest:
     - name: https://github.com/python/pythontestdotnet
