@@ -14,3 +14,10 @@ backup:
       target_user: root
       frequency: daily
       user: root
+    hg-svn-config:
+      source_directory: /etc/apache2/svn_config/
+      target_host: backup.sfo1.psf.io
+      target_directory: /backup/hg-svn-config
+      target_user: root
+      frequency: daily
+      user: root
