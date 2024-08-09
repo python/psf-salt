@@ -36,6 +36,7 @@ buildbot-user:
     - user: buildbot
     - group: root
     - mode: "0755"
+    - makedirs: True
 
 /srv:
   file.directory:
