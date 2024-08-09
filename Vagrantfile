@@ -2,17 +2,17 @@
 
 
 SERVERS = [
-  "backup-server",
-  {:name => "bugs", :codename => "jammy", :ports => [8080]},
+  {:name => "backup-server", :codename => "noble"},
+  {:name => "bugs", :codename => "noble", :ports => [8080]},
   {:name => "buildbot", :codename => "noble"},
   "cdn-logs",
   {:name => "codespeed", :codename => "jammy"},
-  {:name => "consul", :codename => "jammy"},
-  "docs",
-  "downloads",
+  {:name => "consul", :codename => "noble"},
+  {:name => "docs", :codename => "noble"},
+  {:name => "downloads", :codename => "noble"},
   {:name => "hg", :codename => "noble"},
   {:name => "loadbalancer", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20010, 20011]},
-  "mail",
+  {:name => "mail", :codename => "noble"},
   "moin",
   "planet",
   "pythontest",
