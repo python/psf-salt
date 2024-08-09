@@ -1,16 +1,22 @@
-PIP_COMMAND		:= $(shell command -v uv >/dev/null 2>&1 && echo "uv pip" || echo "pip")
-ENV_PREFIX		=  .venv/bin/
+DOCKER_IMAGE_NAME := docs-server
+DOCKER_CONTAINER_NAME := docs-container
 
-docs-install: 										## Install docs dependencies
-	@echo "=> Installing documentation dependencies"
-	@$(PIP_COMMAND) install -r docs/requirements.txt
-	@echo "=> Installed documentation dependencies"
+.PHONY: docs-build docs-clean docs-serve
 
-docs-clean: 										## Dump the existing built docs
+docs-build:
+	@echo "=> Building Docker image for documentation"
+	docker build -t $(DOCKER_IMAGE_NAME) -f Dockerfile .
+
+docs-clean:
 	@echo "=> Cleaning documentation build assets"
-	@rm -rf docs/_build
+	docker run --rm -v $(PWD)/docs:/app/docs $(DOCKER_IMAGE_NAME) rm -rf /app/docs/_build
 	@echo "=> Removed existing documentation build assets"
 
-docs-serve: docs-clean docs-install							## Serve the docs locally
+docs-serve: docs-build
 	@echo "=> Serving documentation"
-	@$(ENV_PREFIX)sphinx-autobuild docs/ docs/_build/ -j auto --watch docs/
+	docker run --name $(DOCKER_CONTAINER_NAME) -p 8000:8000 -v $(PWD)/docs:/app/docs $(DOCKER_IMAGE_NAME)
+
+docs-stop:
+	@echo "=> Stopping documentation server"
+	docker stop $(DOCKER_CONTAINER_NAME)
+	docker rm $(DOCKER_CONTAINER_NAME)
