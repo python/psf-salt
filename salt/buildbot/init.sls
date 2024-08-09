@@ -31,6 +31,12 @@ buildbot-user:
     - group: buildbot
     - mode: "0750"
 
+/data/www/buildbot:
+  file.directory:
+    - user: buildbot
+    - group: root
+    - mode: "0755"
+
 /srv:
   file.directory:
     - user: buildbot
