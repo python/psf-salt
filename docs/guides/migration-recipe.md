@@ -115,7 +115,7 @@ index 68387c9..7a8ace1 100644
       - Copy and paste the generated commands to create and populate the files on `new-host` 
 4. Restart the `salt-minion` service on the **new host** to pick up the configuration and register with salt-master:
     ```console
-    sudo salt-call service.restart
+    sudo salt-call service.restart salt-minion
     ```
 5. On **`salt-master`**, accept the key for the new-host:
     ```console
@@ -163,11 +163,13 @@ index 68387c9..7a8ace1 100644
 5.  If the service has pillar data for backups (see `pillar/prod/backup/$service.sls`), 
     run `rsync` once to move the bulk of data and as necessary to watch for changes:
     ```console
-    sudo -E -s rsync -av --rsync-path="sudo rsync" username@hostname: /pathname/ /pathname/
+    sudo -E -s rsync -av --rsync-path="sudo rsync" username@hostname:/pathname/ /pathname/
     ```
     - The `/pathname/` can be determined by looking at the pillar data for backups, `pillar/prod/backup` using the 
       `source_directory` path for the given host (example: the `downloads` host uses `/srv/`)
-
+    - ```{note}
+      Don't forget to enable SSH forwarding to allow the `rsync` command to use the local SSH key to connect to the old host.
+      ```
 ### Stop services on old host
 
 1.  SSH into `old-host`:
@@ -188,7 +190,7 @@ index 68387c9..7a8ace1 100644
 1. If the service has pillar data for backups (see `pillar/prod/backup/$service.sls`), 
     run `rsync` once more to finalize data migration:
     ```console
-    sudo -E -s rsync -av --rsync-path="sudo rsync" username@hostname: /pathname/ /pathname/
+    sudo -E -s rsync -av --rsync-path="sudo rsync" username@hostname:/pathname/ /pathname/
     ```
 2.  Start cron jobs:
     ```console
@@ -230,7 +232,7 @@ index 68387c9..7a8ace1 100644
     ```
 7.  Restart the salt minion:
     ```console
-    sudo salt-call service.restart
+    sudo salt-call service.restart salt-minion
     ```
 8.  Restart Datadog agent:
     ```console

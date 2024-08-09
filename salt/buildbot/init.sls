@@ -49,6 +49,16 @@ buildbot-user:
       - user: buildbot-user
       - file: /srv
 
+{# vagrant up fails due to this file not existing (see: https://github.com/python/psf-salt/pull/367#issuecomment-2218636563) #}
+/srv/buildbot/master/twistd.log:
+  file.managed:
+    - user: buildbot
+    - group: buildbot
+    - mode: "0644"
+    - replace: False
+    - require:
+      - git: /srv/buildbot
+
 update-master:
   cmd.run:
     - runas: buildbot
