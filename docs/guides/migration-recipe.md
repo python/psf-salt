@@ -167,7 +167,9 @@ index 68387c9..7a8ace1 100644
     ```
     - The `/pathname/` can be determined by looking at the pillar data for backups, `pillar/prod/backup` using the 
       `source_directory` path for the given host (example: the `downloads` host uses `/srv/`)
-
+    - ```{note}
+      Don't forget to enable SSH forwarding to allow the `rsync` command to use the local SSH key to connect to the old host.
+      ```
 ### Stop services on old host
 
 1.  SSH into `old-host`:

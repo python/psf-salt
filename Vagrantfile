@@ -4,7 +4,7 @@
 SERVERS = [
   "backup-server",
   {:name => "bugs", :codename => "jammy", :ports => [8080]},
-  "buildbot",
+  {:name => "buildbot", :codename => "noble"},
   "cdn-logs",
   {:name => "codespeed", :codename => "jammy"},
   {:name => "consul", :codename => "jammy"},
