@@ -29,6 +29,7 @@ haproxy:
       - pkg: haproxy
       - cmd: consul-template
       - service: rsyslog
+      - file: /etc/haproxy/fastly_token
     - watch:
       - file: /etc/ssl/private/*.pem
       - file: /etc/haproxy/fastly_token
@@ -39,7 +40,7 @@ haproxy:
   file.managed:
     - contents_pillar: fastly:token
     - user: root
-    - group: root
+    - group: ssl-cert
     - mode: "0640"
     - show_diff: False
     - require:
@@ -65,6 +66,8 @@ haproxy:
     - mode: "0644"
     - require:
       - pkg: consul-pkgs
+      - file: /etc/haproxy/our_domains
+      - file: /etc/haproxy/fastly_token
 
 
 /etc/consul-template.d/haproxy.json:
@@ -80,6 +83,7 @@ haproxy:
     - mode: "0640"
     - require:
       - pkg: consul-pkgs
+      - pkg: haproxy
 
 
 /usr/local/bin/haproxy-ocsp:
