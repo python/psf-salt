@@ -68,6 +68,9 @@ haproxy:
       - pkg: consul-pkgs
       - file: /etc/haproxy/our_domains
       - file: /etc/haproxy/fastly_token
+      {% for name in salt["pillar.get"]("tls:certs", {}) %}
+      - file: /etc/ssl/private/{{ name }}.pem
+      {% endfor %}
 
 
 /etc/consul-template.d/haproxy.json:
@@ -77,7 +80,7 @@ haproxy:
     - context:
         source: /usr/share/consul-template/templates/haproxy.cfg
         destination: /etc/haproxy/haproxy.cfg
-        command: service haproxy reload
+        command: systemctl reload-or-restart haproxy
     - user: root
     - group: root
     - mode: "0640"

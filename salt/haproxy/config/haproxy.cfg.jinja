@@ -268,7 +268,7 @@ listen {{ name }}
     {% endfor %}
 
     {{ "{{" }}range service "{{ config.service }}@{{ pillar.dc }}"}}
-    {% raw %}server {{.Node}} {{.Address}}:{{.Port}} check{{end}}{% endraw %}{% if config.get("send_proxy", False) %} send-proxy{% endif %}
+    {% raw %}server {{.Node}} {{.Address}}:{{.Port}} check{% endraw %}{% if config.get("send_proxy", False) %} send-proxy{% endif %}{{ "{{end}}" }}
 
 {% endfor %}
 
