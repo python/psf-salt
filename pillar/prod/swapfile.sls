@@ -1,3 +1,3 @@
-swapfile:
-  size: 1024
-  path: /swapfile
+swap_file:
+  swap_size: 1024
+  swap_path: /swapfile
