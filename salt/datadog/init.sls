@@ -1,6 +1,4 @@
-{% set swap_file = salt["pillar.get"]("swap_file", {}) %}
-{% set swap_size = swap_file.get("swap_size", "1024") %}
-{% set swap_path = swap_file.get("swap_path") %}
+{% set swap_path = salt['pillar.get'](salt['pillar.get']('swap_file:swap_path')) %}
 
 {% if grains["oscodename"] == ["jammy", "noble"] %}
 datadogkey:
