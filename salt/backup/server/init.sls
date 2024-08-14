@@ -15,7 +15,7 @@ include:
     - names:
       - {{ config['authorized_key'] }}
     - options:
-      - command="rdiff-backup --server"
+      - command="rdiff-backup server"
       - no-pty
       - no-port-forwarding
       - no-agent-forwarding
