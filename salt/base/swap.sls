@@ -1,6 +1,6 @@
 {% set swapfile = salt["pillar.get"]("swapfile", {}) %}
 {% set size = swapfile.get("size", "1024") %}
-{% set path = swapfile.get("path", "/swapfile") %}
+{% set path = swapfile.get("path") %}
 
 {{ path }}:
   cmd.run:
