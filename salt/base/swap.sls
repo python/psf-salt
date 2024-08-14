@@ -2,6 +2,7 @@
 {% set size = swapfile.get("size", "1024") %}
 {% set path = swapfile.get("path") %}
 
+{% if path is not None %}
 {{ path }}:
   cmd.run:
     - name: |
@@ -14,3 +15,4 @@
 
   mount.swap:
     - persist: true
+{% endif %}
