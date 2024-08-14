@@ -36,7 +36,7 @@ datadog-agent:
     - installed
     - require:
       - pkgrepo: datadog_repo
-      - mount: {{ swap_path }}
+      - mount: {% if swap_path %}{{ swap_path }}{% endif %}
   service:
     - running
     - enable: True
