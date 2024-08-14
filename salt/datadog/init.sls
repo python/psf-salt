@@ -1,3 +1,5 @@
+{% set swap_path = salt['pillar.get'](salt['pillar.get']('swap_file:swap_path')) %}
+
 {% if grains["oscodename"] == ["jammy", "noble"] %}
 datadogkey:
   file.managed:
