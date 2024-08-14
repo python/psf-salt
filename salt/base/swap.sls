@@ -2,7 +2,7 @@
 {% set size = swapfile.get("size", "1024") %}
 {% set path = swapfile.get("path") %}
 
-{% if path is not None %}
+{% if path %}
 {{ path }}:
   cmd.run:
     - name: |
