@@ -7,14 +7,14 @@
    :header: "Name", "Purpose", "Contact", "Distro", "Datacener"
 
 
-   "backup.sfo1.psf.io", "Automated backup of infrastructure", "Infrastructure staff", "Ubuntu-20.04", "sfo1"
+   "backup.sfo1.psf.io", "Automated backup of infrastructure", "Infrastructure staff", "Ubuntu-24.04", "sfo1"
    "bugs.nyc1.psf.io", "Roundup hosting for CPython, Jython, and Roundup", "Infrastructure staff", "Ubuntu-22.04", "nyc1"
    "buildbot.nyc1.psf.io", "Hosting for CPython buildbot server", "zware, haypo, pablogsa", "Ubuntu-24.04", "nyc1"
    "cdn-logs.nyc1.psf.io", "Realtime log streaming from Fastly CDN for debug", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
    "codespeed.nyc1.psf.io", "Hosting for speed.python.org and speed.pypy.org", "", "Ubuntu-22.04", "nyc1"
-   "consul-a.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
-   "consul-b.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
-   "consul-c.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
+   "consul-1.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
+   "consul-2.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
+   "consul-3.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
    "docs.nyc1.psf.io", "Builds and serves CPython's documentation", "mdk", "Ubuntu-24.04", "nyc1"
    "downloads.nyc1.psf.io", "Serves python.org downloads", "CPython Release Managers", "Ubuntu-24.04", "nyc1"
    "gnumailman.nyc1.psf.io", "GNU Mailman Project wiki and lists", "Mark Sapiro", "Ubuntu-20.04", "nyc1"
