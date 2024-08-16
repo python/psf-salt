@@ -1,3 +1,5 @@
+{% set swap_path = salt['pillar.get'](salt['pillar.get']('swap_file:swap_path')) %}
+
 {% if grains["oscodename"] == ["jammy", "noble"] %}
 datadogkey:
   file.managed:
@@ -31,11 +33,25 @@ datadog_repo:
     - source: salt://datadog/files
 
 {% if 'datadog_api_key' in pillar %}
+check_datadog_installation:
+  cmd.run:
+    - name: |
+        if ! dpkg-query -W datadog-agent || ! test -f /etc/datadog-agent/datadog.yaml; then
+          dpkg --remove --force-remove-reinstreq datadog-agent || true
+          apt-get -y --fix-broken install
+          apt-get update
+        fi
+    - hide_output: True
+
 datadog-agent:
   pkg:
     - installed
     - require:
       - pkgrepo: datadog_repo
+        {% if swap_path %}
+      - mount: {{ swap_path }}
+        {% endif %}
+      - cmd: check_datadog_installation
   service:
     - running
     - enable: True

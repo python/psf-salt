@@ -4,4 +4,4 @@ firewall:
   ftp-21:
     port: 21
   ftp-incoming:
-    raw: -A INPUT -p tcp --destination-port 10090:10100 -j ACCEPT
+    raw: -A INPUT -p tcp --destination-port 10090:10190 -j ACCEPT
