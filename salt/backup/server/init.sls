@@ -15,7 +15,7 @@ include:
     - names:
       - {{ config['authorized_key'] }}
     - options:
-      - command="rdiff-backup --server"
+      - command="rdiff-backup server"
       - no-pty
       - no-port-forwarding
       - no-agent-forwarding
@@ -41,6 +41,6 @@ include:
     - context:
         cron: '0 3 * * *'
         job_user: root
-        job_command: 'rdiff-backup --terminal-verbosity 2 --force --remove-older-than {{ config['increment_retention'] }} {{ config['directory'] }}'
+        job_command: 'rdiff-backup --terminal-verbosity 1 --force remove increments --older-than {{ config['increment_retention'] }} {{ config['directory'] }}'
 
 {% endfor %}

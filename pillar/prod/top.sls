@@ -10,6 +10,7 @@ base:
     - users
     - postgres.clusters
     - secrets.monitoring.datadog
+    - swapfile
 
   'backup-server':
     - match: nodegroup

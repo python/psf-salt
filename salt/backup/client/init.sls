@@ -39,9 +39,9 @@ include:
     - context:
         pre_script: '{{ config.get('pre_script', ":") }}'
         {% if grains["oscodename"] == "noble" -%}
-        remote_command: '/usr/bin/rdiff-backup --terminal-verbosity 1 {%- for exclude in config.get('exclude', []) %} --exclude {{ exclude }} {%- endfor %} --remote-schema "ssh -i /etc/backup/.ssh/id_rsa_{{ backup }} -C %s rdiff-backup --server" backup --no-eas {{ config['source_directory'] }} {{ config['target_user'] }}@{{ config['target_host'] }}::{{ config['target_directory'] }}'
+        remote_command: '/usr/bin/rdiff-backup --terminal-verbosity 1 --remote-schema "ssh -i /etc/backup/.ssh/id_rsa_{{ backup }} -C %s rdiff-backup server" backup --no-eas {%- for exclude in config.get('exclude', []) %} --exclude {{ exclude }} {%- endfor %} {{ config['source_directory'] }} {{ config['target_user'] }}@{{ config['target_host'] }}::{{ config['target_directory'] }}'
         {% else %}
-        remote_command: '/usr/bin/rdiff-backup --terminal-verbosity 1 {%- for exclude in config.get('exclude', []) %} --exclude {{ exclude }} {%- endfor %} --no-eas --remote-schema "ssh -i /etc/backup/.ssh/id_rsa_{{ backup }} -C %s rdiff-backup --server" {{ config['source_directory'] }} {{ config['target_user'] }}@{{ config['target_host'] }}::{{ config['target_directory'] }}'
+        remote_command: '/usr/bin/rdiff-backup --terminal-verbosity 1 {%- for exclude in config.get('exclude', []) %} --exclude {{ exclude }} {%- endfor %} --no-eas --remote-schema "ssh -i /etc/backup/.ssh/id_rsa_{{ backup }} -C %s rdiff-backup server" {{ config['source_directory'] }} {{ config['target_user'] }}@{{ config['target_host'] }}::{{ config['target_directory'] }}'
         {% endif %}
         post_script: '{{ config.get('post_script', ":") }}'
         cleanup_script: '{{ config.get('cleanup_script', ":") }}'
