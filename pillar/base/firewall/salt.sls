@@ -13,11 +13,11 @@ firewall:
   {# NOTE: These hosts do not run in the primary DC (NYC1) so firewall holes are poked for access #}
   salt_master_pythontest:
     port: 4505:4506
-    source: 159.89.235.38
-
-  salt_master_pythontest_noble:
-    port: 4505:4506
     source: 68.183.26.59
+
+  salt_master_backup_server:
+    port: 4505:4506
+    source: 159.89.159.168
 
   salt_master_remote_backup:
     port: 4505:4506

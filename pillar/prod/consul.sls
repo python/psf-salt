@@ -1,9 +1,9 @@
 consul:
   bootstrap:
     nyc1:
-      - consul-a.nyc1.psf.io
-      - consul-b.nyc1.psf.io
-      - consul-c.nyc1.psf.io
+      - consul-1.nyc1.psf.io
+      - consul-2.nyc1.psf.io
+      - consul-3.nyc1.psf.io
   acl:
     default: deny
     dc: nyc1

@@ -18,6 +18,7 @@ base:
     - rsyslog
     - datadog
     - base.motd
+    - base.swap
 
   'backup-server':
     - match: nodegroup
