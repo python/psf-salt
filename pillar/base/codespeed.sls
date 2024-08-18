@@ -25,7 +25,7 @@ codespeed-instances:
     module: speed_pypy
     wsgi_app: speed_pypy.wsgi:application
     clones:
-      git: {}
-      hg:
+      git:
         pypy:
-          source: https://foss.heptapod.net/pypy/pypy
+          source: https://github.com/pypy/pypy
+      hg: {}
