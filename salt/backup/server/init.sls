@@ -1,6 +1,14 @@
+{% set backup_hosts = salt['mine.get']('*', 'cmd.run') %}
+{% set target_host = salt['pillar.get']('backup:target_host') %}
 
 include:
   - backup.base
+
+/backup:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: "0755"
 
 {% for backup, config in salt['pillar.get']('backup-server:backups', {}).items() %}
 
@@ -8,20 +16,34 @@ include:
   user.present:
     - name: {{ config['user'] }}
 
-{{ backup }}-ssh:
-  ssh_auth:
-    - present
+{{ backup }}-ssh-dir:
+  file.directory:
+    - name: /home/{{ config['user'] }}/.ssh
     - user: {{ config['user'] }}
-    - names:
-      - {{ config['authorized_key'] }}
-    - options:
-      - command="rdiff-backup server"
-      - no-pty
-      - no-port-forwarding
-      - no-agent-forwarding
-      - no-X11-forwarding
+    - group: {{ config['user'] }}
+    - mode: 0700
+    - makedirs: True
     - require:
       - user: {{ config['user'] }}
+
+{{ backup }}-authorized-keys:
+  file.managed:
+    - name: /home/{{ config['user'] }}/.ssh/authorized_keys
+    - user: {{ config['user'] }}
+    - group: {{ config['user'] }}
+    - mode: 0600
+    - replace: False
+    - require:
+      - file: {{ backup }}-ssh-dir
+
+{% for host, pubkey in backup_hosts.items() %}
+{{ backup }}-{{ host }}-ssh-key:
+  file.append:
+    - name: /home/{{ config['user'] }}/.ssh/authorized_keys
+    - text: 'command="rdiff-backup server",no-pty,no-port-forwarding,no-agent-forwarding,no-X11-forwarding {{ pubkey }}'
+    - require:
+      - file: {{ backup }}-authorized-keys
+{% endfor %}
 
 {{ backup }}:
   file.directory:
