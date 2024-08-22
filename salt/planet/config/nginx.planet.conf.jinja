@@ -1,31 +1,6 @@
 {% for site, info in salt["pillar.get"]("planet", {}).get("sites").items() %}
 
 server {
-    listen 80 default_server;
-    server_name {{ site }};
-
-    location /.well-known/acme-challenge/ {
-      alias /etc/lego/.well-known/acme-challenge/;
-      try_files $uri =404;
-    }
-
-    location / {
-      return 301 https://$host$request_uri;
-    }
-}
-
-server {
-    listen 443 ssl;
-    server_name {{ site }};
-    error_log /var/log/nginx/{{ site }}.error.log;
-    access_log /var/log/nginx/{{ site }}.access.log;
-    ssl_certificate /etc/lego/certificates/{{ grains['fqdn'] }}.crt;
-    ssl_certificate_key /etc/lego/certificates/{{ grains['fqdn'] }}.key;
-
-    root /srv/{{ site }}/;
-}
-
-server {
     listen 9000 ssl;
     server_name {{ site }};
     error_log /var/log/nginx/{{ site }}.error.log;
