@@ -19,8 +19,10 @@ server {
     server_name {{ site }};
     error_log /var/log/nginx/{{ site }}.error.log;
     access_log /var/log/nginx/{{ site }}.access.log;
-    ssl_certificate /etc/lego/certificates/{{ grains['fqdn'] }}.crt;
-    ssl_certificate_key /etc/lego/certificates/{{ grains['fqdn'] }}.key;
+
+    # By default use the snakeoil certificate...
+    ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+    ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
 
     root /srv/{{ site }}/;
 }
