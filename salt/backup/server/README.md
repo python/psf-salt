@@ -14,6 +14,4 @@ Format for pillar data:
           increment_retention: 10d
           # User the client can access the backup server as
           user: postgres
-          # Authorized Key for client access
-          authorized_key: ssh-rsa AAAAB3NzaC1y.. ...CXVxa6LHKJB6RDT3eYyMQSugFSCrHxQ8j/F
 
