@@ -1,33 +1,7 @@
 
 include:
   - bugs.postgresql
-  - tls.lego
   - nginx
-
-lego_bootstrap:
-  cmd.run:
-    - name: /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http --path /etc/lego --key-type ec256 run
-    - creates: /etc/lego/certificates/{{ grains['fqdn'] }}.json
-    - require:
-      - archive: lego_extract
-
-lego_renew:
-  cron.present:
-    - name: /usr/bin/sudo -u nginx /usr/local/bin/lego -a --email="infrastructure-staff@python.org" {% if pillar["dc"] == "vagrant" %}--server=https://salt-master.vagrant.psf.io:14000/dir{% endif %} --domains="{{ grains['fqdn'] }}" {%- for domain in pillar['bugs']['subject_alternative_names']  %} --domains {{ domain }}{%- endfor %} --http --http.webroot /etc/lego --path /etc/lego --key-type ec256  renew --days 30 && /usr/sbin/service nginx reload && /usr/sbin/service postfix reload
-    - identifier: roundup_lego_renew
-    - hour: 0
-    - minute: random
-
-lego_config:
-  file.managed:
-    - name: /etc/nginx/conf.d/lego.conf
-    - source: salt://tls/config/lego.conf.jinja
-    - template: jinja
-    - user: root
-    - group: root
-    - mode: "0644"
-    - require:
-      - cmd: lego_bootstrap
 
 roundup-deps:
   pkg.installed:
@@ -163,7 +137,6 @@ tracker-nginx-extras:
     - template: jinja
     - require:
       - pkg: roundup-deps
-      - cmd: lego_bootstrap
 
 /etc/postfix/master.cf:
   file.managed:
@@ -174,7 +147,6 @@ tracker-nginx-extras:
     - template: jinja
     - require:
       - pkg: roundup-deps
-      - cmd: lego_bootstrap
 
 /etc/postfix/virtual:
   file.managed:
@@ -222,6 +194,7 @@ postfix:
       - file: /etc/postfix/master.cf
       - file: /etc/postfix/virtual
       - file: /etc/postfix/reject_recipients
+      - file: /etc/ssl/private/*.pem
 
 {# We can extend this for smtps/submission later #}
 {% for (port, service) in [(20025, "smtp")] %}
