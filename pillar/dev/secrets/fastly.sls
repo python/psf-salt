@@ -1,3 +1,5 @@
 fastly:
-  token: "1"
+  tokens: |
+    1
+    2
   api_key: fakekey

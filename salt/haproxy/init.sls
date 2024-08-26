@@ -37,7 +37,7 @@ haproxy:
 
 /etc/haproxy/fastly_token:
   file.managed:
-    - contents_pillar: fastly:token
+    - contents_pillar: fastly:tokens
     - user: root
     - group: root
     - mode: "0640"
