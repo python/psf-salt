@@ -21,6 +21,15 @@ ssh:
     - mode: "0644"
 
 
+/usr/lib/tmpfiles.d/sshd-priv-sep.conf:
+  file.managed:
+    - contents: |
+        d /run/sshd 0755 root root
+    - user: root
+    - group: root
+    - mode: "0644"
+
+
 # If we have defined host keys for this server, then we want to drop them here
 # instead of whatever is here by default.
 {% for fn in host_keys %}
