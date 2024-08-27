@@ -2,6 +2,15 @@
 include:
   - backup.base
 
+{# TODO: When we have retired distros older than 20.04, remove this #}
+/etc/ssh/ssh_config.d/pubkey.conf:
+  file.managed:
+    - contents: |
+        PubkeyAcceptedAlgorithms +ssh-rsa
+    - user: root
+    - group: root
+    - mode: "0644"
+
 {% for backup, config in salt['pillar.get']('backup-server:backups', {}).items() %}
 
 {{ backup }}-user:

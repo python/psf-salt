@@ -1,6 +1,11 @@
 # Basic configuration
 # ===================
 
+# Include sshd_config.d dir for distros that use it
+{% if grains["oscodename"] in ["jammy", "noble"] %}
+Include /etc/ssh/sshd_config.d/*.conf
+{% endif %}
+
 # Either disable or only allow root login via certificates.
 {% if salt["pillar.get"]("ssh:allow_root_with_key", False) %}
 PermitRootLogin without-password
