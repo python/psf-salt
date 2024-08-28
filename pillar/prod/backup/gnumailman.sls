@@ -6,4 +6,5 @@ backup:
       target_directory: /backup/gnumailman-data
       target_user: gnumailman
       frequency: hourly
+      increment_retention: 90D
       user: root

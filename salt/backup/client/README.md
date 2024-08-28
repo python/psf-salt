@@ -9,6 +9,8 @@ Format for pillar data:
         postgres-archives:
           # Frequency of backup, currently {hourly, daily} are supported
           frequency: hourly
+          # Duration that increments are retained, in days
+          increment_retention: 365D
           # User to run backup as
           user: devpypi
           # Source Directory to backup
@@ -19,16 +21,10 @@ Format for pillar data:
           target_directory: /backup/postgres/archives
           # Target user on backup server
           target_user: devpypi
-          # SSH Private Key for backup server access as target_user
-          ssh_key: |
-            -----BEGIN RSA PRIVATE KEY-----
-            MIIEowIBAAKCAQEAsagAYbuOiROc0+vLjcKQXZqiP3mH3qXwPT1PAMWxkferuaz3
-            ...
-            pqMI3F6ButHsMcwjZotivkf3baM1FmnjIJ4oeTFPyagaLZdRCuiT
-            -----END RSA PRIVATE KEY-----
         # Backup example with pre/post/cleanup scripts
         postgres-base:
           frequency: daily
+          increment_retention: 30D
           user: postgres
           source_directory: /var/lib/pgsql/9.3/backups/base
           target_host: 172.16.57.201
@@ -40,10 +36,4 @@ Format for pillar data:
           post_script: '/usr/local/backup/postgres-archives/scripts/backup.bash'
           # Cleanup script to remove old backups
           cleanup_script: 'find /var/lib/pgsql/9.3/backups/base -maxdepth 1 -type d -mtime +7 -execdir rm -rf {} \;'
-          ssh_key: |
-            -----BEGIN RSA PRIVATE KEY-----
-            MIIEowIBAAKCAQEAsagAYbuOiROc0+vLjcKQXZqiP3mH3qXwPT1PAMWxkferuaz3
-            ...
-            pqMI3F6ButHsMcwjZotivkf3baM1FmnjIJ4oeTFPyagaLZdRCuiT
-            -----END RSA PRIVATE KEY-----
 

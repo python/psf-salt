@@ -6,6 +6,7 @@ backup:
       target_directory: /backup/python-hg
       target_user: hg
       frequency: daily
+      increment_retention: 90D
       user: root
     hg-mercurial-static:
       source_directory: /usr/share/mercurial/templates/static/
@@ -13,6 +14,7 @@ backup:
       target_directory: /backup/hg-mercurial-static
       target_user: root
       frequency: daily
+      increment_retention: 90D
       user: root
     hg-svn-config:
       source_directory: /etc/apache2/svn_config/
@@ -20,4 +22,5 @@ backup:
       target_directory: /backup/hg-svn-config
       target_user: root
       frequency: daily
+      increment_retention: 90D
       user: root

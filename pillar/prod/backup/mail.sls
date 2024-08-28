@@ -15,4 +15,5 @@ backup:
       target_directory: /backup/mail-python-org
       target_user: mail-python-org
       frequency: daily
+      increment_retention: 15D
       user: root

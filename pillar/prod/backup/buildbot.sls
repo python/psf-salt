@@ -6,4 +6,5 @@ backup:
       target_directory: /backup/buildbot
       target_user: buildbot
       frequency: hourly
+      increment_retention: 90D
       user: root

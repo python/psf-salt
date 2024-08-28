@@ -6,4 +6,5 @@ backup:
       target_directory: /backup/python-bugs
       target_user: python-bugs
       frequency: hourly
+      increment_retention: 30D
       user: root

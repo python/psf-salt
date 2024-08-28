@@ -11,7 +11,7 @@ base:
 
   'backup-server':
     - match: nodegroup
-    - backup.server
+    - backup.*
 
   'bugs':
     - match: nodegroup
@@ -40,6 +40,7 @@ base:
     - match: nodegroup
     - firewall.rs-lb-backend
     - groups.downloads
+    - backup.downloads
 
   'gnumailman':
     - match: nodegroup
