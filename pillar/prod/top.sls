@@ -14,7 +14,7 @@ base:
 
   'backup-server':
     - match: nodegroup
-    - backup.server
+    - backup.*
 
   'bugs':
     - match: nodegroup
@@ -22,7 +22,6 @@ base:
     - mail-opt-out
     - secrets.bugs
     - backup.bugs
-    - secrets.backup.bugs
     - bugs
 
   'buildbot':
@@ -30,7 +29,6 @@ base:
     - firewall.buildbot
     - secrets.postgresql-users.buildbot
     - backup.buildbot
-    - secrets.backup.buildbot
 
   'cdn-logs':
     - match: nodegroup
@@ -50,28 +48,24 @@ base:
     - groups.docs
     - secrets.docs
     - backup.docs
-    - secrets.backup.docs
 
   'downloads':
     - match: nodegroup
     - firewall.rs-lb-backend
     - groups.downloads
     - backup.downloads
-    - secrets.backup.downloads
 
   'gnumailman':
     - match: nodegroup
     - firewall.mail
     - mail-opt-out
     - backup.gnumailman
-    - secrets.backup.gnumailman
 
   'hg':
     - match: nodegroup
     - firewall.rs-lb-backend
     - firewall.hg
     - backup.hg
-    - secrets.backup.hg
     - secrets.ssh.hg
 
   'loadbalancer':
@@ -87,7 +81,6 @@ base:
     - match: nodegroup
     - firewall.mail
     - backup.mail
-    - secrets.backup.mail
     - groups.mail
     - mail-opt-out
 
@@ -96,7 +89,6 @@ base:
     - mail-opt-out
     - firewall.rs-lb-backend
     - backup.moin
-    - secrets.backup.moin
 
   'planet':
     - match: nodegroup
