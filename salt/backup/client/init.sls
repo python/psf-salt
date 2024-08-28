@@ -19,7 +19,7 @@ include:
 {{ backup }}-ssh-key:
   file.managed:
     - name: /etc/backup/.ssh/id_rsa_{{ backup }}
-    - contents_pillar: backup-secret:directories:{{ backup }}:ssh_key
+    - contents_pillar: backup_keys:{{ config['target_user'] }}:private
     - user: {{ config['user'] }}
     - mode: "0600"
     - show_diff: False

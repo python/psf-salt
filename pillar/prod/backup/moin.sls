@@ -6,4 +6,5 @@ backup:
       target_directory: /backup/moin
       target_user: moin
       frequency: daily
+      increment_retention: 90D
       user: root

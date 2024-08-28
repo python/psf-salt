@@ -2,14 +2,14 @@
 
 
 SERVERS = [
-  "backup-server",
+  {:name => "backup-server", :codename => "noble"},
   {:name => "bugs", :codename => "jammy", :ports => [8080]},
   {:name => "buildbot", :codename => "noble"},
   "cdn-logs",
   {:name => "codespeed", :codename => "jammy"},
   {:name => "consul", :codename => "jammy"},
-  "docs",
-  "downloads",
+  {:name => "docs", :codename => "noble"},
+  {:name => "downloads", :codename => "noble"},
   {:name => "hg", :codename => "noble"},
   {:name => "loadbalancer", :ports => [20000, 20001, 20002, 20003, 20004, 20005, 20010, 20011]},
   "mail",

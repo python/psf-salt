@@ -1,2 +1,2 @@
-backup-server:
-  backups: {}
+backup:
+  server: true

@@ -11,18 +11,18 @@ include:
     - group: root
     - mode: "0644"
 
-{% for backup, config in salt['pillar.get']('backup-server:backups', {}).items() %}
+{% for backup, config in salt['pillar.get']('backup_directories', {}).items() %}
 
 {{ backup }}-user:
   user.present:
-    - name: {{ config['user'] }}
+    - name: {{ config['target_user'] }}
 
 {{ backup }}-ssh:
   ssh_auth:
     - present
-    - user: {{ config['user'] }}
+    - user: {{ config['target_user'] }}
     - names:
-      - {{ config['authorized_key'] }}
+      - {{ salt['pillar.get']("backup_keys", {}).get(config['target_user'], {}).get('public') }}
     - options:
       - command="rdiff-backup server"
       - no-pty
@@ -30,15 +30,15 @@ include:
       - no-agent-forwarding
       - no-X11-forwarding
     - require:
-      - user: {{ config['user'] }}
+      - user: {{ config['target_user'] }}
 
 {{ backup }}:
   file.directory:
-    - name: {{ config['directory'] }}
-    - user: {{ config['user'] }}
+    - name: {{ config['target_directory'] }}
+    - user: {{ config['target_user'] }}
     - makedirs: True
     - require:
-      - user: {{ config['user'] }}
+      - user: {{ config['target_user'] }}
 
 {{ backup }}-increment-cleanup:
   file.managed:
@@ -50,6 +50,6 @@ include:
     - context:
         cron: '0 3 * * *'
         job_user: root
-        job_command: 'rdiff-backup --terminal-verbosity 1 --force remove increments --older-than {{ config['increment_retention'] }} {{ config['directory'] }}'
+        job_command: 'rdiff-backup --terminal-verbosity 1 --force remove increments --older-than {{ config['increment_retention'] }} {{ config['target_directory'] }}'
 
 {% endfor %}
