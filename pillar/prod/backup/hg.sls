@@ -12,7 +12,7 @@ backup:
       source_directory: /usr/share/mercurial/templates/static/
       target_host: backup.sfo1.psf.io
       target_directory: /backup/hg-mercurial-static
-      target_user: root
+      target_user: hg
       frequency: daily
       increment_retention: 90D
       user: root
@@ -20,7 +20,7 @@ backup:
       source_directory: /etc/apache2/svn_config/
       target_host: backup.sfo1.psf.io
       target_directory: /backup/hg-svn-config
-      target_user: root
+      target_user: hg
       frequency: daily
       increment_retention: 90D
       user: root
