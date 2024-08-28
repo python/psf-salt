@@ -38,8 +38,7 @@ def ext_pillar(minion_id, pillar, base_path="/etc/backup_keys/"):
                     ["ssh-keygen", "-y", "-f", user_private_key_path], stdout=out_file
                 )
 
-        key_data = {"public": None, "private": None}
-        key_data["public"] = user_public_key_path.read_text()
+        key_data = {"public": user_public_key_path.read_text()}
         if not is_server:
             key_data["private"] = user_private_key_path.read_text()
 
