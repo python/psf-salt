@@ -7,7 +7,6 @@ consul-pkgs:
   pkg.installed:
     - pkgs:
       - consul
-      - consul-template
 
 consul:
   file.managed:
@@ -115,50 +114,6 @@ consul:
     - group: consul
     - require:
       - pkg: consul-pkgs
-
-
-consul-template:
-  pkg.installed: []
-
-  cmd.run:
-    - name: consul-template -config /etc/consul-template.d -once
-    - require:
-      - pkg: consul-pkgs
-      - service: consul
-    - onchanges:
-      - file: /etc/consul-template.d/*.json
-      - file: /usr/share/consul-template/templates/*
-
-  file.managed:
-    - name: /lib/systemd/system/consul-template.service
-    - source: salt://consul/init/consul-template.service
-    - mode: "0644"
-
-  service.running:
-    - enable: True
-    - restart: True
-    - require:
-      - pkg: consul-pkgs
-      - service: consul
-    - watch:
-      - file: consul-template
-      - file: /etc/consul-template.d/*.json
-      - file: /usr/share/consul-template/templates/*
-
-
-/etc/consul-template.d/base.json:
-  file.managed:
-    - source: salt://consul/etc/consul-template/base.json
-    - user: root
-    - group: root
-    - mode: "0644"
-
-
-/usr/share/consul-template/templates/:
-  file.directory:
-    - user: root
-    - group: consul
-
 {% endif %}
 
 
