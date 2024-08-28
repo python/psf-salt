@@ -27,12 +27,12 @@ haproxy:
     - reload: True
     - require:
       - pkg: haproxy
-      - cmd: consul-template
       - service: rsyslog
     - watch:
       - file: /etc/ssl/private/*.pem
       - file: /etc/haproxy/fastly_token
       - file: /etc/haproxy/our_domains
+      - file: /etc/haproxy/haproxy.cfg
 
 
 /etc/haproxy/fastly_token:
@@ -56,31 +56,13 @@ haproxy:
       - pkg: haproxy
 
 
-/usr/share/consul-template/templates/haproxy.cfg:
+/etc/haproxy/haproxy.cfg:
   file.managed:
     - source: salt://haproxy/config/haproxy.cfg.jinja
     - template: jinja
     - user: root
     - group: root
     - mode: "0644"
-    - require:
-      - pkg: consul-pkgs
-
-
-/etc/consul-template.d/haproxy.json:
-  file.managed:
-    - source: salt://consul/etc/consul-template/template.json.jinja
-    - template: jinja
-    - context:
-        source: /usr/share/consul-template/templates/haproxy.cfg
-        destination: /etc/haproxy/haproxy.cfg
-        command: service haproxy reload
-    - user: root
-    - group: root
-    - mode: "0640"
-    - require:
-      - pkg: consul-pkgs
-
 
 /usr/local/bin/haproxy-ocsp:
   {% if ocsp %}
