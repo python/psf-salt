@@ -62,9 +62,6 @@ postgresql-server:
     - require:
       - cmd: postgresql-psf-cluster
       - file: {{ postgresql.config_dir }}/conf.d
-      {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
-      - cmd: consul-template
-      {% endif %}
     - watch:
       - file: {{ postgresql.config_file }}
       - file: {{ postgresql.ident_file }}
@@ -95,7 +92,6 @@ postgresql-psf-cluster:
       - file: postgresql-data
       {% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
       - file: /etc/ssl/certs/PSF_CA.pem
-      - file: /etc/consul.d/service-postgresql.json
       - service: consul
       {% endif %}
 
@@ -222,36 +218,3 @@ replicator:
     - mode: "0644"
     - require:
       - pkg: consul-pkgs
-
-
-{% if salt["match.compound"](pillar["roles"]["postgresql-replica"]["pattern"]) %}
-
-/usr/share/consul-template/templates/recovery.conf:
-  file.managed:
-    - source: salt://postgresql/server/configs/recovery.conf.jinja
-    - template: jinja
-    - user: postgres
-    - group: postgres
-    - mode: "0640"
-    - show_diff: False
-    - require:
-      - pkg: consul-template
-      - cmd: postgresql-psf-cluster
-      - file: {{ postgresql.config_dir }}
-
-
-/etc/consul-template.d/postgresql-recovery.json:
-  file.managed:
-    - source: salt://consul/etc/consul-template/template.json.jinja
-    - template: jinja
-    - context:
-        source: /usr/share/consul-template/templates/recovery.conf
-        destination: {{ postgresql.recovery_file }}
-        command: "chgrp postgres {{ postgresql.recovery_file }} && chmod 640 {{ postgresql.recovery_file }} && service postgresql restart"
-    - user: root
-    - group: root
-    - mode: "0640"
-    - require:
-      - pkg: consul-template
-
-{% endif %}

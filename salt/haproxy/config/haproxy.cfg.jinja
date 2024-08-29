@@ -1,6 +1,11 @@
 {% set haproxy = salt["pillar.get"]("haproxy", {}) -%}
 {% set psf_internal = salt["pillar.get"]("psf_internal_network") -%}
 
+resolvers consul
+    nameserver consul 127.0.0.1:8600
+    accepted_payload_size 8192
+    hold valid 5s
+
 global
     log /dev/log    local0
     log /dev/log    local1 notice
@@ -215,7 +220,25 @@ backend redirect
 {% for service, config in haproxy.services.items() %}
 backend {{ service }}
     {% if config.get("check") -%}
+    {% if grains["oscodename"] != "noble" -%}
     option httpchk {{ config.check }}
+    {%- else -%}
+    # Noble Config using the newer http-check syntax
+    # We need to split the check into parts to handle the extra things
+    # ...maybe there is a better way to do this?
+    {% set check_parts = config.check.split(' ', 2) -%}
+    {% set method = check_parts[0] -%}
+    {% set path = check_parts[1] -%}
+    {% if check_parts|length > 2 -%}
+        {% set extra = check_parts[2].split('\r\n') -%}
+        {% set version = extra[0] -%}
+        {% set headers = extra[1:] -%}
+    {% endif -%}
+    http-check send meth {{ method }} uri {{ path }} ver {{ version }}
+    {%- for header in headers %}
+    http-check send hdr {{ header.replace(':\\ ', ': ') }}
+    {%- endfor %}
+    {%- endif %}
     {%- endif %}
 
     # http://gnuterrypratchett.com/
@@ -230,8 +253,7 @@ backend {{ service }}
     {{ item }}
     {% endfor -%}
 
-    {{ "{{" }}range service "{{ service }}@{{ pillar.dc }}" "any"}}
-    {% raw %}server {{.Node}} {{.Address}}:{{.Port}}{% endraw %}{% if config.get("check", True) %} check{% if config.get("sni", False)%} check-sni {{ config.get("sni") }}{% endif %}{% if config.get("sni", False)%} sni str({{ config.get("sni") }}){% endif %}{% endif %}{% if config.get("tls", True) %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{% endif %}{{ "{{end}}" }}
+    server-template backend {{ config.get("backends", 2) }} _{{ service }}._tcp.service.{{ pillar.dc }}.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 {% if config.get("check", True) %} check{% if config.get("sni", False)%} check-sni {{ config.get("sni") }}{% endif %}{% if config.get("sni", False)%} sni str({{ config.get("sni") }}){% endif %}{% endif %}{% if config.get("tls", True) %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{% endif %}
 
 {% endfor %}
 
@@ -248,8 +270,7 @@ listen {{ name }}
     {{ line }}
     {% endfor %}
 
-    {{ "{{" }}range service "{{ config.service }}@{{ pillar.dc }}"}}
-    {% raw %}server {{.Node}} {{.Address}}:{{.Port}} check{{end}}{% endraw %}{% if config.get("send_proxy", False) %} send-proxy{% endif %}
+    server-template backend {{ config.get("backends", 2) }} _{{ config.service }}._tcp.service.{{ pillar.dc }}.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check {% if config.get("send_proxy", False) %} send-proxy{% endif %}
 
 {% endfor %}
 
