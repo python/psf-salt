@@ -17,12 +17,14 @@ haproxy:
         - docs.python.org
         - doc.python.org
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ docs.python.org"
+      backends: 1
 
     downloads:
       domains:
         - www.python.org
       path: /ftp/
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ www.python.org"
+      backends: 1
 
     codespeed-cpython:
       domains:
@@ -75,6 +77,7 @@ haproxy:
         - {{ config.server_name }}
       verify_host: bugs.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ {{ config.server_name }}"
+      backends: 1
     {% endfor %}
 
     moin:
@@ -99,12 +102,14 @@ haproxy:
       domains: []
       verify_host: salt.psf.io
       check: "GET /.well-known/acme-challenge/sentinel HTTP/1.1\\r\\nHost:\\ salt.psf.io"
+      backends: 1
 
     publish-files:
       domains:
         - salt-public.psf.io
       verify_host: salt.psf.io
       check: "GET /salt-server-list.rst HTTP/1.1\\r\\nHost:\\ salt-public.psf.io"
+      backends: 1
 
   redirects:
     cheeseshop.python.org:
@@ -176,4 +181,5 @@ haproxy:
       extra:
         - timeout client 30m
         - timeout server 30m
+      backends: 1
     {% endfor %}

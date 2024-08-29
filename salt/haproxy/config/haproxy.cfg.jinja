@@ -253,7 +253,7 @@ backend {{ service }}
     {{ item }}
     {% endfor -%}
 
-    server-template backend 1-3 _{{ service }}._tcp.service.{{ pillar.dc }}.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 {% if config.get("check", True) %} check{% if config.get("sni", False)%} check-sni {{ config.get("sni") }}{% endif %}{% if config.get("sni", False)%} sni str({{ config.get("sni") }}){% endif %}{% endif %}{% if config.get("tls", True) %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{% endif %}
+    server-template backend {{ config.get("backends", 2) }} _{{ service }}._tcp.service.{{ pillar.dc }}.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 {% if config.get("check", True) %} check{% if config.get("sni", False)%} check-sni {{ config.get("sni") }}{% endif %}{% if config.get("sni", False)%} sni str({{ config.get("sni") }}){% endif %}{% endif %}{% if config.get("tls", True) %} ssl force-tlsv12 verifyhost {{ config.get("verify_host", service + ".psf.io") }} ca-file {{ config.get("ca-file", "PSF_CA.pem") }}{% endif %}
 
 {% endfor %}
 
@@ -270,7 +270,7 @@ listen {{ name }}
     {{ line }}
     {% endfor %}
 
-    server-template backend 1-3 _{{ config.service }}._tcp.service.{{ pillar.dc }}.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check {% if config.get("send_proxy", False) %} send-proxy{% endif %}
+    server-template backend {{ config.get("backends", 2) }} _{{ config.service }}._tcp.service.{{ pillar.dc }}.consul resolvers consul resolve-opts allow-dup-ip resolve-prefer ipv4 check {% if config.get("send_proxy", False) %} send-proxy{% endif %}
 
 {% endfor %}
 
