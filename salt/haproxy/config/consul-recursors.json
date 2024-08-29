@@ -1,0 +1,3 @@
+{
+    "recursors": [{% for nameserver in salt['grains.get']('dns:nameservers') %}"{{ nameserver }}"{% if not loop.last %}, {% endif %}{% endfor %}]
+}
