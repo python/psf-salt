@@ -15,6 +15,16 @@ include:
 /etc/nginx/conf.d/default.conf:
   file.absent
 
+/etc/consul.d/recursors.json:
+  file.managed:
+    - source: salt://haproxy/config/consul-recursors.json
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - pkg: consul-pkgs
+
 haproxy:
   pkg:
     - installed
