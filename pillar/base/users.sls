@@ -69,6 +69,45 @@ users:
           - docs
           - docsbuild
 
+  ambv:
+    fullname: "Łukasz Langa"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMGC2VGofArUyzGR25TbLFtk16bYT+6TuCHui7qgSxvp lukasz.langa
+    access:
+      codespeed:
+        sudo: True
+        allowed: True
+      buildbot:
+        sudo: True
+        allowed: True
+      downloads:
+        sudo: True
+        allowed: True
+        groups:
+          - downloads
+      docs:
+        sudo: True
+        allowed: True
+        groups:
+          - docs
+          - docsbuild
+      bugs:
+        sudo: True
+        allowed: True
+        groups:
+          - roundup
+
+  ammar:
+    fullname: "Ammar Askar"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA3puTkwAfNz3oHVQ6nH/7y4iU3rYkyBLs44tYmA99068n8AyMCWNwRIFxVmsYA3NsFD4MmyKL7kH67/3gX3/N5FNyhj6WN72/CeJUyl/JhlruvAdEWSuJQyV1I+cP9yM4KjJ+pGdPBHX3uc1AFXPZ5H3I/WmmZemkO7fis8jIuRTdKsC4PPIaqWcOtyt5wt2HpNoCr/Ji8Sl8yxWwB/HuRzsoEoqluCe2tp5e4Cg5SGFEgCUjzlCe27ixYnKWAw2zrBvx3Sn49MVT3xyQYqaimu437NwQkJBps0tRG7+rlZQ8w7dxlB67WUCCnNtcPPewE17PLvWIhFDWpm7Yiue3Sw== ammar_laptop
+    access:
+      bugs:
+        sudo: True
+        allowed: True
+        groups:
+          - roundup
+
   antoine:
     fullname: "Antoine Pitrou"
     ssh_keys:
@@ -99,6 +138,60 @@ users:
         allowed: True
         sudo: True
 
+  brian:
+    fullname: "Brian Curtin"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAw12z1o+qAtnf8lWK+pQi1spjMZPWbdPRBHaNu2l2O5ZuOkEGr8Qlbcr3M+1CuXUOQ4pQg9uRegUhjVXG9pEmWvEtOHVnpDJamtyO6dTgesLazclQRuarK10QZKj++H+QbNUWqgj0EiQk3cybmDKeMva43pmkjpbgxBjpUMVmvOLqwsWqPdK8gCOvClwN7wT60xpcoh09oigGARsyIMHKB3TBjDnV6hivxL/bQE1q2h8iS3Ch1b9PCfEHRC1sLZxn3DzE/WX4Y80JJhRBGVFOkdzHZf43dtCS3gwZyDRiGz0NGRYhrkxnP1HQNNmvuUqQSSy4t+k5tDiBMIruX6kTcw==
+    access:
+      cdn-logs:
+        allowed: True
+
+  encukou:
+    fullname: "Petr Viktorin"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCuL7X5HFPwaZFEJxbNhjlD7/nl8ov3R0D0PE0e0YXckgWS3LyKKwHvhB4WbHiGh4qwpj/yp8+V27nRzy+I44MoZEtgUqNC4DGZxUTrU5CQuIcHVbqVz3k+XokGzEy09JqEvWS5JISg+C08n5xuHFzZG3PFZR3jgydxOdlxlPkMipXjfr12ULXGPOIG5JsIfLEAKiS0IH/NHcydCT24q7X+LRCBlfxbQmAtrq6OySqEjyYwxVdEoMJG7yiGgc/t2bcDODMaTKSFRBNL0B7aqrejxf3mtTLleX31ZaW0Uo9bCn87XJxbqC6AUwiDuzzYI/3Jz1zzpwqTlDJLS09JV8BfGyovTt22dKYTriRsTjX8pWl4uZInAiHPZOT2ZhKZhmCl/yd3zerBFW6tCKiw2n6wG7gWDSgVTnMdbtSdnhK9DIUsYd0ZWVcKvIBdcDbxGLtbAPV4Sn1CkuLmM6wD0dqok7qDAJtsnYXjE3GOZOnfnEgrW81S4pHg2fGQ/vYasIk= encukou@blackbox
+    access:
+      buildbot:
+        allowed: True
+        sudo : True
+
+  ezio:
+    fullname: "Ezio Melotti"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAm1FUCa4Q+cKyMIg4QX4dszX+Wnj216HHCkHMgf2L0chYZVPvbWzboJqs+peInkWnXwYBnmJFdiHSxkwY4fnv1P3o+fb5wcl3fv0/kqIwcC+iavKlDOeBI51FP2s++QpvD5cU6rW202b8k2K5COJ5mlkIvgfhiyRYnR4LbHePLG+jd/4I6gCtUcGTQqwNaJOzRzvaviRd395S7+I8L35iWt1zTNck9II1gCvfcCLeM7XYtogFBq1LW5BZ9f+hZtJC0RcIpihHeoSNW7bmqWH5d0noQrBaKQfz5xm2BlQPM82/QWGUSZjPphynrCV8rYtitM3nkBl5zIxHsfoQbsp5ZQ== ezio-melotti
+    access:
+      bugs:
+        sudo: True
+        allowed: True
+        groups:
+          - roundup
+
+  fijal:
+    fullname: "Maciej Fijalkowski"
+    ssh_keys:
+      - ssh-dss AAAAB3NzaC1kc3MAAACBAJbByTtD76TRTTxJBFRkfMgHKjhQky/9wq0GZoYvUCWpzL/59H1y7V8SWRmEmHRQBuO+Z5/UBz3poUwHyftYSMA1zUiD5ZlWDoFNeiCb/lmO779IBVb98Pg5zZiN4be1niZozmmoL4IdpwHfIZZMA2Ycdlqww8zE90PEgyPZezPbAAAAFQDdlsczacwXg2HidIa7Tu5nVIzxhQAAAIAdoFDvTP3xfJvv9BbRCG65mn80lRwUjTuXGuPMdR4e/N4zEb96OnZuqJEtzfFF6UWDqNHXcN6k07fo0bqLFg706io+5kTQamnUG7+QQRT4df1Dg6qmMpzh3LHyAZe81DZmdSAJMSbwTqT46G3r2VmOXwo/GJYMf7O/m61bPrXcqAAAAIABmglK3TZCOOzFv6P9H/efeb7EmgVy/NMyjvCYHl6Eb6aB8oOn7YQA6cfh1DE++ax746d5fke5LiCcWtjh4TNf6mDaFORXEtqUK7e6A8r2W/fJ1YgEAdY9Qy81ilJEhVTmYDvAIA4fvpmBdXti2Xq28sAEFJU8DPrFBjGx3VDkTg== fijal@zygmunt
+    access:
+      codespeed:
+        sudo: True
+        allowed: True
+
+  hugovk:
+    fullname: "Hugo van Kemenade"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGTTCyZejfWSW277j177F09VOt8dctuFRpDnsLe+7Ifw hugovk@users.noreply.github.com
+    access:
+      downloads:
+        sudo: True
+        allowed: True
+        groups:
+          - downloads
+      docs:
+        sudo: True
+        allowed: True
+        groups:
+          - docs
+          - docsbuild
+
   gbrandl:
     fullname: "Georg Brandl"
     ssh_keys:
@@ -118,6 +211,53 @@ users:
         allowed: True
         sudo: True
 
+  haypo:
+    fullname: "Victor Stinner"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIVzct/vFIVEAQ5aG8WJlJJWPNZYbVDyI5jwljst8mk haypo2017
+    access:
+      codespeed:
+        allowed: True
+        sudo: True
+      buildbot:
+        allowed: True
+        sudo : True
+
+  hildeb:
+    fullname: "Ralf Hildebrandt"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTLpYGZdP2XPthO2eI2sp1mN8C5gO6jGu3wO2j0uD5xNLid2jyadBDL2JpAgxwYv6uREopdST17qVc9hMmPXHEJN4tvLyHjUcjsL80QkVneyuFRT+oBqahX1+h8aVkk8vLuwKsVO5ARqcvYF846YQnRcdJRkPsdAZ4GD5jXGE6EN/yJLxEiVvCMbi7DvegxS6sUxl6E7380bdas3l46R+kotQXlVIw8NnakHFpdYNFlPF7pW1Kd2pCIQGKkOQaSLvuVKdOpKTyG4337R0c65/PMmDk5Uuqt78RbcSV/rTbuaxNEPLzrRX7DvZ2baZlf2vJMdsl20hFiNa1J4xIrG6T hildeb@senftopf
+    access:
+      mail:
+        allowed: True
+        sudo: True
+
+  isidentical:
+    fullname: "Batuhan Taskaya"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDI+7nVxFPxT0A5mrLq59YFziAYv2KP9nsjQiKP4139FCYur3CbBkgBD2MSPk5kNy39X+b3xZrZFV72rspY968iFyLXBTfAEoLNAyKC8OHJ9irV2ToWLuWOoek30HrbSYGnuzRFfHNW/8wNuiB2GGZ3hwCAcWaLoGjQuaW47AulkRHWpDzQpJO6zXTo2r5OelLGu2z2zFdtOLvIEnG8FiSKLgMt1UJk7Y1JXQF0+cOOeS/NZHu5efa1Lxpch2qumKJhD4gh1sv9+K+VX70TtZ14uuqo8454b7n3kKeC/RQu6hdXUUcjCywLniNurgTT84OcJluQNHHb0sapOz76oOqr4rF3osFcLav3BbrvdKNH+2TU9feC1BTGwoeQih1jYH3cLJDAvbs+EVkTEjhgfsw88REYJ8srvzLOmeGHNgwscYe2r+q2WB0d4C/Vsud8wea5uSKFn37RkNFcb5zzkEYuyC3rdfgVvFWKVwcKsXtWTDV22M85GRo2F9chXfc4QU0=
+    accesss:
+      codespeed:
+        allowed: True
+        sudo: True
+
+  itamaro:
+    fullname: "Itamar Oren"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAK7GQ50VMf3Kekgi6n+JhqPvq+k1aH5Klc1o+kwWdc0 itamarost@gmail.com
+    access:
+      buildbot:
+        allowed: True
+        sudo : True
+
+  jafo:
+    fullname: "Sean Reifschneider"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAEAQDdVGymQaLMlzaHvbEnxR7TvFiad4xrlJTCJvgygNrSbJCm3wTGSW6Yj5NTHtzWCPTYAmgZYLFZ7pJmPefHV6DLdAFJSA4HwhPOFM8vM8ERo0lSgR6ArlG288Gi9dvjh8O/jZwq0uW4lgiW8KFMhnr/HJy8rTZwqIPz680TakUxE6G48zQW+NUvL7Jn5cXLuYARvGHAv6ajkhhuEqCw1kjCnkgCh/Cl0YvIeTBfdGBGC2SiD2BOPzMYyTSzqm9tCRuscpo+JfKQZa288/9XhG0GOEsxg9h5BDJ7CKj7XxlmOcVKPgHeuvHQ5Xb1Eg5X92zpcBvcW7wgpk0lvAa/YqFLI3i8iNDDtfK40s1NvAW9/0+GUI7isNm1+cEvJfrRYbZ8XZqCkv9kS+d+AOua1iboTU7/cdyaRwm0Wji6Id3CswGT3XwxjtoIz1S10twXj5fjSrJ5ZzBxMQ48mcrlyVpBSvvArzgUI4yWs/9fl0BFVjP4VERstIfXVNNQ16RYQDLvtSHLYt/2lXFWMAWEBEHbfcW7NsBoGkLLJzUlh/J2HxdNuHvizUX6ZzF3+ZS7hevUJJnkgLgccdbqrv7UPkMNXaWxQqU9b5XDN+58C+BGa2JVJT8aWSjUQHzndjza1CnWVAvZ9FxrNh6Aey7Wjkat0zKbhY94t7MmVtYvxosg3aNu7vvNT+X21MVn/3oi3XW1GQmJsT70H7HeElY1fi7nTfTQoOfckxxewPpJYJiBeajngjpgMmIzTzP6j0AH8jU/pIpUtn0WYFX7axhiTRE4KmWYdEcBZ9JpYF6Vp/q1teXV7CSKH5e9TqsFng10DpPEkfQ5Xp3hupUpeu/Z3CTHAlIbGL8YwhQHYulwKrBGUAF54B+kRv4a57Ta3xfn6WMiPaz/pFbG6sxScqFffMBlEzAp3RSRBWMl8Y8gYRQdWaJzyU2FTKRJG4LifcQwZ24OrTftLyEEEkmjK5dQS3ldmO7XRIFRSuPRWj2hOCC06ZZzsZF8xvU58grl0oCOPUQbSDeyWZC2xilR+NEmTYw5Alg6Q9AB+MfJWj915UD0IR5QQtLO9BCZEZ1aVxl30/0iVF8MGcS8+PKlYpp51FFXTI90vXkhPVSeOofTfZ4gsamMRoLblLL2WycbY1vMOLC39BcXhOz2PNGr5RhhCcQbUn5D5FlMiznkhdxGobX5mdSxHHVjPW8YtB6phaRFhZon5ycfbihT9ZFnyNTHTta6a0u/0aiHW5eIbn8Bfasr9bka8F7yM75GGkT4hH1NDuK88nJbxmfnds4pELhMX+3J50juHSE3RNaoPFFyB3uZbdv4d67TZtEN5BuIfgdfx8fgLnmWTeGtpn5BSkQLD8/j jafo@guin
+    access:
+      mail:
+        allowed: True
+
   larry:
     fullname: "Larry Hastings"
     ssh_keys:
@@ -136,6 +276,20 @@ users:
         allowed: True
         sudo: True
 
+  lemburg:
+    fullname: "Marc-Andre Lemburg"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDaPO2fk5o6Z41WALEBvErRsYC0Ozjg4VmhDSisvKAnUKss1jYoA1bJ0wR7jFPL7TU6j2LBcyuHMEylU9OWdWaMsSaFy/Jyiw+/fApSRwU0+1yP8qUaeEwQHRv5g426KExvRtxmPx6bw3drpdBv9vaEhTLYbE4yl27lZIYY9c50l9oSPoFfDZg8XZuXqsHY6/BSFxtw0PDUd/qKYZycX4C9AMg4FQocz6Lc4MFbIZaJOFRyfsX6HPAWkY2O0MDydikA83eWg7AEZHmJUyV9QZcrOLutAQfEOdA7XfDkdUkR6bnR/PIjWo7k+4H4UdSBS1bDbEcUsKAGIhiwJmGBdkjj marc-andre.lemburg
+    access:
+      moin:
+        sudo: True
+        allowed: True
+        groups:
+          - moin
+      planet:
+        sudo: True
+        allowed: True
+
   loewis:
     fullname: "Martin von Loewis"
     ssh_keys:
@@ -148,6 +302,66 @@ users:
         allowed: True
         groups:
           - downloads
+
+  mattip:
+    fullname: "Matti Picus"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4NVQIJX7GvaoNUFEGo+dQvpIGx9aCbuVqT4O3T3GQ/cxrikfIDX9VqGm2w5B/1+EvMf43kfBFzD8nuoByCvN+axmHkW4V54pq9jDEAL1SwheOiQLygj3XbcDgsY4TET3hGIbfEQgtRbLyHFrVG97IrkwJ4i/4fr+vnvzR7Us2teX1IWJwsKuNGzW69hJHGMNuXPawU+JC9dP42EfjrQrkiIuvMWrXQer1uVGx7gPwd3AxtTu3fx1QfiaJ5J74jALsgaOGep1I3Ap+KFLPZDf0PAM56aHbOxnsM1R76JRsCZVgXDwShVi9J2yQogcONXEP8O+BAFv0lP03qjiNs2oz matti@asus
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDzePfoLowdG+U7211Xmi1XJJ9acxLzLSYueJDOpnfx/XciyiFbHaJfU1LDTJwkxDAedZn48w7OmHbMsVhGiHun5uJu4EU3QJN3rMxqDDNqWMwo2f09kMhdSjbCR7BVdBUzLQteUDtcXJ7QdH+6sSFRrECyUkehcp49cwVJ0S0w7GWb31enpfUWEoTNgHsnXpabF7EepiK5iWe0j1cHd0GM3rDpVNc8asjRGESb3L0gG6RU+t9ptEvDqnPuPq3vWf+Fb724F+3uSB2ehjPDZwcWZGli/FSjmjft3+7JhAeSTPAptSg6n0ienqLlE0/pom+6BHtMDurmYIFhCDpvq+rv mattip@tannit
+    access:
+      codespeed:
+        sudo: True
+        allowed: True
+
+  maxking:
+    fullname: "Abhilash Raj"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZV9XLHJV0bxVyZ6pbKuDaehAx9c7mlw9RZDCs0zaCBK5asyFGCg6ToDMpuBgUUT+j5AyC9tE73srWZWU5tC2VnwuMquOFzGgwon2Nl08+TsgZ5TzVe2JTJLpyvyO6uCJD2qRJ2Euq47PIknIfnnJtlWw0igO4Y9dYpAs32pxS4jjHWdbqjAEPDbMH3WGWQLMcn8A1JR1wYC11Y15w/RHTZBo9yAbJ7GuYIYcVVolPUdfgpnZehmZUydu8UtAvIRQURpnNiULZfxW5HezeUCwYmM/X1lSNZhwsdinqXsrXc2uDG8DRmLKEh2RHzy/bwUcEdJ2KlE63uoUdwphmTpor maxking@angel
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC66iP0ZJvZssvB9ACc3jvK1eCVZtRC+YXGPXbUYHjqLIz4o2AbmjMIHwIZjnTWdP2Y1rU2kb7f/D6uPI9cFhMSc1Hc9BIlwmwO+bzQowUay8j6DQZvMOG0FnxDkWCR0K1qX3CxsETyuHjt61e9jvOdWZCCy2dUcaTmc4j+4CjFHV3sp7pzhs9xV+CW6dPtBSdep4Ob3WSg5tP3XnYVtpUT9vc5Q57NSLhDJRF9PBQUzyp90OVCUJ9GLHh9C2jv++PkmrU7VK+GFzfiZdvNVVxgbvkDrhfcuzxktxkL6w2FyfbpmTUhNXp1u0FkP9mpZ/ouhc/hYs2tnJw115GAsn5d phoenix
+      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMV/+IM81xKIyZhJHnCqc6mFBQjKxBj0sEx3Gj3N/DPXL1NXtf49Dj/Wx44AKy5fda+mVZZTzQVB9C7F0X+kRJE= maxking@Abhilashs-MacBook-Pro.local
+    access:
+      mail:
+        allowed: True
+        sudo: True
+        groups:
+          - mailman
+      gnumailman:
+        allowed: True
+        sudo: True
+        groups:
+          - mailman
+
+  mdk:
+    fullname: "Julien Palard"
+    ssh_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKA7DgTQ0G7+kdsX0lIUOAAOllwGSCu8s8TxPvr/61Y8q+pIO5mrZycI0xYcKP5NZaABqlFyXUUNfLj7RLqteBxqq2QZP4NOJ1MutYRIkzJ9YW0f565jHaOqSguz0MY+1sCHtuEPiUUZoNexkKN7SIx60SfoaMEvGjAj46txA7VFbJUuKcJtA1Yvmn0C0KoXUUQ/G+JqvjQ7QuKLQYdTZ8S9OEvNaqNfwNSwvy1/LCnuajFw0O+H5bz7AcS5Iuj+9k8wgHPK1a1rQEdteOcn2XBCvta/VOVlFLv6/9K3iU3EJ1pyaZ88UkuJef8aWnH/AJGaF2gLqUbBuL+UeXyD41 julien+yubikey@palard.fr
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8vv8vwmbyhFEa0chj8LklnnY6DRLKj2OM0NgaMTd9SsrtBeLMqTt34pU+kKl6/9EIe9P8Z1/fWFyOiTsE7Khf3rkNsoILPmEV14i18Bvtp4nMtljqZaKVkAcRjPvo7flRWNxxL2Zbo+BEr3wVCl3Sc6YV8oQzCwVPKf34AB39b+PW4f3580Aqcd4Ci6zca0Ol95tLDv1slX1A7QcpoZAne8kj5h6bb4cC7FLBC9+xOSKmzoLOlP7LsyxaUUGRyi/FeMoma1VES65aIJ5U23GtZrzZI3tKz+vpQvOVaozNTDkNLiiJkjd3Ew1I10wArpZixjwSndP8CvGFyJc1XUXZ julien+yubikey5@palard.fr
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6WpbQWtaYmGwrBo9mR0wGTHiz4hc2o5OXVzLI6A4wB julien+2024@palard.fr
+    access:
+      docs:
+        sudo: True
+        allowed: True
+        groups:
+          - docs
+          - docsbuild
+
+  msapiro:
+    fullname: "Mark Sapiro"
+    ssh_keys:
+      - ssh-dss AAAAB3NzaC1kc3MAAACBAKRFoQ6Ebp1HO9rMhDFIvMrvQST4Q/FgPsLP2rz1cVwJ0NQ7DKB6wl95AdifypksDDClsBFxOtxD49YN4SvQS0tSqyNwOdvpROsEH4e/orDl2oJhOYzZxDkwE0UZ+VHC+XeTTWG4qWlPLMNr/ExRAxJzOKZCs66QggNXwoMfq/IJAAAAFQD7u3RSnWiM6uIYARBlUCthyPqHHQAAAIBK5gA7eGLV5+utFPnWsxGz02ZdoOwMWEPhpVaWS9lU5AhcTck1HJcuq/ktqeILuEfJIj3V4ICDNw4WjEoEv5b3YQNAbHVYzhBhg6nsPmzaF33qcugglFqeQWJzff21qN4tH5GamGj76Dqn6tk/hW+xfEmEZYxnsmk4Q3UQ4oP2cQAAAIBL5PKxDU+DmE8wXGQIoyNpj4ZzYpoUmqOveQd4nYyp02QT5oE0uIsxD1lGhkoAKlaSuJNFUlGckXx2DY+eSkIAcLo5i5AD+S8W9245+V5HwtLLj6dTTEUTN2GzR0KofPFn0MgODkaYcEVp+L8+QQJFj/fBENA5E2WomSUT6Hhz1Q== msapiro@msapiro
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEArQw24fE8BZmcrtxwuiMOC3g5YXwi1YVLNUkhVSwrHyhvlcu5jRP7pj05pK1naEz8MQ4crNnrhTAgcpMJUAyJgQ/y0a9qrRWO4H+hVtWpMTgiGFsscoKWdu0xTnlK3EbV/vBeMPnSd0usXR3E0+I6GlWJ4/SmtCx0OwqEtfduZV8= msapiro@msapiro
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGjnfQcLTNj0eXqDkIQo75lXiZw+CJDWSHCD70Ao7P7q mark@msapiro
+    access:
+      mail:
+        allowed: True
+        sudo: True
+        groups:
+          - mailman
+      gnumailman:
+        allowed: True
+        sudo: True
+        groups:
+          - mailman
 
   nad:
     fullname: "Ned Deily"
@@ -165,49 +379,6 @@ users:
         groups:
           - docs
           - docsbuild
-
-  sdower:
-    fullname: "Steve Dower"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAmVmA8k/f9ehIyaPoLVNK58m7s6J3UyoQaRucwVdDZbSU7WXNFyoZj8f7wjep7WrMCqjw1vw9YjRzBUXpkTNQ5VYzx4wECHtAVSicC4y+zHOv51+AP+wVjJH2ATkaMp03L6xGQ/LeLRPRHTMQnLssmmc8OHvtrG/9uWLYTKi/29TSv6uwYJYGw7QFxq8ILb2prKRTujjxn7nHYrvakraGYPjWJR38rATg793yjjWrXCjfLE0BuzUePw2SE1IyHs0WXTbhGIv1KRcE8U6MrDI9b2wS5j4hwrpPXFiiQhQTTxwqXrxWPd1QBCF/rvqtpxLwkaD+IuA9A+pqqiIISc3AXw==
-    access:
-      downloads:
-        sudo: True
-        allowed: True
-        groups:
-          - downloads
-
-  brian:
-    fullname: "Brian Curtin"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAw12z1o+qAtnf8lWK+pQi1spjMZPWbdPRBHaNu2l2O5ZuOkEGr8Qlbcr3M+1CuXUOQ4pQg9uRegUhjVXG9pEmWvEtOHVnpDJamtyO6dTgesLazclQRuarK10QZKj++H+QbNUWqgj0EiQk3cybmDKeMva43pmkjpbgxBjpUMVmvOLqwsWqPdK8gCOvClwN7wT60xpcoh09oigGARsyIMHKB3TBjDnV6hivxL/bQE1q2h8iS3Ch1b9PCfEHRC1sLZxn3DzE/WX4Y80JJhRBGVFOkdzHZf43dtCS3gwZyDRiGz0NGRYhrkxnP1HQNNmvuUqQSSy4t+k5tDiBMIruX6kTcw==
-    access:
-      cdn-logs:
-        allowed: True
-
-  zware:
-    fullname: "Zachary Ware"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5vqLruv6gzJgZ7zaKJnaWzzWAW7azAtetqMPVN+67cGMcQtnRmG2ih6UOXc1fA0fuZudKBgqlRw3Yg2UcT8ehP505PoHVuq+j0uZ4ogzQ8BJbZIaMEfbPXdzwUfqU3Ju3sur0XQYu0HHexKUU6ZZjjwl5LOmw9dTtY0cb7N7emePy//c7IaDuNsWg+4zaTDUwEhyWLVw6Ev4e0b1ufDxTvHqRXMVCfq0IYMsRXcg8+88GGF8kIS4QMbX/GcsFfOLHj35aJbAk6dqcCZWXWX/bRL937KYl9zENOkvlRbodEZqufDBsa+7Dm29LeV9JPfKJU3+5qM/LkfYPBiw1rH0L zach@screamer
-    access:
-      codespeed:
-        allowed: True
-        sudo: True
-      buildbot:
-        allowed: True
-        sudo : True
-
-  haypo:
-    fullname: "Victor Stinner"
-    ssh_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIVzct/vFIVEAQ5aG8WJlJJWPNZYbVDyI5jwljst8mk haypo2017
-    access:
-      codespeed:
-        allowed: True
-        sudo: True
-      buildbot:
-        allowed: True
-        sudo : True
 
   pablogsal:
     fullname: "Pablo Galindo"
@@ -232,155 +403,6 @@ users:
           - docs
           - docsbuild
 
-  isidentical:
-    fullname: "Batuhan Taskaya"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDI+7nVxFPxT0A5mrLq59YFziAYv2KP9nsjQiKP4139FCYur3CbBkgBD2MSPk5kNy39X+b3xZrZFV72rspY968iFyLXBTfAEoLNAyKC8OHJ9irV2ToWLuWOoek30HrbSYGnuzRFfHNW/8wNuiB2GGZ3hwCAcWaLoGjQuaW47AulkRHWpDzQpJO6zXTo2r5OelLGu2z2zFdtOLvIEnG8FiSKLgMt1UJk7Y1JXQF0+cOOeS/NZHu5efa1Lxpch2qumKJhD4gh1sv9+K+VX70TtZ14uuqo8454b7n3kKeC/RQu6hdXUUcjCywLniNurgTT84OcJluQNHHb0sapOz76oOqr4rF3osFcLav3BbrvdKNH+2TU9feC1BTGwoeQih1jYH3cLJDAvbs+EVkTEjhgfsw88REYJ8srvzLOmeGHNgwscYe2r+q2WB0d4C/Vsud8wea5uSKFn37RkNFcb5zzkEYuyC3rdfgVvFWKVwcKsXtWTDV22M85GRo2F9chXfc4QU0=
-    accesss:
-      codespeed:
-        allowed: True
-        sudo: True
-
-  jafo:
-    fullname: "Sean Reifschneider"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAEAQDdVGymQaLMlzaHvbEnxR7TvFiad4xrlJTCJvgygNrSbJCm3wTGSW6Yj5NTHtzWCPTYAmgZYLFZ7pJmPefHV6DLdAFJSA4HwhPOFM8vM8ERo0lSgR6ArlG288Gi9dvjh8O/jZwq0uW4lgiW8KFMhnr/HJy8rTZwqIPz680TakUxE6G48zQW+NUvL7Jn5cXLuYARvGHAv6ajkhhuEqCw1kjCnkgCh/Cl0YvIeTBfdGBGC2SiD2BOPzMYyTSzqm9tCRuscpo+JfKQZa288/9XhG0GOEsxg9h5BDJ7CKj7XxlmOcVKPgHeuvHQ5Xb1Eg5X92zpcBvcW7wgpk0lvAa/YqFLI3i8iNDDtfK40s1NvAW9/0+GUI7isNm1+cEvJfrRYbZ8XZqCkv9kS+d+AOua1iboTU7/cdyaRwm0Wji6Id3CswGT3XwxjtoIz1S10twXj5fjSrJ5ZzBxMQ48mcrlyVpBSvvArzgUI4yWs/9fl0BFVjP4VERstIfXVNNQ16RYQDLvtSHLYt/2lXFWMAWEBEHbfcW7NsBoGkLLJzUlh/J2HxdNuHvizUX6ZzF3+ZS7hevUJJnkgLgccdbqrv7UPkMNXaWxQqU9b5XDN+58C+BGa2JVJT8aWSjUQHzndjza1CnWVAvZ9FxrNh6Aey7Wjkat0zKbhY94t7MmVtYvxosg3aNu7vvNT+X21MVn/3oi3XW1GQmJsT70H7HeElY1fi7nTfTQoOfckxxewPpJYJiBeajngjpgMmIzTzP6j0AH8jU/pIpUtn0WYFX7axhiTRE4KmWYdEcBZ9JpYF6Vp/q1teXV7CSKH5e9TqsFng10DpPEkfQ5Xp3hupUpeu/Z3CTHAlIbGL8YwhQHYulwKrBGUAF54B+kRv4a57Ta3xfn6WMiPaz/pFbG6sxScqFffMBlEzAp3RSRBWMl8Y8gYRQdWaJzyU2FTKRJG4LifcQwZ24OrTftLyEEEkmjK5dQS3ldmO7XRIFRSuPRWj2hOCC06ZZzsZF8xvU58grl0oCOPUQbSDeyWZC2xilR+NEmTYw5Alg6Q9AB+MfJWj915UD0IR5QQtLO9BCZEZ1aVxl30/0iVF8MGcS8+PKlYpp51FFXTI90vXkhPVSeOofTfZ4gsamMRoLblLL2WycbY1vMOLC39BcXhOz2PNGr5RhhCcQbUn5D5FlMiznkhdxGobX5mdSxHHVjPW8YtB6phaRFhZon5ycfbihT9ZFnyNTHTta6a0u/0aiHW5eIbn8Bfasr9bka8F7yM75GGkT4hH1NDuK88nJbxmfnds4pELhMX+3J50juHSE3RNaoPFFyB3uZbdv4d67TZtEN5BuIfgdfx8fgLnmWTeGtpn5BSkQLD8/j jafo@guin
-    access:
-      mail:
-        allowed: True
-
-  msapiro:
-    fullname: "Mark Sapiro"
-    ssh_keys:
-      - ssh-dss AAAAB3NzaC1kc3MAAACBAKRFoQ6Ebp1HO9rMhDFIvMrvQST4Q/FgPsLP2rz1cVwJ0NQ7DKB6wl95AdifypksDDClsBFxOtxD49YN4SvQS0tSqyNwOdvpROsEH4e/orDl2oJhOYzZxDkwE0UZ+VHC+XeTTWG4qWlPLMNr/ExRAxJzOKZCs66QggNXwoMfq/IJAAAAFQD7u3RSnWiM6uIYARBlUCthyPqHHQAAAIBK5gA7eGLV5+utFPnWsxGz02ZdoOwMWEPhpVaWS9lU5AhcTck1HJcuq/ktqeILuEfJIj3V4ICDNw4WjEoEv5b3YQNAbHVYzhBhg6nsPmzaF33qcugglFqeQWJzff21qN4tH5GamGj76Dqn6tk/hW+xfEmEZYxnsmk4Q3UQ4oP2cQAAAIBL5PKxDU+DmE8wXGQIoyNpj4ZzYpoUmqOveQd4nYyp02QT5oE0uIsxD1lGhkoAKlaSuJNFUlGckXx2DY+eSkIAcLo5i5AD+S8W9245+V5HwtLLj6dTTEUTN2GzR0KofPFn0MgODkaYcEVp+L8+QQJFj/fBENA5E2WomSUT6Hhz1Q== msapiro@msapiro
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEArQw24fE8BZmcrtxwuiMOC3g5YXwi1YVLNUkhVSwrHyhvlcu5jRP7pj05pK1naEz8MQ4crNnrhTAgcpMJUAyJgQ/y0a9qrRWO4H+hVtWpMTgiGFsscoKWdu0xTnlK3EbV/vBeMPnSd0usXR3E0+I6GlWJ4/SmtCx0OwqEtfduZV8= msapiro@msapiro
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGjnfQcLTNj0eXqDkIQo75lXiZw+CJDWSHCD70Ao7P7q mark@msapiro
-    access:
-      mail:
-        allowed: True
-        sudo: True
-        groups:
-          - mailman
-      gnumailman:
-        allowed: True
-        sudo: True
-        groups:
-          - mailman
-
-  hildeb:
-    fullname: "Ralf Hildebrandt"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTLpYGZdP2XPthO2eI2sp1mN8C5gO6jGu3wO2j0uD5xNLid2jyadBDL2JpAgxwYv6uREopdST17qVc9hMmPXHEJN4tvLyHjUcjsL80QkVneyuFRT+oBqahX1+h8aVkk8vLuwKsVO5ARqcvYF846YQnRcdJRkPsdAZ4GD5jXGE6EN/yJLxEiVvCMbi7DvegxS6sUxl6E7380bdas3l46R+kotQXlVIw8NnakHFpdYNFlPF7pW1Kd2pCIQGKkOQaSLvuVKdOpKTyG4337R0c65/PMmDk5Uuqt78RbcSV/rTbuaxNEPLzrRX7DvZ2baZlf2vJMdsl20hFiNa1J4xIrG6T hildeb@senftopf
-    access:
-      mail:
-        allowed: True
-        sudo: True
-
-  skip:
-    fullname: "Skip Montanaro"
-    ssh_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJA80VH5sZrqYnsFzUiUTKT4Wv7NsfOBIjxCyoHM14L1 skip@montanaro.dyndns.org
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9EM3GdblHxAdPCtSdFuDO2/8GKhDjtHpdtP+sXfF0F skip@skips-mbp.lan
-    access:
-      mail:
-        allowed: True
-        sudo: True
-      moin:
-        sudo: True
-        allowed: True
-        groups:
-          - moin
-
-  mdk:
-    fullname: "Julien Palard"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKA7DgTQ0G7+kdsX0lIUOAAOllwGSCu8s8TxPvr/61Y8q+pIO5mrZycI0xYcKP5NZaABqlFyXUUNfLj7RLqteBxqq2QZP4NOJ1MutYRIkzJ9YW0f565jHaOqSguz0MY+1sCHtuEPiUUZoNexkKN7SIx60SfoaMEvGjAj46txA7VFbJUuKcJtA1Yvmn0C0KoXUUQ/G+JqvjQ7QuKLQYdTZ8S9OEvNaqNfwNSwvy1/LCnuajFw0O+H5bz7AcS5Iuj+9k8wgHPK1a1rQEdteOcn2XBCvta/VOVlFLv6/9K3iU3EJ1pyaZ88UkuJef8aWnH/AJGaF2gLqUbBuL+UeXyD41 julien+yubikey@palard.fr
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8vv8vwmbyhFEa0chj8LklnnY6DRLKj2OM0NgaMTd9SsrtBeLMqTt34pU+kKl6/9EIe9P8Z1/fWFyOiTsE7Khf3rkNsoILPmEV14i18Bvtp4nMtljqZaKVkAcRjPvo7flRWNxxL2Zbo+BEr3wVCl3Sc6YV8oQzCwVPKf34AB39b+PW4f3580Aqcd4Ci6zca0Ol95tLDv1slX1A7QcpoZAne8kj5h6bb4cC7FLBC9+xOSKmzoLOlP7LsyxaUUGRyi/FeMoma1VES65aIJ5U23GtZrzZI3tKz+vpQvOVaozNTDkNLiiJkjd3Ew1I10wArpZixjwSndP8CvGFyJc1XUXZ julien+yubikey5@palard.fr
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6WpbQWtaYmGwrBo9mR0wGTHiz4hc2o5OXVzLI6A4wB julien+2024@palard.fr
-    access:
-      docs:
-        sudo: True
-        allowed: True
-        groups:
-          - docs
-          - docsbuild
-
-  maxking:
-    fullname: "Abhilash Raj"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZV9XLHJV0bxVyZ6pbKuDaehAx9c7mlw9RZDCs0zaCBK5asyFGCg6ToDMpuBgUUT+j5AyC9tE73srWZWU5tC2VnwuMquOFzGgwon2Nl08+TsgZ5TzVe2JTJLpyvyO6uCJD2qRJ2Euq47PIknIfnnJtlWw0igO4Y9dYpAs32pxS4jjHWdbqjAEPDbMH3WGWQLMcn8A1JR1wYC11Y15w/RHTZBo9yAbJ7GuYIYcVVolPUdfgpnZehmZUydu8UtAvIRQURpnNiULZfxW5HezeUCwYmM/X1lSNZhwsdinqXsrXc2uDG8DRmLKEh2RHzy/bwUcEdJ2KlE63uoUdwphmTpor maxking@angel
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC66iP0ZJvZssvB9ACc3jvK1eCVZtRC+YXGPXbUYHjqLIz4o2AbmjMIHwIZjnTWdP2Y1rU2kb7f/D6uPI9cFhMSc1Hc9BIlwmwO+bzQowUay8j6DQZvMOG0FnxDkWCR0K1qX3CxsETyuHjt61e9jvOdWZCCy2dUcaTmc4j+4CjFHV3sp7pzhs9xV+CW6dPtBSdep4Ob3WSg5tP3XnYVtpUT9vc5Q57NSLhDJRF9PBQUzyp90OVCUJ9GLHh9C2jv++PkmrU7VK+GFzfiZdvNVVxgbvkDrhfcuzxktxkL6w2FyfbpmTUhNXp1u0FkP9mpZ/ouhc/hYs2tnJw115GAsn5d phoenix
-      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMV/+IM81xKIyZhJHnCqc6mFBQjKxBj0sEx3Gj3N/DPXL1NXtf49Dj/Wx44AKy5fda+mVZZTzQVB9C7F0X+kRJE= maxking@Abhilashs-MacBook-Pro.local
-    access:
-      mail:
-        allowed: True
-        sudo: True
-        groups:
-          - mailman
-      gnumailman:
-        allowed: True
-        sudo: True
-        groups:
-          - mailman
-
-  ambv:
-    fullname: "Łukasz Langa"
-    ssh_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMGC2VGofArUyzGR25TbLFtk16bYT+6TuCHui7qgSxvp lukasz.langa
-    access:
-      codespeed:
-        sudo: True
-        allowed: True
-      buildbot:
-        sudo: True
-        allowed: True
-      downloads:
-        sudo: True
-        allowed: True
-        groups:
-          - downloads
-      docs:
-        sudo: True
-        allowed: True
-        groups:
-          - docs
-          - docsbuild
-      bugs:
-        sudo: True
-        allowed: True
-        groups:
-          - roundup
-
-  mattip:
-    fullname: "Matti Picus"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4NVQIJX7GvaoNUFEGo+dQvpIGx9aCbuVqT4O3T3GQ/cxrikfIDX9VqGm2w5B/1+EvMf43kfBFzD8nuoByCvN+axmHkW4V54pq9jDEAL1SwheOiQLygj3XbcDgsY4TET3hGIbfEQgtRbLyHFrVG97IrkwJ4i/4fr+vnvzR7Us2teX1IWJwsKuNGzW69hJHGMNuXPawU+JC9dP42EfjrQrkiIuvMWrXQer1uVGx7gPwd3AxtTu3fx1QfiaJ5J74jALsgaOGep1I3Ap+KFLPZDf0PAM56aHbOxnsM1R76JRsCZVgXDwShVi9J2yQogcONXEP8O+BAFv0lP03qjiNs2oz matti@asus
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDzePfoLowdG+U7211Xmi1XJJ9acxLzLSYueJDOpnfx/XciyiFbHaJfU1LDTJwkxDAedZn48w7OmHbMsVhGiHun5uJu4EU3QJN3rMxqDDNqWMwo2f09kMhdSjbCR7BVdBUzLQteUDtcXJ7QdH+6sSFRrECyUkehcp49cwVJ0S0w7GWb31enpfUWEoTNgHsnXpabF7EepiK5iWe0j1cHd0GM3rDpVNc8asjRGESb3L0gG6RU+t9ptEvDqnPuPq3vWf+Fb724F+3uSB2ehjPDZwcWZGli/FSjmjft3+7JhAeSTPAptSg6n0ienqLlE0/pom+6BHtMDurmYIFhCDpvq+rv mattip@tannit
-    access:
-      codespeed:
-        sudo: True
-        allowed: True
-
-  fijal:
-    fullname: "Maciej Fijalkowski"
-    ssh_keys:
-      - ssh-dss AAAAB3NzaC1kc3MAAACBAJbByTtD76TRTTxJBFRkfMgHKjhQky/9wq0GZoYvUCWpzL/59H1y7V8SWRmEmHRQBuO+Z5/UBz3poUwHyftYSMA1zUiD5ZlWDoFNeiCb/lmO779IBVb98Pg5zZiN4be1niZozmmoL4IdpwHfIZZMA2Ycdlqww8zE90PEgyPZezPbAAAAFQDdlsczacwXg2HidIa7Tu5nVIzxhQAAAIAdoFDvTP3xfJvv9BbRCG65mn80lRwUjTuXGuPMdR4e/N4zEb96OnZuqJEtzfFF6UWDqNHXcN6k07fo0bqLFg706io+5kTQamnUG7+QQRT4df1Dg6qmMpzh3LHyAZe81DZmdSAJMSbwTqT46G3r2VmOXwo/GJYMf7O/m61bPrXcqAAAAIABmglK3TZCOOzFv6P9H/efeb7EmgVy/NMyjvCYHl6Eb6aB8oOn7YQA6cfh1DE++ax746d5fke5LiCcWtjh4TNf6mDaFORXEtqUK7e6A8r2W/fJ1YgEAdY9Qy81ilJEhVTmYDvAIA4fvpmBdXti2Xq28sAEFJU8DPrFBjGx3VDkTg== fijal@zygmunt
-    access:
-      codespeed:
-        sudo: True
-        allowed: True
-
-  ezio:
-    fullname: "Ezio Melotti"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAm1FUCa4Q+cKyMIg4QX4dszX+Wnj216HHCkHMgf2L0chYZVPvbWzboJqs+peInkWnXwYBnmJFdiHSxkwY4fnv1P3o+fb5wcl3fv0/kqIwcC+iavKlDOeBI51FP2s++QpvD5cU6rW202b8k2K5COJ5mlkIvgfhiyRYnR4LbHePLG+jd/4I6gCtUcGTQqwNaJOzRzvaviRd395S7+I8L35iWt1zTNck9II1gCvfcCLeM7XYtogFBq1LW5BZ9f+hZtJC0RcIpihHeoSNW7bmqWH5d0noQrBaKQfz5xm2BlQPM82/QWGUSZjPphynrCV8rYtitM3nkBl5zIxHsfoQbsp5ZQ== ezio-melotti
-    access:
-      bugs:
-        sudo: True
-        allowed: True
-        groups:
-          - roundup
-
   rouilj:
     fullname: "John Rouillard"
     ssh_keys:
@@ -403,30 +425,41 @@ users:
         groups:
           - roundup
 
-  ammar:
-    fullname: "Ammar Askar"
+  sdower:
+    fullname: "Steve Dower"
     ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA3puTkwAfNz3oHVQ6nH/7y4iU3rYkyBLs44tYmA99068n8AyMCWNwRIFxVmsYA3NsFD4MmyKL7kH67/3gX3/N5FNyhj6WN72/CeJUyl/JhlruvAdEWSuJQyV1I+cP9yM4KjJ+pGdPBHX3uc1AFXPZ5H3I/WmmZemkO7fis8jIuRTdKsC4PPIaqWcOtyt5wt2HpNoCr/Ji8Sl8yxWwB/HuRzsoEoqluCe2tp5e4Cg5SGFEgCUjzlCe27ixYnKWAw2zrBvx3Sn49MVT3xyQYqaimu437NwQkJBps0tRG7+rlZQ8w7dxlB67WUCCnNtcPPewE17PLvWIhFDWpm7Yiue3Sw== ammar_laptop
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAmVmA8k/f9ehIyaPoLVNK58m7s6J3UyoQaRucwVdDZbSU7WXNFyoZj8f7wjep7WrMCqjw1vw9YjRzBUXpkTNQ5VYzx4wECHtAVSicC4y+zHOv51+AP+wVjJH2ATkaMp03L6xGQ/LeLRPRHTMQnLssmmc8OHvtrG/9uWLYTKi/29TSv6uwYJYGw7QFxq8ILb2prKRTujjxn7nHYrvakraGYPjWJR38rATg793yjjWrXCjfLE0BuzUePw2SE1IyHs0WXTbhGIv1KRcE8U6MrDI9b2wS5j4hwrpPXFiiQhQTTxwqXrxWPd1QBCF/rvqtpxLwkaD+IuA9A+pqqiIISc3AXw==
     access:
-      bugs:
+      downloads:
         sudo: True
         allowed: True
         groups:
-          - roundup
+          - downloads
 
-  lemburg:
-    fullname: "Marc-Andre Lemburg"
+  sethmlarson:
+    fullname: "Seth Larson"
     ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDaPO2fk5o6Z41WALEBvErRsYC0Ozjg4VmhDSisvKAnUKss1jYoA1bJ0wR7jFPL7TU6j2LBcyuHMEylU9OWdWaMsSaFy/Jyiw+/fApSRwU0+1yP8qUaeEwQHRv5g426KExvRtxmPx6bw3drpdBv9vaEhTLYbE4yl27lZIYY9c50l9oSPoFfDZg8XZuXqsHY6/BSFxtw0PDUd/qKYZycX4C9AMg4FQocz6Lc4MFbIZaJOFRyfsX6HPAWkY2O0MDydikA83eWg7AEZHmJUyV9QZcrOLutAQfEOdA7XfDkdUkR6bnR/PIjWo7k+4H4UdSBS1bDbEcUsKAGIhiwJmGBdkjj marc-andre.lemburg
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINzmaKr8fHsDNPeht128GMbA+fe53pjYbPgS0V8dhjfK
     access:
+      cdn-logs:
+        allowed: true
+        groups:
+          - adm
+
+  skip:
+    fullname: "Skip Montanaro"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJA80VH5sZrqYnsFzUiUTKT4Wv7NsfOBIjxCyoHM14L1 skip@montanaro.dyndns.org
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9EM3GdblHxAdPCtSdFuDO2/8GKhDjtHpdtP+sXfF0F skip@skips-mbp.lan
+    access:
+      mail:
+        allowed: True
+        sudo: True
       moin:
         sudo: True
         allowed: True
         groups:
           - moin
-      planet:
-        sudo: True
-        allowed: True
 
   thomas:
     fullname: "Thomas Wouters"
@@ -449,47 +482,14 @@ users:
           - docs
           - docsbuild
 
-  itamaro:
-    fullname: "Itamar Oren"
+  zware:
+    fullname: "Zachary Ware"
     ssh_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAK7GQ50VMf3Kekgi6n+JhqPvq+k1aH5Klc1o+kwWdc0 itamarost@gmail.com
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5vqLruv6gzJgZ7zaKJnaWzzWAW7azAtetqMPVN+67cGMcQtnRmG2ih6UOXc1fA0fuZudKBgqlRw3Yg2UcT8ehP505PoHVuq+j0uZ4ogzQ8BJbZIaMEfbPXdzwUfqU3Ju3sur0XQYu0HHexKUU6ZZjjwl5LOmw9dTtY0cb7N7emePy//c7IaDuNsWg+4zaTDUwEhyWLVw6Ev4e0b1ufDxTvHqRXMVCfq0IYMsRXcg8+88GGF8kIS4QMbX/GcsFfOLHj35aJbAk6dqcCZWXWX/bRL937KYl9zENOkvlRbodEZqufDBsa+7Dm29LeV9JPfKJU3+5qM/LkfYPBiw1rH0L zach@screamer
     access:
+      codespeed:
+        allowed: True
+        sudo: True
       buildbot:
         allowed: True
         sudo : True
-
-  sethmlarson:
-    fullname: "Seth Larson"
-    ssh_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINzmaKr8fHsDNPeht128GMbA+fe53pjYbPgS0V8dhjfK
-    access:
-      cdn-logs:
-        allowed: true
-        groups:
-          - adm
-
-  encukou:
-    fullname: "Petr Viktorin"
-    ssh_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCuL7X5HFPwaZFEJxbNhjlD7/nl8ov3R0D0PE0e0YXckgWS3LyKKwHvhB4WbHiGh4qwpj/yp8+V27nRzy+I44MoZEtgUqNC4DGZxUTrU5CQuIcHVbqVz3k+XokGzEy09JqEvWS5JISg+C08n5xuHFzZG3PFZR3jgydxOdlxlPkMipXjfr12ULXGPOIG5JsIfLEAKiS0IH/NHcydCT24q7X+LRCBlfxbQmAtrq6OySqEjyYwxVdEoMJG7yiGgc/t2bcDODMaTKSFRBNL0B7aqrejxf3mtTLleX31ZaW0Uo9bCn87XJxbqC6AUwiDuzzYI/3Jz1zzpwqTlDJLS09JV8BfGyovTt22dKYTriRsTjX8pWl4uZInAiHPZOT2ZhKZhmCl/yd3zerBFW6tCKiw2n6wG7gWDSgVTnMdbtSdnhK9DIUsYd0ZWVcKvIBdcDbxGLtbAPV4Sn1CkuLmM6wD0dqok7qDAJtsnYXjE3GOZOnfnEgrW81S4pHg2fGQ/vYasIk= encukou@blackbox
-    access:
-      buildbot:
-        allowed: True
-        sudo : True
-
-  hugovk:
-    fullname: "Hugo van Kemenade"
-    ssh_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGTTCyZejfWSW277j177F09VOt8dctuFRpDnsLe+7Ifw hugovk@users.noreply.github.com
-    access:
-      downloads:
-        sudo: True
-        allowed: True
-        groups:
-          - downloads
-      docs:
-        sudo: True
-        allowed: True
-        groups:
-          - docs
-          - docsbuild
