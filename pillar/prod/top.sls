@@ -7,7 +7,7 @@ base:
     - secrets.system-mail
     - sudoers
     - tls
-    - users
+    - users.*
     - postgres.clusters
     - secrets.monitoring.datadog
     - swapfile
