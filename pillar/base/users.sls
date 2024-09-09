@@ -57,6 +57,18 @@ users:
           - downloads
 
   # Other users
+  adam:
+    fullname: "Adam Turner"
+    ssh_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIGz53UVWECxd1h48KLeMtCIVohay+OA639kMNntQCw
+    access:
+      docs:
+        sudo: True
+        allowed: True
+        groups:
+          - docs
+          - docsbuild
+
   antoine:
     fullname: "Antoine Pitrou"
     ssh_keys:
