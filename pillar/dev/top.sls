@@ -6,7 +6,7 @@ base:
     - roles
     - sudoers
     - tls
-    - users
+    - users.*
     - postgres.clusters
 
   'backup-server':
