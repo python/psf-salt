@@ -38,7 +38,7 @@ def ext_pillar(minion_id, pillar, api_key=None, base_path="/etc/deadmanssnitch/"
         auth=HTTPBasicAuth(api_key, ""),
         json={
             "name": f"salt-highstate {minion_id}",
-            "interval": "15_minute",
+            "interval": "hourly",
             "alert_type": "basic",
             "tags": ["salt-master"],
         },
