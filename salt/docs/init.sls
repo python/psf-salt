@@ -78,24 +78,36 @@ docsbuild-sentry:
     - name: SENTRY_DSN
     - value: {{ pillar.get('docs', {}).get('sentry', {}).get('dsn', '') }}
 
-docsbuild-full:
+docsbuild-no-html:
   cron.present:
-    - identifier: docsbuild-full
-    - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/scripts/build_docs.py
+    - identifier: docsbuild-no-html
+    - name: >
+        /srv/docsbuild/venv/bin/python
+        /srv/docsbuild/scripts/build_docs.py
+        --select-output=no-html
     - user: docsbuild
     - minute: 7
+    - hour: 6
     - require:
       - cmd: virtualenv-dependencies
 
-docsbuild-quick:
-  cron.absent:
-    - identifier: docsbuild-quick
-    - name: /srv/docsbuild/venv/bin/python /srv/docsbuild/scripts/build_docs.py -q
+docsbuild-only-html:
+  cron.present:
+    - identifier: docsbuild-only-html
+    - name: >
+        /srv/docsbuild/venv/bin/python
+        /srv/docsbuild/scripts/build_docs.py
+        --select-output=only-html
     - user: docsbuild
-    - minute: 7
-    - hour: 2-23/3
+    - minute: 16
     - require:
       - cmd: virtualenv-dependencies
+
+# Dummy so that the old cron jobs are stopped
+docsbuild-full:
+  cron.absent:
+    - identifier: docsbuild-full
+    - user: docsbuild
 
 /var/log/docsbuild/:
   file.directory:
