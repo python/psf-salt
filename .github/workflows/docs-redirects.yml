@@ -1,0 +1,24 @@
+name: docs-redirects
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  docs-redirects:
+    name: Docs Redirects
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: install hurl
+      run: curl --location --remote-name https://github.com/Orange-OpenSource/hurl/releases/download/5.0.1/hurl_5.0.1_amd64.deb && sudo apt install -y ./hurl_5.0.1_amd64.deb
+
+    - name: Run Tests
+      run: bash tests/docs/redirects/run.sh
