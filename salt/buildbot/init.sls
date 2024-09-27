@@ -94,6 +94,12 @@ find /data/www/buildbot/test-results -type f -mtime +7 -exec rm {} \;:
     - user: buildbot
     - special: '@daily'
 
+curl --head 'https://buildbot.python.org/plugins/wsgi_dashboards/release_status/index.html?refresh=true':
+  cron.present:
+    - identifier: RELEASE_DASHBOARD_CACHE_REFRESH
+    - user: buildbot
+    - minute: '*/5'
+
 /etc/nginx/sites.d/buildbot-master.conf:
   file.managed:
     - source: salt://buildbot/config/nginx.conf.jinja
