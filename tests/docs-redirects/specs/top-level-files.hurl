@@ -53,7 +53,7 @@ header "Location" == "https://localhost/3/download.html"
 GET {{host}}/genindex.html
 HTTP 301
 [Asserts]
-header "Location" == "https://localhost/3/genindex.html.html"
+header "Location" == "https://localhost/3/genindex.html"
 
 GET {{host}}/genindex
 HTTP 301
@@ -63,7 +63,7 @@ header "Location" == "https://localhost/3/genindex.html"
 GET {{host}}/genindex-_.html
 HTTP 301
 [Asserts]
-header "Location" == "https://localhost/3/genindex-_.html.html"
+header "Location" == "https://localhost/3/genindex-_.html"
 
 GET {{host}}/genindex-_
 HTTP 301
@@ -73,7 +73,7 @@ header "Location" == "https://localhost/3/genindex-_.html"
 GET {{host}}/genindex-A.html
 HTTP 301
 [Asserts]
-header "Location" == "https://localhost/3/genindex-A.html.html"
+header "Location" == "https://localhost/3/genindex-A.html"
 
 GET {{host}}/genindex-A
 HTTP 301
@@ -83,7 +83,7 @@ header "Location" == "https://localhost/3/genindex-A.html"
 GET {{host}}/genindex-Symbols.html
 HTTP 301
 [Asserts]
-header "Location" == "https://localhost/3/genindex-Symbols.html.html"
+header "Location" == "https://localhost/3/genindex-Symbols.html"
 
 GET {{host}}/genindex-Symbols
 HTTP 301
