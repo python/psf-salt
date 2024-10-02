@@ -122,6 +122,16 @@ docsbuild-full:
     - group: root
     - mode: "0644"
 
+/etc/nginx/sites.d/docs/redirects.conf:
+  file.managed:
+    - source: salt://docs/config/nginx.docs-redirects.conf
+    - user: root
+    - group: root
+    - mode: "0644"
+    - makedirs: True
+    - require:
+      - pkg: nginx
+
 /etc/nginx/sites.d/docs-backend.conf:
   file.managed:
     - source: salt://docs/config/nginx.docs-backend.conf
@@ -131,17 +141,7 @@ docsbuild-full:
     - require:
       - file: /etc/nginx/sites.d/
       - file: /etc/nginx/fastly_params
-      - file: /etc/nginx/conf.d/docs-redirects.conf
-
-/etc/nginx/conf.d/docs-redirects.conf:
-  file.managed:
-    - source: salt://docs/config/nginx.docs-redirects.conf
-    - user: root
-    - group: root
-    - mode: "0644"
-    - require:
-      - pkg: nginx
-
+      - file: /etc/nginx/sites.d/docs/redirects.conf
 
 /etc/consul.d/service-docs.json:
   file.managed:
