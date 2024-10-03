@@ -117,6 +117,15 @@ frontend main
     bind :::80
     bind 127.0.0.1:19001  # This is our TLS socket.
 
+    # Client rate limiting
+    # See: https://www.haproxy.com/blog/four-examples-of-haproxy-rate-limiting
+    stick-table type ip size 100k expire 15s store http_req_rate(10s)
+    http-request track-sc0 src
+    http-request deny deny_status 429 if { sc_http_req_rate(0) gt 20 }
+
+    # Do we need to whitelist the LBs?
+    {# acl whitelist src 10.132.111.89 10.132.109.52 #}
+
     # Custom logging format, this is the same as the normal "httplog" in
     # HAProxy except information about the TLS connection is included.
     log-format %ci:%cp\ [%t]\ %ft\ %b/%s\ %Tq/%Tw/%Tc/%Tr/%Tt\ %sslv/%sslc\ %ST\ %B\ %CC\ %CS\ %tsc\ %ac/%fc/%bc/%sc/%rc\ %sq/%bq\ %hr\ %hs\ %{+Q}r
