@@ -111,7 +111,7 @@ docsbuild-only-html:
 docsbuild-only-html-en:
   cron.present:
     # run twice hourly at HH:16 and HH:46
-    - identifier: docsbuild-only-html
+    - identifier: docsbuild-only-html-en
     - name: >
         /srv/docsbuild/venv/bin/python
         /srv/docsbuild/scripts/build_docs.py
