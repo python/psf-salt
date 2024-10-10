@@ -40,6 +40,7 @@ planet-user:
 
 https://github.com/python/planet:
   git.latest:
+    - branch: py2
     - target: /srv/planet/
     - user: planet
     - require:
