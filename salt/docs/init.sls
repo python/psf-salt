@@ -22,6 +22,7 @@ doc-pkgs:
       - texlive-latex-extra
       - texlive-latex-recommended
       - texlive-fonts-recommended
+      - texlive-fonts-extra
       - texlive-lang-all
       - texlive-xetex
       - xindy
