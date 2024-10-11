@@ -79,6 +79,18 @@ docsbuild-sentry:
     - name: SENTRY_DSN
     - value: {{ pillar.get('docs', {}).get('sentry', {}).get('dsn', '') }}
 
+docsbuild-fastly-service-id:
+  cron.env_present:
+    - user: docsbuild
+    - name: FASTLY_SERVICE_ID
+    - value: {{ pillar.get('docs', {}).get('fastly', {}).get('service_id', '') }}
+
+docsbuild-fastly-token:
+  cron.env_present:
+    - user: docsbuild
+    - name: FASTLY_TOKEN
+    - value: {{ pillar.get('docs', {}).get('fastly', {}).get('token', '') }}
+
 docsbuild-no-html:
   cron.present:
     # run every other day at 07:06
