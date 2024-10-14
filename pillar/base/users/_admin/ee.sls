@@ -10,3 +10,5 @@ users:
       ee@chungus
     - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBt9u0P2LhONN5ngUmtU8GupeRXp+BKXnq9Pmx6r6vE8iJ1MQCeRroiNpJ5C8Lr+2yCgsRK5pLndKOowIz5hFPY=
       ee@pancack
+    - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBSz/Yna8yFAglO9iY/lEdBHDNY91UTfbfGLYcYAZKtYnAnTMyOSQBhubUYr7z5zZv8NBpLiU+10WR8hgDtSsr0=
+      ee@psf-air
