@@ -52,13 +52,6 @@ global
     # Lower the amount of space we reserve for header rewriting
     tune.maxrewrite 1024
 
-    # rate limits only if there is a rate_limit in haproxy.sls
-    {% for service, config in haproxy.services.items() %}
-    {% if config.get('rate_limit') %}
-    stick-table type ip size 100k expire 30s store http_req_rate(1s) name {{ service }}_ratelimit
-    {% endif %}
-    {% endfor %}
-
 defaults
     log     global
 
@@ -125,9 +118,16 @@ frontend main
 
     # Apply rate limits per srvice
     {% for service, config in haproxy.services.items() %}
-    {% if config.get('rate_limit') %}
+    {% if config.get('rate_limit') and loop.index <= 2 %}
+    stick-table type ip size 100k expire 30s store http_req_rate(1s)
+    {% endif %}
+    {% endfor %}
+
+    # Apply rate limits
+    {% for service, config in haproxy.services.items() %}
+    {% if config.get('rate_limit') and loop.index <= 2 %}
     acl is_{{ service }} hdr(host) -i {% for domain in config.domains %}{{ domain }} {% endfor %}
-    http-request track-sc{{ loop.index }} src table {{ service }}_ratelimit if is_{{ service }}
+    http-request track-sc{{ loop.index }} src if is_{{ service }}
     http-request deny deny_status 429 if is_{{ service }} { sc{{ loop.index }}_http_req_rate() gt {{ config.rate_limit }} }
     {% endif %}
     {% endfor %}
