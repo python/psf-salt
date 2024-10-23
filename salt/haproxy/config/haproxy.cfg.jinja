@@ -116,19 +116,20 @@ frontend main
     bind :::80
     bind 127.0.0.1:19001  # This is our TLS socket.
 
-    # Apply rate limits per srvice
+    # Define a stick table for all services
+    stick-table type ip size 100k expire 30s store http_req_rate(10s)
+    # Track all requests using a single counter
+    # We could use the 3 available (sc0,1,2) to maybe tier requests
+    # into say <=100, 101-500, >= 501 if we needed to?
+    http-request track-sc0 src
+    # then create the ACL for services in haproxy.sls that have a 'rate_limit' key,
+    # constrained to the host header using the domain key in haproxy.sls
+    # then adds a rule to deny via HTTP 429 if the respective ACL is matched and the stick table http request rate
+    # is higher than the 'rate_limit' from haproxy.sls pillar date
     {% for service, config in haproxy.services.items() %}
-    {% if config.get('rate_limit') and loop.index <= 2 %}
-    stick-table type ip size 100k expire 30s store http_req_rate(1s)
-    {% endif %}
-    {% endfor %}
-
-    # Apply rate limits
-    {% for service, config in haproxy.services.items() %}
-    {% if config.get('rate_limit') and loop.index <= 2 %}
-    acl is_{{ service }} hdr(host) -i {% for domain in config.domains %}{{ domain }} {% endfor %}
-    http-request track-sc{{ loop.index }} src if is_{{ service }}
-    http-request deny deny_status 429 if is_{{ service }} { sc{{ loop.index }}_http_req_rate() gt {{ config.rate_limit }} }
+    {% if config.get('rate_limit') %}
+    acl is_{{ service }} hdr(host) -i {% for domain in config.domains %}{{ domain }}{% endfor %}
+    http-request deny deny_status 429 if is_{{ service }} { sc0_http_req_rate() gt {{ config.rate_limit }} }
     {% endif %}
     {% endfor %}
 
