@@ -129,7 +129,7 @@ frontend main
     {%- for service, config in haproxy.services.items() %}
     {%- if config.get('rate_limit') %}
     # Rate limit config for {{ service }}
-    acl is_{{ service }} hdr(host) -i {% for domain in config.domains %}{{ domain }}{% endfor %}
+    acl is_{{ service }} hdr(host) -i {% for domain in config.domains %}{{ domain }} {% endfor %}
     http-request deny deny_status 429 if is_{{ service }} { sc0_http_req_rate() gt {{ config.rate_limit }} }
     {%- endif %}
     {%- endfor %}
