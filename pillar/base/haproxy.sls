@@ -17,6 +17,7 @@ haproxy:
         - docs.python.org
         - doc.python.org
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ docs.python.org"
+      rate_limit: 100
 
     downloads:
       domains:
@@ -75,6 +76,7 @@ haproxy:
         - {{ config.server_name }}
       verify_host: bugs.psf.io
       check: "HEAD / HTTP/1.1\\r\\nHost:\\ {{ config.server_name }}"
+      rate_limit: {{ config.get('rate_limit', 10) }}
     {% endfor %}
 
     moin:
