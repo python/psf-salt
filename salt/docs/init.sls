@@ -22,6 +22,7 @@ doc-pkgs:
       - texlive-latex-extra
       - texlive-latex-recommended
       - texlive-fonts-recommended
+      - texlive-fonts-extra
       - texlive-lang-all
       - texlive-xetex
       - xindy
@@ -78,8 +79,21 @@ docsbuild-sentry:
     - name: SENTRY_DSN
     - value: {{ pillar.get('docs', {}).get('sentry', {}).get('dsn', '') }}
 
+docsbuild-fastly-service-id:
+  cron.env_present:
+    - user: docsbuild
+    - name: FASTLY_SERVICE_ID
+    - value: {{ pillar.get('docs', {}).get('fastly', {}).get('service_id', '') }}
+
+docsbuild-fastly-token:
+  cron.env_present:
+    - user: docsbuild
+    - name: FASTLY_TOKEN
+    - value: {{ pillar.get('docs', {}).get('fastly', {}).get('token', '') }}
+
 docsbuild-no-html:
   cron.present:
+    # run every other day at 07:06
     - identifier: docsbuild-no-html
     - name: >
         /srv/docsbuild/venv/bin/python
@@ -88,18 +102,35 @@ docsbuild-no-html:
     - user: docsbuild
     - minute: 7
     - hour: 6
+    - daymonth: '*/2'
     - require:
       - cmd: virtualenv-dependencies
 
 docsbuild-only-html:
   cron.present:
+    # run daily at 04:42
     - identifier: docsbuild-only-html
     - name: >
         /srv/docsbuild/venv/bin/python
         /srv/docsbuild/scripts/build_docs.py
         --select-output=only-html
     - user: docsbuild
-    - minute: 16
+    - minute: 42
+    - hour: 4
+    - require:
+      - cmd: virtualenv-dependencies
+
+docsbuild-only-html-en:
+  cron.present:
+    # run twice hourly at HH:16 and HH:46
+    - identifier: docsbuild-only-html-en
+    - name: >
+        /srv/docsbuild/venv/bin/python
+        /srv/docsbuild/scripts/build_docs.py
+        --select-output=only-html-en
+        --language=en
+    - user: docsbuild
+    - minute: 16,46
     - require:
       - cmd: virtualenv-dependencies
 
