@@ -17,7 +17,6 @@ haproxy:
         - docs.python.org
         - doc.python.org
       check: "HEAD /_check HTTP/1.1\\r\\nHost:\\ docs.python.org"
-      rate_limit: 100
 
     downloads:
       domains:
