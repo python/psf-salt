@@ -37,7 +37,7 @@ salt-repo:
   pkgrepo.managed:
     {# https://saltproject.io/blog/salt-project-package-repo-migration-and-guidance/ #}
     {% if grains["oscodename"] in ["jammy", "noble"] %}
-    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.pgp arch={{ grains["osarch"] }}] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main
+    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2024.pgp arch={{ grains["osarch"] }}] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main
     - key_url: https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
     - aptkey: False
     - file: /etc/apt/sources.list.d/salt.list
