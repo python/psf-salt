@@ -117,7 +117,7 @@ frontend main
     bind 127.0.0.1:19001  # This is our TLS socket.
 
     # Define a stick table for all services
-    stick-table type ip size 100k expire 30s store http_req_rate(10s)
+    stick-table type ipv6 size 100k expire 30s store http_req_rate(10s)
     # Track all requests using a single counter
     # We could use the 3 available (sc0,1,2) to maybe tier requests
     # into say <=100, 101-500, >= 501 if we needed to?
