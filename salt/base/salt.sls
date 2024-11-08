@@ -35,7 +35,7 @@ remove_old_salt_repo:
 
 salt-repo:
   pkgrepo.managed:
-    {% if grains["oscodename"] in ["jammy", "noble"] %}
+    {% if grains["oscodename"] in ["focal", "jammy", "noble"] %}
     - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2024.pgp arch={{ grains["osarch"] }}] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main
     - key_url: https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
     - aptkey: False
