@@ -10,6 +10,11 @@ HTTP 301
 [Asserts]
 header "Location" == "https://localhost/3/c-api"
 
+GET {{host}}/deprecations
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/3/deprecations"
+
 GET {{host}}/distutils
 HTTP 301
 [Asserts]
@@ -84,6 +89,11 @@ GET {{host}}/c-api/spam
 HTTP 301
 [Asserts]
 header "Location" == "https://localhost/3/c-api/spam"
+
+GET {{host}}/deprecations/spam
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/3/deprecations/spam"
 
 GET {{host}}/distutils/spam
 HTTP 301
