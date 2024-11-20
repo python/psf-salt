@@ -139,7 +139,7 @@ bugs:
       rdbms__isolation_level: "read committed"
       logging__config: ""
       logging__filename: ""
-      logging__level: "ERROR"
+      logging__level: "WARNING"
       mail__domain: ""
       mail__host: "localhost"
       mail__username: ""
