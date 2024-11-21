@@ -47,6 +47,7 @@ EXPOSE 22
 RUN /usr/sbin/sshd
 
 # Setup Salt Common
+RUN mkdir -p /etc/apt/keyrings
 RUN wget --quiet -O /etc/apt/keyrings/salt-archive-keyring-2024.pgp https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
 RUN echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2024.pgp arch=$(dpkg --print-architecture)] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main" > /etc/apt/sources.list.d/salt.list
 
