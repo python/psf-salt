@@ -233,7 +233,9 @@ tracker-{{ tracker }}-clone:
 tracker-{{ tracker }}-clone-permissions:
   file.directory:
     - name: /srv/roundup/trackers/{{ tracker }}
-    - mode: "0750"
+    - user: roundup
+    - group: roundup
+    - mode: "0770"
 
 tracker-{{ tracker }}-config:
   file.managed:
