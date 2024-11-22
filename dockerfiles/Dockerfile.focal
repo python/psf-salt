@@ -1,4 +1,4 @@
-           # Docker image to use with Vagrant
+# Docker image to use with Vagrant
 # Aims to be as similar to normal Vagrant usage as possible
 # Adds SSH daemon, Systemd
 # Adapted from https://github.com/BashtonLtd/docker-vagrant-images/blob/master/ubuntu1404/Dockerfile

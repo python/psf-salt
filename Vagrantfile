@@ -2,7 +2,6 @@
 
 
 SERVERS = [
-  # TODO: test focal salt repo changes
   {:name => "backup-server", :codename => "noble"},
   {:name => "bugs", :codename => "jammy", :ports => [8080]},
   {:name => "buildbot", :codename => "noble"},
