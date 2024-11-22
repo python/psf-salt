@@ -33,6 +33,19 @@ remove_old_salt_repo:
   file.absent:
     - name: /etc/apt/sources.list.d/saltstack.list
 
+{% if grains["oscodename"] in ["focal", "jammy", "noble"] %}
+salt-pin-config:
+  file.managed:
+    - name: /etc/apt/preferences.d/salt-pin-1001
+    - contents: |
+        Package: salt-*
+        Pin: version 3006.*
+        Pin-Priority: 1001
+    - user: root
+    - group: root
+    - mode: "0644"
+{% endif %}
+
 salt-repo:
   pkgrepo.managed:
     {% if grains["oscodename"] in ["focal", "jammy", "noble"] %}
