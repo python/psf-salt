@@ -33,25 +33,27 @@ remove_old_salt_repo:
   file.absent:
     - name: /etc/apt/sources.list.d/saltstack.list
 
+{% if grains["oscodename"] in ["focal", "jammy", "noble"] %}
+salt-pin-config:
+  file.managed:
+    - name: /etc/apt/preferences.d/salt-pin-1001
+    - contents: |
+        Package: salt-*
+        Pin: version 3006.*
+        Pin-Priority: 1001
+    - user: root
+    - group: root
+    - mode: "0644"
+{% endif %}
+
 salt-repo:
   pkgrepo.managed:
-    - humanname: repo.saltstack.org
-    {% if grains["oscodename"] == "focal" %}
-    - name: deb https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004 focal main
-    - key_url: https://archive.repo.saltproject.io/py3/ubuntu/20.04/{{ grains["osarch"] }}/archive/3004/salt-archive-keyring.gpg
-    {% elif grains["oscodename"] == "jammy" %}
-    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.gpg arch={{ grains["osarch"] }}] https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/3007 jammy main
-    - key_url: https://repo.saltproject.io/salt/py3/ubuntu/22.04/{{ grains["osarch"] }}/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+    {% if grains["oscodename"] in ["focal", "jammy", "noble"] %}
+    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2024.pgp arch={{ grains["osarch"] }}] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main
+    - key_url: https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
     - aptkey: False
-    {% elif grains["oscodename"] == "noble" %}
-    - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.gpg arch={{ grains["osarch"] }}] https://repo.saltproject.io/salt/py3/ubuntu/24.04/{{ grains["osarch"] }}/3007 noble main
-    - key_url: https://repo.saltproject.io/salt/py3/ubuntu/24.04/{{ grains["osarch"] }}/SALT-PROJECT-GPG-PUBKEY-2023.gpg
-    - aptkey: False
-    {% else %}
-    - name: deb http://archive.repo.saltstack.com/py3/ubuntu/{{ grains["osrelease"] }}/{{ grains["osarch"] }}/2018.3 {{ grains["oscodename"] }} main
-    - key_url: https://archive.repo.saltstack.com/py3/ubuntu/18.04/amd64/2018.3/SALTSTACK-GPG-KEY.pub
-    {% endif %}
     - file: /etc/apt/sources.list.d/salt.list
+    {% endif %}
 {% endif %}
 
 
