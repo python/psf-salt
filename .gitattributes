@@ -1,0 +1,2 @@
+# Add syntax highlighting to NGINX config files
+nginx.*.conf linguist-language=Nginx
