@@ -51,6 +51,7 @@ salt-repo-key:
     - source: https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
     - mode: '0644'
     - skip_verify: True
+    - makedirs: True
 
 salt-repo:
   pkgrepo.managed:
