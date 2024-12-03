@@ -61,6 +61,8 @@ salt-repo:
         - file: salt-repo-key
 {% endif %}
 
+{% endif %}
+
 
 {% if salt["match.compound"](pillar["roles"]["salt-master"]["pattern"]) %}
 include:
