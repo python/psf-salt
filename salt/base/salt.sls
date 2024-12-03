@@ -44,16 +44,21 @@ salt-pin-config:
     - user: root
     - group: root
     - mode: "0644"
-{% endif %}
+
+salt-repo-key:
+  file.managed:
+    - name: /etc/apt/keyrings/salt-archive-keyring-2024.pgp
+    - source: https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
+    - mode: '0644'
+    - skip_verify: True
 
 salt-repo:
   pkgrepo.managed:
-    {% if grains["oscodename"] in ["focal", "jammy", "noble"] %}
     - name: deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2024.pgp arch={{ grains["osarch"] }}] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main
-    - key_url: https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
     - aptkey: False
     - file: /etc/apt/sources.list.d/salt.list
-    {% endif %}
+    - require:
+        - file: salt-repo-key
 {% endif %}
 
 
