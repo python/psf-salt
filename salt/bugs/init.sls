@@ -235,17 +235,13 @@ tracker-{{ tracker }}-clone-permissions:
     - name: /srv/roundup/trackers/{{ tracker }}
     - mode: "0750"
 
-tracker-{{ tracker }}-gitconfig:
-  file.blockreplace:
-    - name: /etc/gitconfig
-    - marker_start: "# TRACKER-{{ tracker }}-START"
-    - marker_end: "# TRACKER-{{ tracker }}-END"
-    - content: |
-        [safe]
-        directory = /srv/roundup/trackers/{{ tracker }}
-    - append_if_not_found: True
+tracker-{{ tracker }}-add-safe-directory:
+  cmd.run:
+    - name: git config --system --add safe.directory "/srv/roundup/trackers/{{ tracker }}"
+    - unless: git config --system --get-all safe.directory | grep -q "^/srv/roundup/trackers/{{ tracker }}$"
     - require:
         - file: tracker-{{ tracker }}-clone-permissions
+
 
 tracker-{{ tracker }}-config:
   file.managed:
