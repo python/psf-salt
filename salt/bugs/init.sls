@@ -233,9 +233,19 @@ tracker-{{ tracker }}-clone:
 tracker-{{ tracker }}-clone-permissions:
   file.directory:
     - name: /srv/roundup/trackers/{{ tracker }}
-    - user: roundup
-    - group: roundup
-    - mode: "0770"
+    - mode: "0750"
+
+tracker-{{ tracker }}-gitconfig:
+  file.blockreplace:
+    - name: /etc/gitconfig
+    - marker_start: "# TRACKER-{{ tracker }}-START"
+    - marker_end: "# TRACKER-{{ tracker }}-END"
+    - content: |
+        [safe]
+        directory = /srv/roundup/trackers/{{ tracker }}
+    - append_if_not_found: True
+    - require:
+        - file: tracker-{{ tracker }}-clone-permissions
 
 tracker-{{ tracker }}-config:
   file.managed:
