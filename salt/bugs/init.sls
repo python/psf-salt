@@ -3,6 +3,13 @@ include:
   - bugs.postgresql
   - nginx
 
+ensure-gitconfig-permissions:
+  file.managed:
+    - name: /etc/gitconfig
+    - user: root
+    - group: root
+    - mode: 644
+
 roundup-deps:
   pkg.installed:
     - pkgs:
@@ -241,7 +248,7 @@ tracker-{{ tracker }}-add-safe-directory:
     - unless: git config --system --get-all safe.directory | grep -q "^/srv/roundup/trackers/{{ tracker }}$"
     - require:
         - file: tracker-{{ tracker }}-clone-permissions
-
+        - file: ensure-gitconfig-permissions
 
 tracker-{{ tracker }}-config:
   file.managed:
