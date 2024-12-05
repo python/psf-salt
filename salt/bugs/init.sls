@@ -8,7 +8,7 @@ ensure-gitconfig-permissions:
     - name: /etc/gitconfig
     - user: root
     - group: root
-    - mode: 644
+    - mode: "0644"
 
 roundup-deps:
   pkg.installed:
