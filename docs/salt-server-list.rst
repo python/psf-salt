@@ -16,6 +16,7 @@
    "consul-2.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
    "consul-3.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
    "docs.nyc1.psf.io", "Builds and serves CPython's documentation", "mdk", "Ubuntu-24.04", "nyc1"
+   "downloads-0.nyc1.psf.io", "Serves python.org downloads", "CPython Release Managers", "Ubuntu-24.04", "nyc1"
    "downloads.nyc1.psf.io", "Serves python.org downloads", "CPython Release Managers", "Ubuntu-24.04", "nyc1"
    "gnumailman.nyc1.psf.io", "GNU Mailman Project wiki and lists", "Mark Sapiro", "Ubuntu-20.04", "nyc1"
    "hg.nyc1.psf.io", "Version Control Archives, serves hg.python.org and svn.python.org", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
