@@ -1,9 +1,3 @@
-boto-pkgs:
-  pkg.installed:
-    - pkgs:
-      - python3-boto
-      - python3-boto3
-
 boto:
   pip.installed:
     - pip_bin: /usr/bin/salt-pip
