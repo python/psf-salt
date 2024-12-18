@@ -3,7 +3,7 @@ log_format timed_combined_{{ tracker }} '$remote_addr - $remote_user [$time_loca
     '"$http_referer" "$http_user_agent" '
     '$request_time $upstream_response_time $pipe';
 
-limit_req_zone $binary_remote_addr zone=limit-{{ tracker }}:10m rate=1r/s;
+limit_req_zone $binary_remote_addr zone=limit-{{ tracker }}:10m rate=5r/s;
 
 
 upstream tracker-{{ tracker }} {
@@ -53,7 +53,7 @@ server {
   }
 
   location / {
-    limit_req zone=limit-{{ tracker }} burst=5 nodelay;
+    limit_req zone=limit-{{ tracker }} burst=10 nodelay;
     proxy_pass http://tracker-{{ tracker }}/;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
