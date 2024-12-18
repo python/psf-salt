@@ -117,17 +117,6 @@ haproxy-ocsp:
 {% endif %}
 
 
-/etc/nginx/sites.d/http2.conf:
-  file.managed:
-    - source: salt://haproxy/config/nginx-http2.conf.jinja
-    - template: jinja
-    - user: root
-    - group: root
-    - mode: "0644"
-    - require:
-      - file: /etc/nginx/sites.d/
-
-
 /etc/nginx/sites.d/redirect.conf:
   file.managed:
     - source: salt://haproxy/config/nginx-redirect.conf.jinja
