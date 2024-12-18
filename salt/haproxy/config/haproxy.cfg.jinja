@@ -89,7 +89,6 @@ frontend main
     bind :20001 accept-proxy
     bind 0.0.0.0:80
     bind :::80
-    bind 127.0.0.1:19001  # This is our TLS socket.
 
     # HTTPS Binds
     # Advertise http/1.1 over NPN to enable TLS False Start
@@ -134,7 +133,7 @@ frontend main
     use_backend letsencrypt-well-known if letsencrypt-well-known-acl
 
     # Determine if this request has TLS on the client side or not.
-    acl is_tls dst_port 19001
+    acl is_tls ssl_fc
 
     acl our_domains hdr(host) -i -f /etc/haproxy/our_domains
 
