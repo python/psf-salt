@@ -52,7 +52,6 @@ global
     # Lower the amount of space we reserve for header rewriting
     tune.maxrewrite 1024
 
-
 defaults
     log     global
 
@@ -116,6 +115,24 @@ frontend main
     bind 0.0.0.0:80
     bind :::80
     bind 127.0.0.1:19001  # This is our TLS socket.
+
+    # Define a stick table for all services
+    stick-table type ipv6 size 100k expire 30s store http_req_rate(10s)
+    # Track all requests using a single counter
+    # We could use the 3 available (sc0,1,2) to maybe tier requests
+    # into say <=100, 101-500, >= 501 if we needed to?
+    http-request track-sc0 src
+    # then create the ACL for services in haproxy.sls that have a 'rate_limit' key,
+    # constrained to the host header using the domain key in haproxy.sls
+    # then adds a rule to deny via HTTP 429 if the respective ACL is matched and the stick table http request rate
+    # is higher than the 'rate_limit' from haproxy.sls pillar date
+    {%- for service, config in haproxy.services.items() %}
+    {%- if config.get('rate_limit') %}
+    # Rate limit config for {{ service }}
+    acl is_{{ service }} hdr(host) -i {% for domain in config.domains %}{{ domain }} {% endfor %}
+    http-request deny deny_status 429 if is_{{ service }} { sc_http_req_rate(0) gt {{ config.rate_limit }} }
+    {%- endif %}
+    {%- endfor %}
 
     # Custom logging format, this is the same as the normal "httplog" in
     # HAProxy except information about the TLS connection is included.
