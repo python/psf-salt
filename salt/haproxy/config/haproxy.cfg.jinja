@@ -140,10 +140,10 @@ frontend main
     # Deny requests that are not served from this host
     http-request deny if !our_domains !letsencrypt-well-known-acl
 
+    http-request set-header X-Client-IP %[src]
     # Tell the backend servers whether this request is being served via TLS or
     # not. This should pretty much *always* be yes since we unconditionally
     # redirect to HTTPS in HAProxy.
-    http-request set-header X-Client-IP %[src] if !is_tls
     http-request set-header X-Forwarded-Proto https if is_tls
     http-request set-header X-Forwarded-Proto http  if !is_tls
 
