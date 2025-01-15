@@ -470,27 +470,27 @@ level = {{ logging__level }}
 # explicitly include a domain.
 # Do not include the '@' symbol.
 # Default: NO DEFAULT
-domain = {{ pillar.get('roundup_secrets', {}).get('mail__domain', 'roundup.psfhosted.org') }}
+domain = {{ pillar.get('roundup_secrets', {}).get('mail', {}).get(tracker, {}).get('domain', 'roundup.psfhosted.org') }}
 
 # SMTP mail host that roundup will use to send mail
 # Default: NO DEFAULT
-host = {{ pillar.get('roundup_secrets', {}).get('mail__host', 'localhost') }}
+host = {{ pillar.get('roundup_secrets', {}).get('mail', {}).get(tracker, {}).get('host', 'localhost') }}
 
 # SMTP login name.
 # Set this if your mail host requires authenticated access.
 # If username is not empty, password (below) MUST be set!
 # Default: 
-username = {{ pillar.get('roundup_secrets', {}).get('mail__username', '') }}
+username = {{ pillar.get('roundup_secrets', {}).get('mail', {}).get(tracker, {}).get('username', '') }}
 
 # SMTP login password.
 # Set this if your mail host requires authenticated access.
 # Default: NO DEFAULT
-password = {{ pillar.get('roundup_secrets', {}).get('mail__password', '') }}
+password = {{ pillar.get('roundup_secrets', {}).get('mail', {}).get(tracker, {}).get('password', '') }}
 
 # Default port to send SMTP on.
 # Set this if your mail server runs on a different port.
 # Default: 25
-port = {{ pillar.get('roundup_secrets', {}).get('mail__port', '25') }}
+port = {{ pillar.get('roundup_secrets', {}).get('mail', {}).get(tracker, {}).get('port', '25') }}
 
 # The local hostname to use during SMTP transmission.
 # Set this if your mail server requires something specific.
@@ -501,7 +501,7 @@ local_hostname = {{ mail__local_hostname }}
 # (Transport Layer Security) then set this option to 'yes'.
 # Allowed values: yes, no
 # Default: no
-tls = {{ pillar.get('roundup_secrets', {}).get('mail__tls', 'no') }}
+tls = {{ pillar.get('roundup_secrets', {}).get('mail', {}).get(tracker, {}).get('tls', 'no') }}
 
 # If TLS is used, you may set this option to the name
 # of a PEM formatted file that contains your private key.
