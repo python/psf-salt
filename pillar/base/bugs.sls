@@ -67,8 +67,8 @@ bugs:
       config:
           tracker: roundup
           main__database: /srv/roundup/data/roundup
-          main__admin_email: roundup-admin@python.org
-          main__dispatcher_email: roundup-admin@python.org
+          main__admin_email: roundup-admin@roundup-tracker.org
+          main__dispatcher_email: roundup-admin@roundup-tracker.org
           main__html_version: xhtml
           tracker__name: "Roundup tracker"
           tracker__web: "https://issues.roundup-tracker.org/"
