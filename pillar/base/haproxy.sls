@@ -149,6 +149,10 @@ haproxy:
       target: www.jython.org
       hsts_subdomains: False
       hsts_preload: False
+    fr.pycon.org:
+      target: pycon.fr
+      hsts_subdomains: False
+      hsts_preload: False
 
   listens:
     hg_ssh:
