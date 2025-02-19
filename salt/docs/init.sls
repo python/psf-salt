@@ -14,8 +14,8 @@ doc-pkgs:
       - fonts-noto
       - git
       - mercurial
-      - python3.10-dev
-      - python3.10-venv
+      - python3.13-dev
+      - python3.13-venv
       - latexmk
       - texinfo
       - texlive
@@ -49,7 +49,7 @@ docsbuild-scripts:
 virtualenv:
   cmd.run:
     - runas: docsbuild
-    - name: 'python3.10 -m venv /srv/docsbuild/venv'
+    - name: 'python3.13 -m venv /srv/docsbuild/venv'
     - creates:
       - /srv/docsbuild/venv/bin/python
       - /srv/docsbuild/venv/bin/pip
