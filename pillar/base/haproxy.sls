@@ -170,7 +170,7 @@ haproxy:
     buildbot_worker_direct:
       bind: :9020
       service: buildbot-master-worker
-      extra   :
+      extra:
         - timeout client 86400
         - timeout server 86400
 
