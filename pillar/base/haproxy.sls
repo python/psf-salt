@@ -84,6 +84,7 @@ haproxy:
         - wiki.jython.org
       verify_host: moin.psf.io
       check: "HEAD /moin/HelpContents HTTP/1.1\\r\\nHost:\\ wiki.python.org"
+      rate_limit: {{ config.get('rate_limit', 50) }}
 
     svn:
       domains:
@@ -169,7 +170,7 @@ haproxy:
     buildbot_worker_direct:
       bind: :9020
       service: buildbot-master-worker
-      extra:
+      extra   :
         - timeout client 86400
         - timeout server 86400
 
