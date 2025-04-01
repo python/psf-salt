@@ -40,7 +40,7 @@ pypa.io:
     - webroot: /etc/lego
     - renew: 14
     {% if pillar["dc"] == "vagrant" %}
-    - server: https://salt-master.vapsf.io:14000/dir
+    - server: https://salt-master.psf.io:14000/dir
     {% endif %}
     - require:
       - sls: tls.lego
