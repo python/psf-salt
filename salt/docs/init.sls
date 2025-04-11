@@ -67,29 +67,17 @@ virtualenv-dependencies:
     - onchanges:
       - git: docsbuild-scripts
 
-docsbuild-analytics:
-  cron.env_present:
+/etc/xdg/docsbuild-scripts:
+  file.managed:
+    - source: salt://docs/config/docsbuild-scripts
+    - template: jinja
+    - context:
+        sentry_dsn: {{ pillar.get('docs', {}).get('sentry', {}).get('dsn', '') }}
+        fastly_service_id: {{ pillar.get('docs', {}).get('fastly', {}).get('service_id', '') }}
+        fastly_token: {{ pillar.get('docs', {}).get('fastly', {}).get('token', '') }}
     - user: docsbuild
-    - name: PYTHON_DOCS_ENABLE_ANALYTICS
-    - value: 1
-
-docsbuild-sentry:
-  cron.env_present:
-    - user: docsbuild
-    - name: SENTRY_DSN
-    - value: {{ pillar.get('docs', {}).get('sentry', {}).get('dsn', '') }}
-
-docsbuild-fastly-service-id:
-  cron.env_present:
-    - user: docsbuild
-    - name: FASTLY_SERVICE_ID
-    - value: {{ pillar.get('docs', {}).get('fastly', {}).get('service_id', '') }}
-
-docsbuild-fastly-token:
-  cron.env_present:
-    - user: docsbuild
-    - name: FASTLY_TOKEN
-    - value: {{ pillar.get('docs', {}).get('fastly', {}).get('token', '') }}
+    - group: docsbuild
+    - mode: "0440"
 
 docsbuild-no-html:
   cron.present:
