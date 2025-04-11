@@ -128,7 +128,7 @@ docsbuild-only-html-en:
         /srv/docsbuild/venv/bin/python
         /srv/docsbuild/scripts/build_docs.py
         --select-output=only-html-en
-        --language=en
+        --languages=en
     - user: docsbuild
     - minute: 16,46
     - require:
