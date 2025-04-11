@@ -1,0 +1,5 @@
+[env]
+SENTRY_DSN = "{{ sentry_dsn }}"
+FASTLY_SERVICE_ID = "{{ fastly_service_id }}"
+FASTLY_TOKEN = "{{ fastly_token }}"
+PYTHON_DOCS_ENABLE_ANALYTICS = "1"
