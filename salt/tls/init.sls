@@ -17,8 +17,21 @@ certbot:
     - mode: "0644"
     - require:
       - pkg: ssl-cert
+
+/usr/local/share/ca-certificates/{{ name }}.crt:
+  file.managed:
+    - contents_pillar: tls:ca:{{ name }}
+    - user: root
+    - group: ssl-cert
+    - mode: "0644"
+    - require:
+      - pkg: ssl-cert
 {% endfor %}
 
+/usr/sbin/update-ca-certificates:
+  cmd.wait:
+    - watch:
+      - file: /usr/local/share/ca-certificates/*.crt
 
 {% for name in salt["pillar.get"]("tls:certs", {}) %}  # " Syntax Hack
 /etc/ssl/private/{{ name }}.pem:
