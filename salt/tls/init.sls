@@ -45,7 +45,27 @@ certbot:
       - pkg: ssl-cert
 {% endfor %}
 
-{% if grains['id'] == 'salt.nyc1.psf.io' or grains['id'] == 'salt-master.vagrant.psf.io' %}
+{% if salt["match.compound"](pillar["roles"]["salt-master"]["pattern"]) %}
+# HTTP-validated domains
+{% for domain in [
+    'pypa.io',
+    'www.pycon.org',
+    'speed.pypy.org',
+    'salt-public.psf.io',
+    'planetpython.org',
+    'bugs.python.org'
+] %}
+{{ domain }}:
+  acme.cert:
+    - email: infrastructure-staff@python.org
+    - webroot: /etc/lego
+    - renew: 14
+    {% if pillar["dc"] == "vagrant" %}
+    - server: https://salt-master.vagrant.psf.io:14000/dir
+    {% endif %}
+    - require:
+      - sls: tls.lego
+{% endfor %}
 
 # DNS-validated domains
 # dns plugins do not exist yet for route53 & gandi
@@ -84,27 +104,6 @@ certbot:
 {#    - renew: 14#}
 {#    - require:#}
 {#      - sls: tls.lego#}
-
-# HTTP-validated domains
-{% for domain in [
-    'pypa.io',
-    'www.pycon.org',
-    'speed.pypy.org',
-    'salt-public.psf.io',
-    'planetpython.org',
-    'bugs.python.org'
-] %}
-{{ domain }}:
-  acme.cert:
-    - email: infrastructure-staff@python.org
-    - webroot: /etc/lego
-    - renew: 14
-    {% if pillar["dc"] == "vagrant" %}
-    - server: https://salt-master.vagrant.psf.io:14000/dir
-    {% endif %}
-    - require:
-      - sls: tls.lego
-{% endfor %}
 
 # Multi-domain certificates
 {#jython.org:#}

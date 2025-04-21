@@ -1,3 +1,4 @@
+{% if salt["match.compound"](pillar["roles"]["salt-master"]["pattern"]) %}
 {% if pillar.get('pebble', {'enabled': False}).enabled %}
 pebble-build-deps:
   pkg.installed:
@@ -59,4 +60,5 @@ pebble-service:
       - file: /etc/pebble-config.json
       - file: /etc/ssl/certs/PSF_CA.pem
       - file: /etc/ssl/private/salt-master.vagrant.psf.io.pem
+{% endif %}
 {% endif %}
