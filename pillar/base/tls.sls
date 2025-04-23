@@ -61,3 +61,77 @@ tls:
     svn.psf.io:
       roles:
         - hg
+
+  acme_certs:
+    bugs.python.org:
+      validation: http
+      roles:
+{#        - bugs#}
+        - loadbalancer
+    pycon.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - www.pycon.org
+    speed.pypy.org:
+      validation: http
+      roles:
+        - loadbalancer
+    salt-public.psf.io:
+      validation: http
+      roles:
+        - loadbalancer
+    planetpython.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - www.planetpython.org
+        - planet.python.org
+    pypa.io:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - www.pypa.io
+    jython.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - www.jython.net
+        - jython.net
+        - www.jython.com
+        - jython.com
+    bugs.python.org-multi:
+      validation: http
+      name: bugs.python.org
+      roles:
+        - loadbalancer
+      aliases:
+        - bugs.jython.org
+        - issues.roundup-tracker.org
+        - mail.roundup-tracker.org
+{#    star.python.org:#}
+{#      validation: dns#}
+{#      dns_plugin: route53#}
+{#      dns_plugin_credentials: route53.python#}
+{#      roles:#}
+{#        - loadbalancer#}
+{#    star.pycon.org:#}
+{#      validation: dns#}
+{#      dns_plugin: route53#}
+{#      dns_plugin_credentials: route53.pycon#}
+{#      roles:#}
+{#        - loadbalancer#}
+{#      aliases:#}
+{#        - pycon.org#}
+{#    star.pyfound.org:#}
+{#      validation: dns#}
+{#      dns_plugin: gandiv5#}
+{#      dns_plugin_credentials: gandi#}
+{#      roles:#}
+{#        - loadbalancer#}
+{#      aliases:#}
+{#        - pyfound.org#}

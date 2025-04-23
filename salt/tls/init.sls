@@ -46,89 +46,29 @@ certbot:
 {% endfor %}
 
 {% if salt["match.compound"](pillar["roles"]["salt-master"]["pattern"]) %}
-# HTTP-validated domains
-{% for domain in [
-    'pypa.io',
-    'www.pycon.org',
-    'speed.pypy.org',
-    'salt-public.psf.io',
-    'planetpython.org',
-    'bugs.python.org'
-] %}
+# Process ACME certificates
+{% for domain, domain_config in salt["pillar.get"]("tls:acme_certs", {}).items() %}
 {{ domain }}:
   acme.cert:
     - email: infrastructure-staff@python.org
     - webroot: /etc/lego
     - renew: 14
+    {% if domain_config.get('aliases') %}
+    - aliases:
+      {% for alias in domain_config.get('aliases', []) %}
+      - {{ alias }}
+      {% endfor %}
+    {% endif %}
     {% if pillar["dc"] == "vagrant" %}
     - server: https://salt-master.vagrant.psf.io:14000/dir
     {% endif %}
+    {% if domain_config.get('validation') == "dns" %}
+    - dns_plugin: {{ domain_config.get('dns_plugin') }}
+    - dns_plugin_credentials: {{ domain_config.get('dns_plugin_credentials') }}
+    {% else %}
     - require:
       - sls: tls.lego
+      - pkg: certbot
+    {% endif %}
 {% endfor %}
-
-# DNS-validated domains
-# dns plugins do not exist yet for route53 & gandi
-{#star.python.org:#}
-{#  acme.cert:#}
-{#    - aliases:#}
-{#      - python.org#}
-{#    - email: infrastructure-staff@python.org#}
-{##    - dns_plugin: route53#}
-{##    - dns_plugin_credentials: route53.python#}
-{#    - renew: 14#}
-{#    - server: https://localhost:14000/dir#}
-{#    - require:#}
-{#      - pkg: certbot#}
-{#
-- sls: tls.lego
-{#star.pycon.org:#}
-{#  acme.cert:#}
-{#    - aliases:#}
-{#      - pycon.org#}
-{#    - email: infrastructure-staff@python.org#}
-{##    - dns_plugin: route53#}
-{##    - dns_plugin_credentials: route53.pycon#}
-{#    - renew: 14#}
-{#    - server: https://localhost:14000/dir#}
-{#    - require:#}
-{#      - sls: tls.lego#}
-
-{#star.pyfound.org:#}
-{#  acme.cert:#}
-{#    - aliases:#}
-{#      - pyfound.org#}
-{#    - email: infrastructure-staff@python.org#}
-{##    - dns_plugin: gandiv5#}
-{##    - dns_plugin_credentials: gandi#}
-{#    - renew: 14#}
-{#    - require:#}
-{#      - sls: tls.lego#}
-
-# Multi-domain certificates
-{#jython.org:#}
-{#  acme.cert:#}
-{#    - aliases:#}
-{#      - www.jython.net#}
-{#      - jython.net#}
-{#      - www.jython.com#}
-{#      - jython.com#}
-{#    - email: infrastructure-staff@python.org#}
-{#    - webroot: /etc/lego#}
-{#    - renew: 14#}
-{#    - require:#}
-{#      - sls: tls.lego#}
-{##}
-{#bugs.python.org-multi:#}
-{#  acme.cert:#}
-{#    - name: bugs.python.org#}
-{#    - aliases:#}
-{#      - bugs.jython.org#}
-{#      - issues.roundup-tracker.org#}
-{#      - mail.roundup-tracker.org#}
-{#    - email: infrastructure-staff@python.org#}
-{#    - webroot: /etc/lego#}
-{#    - renew: 14#}
-{#    - require:#}
-{#      - sls: tls.lego#}
 {% endif %}
