@@ -3,7 +3,6 @@ from __future__ import division
 import binascii
 import datetime
 import os.path
-from pathlib import Path
 
 import salt.loader
 
@@ -296,203 +295,55 @@ def get_ca_signed_cert(cacert_path, ca_name, CN):
     return "\n".join([cert, key])
 
 
-def _find_acme_certs(base_path="/etc/letsencrypt/live"):
-    """Read ACME certificates from /etc/letsencrypt/live
-    
-    returns dict with domain name (key) and data (value for each cert.
-    """
-    acme_certs = {}
-    try:
-        if not Path(base_path).exists():
-            print(f"ACME base path {base_path} does not exist")
-            return acme_certs
-
-        print(f"Scanning for certificates in {base_path}")
-        for domain_dir in Path(base_path).iterdir():
-            try:
-                domain_dir_path = Path(base_path) / domain_dir
-                if not domain_dir_path.is_dir() or domain_dir.name == "README":
-                    continue
-
-                domain_name = domain_dir.name
-                print(f"Found certificate directory: {domain_name}")
-
-                # use fullchain.pem instead of just cert.pem to include the full certificate chain
-                cert_file = domain_dir_path / "fullchain.pem"
-                key_file = domain_dir_path / "privkey.pem"
-
-                if not cert_file.exists():
-                    print(f"Certificate file not found: {cert_file}")
-                    continue
-                    
-                if not key_file.exists():
-                    print(f"Key file not found: {key_file}")
-                    continue
-
-                with cert_file.open('r') as f_cert:
-                    cert_data = f_cert.read()
-
-                with key_file.open('r') as f_key:
-                    key_data = f_key.read()
-
-                # Store combined certificate and key
-                combined_data = "\n".join([cert_data, key_data])
-                acme_certs[domain_name] = combined_data
-                # print(f"read certificate for {domain_name}")
-
-            except Exception as e:
-                print(f"Error processing certificate for {domain_dir.name}: {e}")
-    
-    except Exception as e:
-        print(f"Error scanning ACME certificates directory: {e}")
-
-    print(f"Found {len(acme_certs)} ACME certificates")
-    return acme_certs
-
-
-def _process_ca_certificates(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None):
-    ca_data = {
-        "ca": {},
-        "certs": {},
-    }
-
-    try:
-        if cert_opts is None:
-            cert_opts = {}
-
-        # Create CA certificate
-        opts = cert_opts.copy()
-        opts["CN"] = name
-        create_ca(base, name, **opts)
-
-        ca_data["ca"][name] = get_ca_cert(base, name)
-
-        # Process CA-signed certificates (gen_certs)
-        gen_certs = pillar.get("tls", {}).get("gen_certs", {})
-        for certificate, config in gen_certs.items():
-            role_patterns = [
-                role.get("pattern")
-                for role in [
-                    pillar.get("roles", {}).get(r) for r in config.get("roles", "")
-                ]
-                if role and role.get("pattern") is not None
-            ]
-
-            if any(compound(pat, minion_id) for pat in role_patterns):
-                # Create the options
-                opts = cert_opts.copy()
-                opts["CN"] = certificate
-                opts["days"] = config.get("days", 1)
-
-                create_ca_signed_cert(base, name, **opts)
-
-                # Add the signed certificates to the pillar data
-                cert_data = get_ca_signed_cert(base, name, certificate)
-                ca_data["certs"][certificate] = cert_data
-    except Exception as e:
-        print(f"Error processing CA certificates: {e}")
-
-    return ca_data
-
-
-def _process_acme_certificates(minion_id, pillar):
-    """Process ACME certificates
-    
-    Reads ACME certificates and determines which ones should be available
-    to the specified minion based on access rules.
-    """
-    acme_certs = {}
-    
-    try:
-        print(f"Processing ACME certificates for minion: {minion_id}")
-        all_acme_certs = _find_acme_certs()
-        
-        # Check if this is a loadbalancer (gets all certs)
-        # todo: clean up all but the one that works
-        is_loadbalancer = False
-        try:
-            if 'loadbalancer' in minion_id.lower():
-                is_loadbalancer = True
-                print(f"Minion {minion_id} identified as loadbalancer by name")
-            
-            # Also check via roles grain if that doesn't work
-            elif compound('G@roles:loadbalancer', minion_id):
-                is_loadbalancer = True
-                print(f"Minion {minion_id} identified as loadbalancer by grain")
-            
-            # Additional check - look for the loadbalancer role in the hostname
-            elif (minion_id.startswith('lb.') or minion_id.startswith('loadbalancer.')):
-                is_loadbalancer = True
-                print(f"Minion {minion_id} identified as loadbalancer by hostname pattern")
-                
-            if is_loadbalancer:
-                print(f"Minion {minion_id} is a loadbalancer, providing all certificates")
-        except Exception as e:
-            print(f"Error checking loadbalancer role: {e}")
-        
-        # Process each certificate
-        for domain_name, cert_data in all_acme_certs.items():
-            should_include = False
-            
-            # Loadbalancer gets all certs
-            if is_loadbalancer:
-                should_include = True
-                reason = "loadbalancer role"
-            
-            # Minion name matches domain name
-            if minion_id.startswith(domain_name.split('.')[0]):
-                should_include = True
-                reason = "name match"
-
-            # Add certificate if allowed
-            if should_include:
-                acme_certs[domain_name] = cert_data
-                print(f"Added ACME certificate {domain_name} to pillar data (reason: {reason})")
-            else:
-                print(f"Skipping certificate {domain_name} for minion {minion_id} (no access)")
-    
-    except Exception as e:
-        print(f"Error processing ACME certificates: {e}")
-    
-    return acme_certs
-
-
 def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None):
-    """Pillar extension to provide TLS certificates from internal PSFCA and acme.cert generated certs"""
-    print(f"Processing pillar data for minion: {minion_id}")
-    
-    # initial data structure for certs
+    if cert_opts is None:
+        cert_opts = {}
+
+    # Create CA certificate
+    opts = cert_opts.copy()
+    opts["CN"] = name
+    create_ca(base, name, **opts)
+
     data = {
         "tls": {
-            "ca": {},
+            "ca": {
+                name: get_ca_cert(base, name),
+            },
             "certs": {},
-            "certs_acme": {},
+            "acme_certs": {},
         },
     }
-    
-    # Process CA certificates and CA-signed certificates
-    ca_data = _process_ca_certificates(minion_id, pillar, base, name, cert_opts)
-    data["tls"]["ca"] = ca_data["ca"]
-    for cert_name, cert_data in ca_data["certs"].items():
-        data["tls"]["certs"][cert_name] = cert_data
-    
-    # process ACME certificates
-    acme_certs = _process_acme_certificates(minion_id, pillar)
-    
-    # Add ACME certificates to both certs and certs_acme sections
-    for cert_name, cert_data in acme_certs.items():
-        # Store in certs_acme section (dedicated for ACME certificates)
-        data["tls"]["certs_acme"][cert_name] = cert_data
-        
-        # Also store in general certs section for backward compatibility
-        # Only if not already present from CA-signed certs
-        if cert_name not in data["tls"]["certs"]:
-            data["tls"]["certs"][cert_name] = cert_data
-    
-    # Check if we have ACME certificates for debugging
-    if not acme_certs:
-        print(f"No ACME certificates were included for minion: {minion_id}")
-    else:
-        print(f"Included {len(acme_certs)} ACME certificates for minion: {minion_id}")
-    
+
+    minion_roles = []
+    minion_roles.extend(
+        role_name
+        for role_name, role_config in pillar.get("roles", {}).items()
+        if role_config.get("pattern")
+        and compound(role_config["pattern"], minion_id)
+    )
+
+    # Process CA-signed certificates (gen_certs)
+    gen_certs = pillar.get("tls", {}).get("gen_certs", {})
+    for certificate, config in gen_certs.items():
+        cert_roles = config.get("roles", [])
+        # Check if any of the minion's roles are in the certificate's required roles
+        if any(role in minion_roles for role in cert_roles):
+            # Create the options
+            opts = cert_opts.copy()
+            opts["CN"] = certificate
+            opts["days"] = config.get("days", 1)
+
+            create_ca_signed_cert(base, name, **opts)
+
+            # Add the signed certificates to the pillar data
+            cert_data = get_ca_signed_cert(base, name, certificate)
+            data["tls"]["certs"][certificate] = cert_data
+
+    # Collect ACME certs (acme.cert) for this minion based on its roles
+    acme_certs = pillar.get("tls", {}).get("acme_certs", {})
+    for domain, domain_config in acme_certs.items():
+        cert_roles = domain_config.get("roles", [])
+        if any(role in minion_roles for role in cert_roles):
+            data["tls"]["acme_certs"][domain] = domain_config
+
     return data
