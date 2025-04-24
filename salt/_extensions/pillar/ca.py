@@ -315,6 +315,7 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
     }
 
     minion_roles = []
+    # match roles based on pillar.roles:pattern
     minion_roles.extend(
         role_name
         for role_name, role_config in pillar.get("roles", {}).items()
