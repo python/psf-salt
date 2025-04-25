@@ -63,11 +63,6 @@ tls:
         - hg
 
   acme_certs:
-    bugs.python.org:
-      validation: http
-      roles:
-{#        - bugs#}
-        - loadbalancer
     pycon.org:
       validation: http
       roles:
