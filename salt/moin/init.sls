@@ -197,16 +197,6 @@ apache2:
     - group: root
     - mode: "0644"
 
-/etc/apache2/apache2.conf:
-  file.managed:
-    - template: jinja
-    - source: salt://moin/configs/moin.apache.conf.jinja
-    - user: root
-    - group: root
-    - mode: "0644"
-    - require:
-      - pkg: apache2
-
 /etc/consul.d/service-moin.json:
   file.managed:
     - source: salt://consul/etc/service.jinja
