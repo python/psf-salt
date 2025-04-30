@@ -99,11 +99,12 @@ tls:
         - jython.net
         - www.jython.com
         - jython.com
-    bugs.python.org-multi:
+    bugs.python.org:
       validation: http
       name: bugs.python.org
       roles:
         - loadbalancer
+        - bugs
       aliases:
         - bugs.jython.org
         - issues.roundup-tracker.org
