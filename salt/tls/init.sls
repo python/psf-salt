@@ -45,6 +45,19 @@ certbot:
       - pkg: ssl-cert
 {% endfor %}
 
+# Install acme.cert certs prepended with acme-* to avoic conflicts
+{% for name in salt["pillar.get"]("tls:acme_certs", {}) %}
+/etc/ssl/private/acme-{{ name }}.pem:
+  file.managed:
+    - contents_pillar: tls:acme_certs:{{ name }}
+    - user: root
+    - group: ssl-cert
+    - mode: "0640"
+    - show_diff: False
+    - require:
+      - pkg: ssl-cert
+{% endfor %}
+
 {% if salt["match.compound"](pillar["roles"]["salt-master"]["pattern"]) %}
 # Process ACME certificates
 {% for domain, domain_config in salt["pillar.get"]("tls:acme_certs", {}).items() %}
