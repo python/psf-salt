@@ -295,6 +295,15 @@ def get_ca_signed_cert(cacert_path, ca_name, CN):
     return "\n".join([cert, key])
 
 
+def _read_cert_file(path: str) -> str:
+    """Helper to read certificate files, which might be symlinks"""
+    try:
+        with open(path, 'r') as f:
+            return f.read()
+    except (IOError, OSError):
+        return None
+
+
 def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None):
     if cert_opts is None:
         cert_opts = {}
@@ -315,7 +324,6 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
     }
 
     minion_roles = []
-    # match roles based on pillar.roles:pattern
     minion_roles.extend(
         role_name
         for role_name, role_config in pillar.get("roles", {}).items()
@@ -345,6 +353,11 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
     for domain, domain_config in acme_certs.items():
         cert_roles = domain_config.get("roles", [])
         if any(role in minion_roles for role in cert_roles):
-            data["tls"]["acme_certs"][domain] = domain_config
+            cert_name = domain_config.get('name', domain)
+            full_cert_chain = _read_cert_file(f"/etc/letsencrypt/live/{cert_name}/fullchain.pem")
+            privkey = _read_cert_file(f"/etc/letsencrypt/live/{cert_name}/privkey.pem")
+
+            if full_cert_chain and privkey:
+                data["tls"]["acme_certs"][domain] = full_cert_chain + "\n" + privkey
 
     return data
