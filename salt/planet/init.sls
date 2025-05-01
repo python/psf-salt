@@ -58,12 +58,6 @@ https://github.com/python/planet:
       - pkg: git
       - file: /srv/planet/
 
-/srv/cache/:
-  file.directory:
-    - user: planet
-    - group: planet
-    - mode: "0770"
-
 /srv/run-planet.sh:
   file.managed:
     - source: salt://planet/config/run-planet.sh.jinja
@@ -77,18 +71,23 @@ https://github.com/python/planet:
     - minute: 37
     - hour: 1,4,7,10,13,16,19,21
 
-{% for site in salt["pillar.get"]("planet", {}).get("sites", []) %}
-/srv/{{ site }}/:
+{% for site, site_config in salt["pillar.get"]("planet", {}).get("sites", {}).items() %}
+{{ site_config["cache"] }}:
   file.directory:
     - user: planet
     - group: planet
     - mode: "0755"
-/srv/{{ site }}/static:
+{{ site_config["output"] }}:
+  file.directory:
+    - user: planet
+    - group: planet
+    - mode: "0755"
+{{ site_config["output"] }}/static:
   file.symlink:
     - target: /srv/planet/static
     - user: planet
     - group: planet
     - mode: "0644"
     - require:
-      - file: /srv/{{ site }}/
+      - file: {{ site_config["output"] }}
 {% endfor %}
