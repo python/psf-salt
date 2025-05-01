@@ -4,10 +4,20 @@ include:
 git:
   pkg.installed
 
+docker.io:
+  pkg.installed
+docker:
+  service.running:
+    - enable: True
+
 planet-user:
   user.present:
     - name: planet
     - createhome: False
+    - groups:
+      - docker
+    - require:
+      - pkg: docker.io
 
 /etc/nginx/sites.d/planet.conf:
   file.managed:
@@ -40,7 +50,7 @@ planet-user:
 
 https://github.com/python/planet:
   git.latest:
-    - branch: py2
+    - branch: main
     - target: /srv/planet/
     - user: planet
     - require:
