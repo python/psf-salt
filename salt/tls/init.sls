@@ -29,8 +29,8 @@ certbot:
 {% endfor %}
 
 /usr/sbin/update-ca-certificates:
-  cmd.wait:
-    - watch:
+  cmd.run:
+    - onchanges:
       - file: /usr/local/share/ca-certificates/*.crt
 
 {% for name in salt["pillar.get"]("tls:certs", {}) %}  # " Syntax Hack
