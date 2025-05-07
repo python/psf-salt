@@ -1,7 +1,7 @@
 cd /srv/planet/
 git pull
 {% for site, site_config in salt["pillar.get"]("planet", {}).get("sites").items() %}
-docker run --pull=always --rm -it \
+docker run --pull=always --rm \
   -v {{ site_config["cache"] }}:/srv/cache/ \
   -v {{ site_config["output"] }}:/srv/planetpython.org/ \
   -v /srv/planet/config/{{ site_config["config"] }}:/planet/config/config.ini \
