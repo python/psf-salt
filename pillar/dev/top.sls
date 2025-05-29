@@ -8,6 +8,7 @@ base:
     - tls
     - users.*
     - postgres.clusters
+    - pebble # needing to do this to have pebble rum in dev
 
   'backup-server':
     - match: nodegroup
