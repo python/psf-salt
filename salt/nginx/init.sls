@@ -118,3 +118,14 @@ nginx:
 /etc/ssl/private/PLACEHOLDER.pem:
   file.managed:
     - replace: False
+
+restart-nginx:
+  cron.present:
+    - name: /usr/bin/systemctl restart nginx
+    - user: root
+    - minute: '0'
+    - hour: '3'
+    - daymonth: '*'
+    - month: '*'
+    - dayweek: '*'
+    - comment: 'Daily NGINX restart'
