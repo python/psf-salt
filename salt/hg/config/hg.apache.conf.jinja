@@ -24,6 +24,14 @@
         Require all granted
     </Directory>
 
+    Alias /icons/ "/usr/share/apache2/icons/"
+
+    <Directory "/usr/share/apache2/icons">
+        Options FollowSymlinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+
     # The lookup app is better run with few processes, since it uses a cache.
     WSGIDaemonProcess hglookup user=hg group=hg \
         threads=2 processes=1 maximum-requests=1000 \
@@ -36,38 +44,37 @@
 
     WSGIScriptAlias /lookup /srv/hg/wsgi/lookup.wsgi
 
-    # We need enough threads/processes for many long-running clones to run in
-    # parallel (e.g. for buildbots)
-    # NOTE: maximum-requests suspected to corrupt responses, see
-    # http://mercurial.selenic.com/bts/issue2595
-    WSGIDaemonProcess hgweb user=hg group=hg \
-        threads=2 processes=6 maximum-requests=1024 inactivity-timeout=300 \
-        display-name=hgweb
-    WSGIProcessGroup hgweb
+    # A lightweight standin for revision app to maintain support for /lookup
+    WSGIDaemonProcess hgrev user=hg group=hg \
+        threads=2 processes=4 maximum-requests=1000 \
+        display-name=hgrev
+    # The Location hack ensures the lookup app is run within
+    # this process group
+    <LocationMatch "^(.*)/rev/([A-Fa-f0-9]{12,40})/?">
+        WSGIProcessGroup hgrev
+    </LocationMatch>
 
-    WSGIScriptAlias / /srv/hg/wsgi/python.wsgi
+    WSGIScriptAliasMatch "^(.*)/rev/([A-Fa-f0-9]{12,40})/?" /srv/hg/wsgi/rev.wsgi
+
+    # Staticly serve hg repos over HTTP
+    DocumentRoot /srv/hg/hg-static/
+    <Directory /srv/hg/hg-static>
+        Options Indexes FollowSymlinks
+        IndexOptions FancyIndexing SuppressColumnSorting
+        Require all granted
+    </Directory>
 
     ErrorDocument 410 /410.html
     RedirectMatch gone "/cpython/annotate/.*/NEWS$"
     RedirectMatch gone "/cpython-fullhistory/annotate/.*/NEWS$"
-
-    <Directory /srv/hg/wsgi>
-      Require all granted
-    </Directory>
 
     # Static files: logo, CSS, favicon... (wired to .../static/)
     # This is optional but a bit faster than letting Mercurial serve the files
     # NOTE: needs to be changed if hg gets wired to another dir or python
     # version
 
-    AliasMatch /static/([^/]*) /usr/share/mercurial/templates/static/$1
-    <Directory /usr/share/mercurial/templates/static/>
-      Require all granted
-    </Directory>
-
     <Location /_server-status>
         SetHandler server-status
-
         Require ip 127.0.0.1
     </Location>
 </VirtualHost>
