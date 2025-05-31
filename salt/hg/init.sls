@@ -236,6 +236,18 @@ apache2:
   file.symlink:
     - target: /etc/apache2/mods-available/rewrite.load
 
+/etc/apache2/mods-enabled/proxy.conf:
+  file.symlink:
+    - target: /etc/apache2/mods-available/proxy.conf
+
+/etc/apache2/mods-enabled/proxy.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/proxy.load
+
+/etc/apache2/mods-enabled/proxy_http.load:
+  file.symlink:
+    - target: /etc/apache2/mods-available/proxy_http.load
+
 
 /etc/apache2/ports.conf:
   file.managed:

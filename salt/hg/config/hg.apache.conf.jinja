@@ -32,29 +32,13 @@
         Require all granted
     </Directory>
 
-    # The lookup app is better run with few processes, since it uses a cache.
-    WSGIDaemonProcess hglookup user=hg group=hg \
-        threads=2 processes=1 maximum-requests=1000 \
-        display-name=hglookup
-    # The Location hack ensures the lookup app is run within
-    # this process group
     <Location /lookup>
-        WSGIProcessGroup hglookup
+        ProxyPass http://localhost:8000/lookup
     </Location>
 
-    WSGIScriptAlias /lookup /srv/hg/wsgi/lookup.wsgi
-
-    # A lightweight standin for revision app to maintain support for /lookup
-    WSGIDaemonProcess hgrev user=hg group=hg \
-        threads=1 processes=6 maximum-requests=100 \
-        display-name=hgrev
-    # The Location hack ensures the lookup app is run within
-    # this process group
     <LocationMatch "^(.*)/rev/([A-Fa-f0-9]{12,40})/?">
-        WSGIProcessGroup hgrev
+        ProxyPass http://localhost:8000
     </LocationMatch>
-
-    WSGIScriptAliasMatch "^(.*)/rev/([A-Fa-f0-9]{12,40})/?" /srv/hg/wsgi/rev.wsgi
 
     # Staticly serve hg repos over HTTP
     DocumentRoot /srv/hg/hg-static/
