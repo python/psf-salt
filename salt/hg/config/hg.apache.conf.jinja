@@ -46,7 +46,7 @@
 
     # A lightweight standin for revision app to maintain support for /lookup
     WSGIDaemonProcess hgrev user=hg group=hg \
-        threads=2 processes=4 maximum-requests=1000 \
+        threads=1 processes=6 maximum-requests=100 \
         display-name=hgrev
     # The Location hack ensures the lookup app is run within
     # this process group
