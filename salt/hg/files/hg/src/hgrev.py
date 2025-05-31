@@ -43,7 +43,12 @@ class hgrev(object):
 
         try:
             result = subprocess.run(
-                command, cwd=hg_repo, capture_output=True, text=True, shell=False
+                command,
+                cwd=hg_repo,
+                capture_output=True,
+                text=True,
+                shell=False,
+                check=True
             )
         except Exception as e:
             return self.failed_response(response, detail=str(e))
