@@ -17,7 +17,7 @@ class hgrev(object):
     def successful_response(self, response, contents):
         headers = [("Content-Type", "text/plain")]
         response("200 OK", headers)
-        return [contents.encode()]
+        return [contents]
 
     def failed_response(self, response, detail=""):
         headers = [("Content-Type", "text/plain")]
@@ -46,7 +46,7 @@ class hgrev(object):
                 command,
                 cwd=hg_repo,
                 capture_output=True,
-                text=True,
+                text=False,
                 shell=False,
                 check=True
             )
