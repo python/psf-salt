@@ -1,0 +1,17 @@
+[Unit]
+Description=Minimal HG service
+After=network.target
+
+[Service]
+Environment=LC_ALL=en_US.UTF-8
+Environment=LANG=en_US.UTF-8
+WorkingDirectory=/srv/hg/src
+ExecStart=/srv/hg/env/bin/gunicorn app:app -w 4 --access-logfile - --error-logfile -
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop = /bin/kill -s TERM $MAINPID
+Restart=on-failure
+User=hg
+Group=hg
+
+[Install]
+WantedBy=multi-user.target

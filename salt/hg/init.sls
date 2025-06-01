@@ -2,9 +2,8 @@ hg-deps:
   pkg.installed:
     - pkgs:
       - mercurial
-      {% if grains["oscodename"] == ["noble"] %}
-      - python3-pygments
-      {% endif %}
+      - python3-dev
+      - python3-virtualenv
 
 svn-deps:
   pkg.installed:
@@ -16,10 +15,6 @@ hg-user:
     - name: hg
     - home: /srv/hg
     - shell: /bin/bash
-    - groups:
-      - hgaccounts
-    - require:
-      - user: hgaccounts-user
 
 /srv/hg:
   file.directory:
@@ -27,49 +22,11 @@ hg-user:
     - group: hg
     - mode: "0755"
 
-/srv/hgaccounts:
-  file.directory:
-    - user: hgaccounts
-    - group: hgaccounts
-    - mode: "0755"
-
 /srv/hg/repos:
   file.directory:
     - user: hg
     - group: hg
     - mode: "0755"
-
-/srv/hg/bin:
-  file.recurse:
-    - source: salt://hg/files/hg/bin
-    - include_empty: True
-    - user: hg
-    - dir_mode: "0755"
-    - file_mode: "0755"
-    - require:
-      - user: hg-user
-
-/srv/hg/wsgi:
-  file.recurse:
-    - source: salt://hg/files/hg/wsgi
-    - include_empty: True
-    - user: hg
-    - dir_mode: "0755"
-    - file_mode: "0755"
-    - require:
-      - user: hg-user
-
-/srv/hg/wsgi/python.wsgi:
-  file.managed:
-    - user: hg
-    - mode: "0755"
-    - require:
-      - file: /srv/hg/wsgi
-    {% if grains["oscodename"] == "noble" %}
-    - source: salt://hg/files/hg/wsgi/python3.wsgi
-    {% else %}
-    - source: salt://hg/files/hg/wsgi/python.wsgi
-    {% endif %}
 
 /srv/hg/src:
   file.recurse:
@@ -91,83 +48,35 @@ hg-user:
     - require:
       - user: hg-user
 
-/srv/hg/repos.conf:
-  file.managed:
-    - source: salt://hg/config/repos.conf
+hg-env:
+  virtualenv.managed:
+    - name: /srv/hg/env
     - user: hg
-    - group: hg
-    - require:
-      - user: hg-user
-
-hgaccounts-user:
-  user.present:
-    - name: hgaccounts
-    - home: /srv/hgaccounts
-
-/srv/hgaccounts/bin:
-  file.recurse:
-    - source: salt://hg/files/hgaccounts/bin
-    - include_empty: True
-    - user: hgaccounts
-    - dir_mode: "0755"
-    - file_mode: "0755"
-    - require:
-      - user: hgaccounts-user
-
-/srv/hgaccounts/src:
-  file.recurse:
-    - source: salt://hg/files/hgaccounts/src
-    - include_empty: True
-    - user: hgaccounts
-    - dir_mode: "0755"
-    - file_mode: "0644"
-    - require:
-      - user: hgaccounts-user
-
-compile-genauth-wrapper:
-  cmd.run:
-    - name: "gcc /srv/hgaccounts/src/genauth-wrapper.c -o /srv/hgaccounts/bin/genauth-wrapper"
-    - creates: /srv/hgaccounts/bin/genauth-wrapper
+    - cwd: /srv/hg/src
+    - pip_upgrade: True
+    - requirements: /srv/hg/src/requirements.txt
     - watch:
-      - file: /srv/hgaccounts/src
+      - file: /srv/hg/src
 
-genauth-wrapper-owner:
+/etc/systemd/system/hgmin.service:
   file.managed:
-    - name: /srv/hgaccounts/bin/genauth-wrapper
-    - user: hg
-    - group: hg
-    - require:
-      - user: hg-user
-      - user: hgaccounts-user
-      - file: /srv/hgaccounts/src
-      - cmd: compile-genauth-wrapper
+    - source: salt://hg/config/hgmin.service.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: "0644"
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: /etc/systemd/system/hgmin.service
 
-genauth-wrapper-setuid-setgid-workaround:
-  file.managed:
-    - name: /srv/hgaccounts/bin/genauth-wrapper
-    - mode: "6755"
-    - require:
-      - file: genauth-wrapper-owner
-
-/srv/hgaccounts/.ssh/authorized_keys:
-  file.managed:
-    - source: salt://hg/config/hg-account-admins
-    - user: hgaccounts
-    - group: hgaccounts
-    - mode: "0600"
-    - makedirs: true
-    - dir_mode: "0700"
-    - require:
-      - user: hgaccounts-user
-
-/usr/share/mercurial/templates/hgpythonorg:
-  file.recurse:
-    - source: salt://hg/files/hg/templates/hgpythonorg
-    - include_empty: True
-    - dir_mode: "0755"
-    - file_mode: "0644"
-    - require:
-      - pkg: hg-deps
+hgmin:
+  service.running:
+    - reload: True
+    - watch_any:
+      - file: /etc/systemd/system/hgmin.service
+      - virtualenv: hg-env
+      - file: /srv/hg/src
 
 apache2:
   pkg.installed:
@@ -405,19 +314,6 @@ apache2:
     - context:
         name: legacy
         port: 9002
-    - user: root
-    - group: root
-    - mode: "0644"
-    - require:
-      - pkg: consul-pkgs
-
-/etc/consul.d/service-hg-ssh.json:
-  file.managed:
-    - source: salt://consul/etc/service.jinja
-    - template: jinja
-    - context:
-        name: hg-ssh
-        port: 22
     - user: root
     - group: root
     - mode: "0644"
