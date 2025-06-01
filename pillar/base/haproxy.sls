@@ -156,10 +156,6 @@ haproxy:
       hsts_preload: False
 
   listens:
-    hg_ssh:
-      bind: :20100
-      service: hg-ssh
-
     buildbot_worker:
       bind: :20101
       service: buildbot-master-worker
