@@ -1,18 +1,18 @@
-{% set dms_token = salt["pillar.get"]("deadmanssnitch:token") %}
+{% set sentry_monitor_id = salt["pillar.get"]("sentry_cron:monitor_id") %}
 
-{% if dms_token %}
 15m-interval-highstate:
   cron.present:
     - identifier: 15m-interval-highstate
-    - name: "timeout 5m salt-call state.highstate >> /var/log/salt/cron-highstate.log 2>&1; curl https://nosnch.in/{{ dms_token }} &> /dev/null"
+    - name: |
+        timeout 5m salt-call state.highstate >> /var/log/salt/cron-highstate.log 2>&1
+        {% if sentry_monitor_id %}
+        curl -X POST \
+          "https://sentry.io/api/0/organizations/python-software-foundation/monitors/{{ sentry_monitor_id }}/checkins/" \
+          -H "Authorization: Bearer {{ pillar.get('sentry', {}).get('token') }}" \
+          -H "Content-Type: application/json" \
+          -d '{"status": "ok"}' &> /dev/null
+        {% endif %}
     - minute: '*/15'
-{% else %}
-15m-interval-highstate:
-  cron.present:
-    - identifier: 15m-interval-highstate
-    - name: "timeout 5m salt-call state.highstate >> /var/log/salt/cron-highstate.log 2>&1"
-    - minute: '*/15'
-{% endif %}
 
 /etc/logrotate.d/salt:
   {% if grains["oscodename"] == "xenial" %}

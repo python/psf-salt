@@ -1,0 +1,3 @@
+secrets:
+  sentry:
+    token: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
