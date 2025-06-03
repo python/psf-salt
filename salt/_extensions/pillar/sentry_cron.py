@@ -17,6 +17,9 @@ View print output via:
 import contextlib
 import pathlib
 import json
+import os
+import tempfile
+import fcntl
 
 with contextlib.suppress(ImportError):
     import requests
@@ -46,66 +49,71 @@ def ext_pillar(minion_id: str, pillar: dict, base_path: str = "/etc/sentry-cron/
 
     base_path = pathlib.Path(base_path)
     base_path.mkdir(parents=True, exist_ok=True)
-
     minion_path = base_path / minion_id
-    if minion_path.exists():
-        if monitor_id := minion_path.read_text():
-            print(f"Found existing monitor ID: {monitor_id}")
-            return {"sentry_cron": {"monitor_id": monitor_id}}
+    lock_path = base_path / f"{minion_id}.lock"
 
-    headers = {
-        "Authorization": f"Bearer {sentry_token}",
-        "Content-Type": "application/json",
-    }
+    with open(lock_path, "w") as lockfile:
+        fcntl.flock(lockfile, fcntl.LOCK_EX)
+        if minion_path.exists():
+            if monitor_id := minion_path.read_text():
+                print(f"Found existing monitor ID (locked): {monitor_id}")
+                return {"sentry_cron": {"monitor_id": monitor_id}}
 
-    request_data = {
-        "name": f"salt-highstate {minion_id}",
-        "type": "cron_job",
-        "config": {
-            "schedule": {
-                "type": "crontab",
-                "value": "*/15 * * * *",
+        headers = {
+            "Authorization": f"Bearer {sentry_token}",
+            "Content-Type": "application/json",
+        }
+
+        request_data = {
+            "name": f"salt-highstate {minion_id}",
+            "type": "cron_job",
+            "config": {
+                "schedule": {
+                    "type": "crontab",
+                    "value": "*/15 * * * *",
+                },
+                "checkin_margin": 5,
+                "max_runtime": 30,
+                "timezone": "UTC",
             },
-            "checkin_margin": 5,
-            "max_runtime": 30,
-            "timezone": "UTC",
-        },
-        "project": project_slug,
-        "status": "active",
-    }
+            "project": project_slug,
+            "status": "active",
+        }
 
-    try:
-        url = f"https://sentry.io/api/0/organizations/{org_slug}/monitors/"
-        monitor = requests.post(
-            url,
-            headers=headers,
-            json=request_data,
-            timeout=10,
-        )
+        try:
+            url = f"https://sentry.io/api/0/organizations/{org_slug}/monitors/"
+            monitor = requests.post(
+                url,
+                headers=headers,
+                json=request_data,
+                timeout=10,
+            )
 
-        if monitor.status_code != 201:
-            print(f"Error response from Sentry API: {monitor.text}")
-            try:
-                error_data = monitor.json()
-                print(f"Error details: {json.dumps(error_data, indent=2)}")
-            except Exception as e:
-                print(f"Could not parse error response as JSON: {e}")
+            if monitor.status_code != 201:
+                print(f"Error response from Sentry API: {monitor.text}")
+                try:
+                    error_data = monitor.json()
+                    print(f"Error details: {json.dumps(error_data, indent=2)}")
+                except Exception as e:
+                    print(f"Could not parse error response as JSON: {e}")
+                return {}
+
+            monitor.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            print(f"HTTP Error: {e}")
+            return {}
+        except Exception as e:
+            print(f"Failed to create monitor: {e}")
             return {}
 
-        monitor.raise_for_status()
-    except requests.exceptions.HTTPError as e:
-        print(f"HTTP Error: {e}")
-        return {}
-    except Exception as e:
-        print(f"Failed to create monitor: {e}")
-        return {}
+        if monitor.status_code == 201:
+            monitor_id = monitor.json()["id"]
+            with tempfile.NamedTemporaryFile('w', dir=str(base_path), delete=False) as tf:
+                tf.write(monitor_id)
+                tempname = tf.name
+            os.replace(tempname, minion_path)
+            print(f"Created monitor with ID: {monitor_id}")
+            return {"sentry_cron": {"monitor_id": monitor_id}}
 
-    # print(f"Monitor creation response: {monitor.status_code}")
-    if monitor.status_code == 201:
-        monitor_id = monitor.json()["id"]
-        minion_path.write_text(monitor_id)
-        print(f"Created monitor with ID: {monitor_id}")
-        return {"sentry_cron": {"monitor_id": monitor_id}}
-
-    print(f"Failed to create monitor: {monitor.text}")
-    return {} 
+        print(f"Failed to create monitor: {monitor.text}")
+        return {} 
