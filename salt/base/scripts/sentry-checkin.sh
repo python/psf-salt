@@ -1,9 +1,9 @@
 #!/bin/bash
 
 MINION_ID=$(salt-call --local grains.get id --out=newline_values_only)
-SENTRY_INGEST_URL=$(salt-call --local pillar.get sentry:ingest_url --out=newline_values_only)
-SENTRY_PROJECT_ID=$(salt-call --local pillar.get sentry:project_id --out=newline_values_only)
-SENTRY_PROJECT_KEY=$(salt-call --local pillar.get sentry:project_key --out=newline_values_only)
+SENTRY_INGEST_URL=$(salt-call pillar.get sentry:ingest_url --out=newline_values_only)
+SENTRY_PROJECT_ID=$(salt-call pillar.get sentry:project_id --out=newline_values_only)
+SENTRY_PROJECT_KEY=$(salt-call pillar.get sentry:project_key --out=newline_values_only)
 
 MONITOR_SLUG="salt-highstate-${MINION_ID//./}"
 
