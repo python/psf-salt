@@ -9,8 +9,8 @@
 
 15m-interval-highstate:
   cron.present:
-    - name: {{ '/usr/local/bin/sentry-checkin.sh' if sentry_enabled else 'timeout 5m salt-call state.highstate >> /var/log/salt/cron-highstate.log 2>&1' }}
     - identifier: 15m-interval-highstate
+    - name: {{ '/usr/local/bin/sentry-checkin.sh' if sentry_enabled else 'timeout 5m salt-call state.highstate >> /var/log/salt/cron-highstate.log 2>&1' }}
     - minute: '*/15'
     {% if sentry_enabled %}
     - require:
