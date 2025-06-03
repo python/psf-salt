@@ -1,5 +1,8 @@
 {% set sentry_enabled = salt["pillar.get"]("secrets:sentry:token") %}
 
+curl:
+  pkg.installed
+
 /usr/local/bin/sentry-checkin.sh:
   file.managed:
     - source: salt://base/scripts/sentry-checkin.sh
