@@ -3,6 +3,8 @@
 It grabs the pillar secrets bearer token and upserts a new monitor for the minion it runs on
 and stores the monitor ID in a file in /etc/sentry-cron/.
 
+Note: The bearer token will need the `alerts:read, alerts:write, project:read` scopes.
+
 The schedule is every 15 minutes to match our highstate check interval.
 
 You can get pillar data via:
