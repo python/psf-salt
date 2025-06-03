@@ -5,22 +5,19 @@ and stores the monitor ID in a file in /etc/sentry-cron/.
 
 The schedule is every 15 minutes to match our highstate check interval.
 
-You can call it via:
-    - sudo salt-call -l debug pillar.get sentry_cron
-    - sudo salt-call pillar.get sentry
-    - sudo salt-call pillar.get secrets
+You can get pillar data via:
+    sudo salt-call -l debug pillar.get sentry_cron
 
-View below print output via:
-    - sudo journalctl -u salt-master
+View print output via:
+    sudo journalctl -u salt-master
 """
+
+import contextlib
 import pathlib
+import json
 
-try:
+with contextlib.suppress(ImportError):
     import requests
-    HAS_REQUESTS = True
-except ImportError:
-    HAS_REQUESTS = False
-
 
 def ext_pillar(minion_id: str, pillar: dict, base_path: str = "/etc/sentry-cron/") -> dict:
     """Upsert a new cron monitor for a minion.
@@ -59,33 +56,49 @@ def ext_pillar(minion_id: str, pillar: dict, base_path: str = "/etc/sentry-cron/
         "Content-Type": "application/json",
     }
 
-    try:
-        monitor = requests.post(
-            f"https://sentry.io/api/0/organizations/{org_slug}/monitors/",
-            headers=headers,
-            json={
-                "name": f"salt-highstate {minion_id}",
-                "type": "cron_job",
-                "config": {
-                    "schedule": {
-                        "type": "crontab",
-                        "value": "*/15 * * * *",
-                    },
-                    "checkin_margin": 5,
-                    "max_runtime": 30,
-                    "timezone": "UTC",
-                },
-                "project": project_slug,
-                "status": "active",
+    request_data = {
+        "name": f"salt-highstate {minion_id}",
+        "type": "cron_job",
+        "config": {
+            "schedule": {
+                "type": "crontab",
+                "value": "*/15 * * * *",
             },
+            "checkin_margin": 5,
+            "max_runtime": 30,
+            "timezone": "UTC",
+        },
+        "project": project_slug,
+        "status": "active",
+    }
+
+    try:
+        url = f"https://sentry.io/api/0/organizations/{org_slug}/monitors/"
+        monitor = requests.post(
+            url,
+            headers=headers,
+            json=request_data,
             timeout=10,
         )
+
+        if monitor.status_code != 201:
+            print(f"Error response from Sentry API: {monitor.text}")
+            try:
+                error_data = monitor.json()
+                print(f"Error details: {json.dumps(error_data, indent=2)}")
+            except Exception as e:
+                print(f"Could not parse error response as JSON: {e}")
+            return {}
+
         monitor.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP Error: {e}")
+        return {}
     except Exception as e:
         print(f"Failed to create monitor: {e}")
         return {}
 
-    print(f"Monitor creation response: {monitor.status_code}")
+    # print(f"Monitor creation response: {monitor.status_code}")
     if monitor.status_code == 201:
         monitor_id = monitor.json()["id"]
         minion_path.write_text(monitor_id)
