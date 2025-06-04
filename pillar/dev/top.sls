@@ -8,7 +8,6 @@ base:
     - tls
     - users.*
     - postgres.clusters
-    - sentry
     - secrets.sentry
 
   'backup-server':

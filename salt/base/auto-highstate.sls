@@ -1,4 +1,4 @@
-{% set sentry_enabled = salt["pillar.get"]("secrets:sentry:token") %}
+{% set sentry_enabled = salt["pillar.get"]("secrets:sentry:project_id") and salt["pillar.get"]("secrets:sentry:project_key") and salt["pillar.get"]("secrets:sentry:ingest_url") %}
 
 curl:
   pkg.installed
@@ -13,7 +13,7 @@ curl:
 15m-interval-highstate:
   cron.present:
     - identifier: 15m-interval-highstate
-    - name: {{ '/usr/local/bin/sentry-checkin.sh' if sentry_enabled else 'timeout 5m salt-call state.highstate >> /var/log/salt/cron-highstate.log 2>&1' }}
+    - name: "{% if sentry_enabled %}/usr/local/bin/sentry-checkin.sh {% endif %}timeout 5m salt-call state.highstate >> /var/log/salt/cron-highstate.log 2>&1"
     - minute: '*/15'
     {% if sentry_enabled %}
     - require:
