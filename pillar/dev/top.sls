@@ -8,6 +8,7 @@ base:
     - tls
     - users.*
     - postgres.clusters
+    - secrets.sentry
 
   'backup-server':
     - match: nodegroup
