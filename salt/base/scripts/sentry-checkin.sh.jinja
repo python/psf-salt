@@ -19,7 +19,8 @@ if [ -n "$SENTRY_INGEST_URL" ] && [ -n "$SENTRY_PROJECT_ID" ] && [ -n "$SENTRY_P
         "checkin_margin": 5,
         "max_runtime": 30,
         "timezone": "UTC",
-
+        "failure_issue_threshold": 4,
+        "recovery_threshold": 1
       },
       "status": "in_progress"
     }' &> /dev/null
