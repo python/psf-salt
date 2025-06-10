@@ -1,4 +1,4 @@
-{% set sentry_enabled = salt["pillar.get"]("secrets:sentry:project_id") and salt["pillar.get"]("secrets:sentry:project_key") and salt["pillar.get"]("secrets:sentry:ingest_url") %}
+{% set sentry_enabled = salt["pillar.get"]("project_id") and salt["pillar.get"]("project_key") and salt["pillar.get"]("ingest_url") %}
 
 curl:
   pkg.installed
