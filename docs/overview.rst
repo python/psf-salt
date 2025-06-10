@@ -57,11 +57,8 @@ Amazon Route 53
    It is currently manually managed by Infrastructure Staff.
 
 DataDog
-   `DataDog <https://www.datadoghq.com>`_ provides metrics, dashboards, and alerts.
-
-Pingdom
-  `Pingdom <https://www.pingdom.com>`_ provides monitoring and complains to us
-  when services are down.
+   `DataDog <https://www.datadoghq.com>`_ provides metrics, dashboards, alerts,
+   provides some monitoring and complains to us when services are down.
 
 PagerDuty
   `PagerDuty <https://www.pagerduty.com>`_ is used for on-call rotation for PSF
