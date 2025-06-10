@@ -17,6 +17,8 @@ base:
     - tls
     - rsyslog
     - datadog
+    - datadog.synthetics
+    - secrets.datadog
     - base.motd
     - base.swap
 

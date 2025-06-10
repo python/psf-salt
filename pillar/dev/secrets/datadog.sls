@@ -1,0 +1,2 @@
+datadog_api_key: deadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+datadog_app_key: deadbeefdeadbeefdeadbeefdeadbeefdeadbeef
