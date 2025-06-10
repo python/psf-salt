@@ -66,7 +66,7 @@ Pingdom
 Sentry
     `Sentry <https://sentry.io>`_ is used for error reporting and monitoring of
     many services. It also provides Salt highstate cron monitoring, which
-    notifies us when Salt highstate runs fail over a certain threshold.
+    notifies us when runs fail over a certain threshold.
 
 PagerDuty
   `PagerDuty <https://www.pagerduty.com>`_ is used for on-call rotation for PSF
