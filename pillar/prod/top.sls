@@ -11,6 +11,7 @@ base:
     - postgres.clusters
     - secrets.monitoring.datadog
     - swapfile
+    - secrets.sentry
 
   'backup-server':
     - match: nodegroup
