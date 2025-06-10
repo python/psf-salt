@@ -51,7 +51,7 @@ create-synthetics-monitor-{{ minion_id }}:
               },
               {
                 "type": "responseTime",
-                "operator": "lessThan", 
+                "operator": "lessThan",
                 "target": 2000
               }
             ]
