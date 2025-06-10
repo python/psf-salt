@@ -1,5 +1,6 @@
 {% set sentry_enabled = salt["pillar.get"]("project_id") and salt["pillar.get"]("project_key") and salt["pillar.get"]("ingest_url") %}
 
+{% if sentry_enabled %}
 curl:
   pkg.installed
 
@@ -10,6 +11,7 @@ curl:
     - mode: '0755'
     - user: root
     - group: root
+{% endif %}
 
 15m-interval-highstate:
   cron.present:
