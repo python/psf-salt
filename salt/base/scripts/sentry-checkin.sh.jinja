@@ -1,9 +1,9 @@
 #!/bin/bash
 
-MINION_ID=$(salt-call --local grains.get id --out=newline_values_only)
-SENTRY_INGEST_URL=$(salt-call pillar.get secrets:sentry:ingest_url --out=newline_values_only)
-SENTRY_PROJECT_ID=$(salt-call pillar.get secrets:sentry:project_id --out=newline_values_only)
-SENTRY_PROJECT_KEY=$(salt-call pillar.get secrets:sentry:project_key --out=newline_values_only)
+MINION_ID="{{ grains['id'] }}"
+SENTRY_INGEST_URL="{{ pillar.get('secrets:sentry:ingest_url', '') }}"
+SENTRY_PROJECT_ID="{{ pillar.get('secrets:sentry:project_id', '') }}"
+SENTRY_PROJECT_KEY="{{ pillar.get('secrets:sentry:project_key', '') }}"
 
 MONITOR_SLUG="salt-highstate-${MINION_ID//./}"
 

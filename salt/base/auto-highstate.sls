@@ -5,7 +5,8 @@ curl:
 
 /usr/local/bin/sentry-checkin.sh:
   file.managed:
-    - source: salt://base/scripts/sentry-checkin.sh
+    - source: salt://base/scripts/sentry-checkin.sh.jinja
+    - template: jinja
     - mode: '0755'
     - user: root
     - group: root
