@@ -9,21 +9,21 @@ MONITOR_SLUG="salt-highstate-${MINION_ID//./}"
 
 if [ -n "$SENTRY_INGEST_URL" ] && [ -n "$SENTRY_PROJECT_ID" ] && [ -n "$SENTRY_PROJECT_KEY" ]; then
     curl -X POST "https://${SENTRY_INGEST_URL}/api/${SENTRY_PROJECT_ID}/cron/${MONITOR_SLUG}/${SENTRY_PROJECT_KEY}/" \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-      "monitor_config": {
-        "schedule": {
-          "type": "crontab",
-          "value": "*/15 * * * *"
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+        "monitor_config": {
+          "schedule": {
+            "type": "crontab",
+            "value": "*/15 * * * *"
+          },
+          "checkin_margin": 5,
+          "max_runtime": 30,
+          "timezone": "UTC",
+          "failure_issue_threshold": 4,
+          "recovery_threshold": 1
         },
-        "checkin_margin": 5,
-        "max_runtime": 30,
-        "timezone": "UTC",
-        "failure_issue_threshold": 4,
-        "recovery_threshold": 1
-      },
-      "status": "in_progress"
-    }' &> /dev/null
+        "status": "in_progress"
+      }' &> /dev/null
 
     "$@"
     COMMAND_EXIT=$?
