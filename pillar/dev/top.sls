@@ -8,7 +8,7 @@ base:
     - tls
     - users.*
     - postgres.clusters
-    - secrets.sentry
+    # - secrets.sentry # Uncomment and update sentry secrets if you want to work in dev
 
   'backup-server':
     - match: nodegroup
