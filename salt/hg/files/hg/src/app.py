@@ -73,4 +73,6 @@ def hgrev(repo, rev):
         response.headers["Content-Type"] = "text/plain"
         return response
 
-    return make_response(result.stdout, 200)
+    response = make_response(result.stdout, 200)
+    response.headers["Content-Type"] = "text/plain"
+    return response
