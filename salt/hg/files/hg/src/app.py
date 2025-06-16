@@ -31,7 +31,7 @@ def lookup(rev):
             rev = rev[len("git") :]
         url = "https://github.com/python/cpython/commit/" + rev
     if url is None:
-        return make_response(
+        response = make_response(
             (
                 "Usage: /lookup/GITHEXHASH or gitGITHEXHASH "
                 "(10, 11, or 40 hex characters)\n",
@@ -40,6 +40,8 @@ def lookup(rev):
             ),
             404,
         )
+        response.headers["Content-Type"] = "text/plain"
+        return response
     else:
         return redirect(url, code=303)
 
@@ -60,7 +62,7 @@ def hgrev(repo, rev):
             check=True,
         )
     except Exception as e:
-        return make_response(
+        response = make_response(
             (
                 f"{str(e)}\n"
                 "Usage: path/to/hg/repo/rev/HGHEXNODE "
@@ -68,5 +70,7 @@ def hgrev(repo, rev):
             ),
             404,
         )
+        response.headers["Content-Type"] = "text/plain"
+        return response
 
     return make_response(result.stdout, 200)
