@@ -51,7 +51,7 @@ Your server MUST allow **inbound** connections on:
 
 ### System Hardening
 
-Salt will automatically apply comprehensive security hardening (see [Salt harden state](../salt/base/harden)):
+Salt will automatically apply comprehensive security hardening (see [Salt harden state](../../salt/base/harden)):
 
 **SSH Hardening:**
 - Root login disabled after bootstrap
@@ -78,9 +78,9 @@ Salt will automatically apply comprehensive security hardening (see [Salt harden
 ### User Accounts
 
 **User Management:**
-- Created from PSF pillar data (see [Salt users pillar data](../pillar/base/users))
+- Created from PSF pillar data (see [Salt users pillar data](../../pillar/base/users))
 - The pillar data determines, per service, which users are created, their roles (root, etc.), and their SSH keys
-- Sudo access granted to `psf-admin` group (see [Salt sudo pillar data](../pillar/base/sudoers/init.sls))
+- Sudo access granted to `psf-admin` group (see [Salt sudo pillar data](../../pillar/base/sudoers/init.sls))
 
 ### SSH Key Management
 
@@ -106,7 +106,7 @@ Salt configures Ubuntu's unattended upgrades:
 
 **Configuration:**
 - Automatic installation of security updates
-- Email notifications to `infrastructure-staff@python.org` (see [Salt unattended-upgrades](../salt/unattended-upgrades/config/50unattended-upgrades))
+- Email notifications to `infrastructure-staff@python.org` (see [Salt unattended-upgrades](../../salt/unattended-upgrades/config/50unattended-upgrades))
 
 **Monitoring:**
 - Monitoring generally happens through Sentry or Datadog metric checks.
