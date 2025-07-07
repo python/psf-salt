@@ -45,7 +45,7 @@ Your server MUST allow **inbound** connections on:
 > **Note**: Root login will be disabled after user accounts are created
 
 **Production Access:**
-- SSH access provided to PSF sysadmins and service managers
+- SSH access provided to PSF sysadmins and service managers (see [User Management](#user-management))
 - All access through SSH keys managed in Salt pillar data
 - No direct root access after initial setup
 
