@@ -51,7 +51,7 @@ Your server MUST allow **inbound** connections on:
 
 ### System Hardening
 
-Salt will automatically apply comprehensive security hardening (see [Salt harden state](https://github.com/python/psf-salt/blob/beaf3ad5a13b92ee9c8f33210f41b340fb3ca36b/salt/base/harden)):
+Salt will automatically apply comprehensive security hardening (see [Salt harden state](https://github.com/python/psf-salt/blob/main/salt/base/harden)):
 
 **SSH Hardening:**
 - Root login disabled after bootstrap
