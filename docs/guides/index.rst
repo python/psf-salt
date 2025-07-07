@@ -9,3 +9,4 @@ Guides
     migration-recipe.md
     haproxy-registration-guide.md
     port-guide.md
+    external-host-requirements.md
