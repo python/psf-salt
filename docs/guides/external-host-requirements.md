@@ -5,7 +5,7 @@ Python Software Foundation's Salt infrastructure.
 
 ## Overview
 
-When providing hardware for PSF services, your serve will be managed through our Salt configuration management system. 
+When providing hardware for PSF services, your server will be managed through our Salt configuration management system. 
 This document details the network, security, and access requirements for integration with our infrastructure.
 
 ## Network Requirements
