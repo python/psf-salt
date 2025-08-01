@@ -99,9 +99,9 @@ index 68387c9..7a8ace1 100644
     CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d '=' -f 2)
    
     echo "Adding the SaltStack repository key for $UBUNTU_VERSION $CODENAME ($ARCH)..."
-    sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2024.gpg https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
+    sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring.pgp https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
     echo "Adding the SaltStack repository for $UBUNTU_VERSION $CODENAME ($ARCH)..."
-    echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2024.gpg arch=$ARCH] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main" | sudo tee /etc/apt/sources.list.d/salt.list
+    echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.pgp arch=$ARCH] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main" | sudo tee /etc/apt/sources.list.d/salt.list
     echo "Pinning Salt to v3006.*"
     RUN printf "Package: salt-*\nPin: version 3006.*\nPin-Priority: 1001\n" > /etc/apt/preferences.d/salt-pin-1001
     ```
