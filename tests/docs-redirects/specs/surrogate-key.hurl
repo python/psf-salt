@@ -295,6 +295,66 @@ header "Surrogate-Key" == "en/3.14"
 
 ## Languages
 
+GET {{host}}/bn-in/3/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "bn-in/3"
+
+GET {{host}}/bn-in/3/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "bn-in/3"
+
+GET {{host}}/bn-in/3.14/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "bn-in/3.14"
+
+GET {{host}}/bn-in/3.14/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "bn-in/3.14"
+
+GET {{host}}/bn-in/dev/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "bn-in/dev"
+
+GET {{host}}/bn-in/dev/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "bn-in/dev"
+
+GET {{host}}/el/3/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "el/3"
+
+GET {{host}}/el/3/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "el/3"
+
+GET {{host}}/el/3.14/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "el/3.14"
+
+GET {{host}}/el/3.14/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "el/3.14"
+
+GET {{host}}/el/dev/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "el/dev"
+
+GET {{host}}/el/dev/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "el/dev"
+
 GET {{host}}/es/3/
 HTTP 404
 [Asserts]
@@ -534,6 +594,36 @@ GET {{host}}/pt-br/dev/about.html
 HTTP 404
 [Asserts]
 header "Surrogate-Key" == "pt-br/dev"
+
+GET {{host}}/ro/3/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ro/3"
+
+GET {{host}}/ro/3/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ro/3"
+
+GET {{host}}/ro/3.14/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ro/3.14"
+
+GET {{host}}/ro/3.14/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ro/3.14"
+
+GET {{host}}/ro/dev/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ro/dev"
+
+GET {{host}}/ro/dev/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ro/dev"
 
 GET {{host}}/tr/3/
 HTTP 404

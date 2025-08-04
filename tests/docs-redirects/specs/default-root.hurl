@@ -8,6 +8,16 @@ header "Location" == "http://localhost/3/"
 
 # Assert that Python 3 is the default at the root of each translation.
 
+GET {{host}}/bn-in/
+HTTP 302
+[Asserts]
+header "Location" == "http://localhost/bn-in/3/"
+
+GET {{host}}/el/
+HTTP 302
+[Asserts]
+header "Location" == "http://localhost/el/3/"
+
 GET {{host}}/es/
 HTTP 302
 [Asserts]
@@ -47,6 +57,11 @@ GET {{host}}/pt-br/
 HTTP 302
 [Asserts]
 header "Location" == "http://localhost/pt-br/3/"
+
+GET {{host}}/ro/
+HTTP 302
+[Asserts]
+header "Location" == "http://localhost/ro/3/"
 
 GET {{host}}/tr/
 HTTP 302
