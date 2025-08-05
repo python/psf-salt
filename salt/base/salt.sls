@@ -39,7 +39,7 @@ salt-pin-config:
     - name: /etc/apt/preferences.d/salt-pin-1001
     - contents: |
         Package: salt-*
-        Pin: version 3006.*
+        Pin: version 3007.*
         Pin-Priority: 1001
     - user: root
     - group: root
