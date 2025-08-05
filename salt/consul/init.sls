@@ -127,4 +127,5 @@ consul-external-{{ service.service }}:
     - port: {{ service.port }}
     - require:
       - pkg: python-requests
+      - service: consul
 {% endfor %}
