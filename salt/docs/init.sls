@@ -81,7 +81,7 @@ virtualenv-dependencies:
 
 docsbuild-no-html:
   cron.present:
-    # run every other day at 07:06
+    # run thrice per month at 07:06
     - identifier: docsbuild-no-html
     - name: >
         /srv/docsbuild/venv/bin/python
@@ -90,7 +90,7 @@ docsbuild-no-html:
     - user: docsbuild
     - minute: 7
     - hour: 6
-    - daymonth: '*/2'
+    - daymonth: '*/9'
     - require:
       - cmd: virtualenv-dependencies
 
