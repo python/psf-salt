@@ -110,7 +110,7 @@ docsbuild-only-html:
 
 docsbuild-only-html-en:
   cron.present:
-    # run twice hourly at HH:16 and HH:46
+    # run every five minutes, starting at HH:01
     - identifier: docsbuild-only-html-en
     - name: >
         /srv/docsbuild/venv/bin/python
@@ -118,7 +118,7 @@ docsbuild-only-html-en:
         --select-output=only-html-en
         --languages=en
     - user: docsbuild
-    - minute: 16,46
+    - minute: '1-59/5'
     - require:
       - cmd: virtualenv-dependencies
 
