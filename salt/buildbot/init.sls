@@ -1,4 +1,4 @@
-
+{% set buildbot_python_version = '3.13' %}
 include:
   - nginx
   - postgresql.client
@@ -11,8 +11,8 @@ buildbot-deps:
   pkg.installed:
     - pkgs:
       - git
-      - python3.9-dev
-      - python3.9-venv
+      - python{{ buildbot_python_version }}-dev
+      - python{{ buildbot_python_version }}-venv
       - build-essential
       - libpq-dev
     - require:
@@ -70,10 +70,12 @@ update-master:
   cmd.run:
     - runas: buildbot
     - cwd: /srv/buildbot
-    - name: make update-master
+    - name: make update-master PYTHON_VERSION={{ buildbot_python_version }}
     - require:
+      - pkg: buildbot-deps
       - git: /srv/buildbot
     - onchanges:
+      - pkg: buildbot-deps
       - git: /srv/buildbot
 
 /srv/buildbot/buildbot.sh start -q /srv/buildbot/master:
