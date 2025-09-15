@@ -22,7 +22,7 @@ from datetime import datetime
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['myst_parser', "sphinx_copybutton"]
+extensions = ['myst_parser', "sphinx_copybutton", 'sphinxcontrib.jquery', 'sphinx_datatables']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -188,3 +188,6 @@ htmlhelp_basename = "PythonInfrastructuredoc"
 
 # Enable MyST heading anchors
 myst_heading_anchors = 2
+
+# sphinx-datatables
+datatables_options = {"paging": False}

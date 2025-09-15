@@ -7,14 +7,15 @@
 {% endfor %}
 
 .. csv-table::
-   :header: "Name", "Purpose", "Contact", "Distro", "Datacener", "Category"
+   :header: "Name", "Purpose", "Contact", "Distro", "Datacenter", "Category"
+   :class: sphinx-datatable display compact
 
 {% for server in salt['minion.list']()['minions']|sort -%}
 {% set role = salt['match.filter_by'](role_mapping, minion_id=server) -%}
 {% set datacenter = salt['mine.get']("*", "psf_dc").get(server, "") -%}
 {% set distro = salt['mine.get']("*", "osfinger").get(server, "") -%}
 {% set roleconfig = salt["pillar.get"]("roles", {}).get(role, {}) %}
-   "{{ server }}", "{{ roleconfig.get("purpose", "") }}", "{{ roleconfig.get("contact", "") }}", "{{ distro }}", "{{ datacenter }}","{{ roleconfig.get("category", "") }}"
+   "{{ server }}", "{{ roleconfig.get("purpose", "") }}", "{{ roleconfig.get("contact", "") }}", "{{ distro }}", "{{ datacenter }}", "{{ roleconfig.get("category", "") }}"
 {%- endfor %}
 
 ..
