@@ -4,29 +4,29 @@
 
 
 .. csv-table::
-   :header: "Name", "Purpose", "Contact", "Distro", "Datacener"
+   :header: "Name", "Purpose", "Contact", "Distro", "Datacenter", "Category"
    :class: sphinx-datatable display compact
 
 
-   "backup.sfo1.psf.io", "Automated backup of infrastructure", "Infrastructure staff", "Ubuntu-24.04", "sfo1"
-   "bugs.nyc1.psf.io", "Roundup hosting for CPython, Jython, and Roundup", "Infrastructure staff", "Ubuntu-22.04", "nyc1"
-   "buildbot.nyc1.psf.io", "Hosting for CPython buildbot server", "zware, haypo, pablogsa", "Ubuntu-24.04", "nyc1"
-   "cdn-logs.nyc1.psf.io", "Realtime log streaming from Fastly CDN for debug", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
-   "codespeed.nyc1.psf.io", "Hosting for speed.python.org and speed.pypy.org", "", "Ubuntu-22.04", "nyc1"
-   "consul-1.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
-   "consul-2.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
-   "consul-3.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
-   "docs.nyc1.psf.io", "Builds and serves CPython's documentation", "mdk", "Ubuntu-24.04", "nyc1"
-   "downloads.nyc1.psf.io", "Serves python.org downloads", "CPython Release Managers", "Ubuntu-24.04", "nyc1"
-   "gnumailman.nyc1.psf.io", "GNU Mailman Project wiki and lists", "Mark Sapiro", "Ubuntu-20.04", "nyc1"
-   "hg.nyc1.psf.io", "Version Control Archives, serves hg.python.org and svn.python.org", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
-   "lb-0.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
-   "lb-1.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-24.04", "nyc1"
-   "mail.ams1.psf.io", "Mail and mailman server", "postmasters", "Ubuntu-14.04", "ams1"
-   "moin.nyc1.psf.io", "Hosts moin sites for wiki.python.org, wiki.jython.org", "lemburg", "Ubuntu-20.04", "nyc1"
-   "planet.nyc1.psf.io", "Planet Python", "benjamin", "Ubuntu-24.04", "nyc1"
-   "pythontest.nyc3.psf.io", "Test resources for CPython's test suite.", "Infrastructure Staff", "Ubuntu-24.04", "nyc3"
-   "salt.nyc1.psf.io", "Salt server", "Infrastructure Staff", "Ubuntu-20.04", "nyc1"
+   "backup.sfo1.psf.io", "Automated backup of infrastructure", "Infrastructure staff", "Ubuntu-24.04", "sfo1", "infra-infra"
+   "bugs.nyc1.psf.io", "Roundup hosting for CPython, Jython, and Roundup", "Infrastructure staff", "Ubuntu-22.04", "nyc1", "python-core"
+   "buildbot.nyc1.psf.io", "Hosting for CPython buildbot server", "zware, haypo, pablogsa", "Ubuntu-24.04", "nyc1", "python-core"
+   "cdn-logs.nyc1.psf.io", "Realtime log streaming from Fastly CDN for debug", "Infrastructure Staff", "Ubuntu-20.04", "nyc1", "infra-infra"
+   "codespeed.nyc1.psf.io", "Hosting for speed.python.org and speed.pypy.org", "", "Ubuntu-22.04", "nyc1", "python-core"
+   "consul-1.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
+   "consul-2.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
+   "consul-3.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
+   "docs.nyc1.psf.io", "Builds and serves CPython's documentation", "mdk", "Ubuntu-24.04", "nyc1", "python-core"
+   "downloads.nyc1.psf.io", "Serves python.org downloads", "CPython Release Managers", "Ubuntu-24.04", "nyc1", "python-core"
+   "gnumailman.nyc1.psf.io", "GNU Mailman Project wiki and lists", "Mark Sapiro", "Ubuntu-20.04", "nyc1", "mail"
+   "hg.nyc1.psf.io", "Version Control Archives, serves hg.python.org and svn.python.org", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "python-core"
+   "lb-0.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
+   "lb-1.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
+   "mail.ams1.psf.io", "Mail and mailman server", "postmasters", "Ubuntu-14.04", "ams1", "mail"
+   "moin.nyc1.psf.io", "Hosts moin sites for wiki.python.org, wiki.jython.org", "lemburg", "Ubuntu-20.04", "nyc1", "community"
+   "planet.nyc1.psf.io", "Planet Python", "benjamin", "Ubuntu-24.04", "nyc1", "community"
+   "pythontest.nyc3.psf.io", "Test resources for CPython's test suite.", "Infrastructure Staff", "Ubuntu-24.04", "nyc3", "python-core"
+   "salt.nyc1.psf.io", "Salt server", "Infrastructure Staff", "Ubuntu-20.04", "nyc1", "infra-infra"
 
 ..
     END AUTOMATED SECTION **DO NOT DIRECTLY EDIT - Salt will blow away your changes!!!**
