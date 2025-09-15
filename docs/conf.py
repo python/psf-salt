@@ -185,3 +185,6 @@ html_static_path = ["_static"]
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = "PythonInfrastructuredoc"
+
+# Enable MyST heading anchors
+myst_heading_anchors = 2
