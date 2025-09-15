@@ -5,6 +5,7 @@
 
 .. csv-table::
    :header: "Name", "Purpose", "Contact", "Distro", "Datacener"
+   :class: sphinx-datatable display compact
 
 
    "backup.sfo1.psf.io", "Automated backup of infrastructure", "Infrastructure staff", "Ubuntu-24.04", "sfo1"
