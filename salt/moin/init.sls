@@ -287,3 +287,14 @@ apache2:
     - user: root
     - group: root
     - mode: "0644"
+
+restart-apache2:
+  cron.present:
+    - name: /usr/bin/systemctl stop apache2; sleep 5; /usr/bin/systemctl start apache2
+    - user: root
+    - minute: '0'
+    - hour: '4'
+    - daymonth: '*'
+    - month: '*'
+    - dayweek: '*'
+    - comment: 'Daily Apache2 restart for Moin wiki'

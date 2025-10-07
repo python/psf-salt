@@ -117,6 +117,7 @@ consul:
 {% endif %}
 
 
+{% if pillar["dc"] in pillar["consul"]["dcs"] %}
 {% for service in pillar["consul"].get("external", []) %}
 consul-external-{{ service.service }}:
   consul.external_service:
@@ -127,4 +128,6 @@ consul-external-{{ service.service }}:
     - port: {{ service.port }}
     - require:
       - pkg: python-requests
+      - service: consul
 {% endfor %}
+{% endif %}

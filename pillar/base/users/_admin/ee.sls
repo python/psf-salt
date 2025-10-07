@@ -12,3 +12,5 @@ users:
       ee@pancack
     - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBSz/Yna8yFAglO9iY/lEdBHDNY91UTfbfGLYcYAZKtYnAnTMyOSQBhubUYr7z5zZv8NBpLiU+10WR8hgDtSsr0=
       ee@psf-air
+    - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBoop9FbexCHgRpGkLCIbvzoyuBHYuB2vfRmRFvdBot18yYcXBLA/Apl4rO9DhABu6qPp8n784AuKLwJQbnHdeg=
+      ee@slimjim

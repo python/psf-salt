@@ -6,12 +6,11 @@
 {{ swap_path }}:
   cmd.run:
     - name: |
-        swapon --show=NAME --noheadings | grep -q "^{{ swap_path }}$" && swapoff {{ swap_path }}
-        rm -f {{ swap_path }}
         fallocate -l {{ swap_size }}M {{ swap_path }}
         chmod 0600 {{ swap_path }}
         mkswap {{ swap_path }}
-    - unless: bash -c "[[ $(($(stat -c %s {{ swap_path }}) / 1024**2)) = {{ swap_size }} ]]"
+        swapon {{ swap_path }}
+    - unless: test -f {{ swap_path }}
 
   mount.swap:
     - persist: true

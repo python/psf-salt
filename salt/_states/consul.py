@@ -1,14 +1,15 @@
 def external_service(name, datacenter, node, address, port, token=None):
     ret = {'name': name, 'changes': {}, 'result': False, 'comment': ''}
 
-    if token is None:
-        token = __pillar__['consul']['acl']['tokens']['default']
-
-    # Determine if the cluster is ready
+    # Determine if the cluster is ready first, before trying to get token
     if not __salt__["consul.cluster_ready"]():
         ret["result"] = True
         ret["comment"] = "Consul cluster is not ready."
         return ret
+
+    # Get token after confirming cluster is ready
+    if token is None:
+        token = __pillar__['consul']['acl']['tokens']['default']
 
     # Determine if the node we're attempting to register exists
     if __salt__["consul.node_exists"](node, address, dc=datacenter):

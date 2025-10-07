@@ -155,7 +155,7 @@ index 68387c9..7a8ace1 100644
     sudo service nginx stop
     ```
     ```{note}
-    Don't forget to pause service checks for both the old and new hosts in things like Dead Man's Snitch, Pingdom, etc.
+    Don't forget to pause service checks for both the old and new hosts in things like Sentry monitors, Pingdom, etc.
     ```
 4.  Ensure that any additional volumes are mounted and in the correct location: 
     - Check what disks are currently mounted and where: `df`

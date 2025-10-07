@@ -67,33 +67,21 @@ virtualenv-dependencies:
     - onchanges:
       - git: docsbuild-scripts
 
-docsbuild-analytics:
-  cron.env_present:
+/etc/xdg/docsbuild-scripts:
+  file.managed:
+    - source: salt://docs/config/docsbuild-scripts
+    - template: jinja
+    - context:
+        sentry_dsn: {{ pillar.get('docs', {}).get('sentry', {}).get('dsn', '') }}
+        fastly_service_id: {{ pillar.get('docs', {}).get('fastly', {}).get('service_id', '') }}
+        fastly_token: {{ pillar.get('docs', {}).get('fastly', {}).get('token', '') }}
     - user: docsbuild
-    - name: PYTHON_DOCS_ENABLE_ANALYTICS
-    - value: 1
-
-docsbuild-sentry:
-  cron.env_present:
-    - user: docsbuild
-    - name: SENTRY_DSN
-    - value: {{ pillar.get('docs', {}).get('sentry', {}).get('dsn', '') }}
-
-docsbuild-fastly-service-id:
-  cron.env_present:
-    - user: docsbuild
-    - name: FASTLY_SERVICE_ID
-    - value: {{ pillar.get('docs', {}).get('fastly', {}).get('service_id', '') }}
-
-docsbuild-fastly-token:
-  cron.env_present:
-    - user: docsbuild
-    - name: FASTLY_TOKEN
-    - value: {{ pillar.get('docs', {}).get('fastly', {}).get('token', '') }}
+    - group: docsbuild
+    - mode: "0440"
 
 docsbuild-no-html:
   cron.present:
-    # run every other day at 07:06
+    # run thrice per month at 07:06
     - identifier: docsbuild-no-html
     - name: >
         /srv/docsbuild/venv/bin/python
@@ -102,7 +90,7 @@ docsbuild-no-html:
     - user: docsbuild
     - minute: 7
     - hour: 6
-    - daymonth: '*/2'
+    - daymonth: '*/9'
     - require:
       - cmd: virtualenv-dependencies
 
@@ -122,15 +110,15 @@ docsbuild-only-html:
 
 docsbuild-only-html-en:
   cron.present:
-    # run twice hourly at HH:16 and HH:46
+    # run every five minutes, starting at HH:01
     - identifier: docsbuild-only-html-en
     - name: >
         /srv/docsbuild/venv/bin/python
         /srv/docsbuild/scripts/build_docs.py
         --select-output=only-html-en
-        --language=en
+        --languages=en
     - user: docsbuild
-    - minute: 16,46
+    - minute: '1-59/5'
     - require:
       - cmd: virtualenv-dependencies
 
