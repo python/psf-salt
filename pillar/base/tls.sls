@@ -128,7 +128,6 @@ tls:
         - cheeseshop.python.org
         - jobs.python.org
         - packages.python.org
-        - planet.python.org
     speed.python.org:
       validation: http
       roles:
