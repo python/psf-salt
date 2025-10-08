@@ -62,7 +62,7 @@ tls:
       roles:
         - hg
 
-  acme_certs:
+  acme_cert_configs:
     pycon.org:
       validation: http
       roles:

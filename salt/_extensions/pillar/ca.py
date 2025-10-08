@@ -349,8 +349,8 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
             data["tls"]["certs"][certificate] = cert_data
 
     # Collect ACME certs (acme.cert) for this minion based on its roles
-    acme_certs = pillar.get("tls", {}).get("acme_certs", {})
-    for domain, domain_config in acme_certs.items():
+    acme_cert_configs = pillar.get("tls", {}).get("acme_cert_configs", {})
+    for domain, domain_config in acme_cert_configs.items():
         cert_roles = domain_config.get("roles", [])
         if any(role in minion_roles for role in cert_roles):
             cert_name = domain_config.get('name', domain)

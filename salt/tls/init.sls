@@ -60,7 +60,7 @@ certbot:
 
 {% if salt["match.compound"](pillar["roles"]["salt-master"]["pattern"]) %}
 # Process ACME certificates
-{% for domain, domain_config in salt["pillar.get"]("tls:acme_certs", {}).items() %}
+{% for domain, domain_config in salt["pillar.get"]("tls:acme_cert_configs", {}).items() %}
 {{ domain }}:
   acme.cert:
     - email: infrastructure-staff@python.org
