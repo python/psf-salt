@@ -109,3 +109,59 @@ tls:
         - bugs.jython.org
         - issues.roundup-tracker.org
         - mail.roundup-tracker.org
+    buildbot.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+    docs.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - doc.python.org
+    www.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - python.org
+        - cheeseshop.python.org
+        - jobs.python.org
+        - packages.python.org
+        - planet.python.org
+    speed.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+    console.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+    hg.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - svn.python.org
+    wiki.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+    legacy.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+    www.jython.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - wiki.jython.org
+    jobs.pyfound.org:
+      validation: http
+      roles:
+        - loadbalancer
+    fr.pycon.org:
+      validation: http
+      roles:
+        - loadbalancer
