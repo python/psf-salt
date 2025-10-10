@@ -63,12 +63,6 @@ tls:
         - hg
 
   acme_cert_configs:
-    pycon.org:
-      validation: http
-      roles:
-        - loadbalancer
-      aliases:
-        - www.pycon.org
     speed.pypy.org:
       validation: http
       roles:
@@ -88,8 +82,6 @@ tls:
       validation: http
       roles:
         - loadbalancer
-      aliases:
-        - www.pypa.io
     jython.org:
       validation: http
       roles:
@@ -97,7 +89,6 @@ tls:
       aliases:
         - www.jython.net
         - jython.net
-        - www.jython.com
         - jython.com
     bugs.python.org:
       validation: http
@@ -108,26 +99,10 @@ tls:
       aliases:
         - bugs.jython.org
         - issues.roundup-tracker.org
-        - mail.roundup-tracker.org
     buildbot.python.org:
       validation: http
       roles:
         - loadbalancer
-    docs.python.org:
-      validation: http
-      roles:
-        - loadbalancer
-      aliases:
-        - doc.python.org
-    www.python.org:
-      validation: http
-      roles:
-        - loadbalancer
-      aliases:
-        - python.org
-        - cheeseshop.python.org
-        - jobs.python.org
-        - packages.python.org
     speed.python.org:
       validation: http
       roles:
@@ -146,21 +121,13 @@ tls:
       validation: http
       roles:
         - loadbalancer
+      aliases:
+        - wiki.jython.org
     legacy.python.org:
       validation: http
       roles:
         - loadbalancer
-    www.jython.org:
-      validation: http
-      roles:
-        - loadbalancer
-      aliases:
-        - wiki.jython.org
     jobs.pyfound.org:
-      validation: http
-      roles:
-        - loadbalancer
-    fr.pycon.org:
       validation: http
       roles:
         - loadbalancer
