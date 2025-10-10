@@ -110,12 +110,6 @@ tls:
       validation: http
       roles:
         - loadbalancer
-    hg.python.org:
-      validation: http
-      roles:
-        - loadbalancer
-      aliases:
-        - svn.python.org
     wiki.python.org:
       validation: http
       roles:
@@ -126,6 +120,9 @@ tls:
       validation: http
       roles:
         - loadbalancer
+      aliases:
+        - hg.python.org
+        - svn.python.org
     jobs.pyfound.org:
       validation: http
       roles:
