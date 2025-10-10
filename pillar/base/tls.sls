@@ -63,10 +63,12 @@ tls:
         - hg
 
   acme_cert_configs:
+
     salt-public.psf.io:
       validation: http
       roles:
         - loadbalancer
+
     planetpython.org:
       validation: http
       roles:
@@ -74,10 +76,12 @@ tls:
       aliases:
         - www.planetpython.org
         - planet.python.org
+
     pypa.io:
       validation: http
       roles:
         - loadbalancer
+
     jython.org:
       validation: http
       roles:
@@ -87,6 +91,7 @@ tls:
         - www.jython.net
         - jython.com
         - www.jython.com
+
     bugs.python.org:
       validation: http
       name: bugs.python.org
@@ -96,26 +101,31 @@ tls:
       aliases:
         - bugs.jython.org
         - issues.roundup-tracker.org
+
     buildbot.python.org:
       validation: http
       roles:
         - loadbalancer
+
     speed.python.org:
       validation: http
       roles:
         - loadbalancer
       aliases:
         - speed.pypy.org
+
     console.python.org:
       validation: http
       roles:
         - loadbalancer
+
     wiki.python.org:
       validation: http
       roles:
         - loadbalancer
       aliases:
         - wiki.jython.org
+
     legacy.python.org:
       validation: http
       roles:
@@ -123,6 +133,7 @@ tls:
       aliases:
         - hg.python.org
         - svn.python.org
+
     jobs.pyfound.org:
       validation: http
       roles:
