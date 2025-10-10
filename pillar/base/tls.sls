@@ -64,34 +64,6 @@ tls:
 
   acme_cert_configs:
 
-    salt-public.psf.io:
-      validation: http
-      roles:
-        - loadbalancer
-
-    planetpython.org:
-      validation: http
-      roles:
-        - loadbalancer
-      aliases:
-        - www.planetpython.org
-        - planet.python.org
-
-    pypa.io:
-      validation: http
-      roles:
-        - loadbalancer
-
-    jython.org:
-      validation: http
-      roles:
-        - loadbalancer
-      aliases:
-        - jython.net
-        - www.jython.net
-        - jython.com
-        - www.jython.com
-
     bugs.python.org:
       validation: http
       name: bugs.python.org
@@ -107,24 +79,25 @@ tls:
       roles:
         - loadbalancer
 
-    speed.python.org:
-      validation: http
-      roles:
-        - loadbalancer
-      aliases:
-        - speed.pypy.org
-
     console.python.org:
       validation: http
       roles:
         - loadbalancer
 
-    wiki.python.org:
+    jobs.pyfound.org:
+      validation: http
+      roles:
+        - loadbalancer
+
+    jython.org:
       validation: http
       roles:
         - loadbalancer
       aliases:
-        - wiki.jython.org
+        - jython.net
+        - www.jython.net
+        - jython.com
+        - www.jython.com
 
     legacy.python.org:
       validation: http
@@ -134,7 +107,34 @@ tls:
         - hg.python.org
         - svn.python.org
 
-    jobs.pyfound.org:
+    planetpython.org:
       validation: http
       roles:
         - loadbalancer
+      aliases:
+        - www.planetpython.org
+        - planet.python.org
+
+    pypa.io:
+      validation: http
+      roles:
+        - loadbalancer
+
+    salt-public.psf.io:
+      validation: http
+      roles:
+        - loadbalancer
+
+    speed.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - speed.pypy.org
+
+    wiki.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+      aliases:
+        - wiki.jython.org
