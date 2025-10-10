@@ -63,10 +63,6 @@ tls:
         - hg
 
   acme_cert_configs:
-    speed.pypy.org:
-      validation: http
-      roles:
-        - loadbalancer
     salt-public.psf.io:
       validation: http
       roles:
@@ -107,6 +103,8 @@ tls:
       validation: http
       roles:
         - loadbalancer
+      aliases:
+        - speed.pypy.org
     console.python.org:
       validation: http
       roles:
