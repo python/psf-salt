@@ -83,9 +83,10 @@ tls:
       roles:
         - loadbalancer
       aliases:
-        - www.jython.net
         - jython.net
+        - www.jython.net
         - jython.com
+        - www.jython.com
     bugs.python.org:
       validation: http
       name: bugs.python.org
