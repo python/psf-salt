@@ -27,6 +27,10 @@ firewall:
     port: 4505:4506
     source: 188.166.95.178
 
+  salt_master_ampere_one:
+    port: 4505:4506
+    source: 217.140.101.240
+
   {# TODO: this is used in development environments #}
   salt_master_pebble:
     port: 14000
