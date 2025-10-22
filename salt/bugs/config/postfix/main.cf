@@ -24,8 +24,8 @@ compatibility_level = 3.6
 
 
 # TLS parameters
-smtpd_tls_cert_file=ssl_certificate /etc/ssl/private/bugs.psf.io.pem;
-smtpd_tls_key_file=etc/ssl/private/bugs.psf.io.pem;
+smtpd_tls_cert_file=/etc/ssl/private/acme-bugs.python.org.pem
+smtpd_tls_key_file=/etc/ssl/private/acme-bugs.python.org.pem
 smtpd_tls_security_level=may
 
 smtp_tls_CApath=/etc/ssl/certs

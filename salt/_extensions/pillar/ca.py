@@ -295,46 +295,69 @@ def get_ca_signed_cert(cacert_path, ca_name, CN):
     return "\n".join([cert, key])
 
 
+def _read_cert_file(path: str) -> str:
+    """Helper to read certificate files, which might be symlinks"""
+    try:
+        with open(path, 'r') as f:
+            return f.read()
+    except (IOError, OSError):
+        return None
+
+
 def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None):
     if cert_opts is None:
         cert_opts = {}
 
-    # Ensure we have a CA created.
+    # Create CA certificate
     opts = cert_opts.copy()
     opts["CN"] = name
     create_ca(base, name, **opts)
 
-    # Start our pillar with just the ca certificate.
     data = {
         "tls": {
             "ca": {
                 name: get_ca_cert(base, name),
             },
             "certs": {},
+            "acme_certs": {},
         },
     }
 
-    # Create all of the certificates required by this minion
+    minion_roles = []
+    minion_roles.extend(
+        role_name
+        for role_name, role_config in pillar.get("roles", {}).items()
+        if role_config.get("pattern")
+        and compound(role_config["pattern"], minion_id)
+    )
+
+    # Process CA-signed certificates (gen_certs)
     gen_certs = pillar.get("tls", {}).get("gen_certs", {})
     for certificate, config in gen_certs.items():
-        role_patterns = [
-            role.get("pattern")
-            for role in [
-                pillar.get("roles", {}).get(r) for r in config.get("roles", "")
-            ]
-            if role and role.get("pattern") is not None
-        ]
-        if any([compound(pat, minion_id) for pat in role_patterns]):
+        cert_roles = config.get("roles", [])
+        # Check if any of the minion's roles are in the certificate's required roles
+        if any(role in minion_roles for role in cert_roles):
             # Create the options
             opts = cert_opts.copy()
             opts["CN"] = certificate
             opts["days"] = config.get("days", 1)
 
-            # Create the signed certificates
             create_ca_signed_cert(base, name, **opts)
 
             # Add the signed certificates to the pillar data
             cert_data = get_ca_signed_cert(base, name, certificate)
             data["tls"]["certs"][certificate] = cert_data
+
+    # Collect ACME certs (acme.cert) for this minion based on its roles
+    acme_cert_configs = pillar.get("tls", {}).get("acme_cert_configs", {})
+    for domain, domain_config in acme_cert_configs.items():
+        cert_roles = domain_config.get("roles", [])
+        if any(role in minion_roles for role in cert_roles):
+            cert_name = domain_config.get('name', domain)
+            full_cert_chain = _read_cert_file(f"/etc/letsencrypt/live/{cert_name}/fullchain.pem")
+            privkey = _read_cert_file(f"/etc/letsencrypt/live/{cert_name}/privkey.pem")
+
+            if full_cert_chain and privkey:
+                data["tls"]["acme_certs"][domain] = full_cert_chain + "\n" + privkey
 
     return data

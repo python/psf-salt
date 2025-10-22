@@ -8,6 +8,7 @@ base:
     - tls
     - users.*
     - postgres.clusters
+    - pebble # needing to do this to have pebble rum in dev
     # - secrets.sentry # Uncomment and update sentry secrets if you want to work in dev
 
   'backup-server':
