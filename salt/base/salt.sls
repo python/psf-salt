@@ -68,6 +68,10 @@ salt-repo:
 {% if salt["match.compound"](pillar["roles"]["salt-master"]["pattern"]) %}
 include:
   - tls.lego
+  - tls.pebble
+
+certbot:
+  pkg.installed
 
 salt-master-pkg:
   pkg.latest:

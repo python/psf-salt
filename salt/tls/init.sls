@@ -1,11 +1,4 @@
-include:
-  - .pebble
-  - .lego
-
 ssl-cert:
-  pkg.installed
-
-certbot:
   pkg.installed
 
 {% for name in salt["pillar.get"]("tls:ca", {}) %}  # " Syntax Hack
