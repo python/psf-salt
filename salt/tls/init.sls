@@ -65,7 +65,7 @@ certbot:
   acme.cert:
     - email: infrastructure-staff@python.org
     - webroot: /etc/lego
-    - renew: 14
+    - renew: 21
     {% if domain_config.get('aliases') %}
     - aliases:
       {% for alias in domain_config.get('aliases', []) %}
