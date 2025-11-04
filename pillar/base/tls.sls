@@ -148,3 +148,23 @@ tls:
       validation: http
       roles:
         - loadbalancer
+
+    cheeseshop.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+
+    jobs.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+
+    packages.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+
+    planet.python.org:
+      validation: http
+      roles:
+        - loadbalancer
