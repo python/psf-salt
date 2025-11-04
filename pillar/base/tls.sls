@@ -143,11 +143,8 @@ tls:
       validation: http
       roles:
         - loadbalancer
-
-    fr.pycon.org:
-      validation: http
-      roles:
-        - loadbalancer
+      aliases:
+        - fr.pycon.org
 
     cheeseshop.python.org:
       validation: http
