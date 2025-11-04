@@ -11,17 +11,8 @@ firewall:
   http_2:
     port: 20002
 
-  http_3:
-    port: 20003
-
   http_4:
     port: 20004
-
-  http_5:
-    port: 20005
-
-  http_6:
-    port: 20006
 
   http_map:
     port: 20010
