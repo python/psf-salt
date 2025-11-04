@@ -138,3 +138,13 @@ tls:
         - loadbalancer
       aliases:
         - wiki.jython.org
+
+    www.pycon.org:
+      validation: http
+      roles:
+        - loadbalancer
+
+    fr.pycon.org:
+      validation: http
+      roles:
+        - loadbalancer
