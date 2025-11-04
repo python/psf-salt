@@ -92,15 +92,14 @@ frontend main
 
     # HTTPS Binds
     # Advertise http/1.1 over NPN to enable TLS False Start
-    bind :20003 ssl alpn h2,http/1.1 crt star.python.org.pem
-    bind :20005 ssl alpn h2,http/1.1 crt star.pypa.io.pem
-    bind :20006 ssl alpn h2,http/1.1 crt speed.pypy.org.pem
-    bind :20007 ssl alpn h2,http/1.1 crt star.pycon.org.pem
-    bind :20008 ssl alpn h2,http/1.1 crt jython.org.pem
-    bind 0.0.0.0:443 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pycon.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
-    bind :::443 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pycon.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem  crt speed.pypy.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
-    bind :20010 ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pycon.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
-    bind :20011 accept-proxy ssl alpn h2,http/1.1 crt star.python.org.pem crt star.pycon.org.pem crt star.pypa.io.pem crt star.pyfound.org.pem crt speed.pypy.org.pem crt jython.org.pem crt salt-public.psf.io.pem crt planetpython.org.pem crt bugs.python.org.pem
+    {% set acme_certs = [] -%}
+    {% for domain in salt["pillar.get"]("tls:acme_cert_configs", {}).keys() -%}
+    {%- set _ = acme_certs.append("acme-" ~ domain ~ ".pem") -%}
+    {% endfor -%}
+    bind 0.0.0.0:443 ssl alpn h2,http/1.1 {% for cert in acme_certs %}crt {{ cert }} {% endfor %}
+    bind :::443 ssl alpn h2,http/1.1 {% for cert in acme_certs %}crt {{ cert }} {% endfor %}
+    bind :20010 ssl alpn h2,http/1.1 {% for cert in acme_certs %}crt {{ cert }} {% endfor %}
+    bind :20011 accept-proxy ssl alpn h2,http/1.1 {% for cert in acme_certs %}crt {{ cert }} {% endfor %}
 
     # Define a stick table for all services
     stick-table type ipv6 size 100k expire 30s store http_req_rate(10s)
