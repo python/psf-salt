@@ -48,8 +48,8 @@ RUN /usr/sbin/sshd
 
 # Setup Salt Common
 RUN mkdir -p /etc/apt/keyrings
-RUN wget --quiet -O /etc/apt/keyrings/salt-archive-keyring-2024.pgp https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
-RUN echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2024.pgp arch=$(dpkg --print-architecture)] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main" > /etc/apt/sources.list.d/salt.list
+RUN wget --quiet -O /etc/apt/keyrings/salt-archive-keyring.pgp https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
+RUN echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring.pgp arch=$(dpkg --print-architecture)] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main" > /etc/apt/sources.list.d/salt.list
 
 # Pin to Salt 3006 LTS
 RUN printf "Package: salt-*\nPin: version 3006.*\nPin-Priority: 1001\n" > /etc/apt/preferences.d/salt-pin-1001
