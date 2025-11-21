@@ -183,6 +183,21 @@ HTTP 301
 [Asserts]
 header "Location" == "https://localhost/ro/3.14/"
 
+GET {{host}}/sv/3/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3/"
+
+GET {{host}}/sv/3.13/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3.13/"
+
+GET {{host}}/sv/3.14/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3.14/"
+
 GET {{host}}/tr/3/library/2to3.html
 HTTP 301
 [Asserts]
@@ -424,6 +439,21 @@ GET {{host}}/ro/3.14/library/tkinter.tix.html
 HTTP 301
 [Asserts]
 header "Location" == "https://localhost/ro/3.14/"
+
+GET {{host}}/sv/3/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3/"
+
+GET {{host}}/sv/3.13/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3.13/"
+
+GET {{host}}/sv/3.14/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3.14/"
 
 GET {{host}}/tr/3/library/tkinter.tix.html
 HTTP 301
