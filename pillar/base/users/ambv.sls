@@ -1,6 +1,9 @@
 users:
   ambv:
     access:
+      benchmarks:
+        allowed: true
+        sudo: true
       bugs:
         allowed: true
         groups:
