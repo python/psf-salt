@@ -12,6 +12,7 @@
    "bugs.nyc1.psf.io", "Roundup hosting for CPython, Jython, and Roundup", "Infrastructure staff", "Ubuntu-22.04", "nyc1", "python-core"
    "buildbot.nyc1.psf.io", "Hosting for CPython buildbot server", "zware, haypo, pablogsa", "Ubuntu-24.04", "nyc1", "python-core"
    "cdn-logs.nyc1.psf.io", "Realtime log streaming from Fastly CDN for debug", "Infrastructure Staff", "Ubuntu-20.04", "nyc1", "infra-infra"
+   "cesw-gbt-r263-p30-01", "Hosting for CPython benchmarks", "diegorusso", "Ubuntu-24.04", "eu1", "python-core"
    "codespeed.nyc1.psf.io", "Hosting for speed.python.org and speed.pypy.org", "", "Ubuntu-22.04", "nyc1", "python-core"
    "consul-1.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
    "consul-2.nyc1.psf.io", "Runs `Consul <https://www.consul.io/>`_ discovery service", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
