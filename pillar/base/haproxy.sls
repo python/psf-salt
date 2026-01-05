@@ -155,7 +155,7 @@ haproxy:
       hsts_subdomains: False
       hsts_preload: False
     donate.python.org:
-      target: https://www.python.org/psf/donations/
+      target: www.python.org/psf/donations/
       request_uri: False
 
   listens:
