@@ -84,7 +84,7 @@ tls:
       roles:
         - loadbalancer
 
-    donate.python.org
+    donate.python.org:
       validation: http
       roles:
         - loadbalancer
