@@ -84,6 +84,11 @@ tls:
       roles:
         - loadbalancer
 
+    donate.python.org
+      validation: http
+      roles:
+        - loadbalancer
+
     jobs.pyfound.org:
       validation: http
       roles:

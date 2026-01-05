@@ -154,6 +154,9 @@ haproxy:
       target: pycon.fr
       hsts_subdomains: False
       hsts_preload: False
+    donate.python.org:
+      target: https://www.python.org/psf/donations/
+      request_uri: False
 
   listens:
     buildbot_worker:
