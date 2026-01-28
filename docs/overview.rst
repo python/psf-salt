@@ -21,8 +21,8 @@ global systems such as DNS. The current team members are:
 * Benjamin Peterson
 * Benjamin W. Smith
 * Donald Stufft
-* Ee Durbin (PSF Director of Infrastructure)
-* Jacob Coffee (PSF Infrastructure Engineer)
+* Ee Durbin
+* Jacob Coffee (PSF Staff)
 * Noah Kantrowitz
 
 The best way to contact the infrastructure team is mailing
