@@ -24,7 +24,6 @@
    "lb-0.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
    "lb-1.nyc1.psf.io", "Load balancer", "Infrastructure Staff", "Ubuntu-24.04", "nyc1", "infra-infra"
    "mail.ams1.psf.io", "Mail and mailman server", "postmasters", "Ubuntu-14.04", "ams1", "mail"
-   "moin.nyc1.psf.io", "", "", "Ubuntu-20.04", "nyc1", ""
    "planet.nyc1.psf.io", "Planet Python", "benjamin", "Ubuntu-24.04", "nyc1", "community"
    "pythontest.nyc3.psf.io", "Test resources for CPython's test suite.", "Infrastructure Staff", "Ubuntu-24.04", "nyc3", "python-core"
    "salt.nyc1.psf.io", "Salt server", "Infrastructure Staff", "Ubuntu-20.04", "nyc1", "infra-infra"
