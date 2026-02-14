@@ -1,6 +1,10 @@
 include:
   - nginx
 
+moin:
+  group.present:
+    - system: True
+
 /data/www/wiki-static:
   file.directory:
     - user: root
