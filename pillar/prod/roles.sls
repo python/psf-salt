@@ -87,7 +87,7 @@ roles:
     contact:  "Infrastructure Staff"
     category: "infra-infra"
   moin:
-    pattern:  "moin*.nyc1.psf.io"
-    purpose:  "Hosts moin sites for wiki.python.org, wiki.jython.org"
-    contact:  "lemburg"
+    pattern:  "wiki*.nyc1.psf.io"
+    purpose:  "Static wiki archive for wiki.python.org, wiki.jython.org"
+    contact:  "Infrastructure Staff"
     category: "community"
