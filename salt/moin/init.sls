@@ -1,6 +1,10 @@
 include:
   - nginx
 
+moin:
+  group.present:
+    - system: True
+
 /data/www/wiki-static:
   file.directory:
     - user: root
@@ -18,12 +22,12 @@ include:
       - file: /etc/nginx/sites.d/
       - pkg: nginx
 
-/etc/consul.d/service-wiki.json:
+/etc/consul.d/service-moin.json:
   file.managed:
     - source: salt://consul/etc/service.jinja
     - template: jinja
     - context:
-        name: wiki
+        name: moin
         port: 9000
     - user: root
     - group: root
