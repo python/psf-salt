@@ -90,24 +90,29 @@ index 68387c9..7a8ace1 100644
     ssh root@NNN.NNN.NNN.NNN
    ```
 2. Add Salt repositories for our current target version (add the apt-repo and install `salt-minion` package):
-    > **Note**: Ensure you are adding the correct key/repository for the version of Ubuntu you are using. 
+    > **Note**: Ensure you are adding the correct key/repository for the version of Ubuntu you are using.
     >
-    > See [the Salt installation guide](https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/ubuntu.html) for more information.
+    > See [the Salt installation guide](https://salt.tips/salt-install-guide/en/latest/topics/install-by-operating-system/linux-deb.html) for more information.
     ```console
-    UBUNTU_VERSION=$(lsb_release -rs)
-    ARCH=$(dpkg --print-architecture)
-    CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d '=' -f 2)
-   
-    echo "Adding the SaltStack repository key for $UBUNTU_VERSION $CODENAME ($ARCH)..."
-    sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2024.gpg https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
-    echo "Adding the SaltStack repository for $UBUNTU_VERSION $CODENAME ($ARCH)..."
-    echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2024.gpg arch=$ARCH] https://packages.broadcom.com/artifactory/saltproject-deb/ stable main" | sudo tee /etc/apt/sources.list.d/salt.list
-    echo "Pinning Salt to v3006.*"
-    RUN printf "Package: salt-*\nPin: version 3006.*\nPin-Priority: 1001\n" > /etc/apt/preferences.d/salt-pin-1001
+    # Ensure keyrings dir exists
+    mkdir -m 755 -p /etc/apt/keyrings
+
+    # Download and dearmor the public key
+    curl -fsSL https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public \
+      | gpg --dearmor | sudo tee /etc/apt/keyrings/salt-archive-keyring.pgp > /dev/null
+
+    # Create apt repo target configuration (DEB822 format)
+    curl -fsSL https://github.com/saltstack/salt-install-guide/releases/latest/download/salt.sources \
+      | sudo tee /etc/apt/sources.list.d/salt.sources
+
+    # Pin to Salt 3006 LTS
+    echo 'Package: salt-*
+    Pin: version 3006.*
+    Pin-Priority: 1001' | sudo tee /etc/apt/preferences.d/salt-pin-1001
     ```
 3. Install and configure the salt-minion. On `$new-host`, run the command
     ```console
-    apt-get update -y && apt-get install -y --no-install-recommends salt-minion
+    sudo apt-get update -y && sudo apt-get install -y --no-install-recommends salt-minion
     ```
     - On the `old-host`, look through `/etc/salt/minion.d*` to set up salt-minion configuration files to match on new-host:
       - Generate bash that will create these files
