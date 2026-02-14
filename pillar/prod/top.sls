@@ -87,7 +87,6 @@ base:
 
   'moin':
     - match: nodegroup
-    - mail-opt-out
     - firewall.rs-lb-backend
     - backup.moin
 
