@@ -1,15 +1,19 @@
-name: Test wiki redirects
+name: Test redirects
 
 on:
   push:
     paths:
-      - ".github/workflows/wiki-redirects.yml"
+      - ".github/workflows/redirects.yml"
+      - "salt/docs/**"
       - "salt/moin/**"
+      - "tests/docs-redirects/**"
       - "tests/wiki-redirects/**"
   pull_request:
     paths:
-      - ".github/workflows/wiki-redirects.yml"
+      - ".github/workflows/redirects.yml"
+      - "salt/docs/**"
       - "salt/moin/**"
+      - "tests/docs-redirects/**"
       - "tests/wiki-redirects/**"
   workflow_dispatch:
 
@@ -24,9 +28,16 @@ env:
   FORCE_COLOR: "1"
 
 jobs:
-  wiki-redirects:
-    name: Hurl
+  redirects:
+    name: Hurl (${{ matrix.suite }})
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - docs-redirects
+          - wiki-redirects
 
     steps:
     - uses: actions/checkout@v4
@@ -43,4 +54,4 @@ jobs:
       run: sudo apt install --yes /tmp/hurl.deb
 
     - name: Run tests
-      run: bash tests/wiki-redirects/test.sh
+      run: bash tests/${{ matrix.suite }}/test.sh
