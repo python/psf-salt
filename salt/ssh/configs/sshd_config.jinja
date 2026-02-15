@@ -32,7 +32,10 @@ HostKey /etc/ssh/ssh_host_rsa_key
 # ======================
 
 # Set the protocol version to 2 for security reasons. Disables legacy support.
+# Removed in OpenSSH 7.6+ (protocol 1 no longer supported)
+{% if grains["oscodename"] not in ["jammy", "noble"] %}
 Protocol 2
+{% endif %}
 
 # Make sure sshd checks file modes and ownership before accepting logins. This
 # prevents accidental misconfiguration.
@@ -67,8 +70,11 @@ KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256,
 # --------------
 
 # Secure Login directives.
+# UseLogin and UsePrivilegeSeparation removed in OpenSSH 7.4+/7.5+
+{% if grains["oscodename"] not in ["jammy", "noble"] %}
 UseLogin no
 UsePrivilegeSeparation yes
+{% endif %}
 PermitUserEnvironment no
 LoginGraceTime 30s
 MaxAuthTries 2
@@ -82,7 +88,10 @@ PubkeyAuthentication yes
 IgnoreRhosts yes
 IgnoreUserKnownHosts yes
 HostbasedAuthentication no
+# RhostsRSAAuthentication removed in OpenSSH 7.4+
+{% if grains["oscodename"] not in ["jammy", "noble"] %}
 RhostsRSAAuthentication no
+{% endif %}
 
 # Enable PAM to enforce system wide rules
 UsePam {% if salt["pillar.get"]("ssh:use_pam", True) %}yes{% else %}no{% endif %}
