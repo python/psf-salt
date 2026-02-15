@@ -40,7 +40,7 @@ jobs:
           - wiki-redirects
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Download Hurl ${{ env.HURL_VERSION }}
       run: >
         curl --no-progress-meter --location --fail
