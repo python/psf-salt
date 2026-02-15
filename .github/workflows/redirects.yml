@@ -48,7 +48,7 @@ jobs:
         --output '/tmp/hurl.deb'
         "https://github.com/Orange-OpenSource/hurl/releases/download/${{ env.HURL_VERSION }}/hurl_${{ env.HURL_VERSION }}_amd64.deb"
       env:
-        HURL_VERSION: "5.0.1"
+        HURL_VERSION: "7.1.0"
 
     - name: Install Hurl
       run: sudo apt install --yes /tmp/hurl.deb
