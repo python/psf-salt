@@ -22,6 +22,16 @@ moin:
       - file: /etc/nginx/sites.d/
       - pkg: nginx
 
+/etc/nginx/sites.d/wiki-redirects.conf:
+  file.managed:
+    - source: salt://moin/configs/wiki-redirects.conf
+    - user: root
+    - group: root
+    - mode: "0644"
+    - require:
+      - file: /etc/nginx/sites.d/
+      - pkg: nginx
+
 /etc/consul.d/service-moin.json:
   file.managed:
     - source: salt://consul/etc/service.jinja
