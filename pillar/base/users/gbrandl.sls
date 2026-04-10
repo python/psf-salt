@@ -1,11 +1,6 @@
 users:
   gbrandl:
     access:
-      docs:
-        allowed: true
-        groups:
-        - docs
-        sudo: true
       hg:
         allowed: true
         sudo: true

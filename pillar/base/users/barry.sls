@@ -1,10 +1,6 @@
 users:
   barry:
     access:
-      docs:
-        allowed: true
-        groups:
-        - docs
       gnumailman:
         allowed: true
         sudo: true

@@ -1,10 +1,6 @@
 users:
   larry:
     access:
-      docs:
-        allowed: true
-        groups:
-        - docs
       hg:
         allowed: true
         sudo: true
