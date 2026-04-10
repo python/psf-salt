@@ -5,11 +5,6 @@ users:
         allowed: true
         groups:
         - docs
-      downloads:
-        allowed: true
-        groups:
-        - downloads
-        sudo: true
       hg:
         allowed: true
         sudo: true
