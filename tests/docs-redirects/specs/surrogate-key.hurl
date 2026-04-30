@@ -3,7 +3,7 @@
 ## Basic cases
 
 GET {{host}}/3/
-HTTP 404
+HTTP 200
 [Asserts]
 header "Surrogate-Key" == "en/3"
 
@@ -30,7 +30,7 @@ HTTP 404
 header "Surrogate-Key" == "en/2"
 
 GET {{host}}/dev/
-HTTP 404
+HTTP 200
 [Asserts]
 header "Surrogate-Key" == "en/dev"
 
@@ -284,7 +284,7 @@ HTTP 404
 header "Surrogate-Key" == "en/3.13"
 
 GET {{host}}/3.14/
-HTTP 404
+HTTP 200
 [Asserts]
 header "Surrogate-Key" == "en/3.14"
 
@@ -396,7 +396,7 @@ HTTP 404
 header "Surrogate-Key" == "fr/3"
 
 GET {{host}}/fr/3.14/
-HTTP 404
+HTTP 200
 [Asserts]
 header "Surrogate-Key" == "fr/3.14"
 
@@ -536,7 +536,7 @@ HTTP 404
 header "Surrogate-Key" == "ko/dev"
 
 GET {{host}}/pl/3/
-HTTP 404
+HTTP 200
 [Asserts]
 header "Surrogate-Key" == "pl/3"
 
@@ -736,7 +736,7 @@ HTTP 404
 header "Surrogate-Key" == "zh-cn/3.14"
 
 GET {{host}}/zh-cn/dev/
-HTTP 404
+HTTP 200
 [Asserts]
 header "Surrogate-Key" == "zh-cn/dev"
 

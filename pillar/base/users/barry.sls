@@ -1,14 +1,6 @@
 users:
   barry:
     access:
-      docs:
-        allowed: true
-        groups:
-        - docs
-      downloads:
-        allowed: true
-        groups:
-        - downloads
       gnumailman:
         allowed: true
         sudo: true

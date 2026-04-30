@@ -2,6 +2,7 @@ from __future__ import division
 
 import binascii
 import datetime
+import fcntl
 import os.path
 
 import salt.loader
@@ -342,10 +343,18 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
             opts["CN"] = certificate
             opts["days"] = config.get("days", 1)
 
-            create_ca_signed_cert(base, name, **opts)
+            # Lock per-CN to prevent concurrent pillar compilations from
+            # racing on the same cert/key files.
+            lockp = os.path.join(base, name, "certs", "{}.lock".format(certificate))
+            lock_fd = open(lockp, "w")
+            try:
+                fcntl.flock(lock_fd, fcntl.LOCK_EX)
+                create_ca_signed_cert(base, name, **opts)
+                cert_data = get_ca_signed_cert(base, name, certificate)
+            finally:
+                fcntl.flock(lock_fd, fcntl.LOCK_UN)
+                lock_fd.close()
 
-            # Add the signed certificates to the pillar data
-            cert_data = get_ca_signed_cert(base, name, certificate)
             data["tls"]["certs"][certificate] = cert_data
 
     # Collect ACME certs (acme.cert) for this minion based on its roles
