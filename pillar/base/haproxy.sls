@@ -5,6 +5,7 @@ haproxy:
     buildbot-master:
       domains:
         - buildbot.python.org
+      rate_limit: 100
       check: "GET /all/#/about HTTP/1.1\\r\\nHost:\\ buildbot.python.org"
       extra:
         - timeout client 30s
