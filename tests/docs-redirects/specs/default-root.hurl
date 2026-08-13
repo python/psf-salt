@@ -63,6 +63,11 @@ HTTP 302
 [Asserts]
 header "Location" == "http://localhost/ro/3/"
 
+GET {{host}}/ru/
+HTTP 302
+[Asserts]
+header "Location" == "http://localhost/ru/3/"
+
 GET {{host}}/sv/
 HTTP 302
 [Asserts]
