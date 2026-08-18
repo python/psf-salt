@@ -23,6 +23,11 @@ HTTP 302
 [Asserts]
 header "Location" == "http://localhost/es/3/"
 
+GET {{host}}/fa/
+HTTP 302
+[Asserts]
+header "Location" == "http://localhost/fa/3/"
+
 GET {{host}}/fr/
 HTTP 302
 [Asserts]
@@ -67,11 +72,6 @@ GET {{host}}/sv/
 HTTP 302
 [Asserts]
 header "Location" == "http://localhost/sv/3/"
-
-GET {{host}}/fa/
-HTTP 302
-[Asserts]
-header "Location" == "http://localhost/fa/3/"
 
 GET {{host}}/tr/
 HTTP 302
