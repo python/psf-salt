@@ -625,6 +625,36 @@ HTTP 404
 [Asserts]
 header "Surrogate-Key" == "ro/dev"
 
+GET {{host}}/ru/3/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ru/3"
+
+GET {{host}}/ru/3/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ru/3"
+
+GET {{host}}/ru/3.14/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ru/3.14"
+
+GET {{host}}/ru/3.14/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ru/3.14"
+
+GET {{host}}/ru/dev/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ru/dev"
+
+GET {{host}}/ru/dev/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "ru/dev"
+
 GET {{host}}/sv/3/
 HTTP 404
 [Asserts]
