@@ -33,6 +33,10 @@ server {
       proxy_set_header Host $http_host;
       proxy_redirect off;
 
+      # Result uploads insert thousands of rows and run well past the 60s default
+      proxy_read_timeout 300s;
+      proxy_send_timeout 300s;
+
       if (!-f $request_filename) {
           proxy_pass http://codespeed-{{ instance }};
           break;
