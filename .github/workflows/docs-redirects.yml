@@ -1,4 +1,4 @@
-name: Test d.p.o redirects
+name: Test docs.python.org redirects
 
 on:
   push:
