@@ -3,5 +3,5 @@
 
 # Additionally, notify Stan for docs things
 .github/workflows/docs-redirects.yml  @StanFromIreland @JacobCoffee
-salt/docs/*                           @StanFromIreland @JacobCoffee
-tests/docs-redirects/*                @StanFromIreland @JacobCoffee
+salt/docs/                            @StanFromIreland @JacobCoffee
+tests/docs-redirects/                 @StanFromIreland @JacobCoffee
