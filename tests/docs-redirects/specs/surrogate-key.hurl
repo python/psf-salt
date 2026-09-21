@@ -325,6 +325,36 @@ HTTP 404
 [Asserts]
 header "Surrogate-Key" == "bn-in/dev"
 
+GET {{host}}/de/3/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/3"
+
+GET {{host}}/de/3/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/3"
+
+GET {{host}}/de/3.14/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/3.14"
+
+GET {{host}}/de/3.14/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/3.14"
+
+GET {{host}}/de/dev/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/dev"
+
+GET {{host}}/de/dev/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/dev"
+
 GET {{host}}/el/3/
 HTTP 404
 [Asserts]
