@@ -33,6 +33,21 @@ HTTP 301
 [Asserts]
 header "Location" == "https://localhost/bn-in/3.14/"
 
+GET {{host}}/de/3/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3/"
+
+GET {{host}}/de/3.13/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3.13/"
+
+GET {{host}}/de/3.14/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3.14/"
+
 GET {{host}}/el/3/library/2to3.html
 HTTP 301
 [Asserts]
@@ -319,6 +334,21 @@ GET {{host}}/bn-in/3.14/library/tkinter.tix.html
 HTTP 301
 [Asserts]
 header "Location" == "https://localhost/bn-in/3.14/"
+
+GET {{host}}/de/3/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3/"
+
+GET {{host}}/de/3.13/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3.13/"
+
+GET {{host}}/de/3.14/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3.14/"
 
 GET {{host}}/el/3/library/tkinter.tix.html
 HTTP 301
