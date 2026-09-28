@@ -27,6 +27,10 @@ server {
   rewrite ^/3.x.stable(/?)$ /#/grid?branch=main&tag=stable redirect;
   rewrite ^/stable(/?)$ /#/grid?tag=stable redirect;
 
+  # Short URL for the release status dashboard, served in place.
+  rewrite ^/release-status/?$ /plugins/wsgi_dashboards/release_status/ last;
+  rewrite ^/release_status/?$ /release-status permanent;
+
   rewrite ^/all/(.*) /$1 break;
 
   location / {
