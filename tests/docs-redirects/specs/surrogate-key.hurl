@@ -325,6 +325,36 @@ HTTP 404
 [Asserts]
 header "Surrogate-Key" == "bn-in/dev"
 
+GET {{host}}/de/3/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/3"
+
+GET {{host}}/de/3/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/3"
+
+GET {{host}}/de/3.14/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/3.14"
+
+GET {{host}}/de/3.14/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/3.14"
+
+GET {{host}}/de/dev/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/dev"
+
+GET {{host}}/de/dev/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "de/dev"
+
 GET {{host}}/el/3/
 HTTP 404
 [Asserts]
@@ -384,6 +414,36 @@ GET {{host}}/es/dev/about.html
 HTTP 404
 [Asserts]
 header "Surrogate-Key" == "es/dev"
+
+GET {{host}}/fa/3/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "fa/3"
+
+GET {{host}}/fa/3/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "fa/3"
+
+GET {{host}}/fa/3.14/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "fa/3.14"
+
+GET {{host}}/fa/3.14/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "fa/3.14"
+
+GET {{host}}/fa/dev/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "fa/dev"
+
+GET {{host}}/fa/dev/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "fa/dev"
 
 GET {{host}}/fr/3/
 HTTP 404
