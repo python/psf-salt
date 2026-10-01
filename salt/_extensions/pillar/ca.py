@@ -1,13 +1,15 @@
 from __future__ import division
 
-import binascii
 import datetime
 import fcntl
 import os.path
 
 import salt.loader
 
-import OpenSSL
+from cryptography import x509
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.x509.oid import ExtendedKeyUsageOID, NameOID
 
 
 def compound(tgt, minion_id=None):
@@ -61,7 +63,31 @@ def _secure_open_write(filename, fmode):
 
 
 def _new_serial():
-    return int(binascii.hexlify(os.urandom(20)), 16)
+    return x509.random_serial_number()
+
+
+def _subject(C, ST, L, O, OU, CN, emailAddress):
+    attributes = [
+        x509.NameAttribute(NameOID.COUNTRY_NAME, C),
+        x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, ST),
+        x509.NameAttribute(NameOID.LOCALITY_NAME, L),
+        x509.NameAttribute(NameOID.ORGANIZATION_NAME, O),
+    ]
+    if OU:
+        attributes.append(x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, OU))
+    attributes.extend([
+        x509.NameAttribute(NameOID.COMMON_NAME, CN),
+        x509.NameAttribute(NameOID.EMAIL_ADDRESS, emailAddress),
+    ])
+    return x509.Name(attributes)
+
+
+def _private_key_pem(key):
+    return key.private_bytes(
+        serialization.Encoding.PEM,
+        serialization.PrivateFormat.PKCS8,
+        serialization.NoEncryption(),
+    )
 
 
 def ca_exists(cacert_path, ca_name):
@@ -93,61 +119,46 @@ def create_ca(
     if not os.path.exists("{0}/{1}".format(cacert_path, ca_name)):
         os.makedirs("{0}/{1}".format(cacert_path, ca_name))
 
-    if os.path.exists(certp):
-        os.remove(certp)
-
-    if os.path.exists(ca_keyp):
-        os.remove(ca_keyp)
-
-    key = OpenSSL.crypto.PKey()
-    key.generate_key(OpenSSL.crypto.TYPE_RSA, bits)
-
-    ca = OpenSSL.crypto.X509()
-    ca.set_version(2)
-    ca.set_serial_number(_new_serial())
-    ca.get_subject().C = C
-    ca.get_subject().ST = ST
-    ca.get_subject().L = L
-    ca.get_subject().O = O
-    if OU:
-        ca.get_subject().OU = OU
-    ca.get_subject().CN = CN
-    ca.get_subject().emailAddress = emailAddress
-
-    ca.gmtime_adj_notBefore(0)
-    ca.gmtime_adj_notAfter(int(days) * 24 * 60 * 60)
-    ca.set_issuer(ca.get_subject())
-    ca.set_pubkey(key)
-
-    ca.add_extensions(
-        [
-            OpenSSL.crypto.X509Extension(
-                b"basicConstraints", True, b"CA:TRUE, pathlen:0"
+    key = rsa.generate_private_key(public_exponent=65537, key_size=bits)
+    subject = _subject(C, ST, L, O, OU, CN, emailAddress)
+    now = datetime.datetime.now(datetime.timezone.utc)
+    serial = _new_serial()
+    subject_key_id = x509.SubjectKeyIdentifier.from_public_key(key.public_key())
+    ca = (
+        x509.CertificateBuilder()
+        .subject_name(subject)
+        .issuer_name(subject)
+        .public_key(key.public_key())
+        .serial_number(serial)
+        .not_valid_before(now)
+        .not_valid_after(now + datetime.timedelta(days=int(days)))
+        .add_extension(x509.BasicConstraints(ca=True, path_length=0), critical=True)
+        .add_extension(
+            x509.KeyUsage(
+                digital_signature=False, content_commitment=False,
+                key_encipherment=False, data_encipherment=False,
+                key_agreement=False, key_cert_sign=True, crl_sign=True,
+                encipher_only=False, decipher_only=False,
             ),
-            OpenSSL.crypto.X509Extension(b"keyUsage", True, b"keyCertSign, cRLSign"),
-            OpenSSL.crypto.X509Extension(
-                b"subjectKeyIdentifier", False, b"hash", subject=ca
+            critical=True,
+        )
+        .add_extension(subject_key_id, critical=False)
+        .add_extension(
+            x509.AuthorityKeyIdentifier(
+                key_identifier=subject_key_id.digest,
+                authority_cert_issuer=[x509.DirectoryName(subject)],
+                authority_cert_serial_number=serial,
             ),
-        ]
+            critical=False,
+        )
+        .sign(key, getattr(hashes, digest.upper())())
     )
-
-    ca.add_extensions(
-        [
-            OpenSSL.crypto.X509Extension(
-                b"authorityKeyIdentifier",
-                False,
-                b"issuer:always,keyid:always",
-                issuer=ca,
-            )
-        ]
-    )
-    ca.sign(key, digest)
 
     with _secure_open_write(ca_keyp, 0o0600) as fp:
-        fp.write(OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key))
+        fp.write(_private_key_pem(key))
 
     with _secure_open_write(certp, 0o0644) as fp:
-        fp.write(OpenSSL.crypto.dump_certificate(OpenSSL.crypto.FILETYPE_PEM, ca))
+        fp.write(ca.public_bytes(serialization.Encoding.PEM))
 
 
 def get_ca_cert(cacert_path, ca_name):
@@ -187,100 +198,64 @@ def create_ca_signed_cert(
     ca_keyp = "{0}/{1}/{2}_ca_cert.key".format(cacert_path, ca_name, ca_name)
 
     valid_for = int(days) * 24 * 60 * 60
+    now = datetime.datetime.now(datetime.timezone.utc)
 
     if cert_exists(cacert_path, ca_name, CN):
-        with open(certp, "r") as fp:
-            cert = OpenSSL.crypto.load_certificate(
-                OpenSSL.crypto.FILETYPE_PEM,
-                fp.read(),
-            )
-        not_after = datetime.datetime.strptime(
-            cert.get_notAfter().decode(),
-            "%Y%m%d%H%M%SZ",
-        )
-        ttl = (not_after - datetime.datetime.utcnow()).total_seconds()
-        if not_after >= datetime.datetime.utcnow() and (ttl / valid_for) > 0.25:
+        with open(certp, "rb") as fp:
+            cert = x509.load_pem_x509_certificate(fp.read())
+        if hasattr(cert, "not_valid_after_utc"):
+            not_after = cert.not_valid_after_utc
+        else:
+            not_after = cert.not_valid_after.replace(tzinfo=datetime.timezone.utc)
+        ttl = (not_after - now).total_seconds()
+        if not_after >= now and (ttl / valid_for) > 0.25:
             return
 
-    if not os.path.exists(os.path.dirname(certp)):
-        os.makedirs(os.path.dirname(certp))
+    os.makedirs(os.path.dirname(certp), exist_ok=True)
+    os.makedirs(os.path.dirname(keyp), exist_ok=True)
 
-    if not os.path.exists(os.path.dirname(keyp)):
-        os.makedirs(os.path.dirname(keyp))
+    with open(ca_certp, "rb") as fp:
+        ca_cert = x509.load_pem_x509_certificate(fp.read())
 
-    if os.path.exists(certp):
-        os.remove(certp)
+    with open(ca_keyp, "rb") as fp:
+        ca_key = serialization.load_pem_private_key(fp.read(), password=None)
 
-    if os.path.exists(keyp):
-        os.remove(keyp)
-
-    with open(ca_certp, "r") as fp:
-        ca_cert = OpenSSL.crypto.load_certificate(
-            OpenSSL.crypto.FILETYPE_PEM,
-            fp.read(),
-        )
-
-    with open(ca_keyp, "r") as fp:
-        ca_key = OpenSSL.crypto.load_privatekey(
-            OpenSSL.crypto.FILETYPE_PEM,
-            fp.read(),
-        )
-
-    key = OpenSSL.crypto.PKey()
-    key.generate_key(OpenSSL.crypto.TYPE_RSA, bits)
-
-    # create certificate
-    cert = OpenSSL.crypto.X509()
-    cert.set_version(2)
-    cert.gmtime_adj_notBefore(0)
-    cert.gmtime_adj_notAfter(valid_for)
-    cert.get_subject().C = C
-    cert.get_subject().ST = ST
-    cert.get_subject().L = L
-    cert.get_subject().O = O
-    if OU:
-        cert.get_subject().OU = OU
-    cert.get_subject().CN = CN
-    cert.get_subject().emailAddress = emailAddress
-    cert.set_serial_number(_new_serial())
-    cert.set_issuer(ca_cert.get_subject())
-    cert.set_pubkey(key)
+    key = rsa.generate_private_key(public_exponent=65537, key_size=bits)
 
     usage = []
     if server_auth:
-        usage += ["serverAuth"]
+        usage.append(ExtendedKeyUsageOID.SERVER_AUTH)
     if client_auth:
-        usage += ["clientAuth"]
+        usage.append(ExtendedKeyUsageOID.CLIENT_AUTH)
 
-    cert.add_extensions(
-        [
-            OpenSSL.crypto.X509Extension(
-                b"subjectAltName",
-                False,
-                ", ".join(["DNS:" + CN]).encode('utf-8'),
+    cert = (
+        x509.CertificateBuilder()
+        .subject_name(_subject(C, ST, L, O, OU, CN, emailAddress))
+        .issuer_name(ca_cert.subject)
+        .public_key(key.public_key())
+        .serial_number(_new_serial())
+        .not_valid_before(now)
+        .not_valid_after(now + datetime.timedelta(seconds=valid_for))
+        .add_extension(x509.SubjectAlternativeName([x509.DNSName(CN)]), critical=False)
+        .add_extension(
+            x509.KeyUsage(
+                digital_signature=True, content_commitment=False,
+                key_encipherment=True, data_encipherment=False,
+                key_agreement=False, key_cert_sign=False, crl_sign=False,
+                encipher_only=False, decipher_only=False,
             ),
-            OpenSSL.crypto.X509Extension(
-                b"keyUsage",
-                True,
-                b"digitalSignature, keyEncipherment",
-            ),
-            OpenSSL.crypto.X509Extension(
-                b"extendedKeyUsage",
-                False,
-                ", ".join(usage).encode(),
-            ),
-        ]
+            critical=True,
+        )
+        .add_extension(x509.ExtendedKeyUsage(usage), critical=False)
+        .sign(ca_key, getattr(hashes, digest.upper())())
     )
 
-    # Sign the certificate with the CA
-    cert.sign(ca_key, digest)
-
-    # Write out the private and public keys
+    # Finish signing before replacing any existing certificate or key.
     with _secure_open_write(keyp, 0o0600) as fp:
-        fp.write(OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key))
+        fp.write(_private_key_pem(key))
 
     with _secure_open_write(certp, 0o0644) as fp:
-        fp.write(OpenSSL.crypto.dump_certificate(OpenSSL.crypto.FILETYPE_PEM, cert))
+        fp.write(cert.public_bytes(serialization.Encoding.PEM))
 
 
 def get_ca_signed_cert(cacert_path, ca_name, CN):
@@ -346,6 +321,7 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
             # Lock per-CN to prevent concurrent pillar compilations from
             # racing on the same cert/key files.
             lockp = os.path.join(base, name, "certs", "{}.lock".format(certificate))
+            os.makedirs(os.path.dirname(lockp), exist_ok=True)
             lock_fd = open(lockp, "w")
             try:
                 fcntl.flock(lock_fd, fcntl.LOCK_EX)
