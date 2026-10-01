@@ -41,6 +41,10 @@ salt-pin-config:
         Package: salt-*
         Pin: version 3006.*
         Pin-Priority: 1001
+
+        Package: salt-*
+        Pin: version 3007.*
+        Pin-Priority: -10
     - user: root
     - group: root
     - mode: "0644"
