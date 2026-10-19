@@ -24,6 +24,7 @@ global systems such as DNS. The current team members are:
 * Ee Durbin
 * Jacob Coffee (PSF Staff)
 * Noah Kantrowitz
+* Joshua Mcshannon (PSF Staff)
 
 The best way to contact the infrastructure team is mailing
 infrastructure-staff@python.org. There's also often people hanging out on the
