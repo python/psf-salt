@@ -82,6 +82,7 @@ haproxy:
     moin:
       domains:
         - wiki.python.org
+        - wiki-archive.python.org
         - wiki.jython.org
       verify_host: moin.psf.io
       rate_limit: 50

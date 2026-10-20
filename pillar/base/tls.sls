@@ -144,6 +144,11 @@ tls:
       aliases:
         - wiki.jython.org
 
+    wiki-archive.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+
     www.pycon.org:
       validation: http
       roles:
