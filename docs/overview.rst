@@ -137,7 +137,18 @@ speed.python.org
    speed@python.org and Zach Ware.
 
 wiki.python.org
-   This is hosted on an DigitalOcean VM. Marc-André Lemburg owns it.
+   The new Python, PSF, and Jython wikis are hosted on GitHub Pages from
+   ``psf/wiki``, under ``/python/``, ``/psf/``, and ``/jython/``.
+   Its Route 53 CNAME points to ``psf.github.io``; GitHub manages public HTTPS.
+
+wiki-archive.python.org and wiki-archive.jython.org
+   The read-only static snapshot of the former MoinMoin wikis is hosted on
+   ``wiki.nyc1.psf.io`` behind the Salt-managed ``lb.nyc1.psf.io`` load balancers.
+   Both archive CNAMEs point directly to the load balancers, not to
+   ``wiki.python.org``. Salt manages their ACME certificates and HAProxy routing.
+   ``wiki.jython.org`` also points directly to the load balancers and continues
+   to serve the legacy snapshot; the new Jython wiki is at
+   ``https://wiki.python.org/jython/``.
 
 www.jython.org
    This is hosted from an Amazon S3 Bucket. The setup is quite simple and shouldn't
