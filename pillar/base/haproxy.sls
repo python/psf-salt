@@ -81,12 +81,12 @@ haproxy:
 
     moin:
       domains:
-        - wiki.python.org
         - wiki-archive.python.org
+        - wiki-archive.jython.org
         - wiki.jython.org
       verify_host: moin.psf.io
       rate_limit: 50
-      check: "HEAD / HTTP/1.1\\r\\nHost:\\ wiki.python.org"
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ wiki-archive.python.org"
 
     svn:
       domains:

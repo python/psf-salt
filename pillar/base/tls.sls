@@ -137,14 +137,17 @@ tls:
       aliases:
         - speed.pypy.org
 
-    wiki.python.org:
+    wiki.jython.org:
       validation: http
       roles:
         - loadbalancer
-      aliases:
-        - wiki.jython.org
 
     wiki-archive.python.org:
+      validation: http
+      roles:
+        - loadbalancer
+
+    wiki-archive.jython.org:
       validation: http
       roles:
         - loadbalancer
