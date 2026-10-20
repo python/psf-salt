@@ -13,6 +13,11 @@ HTTP 302
 [Asserts]
 header "Location" == "http://localhost/bn-in/3/"
 
+GET {{host}}/de/
+HTTP 302
+[Asserts]
+header "Location" == "http://localhost/de/3/"
+
 GET {{host}}/el/
 HTTP 302
 [Asserts]
@@ -22,6 +27,11 @@ GET {{host}}/es/
 HTTP 302
 [Asserts]
 header "Location" == "http://localhost/es/3/"
+
+GET {{host}}/fa/
+HTTP 302
+[Asserts]
+header "Location" == "http://localhost/fa/3/"
 
 GET {{host}}/fr/
 HTTP 302
@@ -62,6 +72,11 @@ GET {{host}}/ro/
 HTTP 302
 [Asserts]
 header "Location" == "http://localhost/ro/3/"
+
+GET {{host}}/ru/
+HTTP 302
+[Asserts]
+header "Location" == "http://localhost/ru/3/"
 
 GET {{host}}/sv/
 HTTP 302

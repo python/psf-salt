@@ -27,7 +27,25 @@ server {
   rewrite ^/3.x.stable(/?)$ /#/grid?branch=main&tag=stable redirect;
   rewrite ^/stable(/?)$ /#/grid?tag=stable redirect;
 
+  # Short URL for the release status dashboard, served in place.
+  rewrite ^/release-status/?$ /plugins/wsgi_dashboards/release_status/ last;
+  rewrite ^/release_status/?$ /release-status permanent;
+
   rewrite ^/all/(.*) /$1 break;
+
+  # Buildbot itself only compresses /api responses, so compress the rest here:
+  # the React bundles, the CSS and the WSGI dashboards. text/html is always
+  # included. text/event-stream is deliberately absent so /sse keeps streaming.
+  gzip              on;
+  gzip_http_version 1.1;
+  gzip_proxied      any;
+  gzip_vary         on;
+  gzip_min_length   500;
+  gzip_comp_level   6;  # default comp_level is 1
+  gzip_types        text/plain text/css
+                    text/xml application/xml image/svg+xml
+                    text/javascript application/javascript
+                    text/json application/json;
 
   location / {
       if ($http_user_agent ~* "(Lightpanda|Sogou web spider|SemrushBot|AhrefsBot|Bytespider|GPTBot|ClaudeBot|Amazonbot|meta-externalagent)") {
