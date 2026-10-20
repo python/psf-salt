@@ -3,5 +3,7 @@
 
 # Additionally, notify Stan and Joshua for docs things
 .github/workflows/docs-redirects.yml  @StanFromIreland @JacobCoffee @jmcshannon
+.github/workflows/lint.yml            @StanFromIreland @JacobCoffee @jmcshannon
+.github/workflows/server-list.yml     @StanFromIreland @JacobCoffee @jmcshannon
 salt/docs/                            @StanFromIreland @JacobCoffee @jmcshannon
 tests/docs-redirects/                 @StanFromIreland @JacobCoffee @jmcshannon
