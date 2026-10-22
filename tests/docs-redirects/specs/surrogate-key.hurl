@@ -595,6 +595,36 @@ HTTP 404
 [Asserts]
 header "Surrogate-Key" == "ko/dev"
 
+GET {{host}}/pa/3/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "pa/3"
+
+GET {{host}}/pa/3/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "pa/3"
+
+GET {{host}}/pa/3.14/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "pa/3.14"
+
+GET {{host}}/pa/3.14/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "pa/3.14"
+
+GET {{host}}/pa/dev/
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "pa/dev"
+
+GET {{host}}/pa/dev/about.html
+HTTP 404
+[Asserts]
+header "Surrogate-Key" == "pa/dev"
+
 GET {{host}}/pl/3/
 HTTP 200
 [Asserts]
