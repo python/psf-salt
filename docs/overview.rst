@@ -36,14 +36,14 @@ Infrastructure Providers
 The PSF uses several different cloud providers and services for its infrastructure.
 
 Fastly
-   `Fastly <http://www.fastly.com>`_ generously donates its content distribution
+   `Fastly <https://www.fastly.com>`_ generously donates its content distribution
    network (CDN) to the PSF. Our highest traffic services (i.e. PyPI,
    www.python.org, docs.python.org) use this CDN to improve end-user latency.
 
 DigitalOcean
    `DigitalOcean <https://digitalocean.com>`_ is the current primary hosting
    for most of the infrastructure, services deployed here
-   are managed by `Salt <http://www.saltstack.com>`_.
+   are managed by `Salt <https://www.saltstack.com>`_.
 
 Heroku
    `Heroku <https://heroku.com>`_ hosts many of the CPython core workflow bots,
@@ -115,7 +115,7 @@ hg.python.org
    is owned by Antoine Pitrou and Georg Brandl.
 
 mail.python.org
-   The python.org `Mailman <http://list.org>`_ instance is hosted on
+   The python.org `Mailman <https://list.org>`_ instance is hosted on
    https://mail.python.org as well as SMTP (Postfix). All inquiries should be
    directed to postmaster@python.org.
 
@@ -125,7 +125,7 @@ planetpython.org and planet.jython.org
    team at planet@python.org.
 
 pythontest.net
-   `pythontest.net <www.pythontest.net>`_ hosts services and files used by the
+   `pythontest.net <http://pythontest.net>`_ hosts services and files used by the
    Python test suite. python-dev@python.org is ultimately responsible for its
    maintenance.
 
@@ -162,7 +162,7 @@ www.python.org
    <https://github.com/python/pythondotorg/issues>`_. Python downloads
    (i.e. everything under https://www.python.org/ftp/) are hosted on a separate
    DigitalOcean VM. The whole site is behind Fastly. There is also
-   https://staging.python.org for testing the site. http://legacy.python.org is
+   https://staging.python.org for testing the site. https://legacy.python.org is
    the old website hosted from a static mirror.
 
 PyCon
@@ -178,5 +178,5 @@ PyPI
    Donald Stufft, and Dustin Ingram. The contact address is admin@pypi.org.
 
 PyPy properties
-   The `PyPy website <http://pypy.org>`_ is hosted on a DigitalOcean VM and maintained
+   The `PyPy website <https://pypy.org>`_ is hosted on a DigitalOcean VM and maintained
    by pypy-dev@python.org.
