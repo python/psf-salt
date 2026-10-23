@@ -92,7 +92,7 @@ index 68387c9..7a8ace1 100644
 2. Add Salt repositories for our current target version (add the apt-repo and install `salt-minion` package):
     > **Note**: Ensure you are adding the correct key/repository for the version of Ubuntu you are using.
     >
-    > See [the Salt installation guide](https://salt.tips/salt-install-guide/en/latest/topics/install-by-operating-system/linux-deb.html) for more information.
+    > See [the Salt installation guide](https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/linux-deb.html) for more information.
     ```console
     # Ensure keyrings dir exists
     mkdir -m 755 -p /etc/apt/keyrings
