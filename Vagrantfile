@@ -1,5 +1,21 @@
 #!/usr/bin/env ruby
 
+# Vagrant's IsPortOpen probe uses Socket.tcp(connect_timeout:), which on recent
+# macOS returns a socket even when the non-blocking connect was refused. Every
+# port then looks "in use", forwarded-port repair exhausts usable_port_range,
+# and Vagrant falls through with the last port (2250) for every machine.
+# Only report a port as open when the socket actually has a peer.
+Vagrant::Util::IsPortOpen.module_eval do
+  def is_port_open?(host, port)
+    Socket.tcp(host, port, connect_timeout: 0.1) do |sock|
+      sock.remote_address
+      true
+    end
+  rescue SystemCallError
+    false
+  end
+end
+
 
 SERVERS = [
   {:name => "backup-server", :codename => "noble"},
