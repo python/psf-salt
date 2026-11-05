@@ -7,7 +7,7 @@ users:
         - docs
         - docsbuild
         sudo: true
-       codespeed:
+      codespeed:
         allowed: true
         sudo: true
     fullname: Stan Ulbrych
