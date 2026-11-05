@@ -12,7 +12,7 @@ and they will have their configuration managed by `psf-salt <https://github.com/
 Each machine should be given a hostname which matches the pattern
 ``serviceN.dc.psf.io`` where ``serviceN`` is replaced by a service name (such as
 ``pg``) and a unique number, and ``dc`` is replaced by the `PSF DC identifier
-<http://infra.psf.io/overview/#datacenters>`_ for the DC that this machine is
+<https://infra.psf.io/overview.html#datacenters>`_ for the DC that this machine is
 in. A full example would be ``pg0.iad1.psf.io``. You'll need to add this
 hostname to ``pillar/prod/roles.sls`` and ``pillar/dev/roles.sls`` to put the
 machine in the correct configuration nodegroup.

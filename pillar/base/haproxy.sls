@@ -5,6 +5,7 @@ haproxy:
     buildbot-master:
       domains:
         - buildbot.python.org
+      rate_limit: 100
       check: "GET /all/#/about HTTP/1.1\\r\\nHost:\\ buildbot.python.org"
       extra:
         - timeout client 30s
@@ -80,11 +81,12 @@ haproxy:
 
     moin:
       domains:
-        - wiki.python.org
+        - wiki-archive.python.org
+        - wiki-archive.jython.org
         - wiki.jython.org
       verify_host: moin.psf.io
       rate_limit: 50
-      check: "HEAD /moin/HelpContents HTTP/1.1\\r\\nHost:\\ wiki.python.org"
+      check: "HEAD / HTTP/1.1\\r\\nHost:\\ wiki-archive.python.org"
 
     svn:
       domains:
@@ -154,6 +156,9 @@ haproxy:
       target: pycon.fr
       hsts_subdomains: False
       hsts_preload: False
+    donate.python.org:
+      target: www.python.org/psf/donations/
+      request_uri: False
 
   listens:
     buildbot_worker:

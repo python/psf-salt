@@ -1,6 +1,9 @@
 users:
   pablogsal:
     access:
+      benchmarks:
+        allowed: true
+        sudo: true
       buildbot:
         allowed: true
         sudo: true

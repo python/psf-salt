@@ -8,6 +8,7 @@ docker stop docs-redirects-nginx || true
 docker run --name docs-redirects-nginx --detach --quiet --rm --tty \
   --mount type=bind,source=./tests/docs-redirects/nginx.conf,target=/etc/nginx/conf.d/docs.conf,readonly \
   --mount type=bind,source=./salt/docs/config/nginx.docs-redirects.conf,target=/etc/nginx/docs-redirects.conf,readonly \
+  --mount type=bind,source=./tests/docs-redirects/docroot,target=/srv/docroot,readonly \
   -p 10000:10000 \
   nginx:1.26.1-alpine
 
