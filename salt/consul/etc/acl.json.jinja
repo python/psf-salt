@@ -1,8 +1,6 @@
 {% set acl_token = salt['pillar.get']("consul:acl:tokens:default") %}
-{% if not acl_token %}
-{# Fail rendering rather than write an empty acl.json, which would break consul #}
-{{ MISSING_CONSUL_ACL_TOKEN }}
-{% endif %}
 {
+    {% if acl_token %}
     "acl_token": "{{ acl_token }}"
+    {% endif %}
 }

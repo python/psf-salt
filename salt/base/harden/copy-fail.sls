@@ -27,6 +27,7 @@
     - user: root
     - group: root
     - mode: "0644"
+    - makedirs: True
 
 # Unload the module if it is currently loaded. Idempotent: the `unless` check
 # makes this a no-op when algif_aead is not in /proc/modules.
