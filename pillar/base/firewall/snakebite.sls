@@ -1,6 +1,4 @@
 firewall:
-  drop_tcp_ip_options:
-    raw: '-A INPUT -p tcp -m u32 --u32 "0>>24&0xF=6:15" -j DROP'
   snakebite-blackhole-tcp:
     raw: -A INPUT -p tcp --destination-port 56666 -j DROP
   snakebite-blackhole-udp:
