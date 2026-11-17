@@ -1,13 +1,7 @@
 users:
   vstinner:
     access:
-      benchmarks:
-        allowed: true
-        sudo: true
       buildbot:
-        allowed: true
-        sudo: true
-      codespeed:
         allowed: true
         sudo: true
     fullname: Victor Stinner
