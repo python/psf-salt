@@ -1,5 +1,5 @@
 users:
-  haypo:
+  vstinner:
     access:
       benchmarks:
         allowed: true
@@ -12,5 +12,5 @@ users:
         sudo: true
     fullname: Victor Stinner
     ssh_keys:
-    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIVzct/vFIVEAQ5aG8WJlJJWPNZYbVDyI5jwljst8mk
-      haypo2017
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGBSEvCv5rr430OTxl4hYLMtY3ILV5+MnfksUXETJq3e
+      vstinner nov 2026
