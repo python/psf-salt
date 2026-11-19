@@ -23,6 +23,19 @@ server {
   error_log /var/log/nginx/codespeed-{{ instance }}.error.log;
   access_log /var/log/nginx/codespeed-{{ instance }}.access.log main;
 
+  # Nothing upstream compresses, but our chart libraries alone are ~440 KB of
+  # JavaScript per page view! gzip cuts this to about a third.
+  gzip              on;
+  gzip_http_version 1.1;
+  gzip_proxied      any;
+  gzip_vary         on;
+  gzip_min_length   500;
+  gzip_comp_level   6;
+  gzip_types        text/plain text/css
+                    text/xml application/xml application/rss+xml image/svg+xml
+                    text/javascript application/javascript
+                    text/json application/json;
+
   # path for static files
   location ~ ^/static/(.*)$ {
       alias /srv/codespeed/{{ instance }}/data/site_media/static/$1;
