@@ -21,6 +21,11 @@ roles:
     purpose:  "Hosting for CPython buildbot server"
     contact:  "zware, haypo, pablogsa"
     category: "python-core"
+  benchmarks:
+    pattern:  "cesw-gbt-r263-p30-01"
+    purpose:  "Hosting for CPython benchmarks"
+    contact:  "diegorusso"
+    category: "python-core"
   cdn-logs:
     pattern:  "cdn-logs*.nyc1.psf.io"
     purpose:  "Realtime log streaming from Fastly CDN for debug"
@@ -82,7 +87,7 @@ roles:
     contact:  "Infrastructure Staff"
     category: "infra-infra"
   moin:
-    pattern:  "moin*.nyc1.psf.io"
-    purpose:  "Hosts moin sites for wiki.python.org, wiki.jython.org"
-    contact:  "lemburg"
+    pattern:  "wiki*.nyc1.psf.io"
+    purpose:  "Static wiki archive for wiki.python.org, wiki.jython.org"
+    contact:  "Infrastructure Staff"
     category: "community"

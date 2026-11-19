@@ -4,3 +4,4 @@ include:
   - .minimize_access
   - .pam
   - .profile
+  - .copy-fail

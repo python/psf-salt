@@ -155,6 +155,7 @@ codespeed-{{ instance }}-pre-reload:
     - cwd: /srv/codespeed/{{ instance }}/src
     - env:
       - LC_ALL: en_US.UTF8
+      - DJANGO_SETTINGS_MODULE: {{ config.get('module', 'codespeed') }}.settings
     - require:
       - virtualenv: codespeed-{{ instance }}-env
     - onchanges:
@@ -177,6 +178,7 @@ codespeed-{{ instance }}-pre-reload:
 
 codespeed-{{ instance }}:
   service.running:
+    - enable: True
     - reload: True
     - require:
       - cmd: codespeed-{{ instance }}-pre-reload

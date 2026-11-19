@@ -33,6 +33,21 @@ HTTP 301
 [Asserts]
 header "Location" == "https://localhost/bn-in/3.14/"
 
+GET {{host}}/de/3/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3/"
+
+GET {{host}}/de/3.13/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3.13/"
+
+GET {{host}}/de/3.14/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3.14/"
+
 GET {{host}}/el/3/library/2to3.html
 HTTP 301
 [Asserts]
@@ -62,6 +77,21 @@ GET {{host}}/es/3.14/library/2to3.html
 HTTP 301
 [Asserts]
 header "Location" == "https://localhost/es/3.14/"
+
+GET {{host}}/fa/3/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/fa/3/"
+
+GET {{host}}/fa/3.13/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/fa/3.13/"
+
+GET {{host}}/fa/3.14/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/fa/3.14/"
 
 GET {{host}}/fr/3/library/2to3.html
 HTTP 301
@@ -138,6 +168,21 @@ HTTP 301
 [Asserts]
 header "Location" == "https://localhost/ko/3.14/"
 
+GET {{host}}/pa/3/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/pa/3/"
+
+GET {{host}}/pa/3.13/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/pa/3.13/"
+
+GET {{host}}/pa/3.14/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/pa/3.14/"
+
 GET {{host}}/pl/3/library/2to3.html
 HTTP 301
 [Asserts]
@@ -182,6 +227,36 @@ GET {{host}}/ro/3.14/library/2to3.html
 HTTP 301
 [Asserts]
 header "Location" == "https://localhost/ro/3.14/"
+
+GET {{host}}/ru/3/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/ru/3/"
+
+GET {{host}}/ru/3.13/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/ru/3.13/"
+
+GET {{host}}/ru/3.14/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/ru/3.14/"
+
+GET {{host}}/sv/3/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3/"
+
+GET {{host}}/sv/3.13/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3.13/"
+
+GET {{host}}/sv/3.14/library/2to3.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3.14/"
 
 GET {{host}}/tr/3/library/2to3.html
 HTTP 301
@@ -275,6 +350,21 @@ HTTP 301
 [Asserts]
 header "Location" == "https://localhost/bn-in/3.14/"
 
+GET {{host}}/de/3/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3/"
+
+GET {{host}}/de/3.13/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3.13/"
+
+GET {{host}}/de/3.14/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/de/3.14/"
+
 GET {{host}}/el/3/library/tkinter.tix.html
 HTTP 301
 [Asserts]
@@ -304,6 +394,21 @@ GET {{host}}/es/3.14/library/tkinter.tix.html
 HTTP 301
 [Asserts]
 header "Location" == "https://localhost/es/3.14/"
+
+GET {{host}}/fa/3/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/fa/3/"
+
+GET {{host}}/fa/3.13/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/fa/3.13/"
+
+GET {{host}}/fa/3.14/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/fa/3.14/"
 
 GET {{host}}/fr/3/library/tkinter.tix.html
 HTTP 301
@@ -380,6 +485,21 @@ HTTP 301
 [Asserts]
 header "Location" == "https://localhost/ko/3.14/"
 
+GET {{host}}/pa/3/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/pa/3/"
+
+GET {{host}}/pa/3.13/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/pa/3.13/"
+
+GET {{host}}/pa/3.14/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/pa/3.14/"
+
 GET {{host}}/pl/3/library/tkinter.tix.html
 HTTP 301
 [Asserts]
@@ -424,6 +544,36 @@ GET {{host}}/ro/3.14/library/tkinter.tix.html
 HTTP 301
 [Asserts]
 header "Location" == "https://localhost/ro/3.14/"
+
+GET {{host}}/ru/3/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/ru/3/"
+
+GET {{host}}/ru/3.13/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/ru/3.13/"
+
+GET {{host}}/ru/3.14/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/ru/3.14/"
+
+GET {{host}}/sv/3/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3/"
+
+GET {{host}}/sv/3.13/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3.13/"
+
+GET {{host}}/sv/3.14/library/tkinter.tix.html
+HTTP 301
+[Asserts]
+header "Location" == "https://localhost/sv/3.14/"
 
 GET {{host}}/tr/3/library/tkinter.tix.html
 HTTP 301

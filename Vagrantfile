@@ -13,7 +13,7 @@ SERVERS = [
   {:name => "hg", :codename => "noble"},
   {:name => "loadbalancer", :codename => "noble", :ports => [20000, 20001, 20002, 20004, 20010, 20011]},
   "mail",
-  "moin",
+  {:name => "moin", :codename => "noble"},
   "planet",
   "pythontest",
 ]

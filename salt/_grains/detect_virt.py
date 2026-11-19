@@ -5,9 +5,12 @@ import subprocess
 
 def main():
     try:
-        result = subprocess.run(
-            ["/usr/bin/systemd-detect-virt"], stdout=subprocess.PIPE, check=True
-        ).stdout.rstrip()
+        proc = subprocess.run(
+            ["/usr/bin/systemd-detect-virt"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
+        result = proc.stdout.decode().strip()
+        if not result:
+            result = "none"
     except FileNotFoundError:
         result = "unknown"
     return {"detect_virt": result}

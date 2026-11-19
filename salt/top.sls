@@ -36,6 +36,10 @@ base:
     - pgbouncer
     - buildbot
 
+  'benchmarks':
+    - match: nodegroup
+    - benchmarks
+
   'cdn-logs':
     - match: nodegroup
     - cdn-logs

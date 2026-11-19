@@ -1,8 +1,27 @@
 users:
   encukou:
     access:
+      benchmarks:
+        allowed: true
+        sudo: true
+      bugs:
+        allowed: true
+        groups:
+        - roundup
+        sudo: true
       buildbot:
         allowed: true
+        sudo: true
+      docs:
+        allowed: true
+        groups:
+        - docs
+        - docsbuild
+        sudo: true
+      downloads:
+        allowed: true
+        groups:
+        - downloads
         sudo: true
     fullname: Petr Viktorin
     ssh_keys:

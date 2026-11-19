@@ -9,6 +9,5 @@ Python Infrastructure
    packages.rst
    security
    list.rst
-   ssl.rst
    services/index.rst
    guides/index.rst

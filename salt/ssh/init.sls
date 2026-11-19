@@ -1,10 +1,31 @@
 {% set host_keys = salt["pillar.get"]("ssh_host_keys") %}
 
+# Ensure /run/sshd exists (tmpfs, can disappear between boots/cleanups)
+/run/sshd:
+  file.directory:
+    - user: root
+    - group: root
+    - dir_mode: "0755"
+
+{% if grains["oscodename"] in ["noble"] %}
+# Noble uses socket-activated SSH
+ssh.socket:
+  service.running:
+    - enable: True
+    - require:
+      - file: /run/sshd
+      - file: /etc/ssh/sshd_config
+{% endif %}
 
 ssh:
   service.running:
     - enable: True
     - restart: True
+    - require:
+      - file: /run/sshd
+{% if grains["oscodename"] in ["noble"] %}
+      - service: ssh.socket
+{% endif %}
     - watch:
       - file: /etc/ssh/sshd_config
       {% for fn in host_keys %}

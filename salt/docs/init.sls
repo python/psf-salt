@@ -87,6 +87,7 @@ docsbuild-no-html:
         /srv/docsbuild/venv/bin/python
         /srv/docsbuild/scripts/build_docs.py
         --select-output=no-html
+        --include-security-branches
     - user: docsbuild
     - minute: 7
     - hour: 6
@@ -102,6 +103,7 @@ docsbuild-only-html:
         /srv/docsbuild/venv/bin/python
         /srv/docsbuild/scripts/build_docs.py
         --select-output=only-html
+        --include-security-branches
     - user: docsbuild
     - minute: 42
     - hour: 4

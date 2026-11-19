@@ -83,6 +83,6 @@ roles:
     purpose: ""
     contact: ""
   moin:
-    pattern: "moin.vagrant.psf.io"
-    purpose: ""
+    pattern: "wiki.vagrant.psf.io"
+    purpose: "Static wiki archive"
     contact: ""
