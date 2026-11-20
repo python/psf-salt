@@ -1,5 +1,6 @@
 from __future__ import division
 
+import contextlib
 import datetime
 import fcntl
 import os.path
@@ -10,6 +11,19 @@ from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import ExtendedKeyUsageOID, NameOID
+
+
+@contextlib.contextmanager
+def _flock(path):
+    """Hold an exclusive flock on ``path`` so concurrent pillar compilations
+    serialize their check-then-create of CA and certificate files."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as lock_fd:
+        fcntl.flock(lock_fd, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(lock_fd, fcntl.LOCK_UN)
 
 
 def compound(tgt, minion_id=None):
@@ -284,10 +298,12 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
     if cert_opts is None:
         cert_opts = {}
 
-    # Create CA certificate
+    # Create CA certificate. Locked so concurrent compilations can't each
+    # generate a CA and leave certs signed by a key that was overwritten.
     opts = cert_opts.copy()
     opts["CN"] = name
-    create_ca(base, name, **opts)
+    with _flock(os.path.join(base, name, "ca.lock")):
+        create_ca(base, name, **opts)
 
     data = {
         "tls": {
@@ -320,16 +336,9 @@ def ext_pillar(minion_id, pillar, base="/etc/ssl", name="PSFCA", cert_opts=None)
 
             # Lock per-CN to prevent concurrent pillar compilations from
             # racing on the same cert/key files.
-            lockp = os.path.join(base, name, "certs", "{}.lock".format(certificate))
-            os.makedirs(os.path.dirname(lockp), exist_ok=True)
-            lock_fd = open(lockp, "w")
-            try:
-                fcntl.flock(lock_fd, fcntl.LOCK_EX)
+            with _flock(os.path.join(base, name, "certs", "{}.lock".format(certificate))):
                 create_ca_signed_cert(base, name, **opts)
                 cert_data = get_ca_signed_cert(base, name, certificate)
-            finally:
-                fcntl.flock(lock_fd, fcntl.LOCK_UN)
-                lock_fd.close()
 
             data["tls"]["certs"][certificate] = cert_data
 

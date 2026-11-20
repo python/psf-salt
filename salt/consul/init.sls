@@ -90,6 +90,12 @@ consul:
     - group: consul
     - mode: "0640"
     - show_diff: False
+    {% if not salt["pillar.get"]("consul:acl:tokens:default") %}
+    # No token yet: the cluster must be running to mint one. Write a token-less
+    # acl.json on fresh hosts so consul can start, but never clobber an
+    # existing token when pillar transiently lacks it.
+    - replace: False
+    {% endif %}
     - require:
       - pkg: consul-pkgs
 
